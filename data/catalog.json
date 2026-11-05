@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3.3",
-  "catalog_revision": "v1.3.5 | 2026-11-04 | source and public-language corrections",
+  "catalog_revision": "v1.3.6 | 2026-11-04 | clarify landslide trigger scope in COOLR",
   "scope": "Climate-hazard dataset inventory: product metadata, documented uses, limitations and source links.",
   "verification_scope": "The inventory summarizes provider documentation and scientific publications. Source review dates and access qualifications are recorded individually. Scientific dataset files have not been downloaded or tested for this inventory.",
   "status_definitions": {
@@ -2067,7 +2067,8 @@
         "Global complete intensity truth"
       ],
       "limitations": [
-        "Reporting bias, location/date uncertainty, inconsistent event definitions and trigger coverage."
+        "Reporting bias, location/date uncertainty, inconsistent event definitions and trigger coverage.",
+        "Includes landslides with different triggers. For climate-related analyses, select events with documented relevant triggers; do not assume all events are rainfall-induced."
       ],
       "dependence_notes": "Training inventory and source mapping overlap must be assessed.",
       "evidence_ids": [

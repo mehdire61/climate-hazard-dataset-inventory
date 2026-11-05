@@ -2,7 +2,7 @@
 
 A searchable inventory of climate-hazard datasets, with documented quantities, coverage, uses, limitations and links to the original sources.
 
-**Interface v0.1 · Catalog v1.3.5 · 4 November 2026**
+**Version v0.1 · Updated 4 November 2026**
 
 The inventory contains 52 records across nine overlapping hazard groups. Search or filter the records, open their details and supporting sources, or download the displayed metadata as CSV. The three NCEI Storm Events entries are views of one reporting collection; record counts do not represent independent datasets.
 
@@ -27,7 +27,7 @@ The JSON files contain the public text used by the page. No separate wording tra
 ## Update the inventory
 
 1. Edit the relevant files in `data/`. Link sources through each record's `evidence_ids`, and include each new record in at least one browsing group.
-2. Update `catalog_revision` in `data/catalog.json`, preserving the `revision | YYYY-MM-DD | note` format. Source checked dates should reflect when the documentation was reviewed.
+2. Update `catalog_revision` in `data/catalog.json`, preserving the `revision | YYYY-MM-DD | note` format. This tracks metadata changes separately from the public release version and is retained in JSON and CSV, rather than displayed on the page. Source checked dates should reflect when the documentation was reviewed.
 3. With Python 3.10 or later, run:
 
    ```sh

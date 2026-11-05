@@ -341,7 +341,7 @@ dialog::backdrop{background:#10261eb3;backdrop-filter:blur(3px)}
 <script id="inventory-data" type="application/json">
 {
  "meta": {
-  "revision": "v1.3.5",
+  "revision": "v1.3.6",
   "snapshot_date": "2026-11-04",
   "rights_note": "Summary of retrieved provider terms, not a legal opinion or automatic redistribution authorization."
  },
@@ -2546,7 +2546,8 @@ dialog::backdrop{background:#10261eb3;backdrop-filter:blur(3px)}
     "Global complete intensity truth"
    ],
    "limitations": [
-    "Reporting bias, location/date uncertainty, inconsistent event definitions and trigger coverage."
+    "Reporting bias, location/date uncertainty, inconsistent event definitions and trigger coverage.",
+    "Includes landslides with different triggers. For climate-related analyses, select events with documented relevant triggers; do not assume all events are rainfall-induced."
    ],
    "dependence_notes": "Training inventory and source mapping overlap must be assessed.",
    "evidence_ids": [
@@ -5030,11 +5031,10 @@ dialog::backdrop{background:#10261eb3;backdrop-filter:blur(3px)}
   });
 
   // ---- Text that comes from the catalog or settings ----
-  const [snapshotYear, snapshotMonth, snapshotDay] = meta.snapshot_date.split('-').map(Number);
-  $('snapshot').textContent = `Catalog revision ${meta.revision}, snapshot dated ${longDate(meta.snapshot_date)}.`;
-  $('header-date').textContent = `Snapshot ${snapshotDay} ${MONTHS[snapshotMonth - 1].slice(0, 3)} ${snapshotYear}`;
-  $('catalog-label').textContent = `Catalog ${meta.revision} · ${longDate(meta.snapshot_date)}`;
-  $('footer-version').textContent = `Climate-Hazard Dataset Inventory v0.1 · Catalog revision ${meta.revision}`;
+  $('snapshot').textContent = `Version v0.1 · Updated ${longDate(meta.snapshot_date)}.`;
+  $('header-date').textContent = `Updated ${longDate(meta.snapshot_date)}`;
+  $('catalog-label').textContent = `Updated ${longDate(meta.snapshot_date)}`;
+  $('footer-version').textContent = `Climate-Hazard Dataset Inventory v0.1 · Updated ${longDate(meta.snapshot_date)}`;
   const stat = (value, label) => el('div', { class: 'stat' }, el('b', {}, String(value)), el('span', {}, label));
   $('stats').append(stat(records.length, 'dataset records'), stat(groups.length, 'hazard groups'), stat(Object.keys(sources).length, 'linked sources'));
   if (REPOSITORY_URL) {
