@@ -4,6 +4,10 @@ A searchable inventory of climate-hazard datasets, with documented quantities, c
 
 **Version v0.1 · Updated 4 November 2026**
 
+**[Open the inventory](https://mehdire61.github.io/climate-hazard-dataset-inventory/)** — use it directly in your browser; no download or installation is needed.
+
+Use this website address when sharing the inventory: https://mehdire61.github.io/climate-hazard-dataset-inventory/. The [GitHub repository](https://github.com/mehdire61/climate-hazard-dataset-inventory) provides the source files and issue tracker.
+
 The inventory contains 52 records across nine overlapping hazard groups. Search or filter the records, open their details and supporting sources, or download the displayed metadata as CSV. The three NCEI Storm Events entries are views of one reporting collection; record counts do not represent independent datasets.
 
 The inventory summarizes documentation and publications. Scientific data files have not been downloaded or tested here. Coverage is selective, and the severe-thunderstorm entries currently focus on the United States. Dataset-specific limitations and access conditions are stated in each record.
@@ -40,16 +44,16 @@ The build uses only the Python standard library. It validates required record an
 
 The CSV contains the filtered public catalog metadata, in the displayed order. It includes scientific qualifications and source URLs, but not the complete source annotations or the underlying scientific data files. Its quantity column is named `quantity_represented`.
 
-## Publish with GitHub Pages
+## Website deployment
 
-Push this folder to a new repository. In the repository's **Settings → Pages**, select **Deploy from a branch**, then **main** and **/ (root)**. The included `.nojekyll` file allows the static files to be served without Jekyll processing. No custom deployment workflow or server-side application is required.
+GitHub Pages publishes this repository from **main → / (root)**. After rebuilding and checking a change locally, commit and push it to `main`; GitHub deploys the updated files at the same website address. The included `.nojekyll` file allows the static files to be served without Jekyll processing. No custom deployment workflow or server-side application is required.
 
-Once the repository exists, set `REPOSITORY_URL` near the start of the application script in `index.html` to its actual GitHub URL. This enables the correction link; ensure repository Issues are enabled.
+The page's canonical URL identifies the public website. `REPOSITORY_URL` in `index.html` points to the source repository so the correction link opens GitHub Issues.
 
 See [GitHub's Pages setup documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
 
 ## Corrections and reuse
 
-To suggest a correction, provide the record name, the text to change and a link to supporting provider documentation or a scientific publication. Use repository Issues once enabled.
+To suggest a correction, [open a GitHub issue](https://github.com/mehdire61/climate-hazard-dataset-inventory/issues) with the record name, the text to change and a link to supporting provider documentation or a scientific publication.
 
 Linked datasets retain their providers' access and reuse conditions. A metadata listing does not grant permission to redistribute the underlying data. No repository-wide reuse licence has been selected for this release.
