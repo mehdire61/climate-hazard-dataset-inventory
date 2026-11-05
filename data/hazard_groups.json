@@ -1,0 +1,140 @@
+[
+  {
+    "id": "flood",
+    "label": "Flood & coast",
+    "icon": "water",
+    "color": "#377e98",
+    "products": [
+      "usgs_streamflow",
+      "usgs_hwm_harvey_2017",
+      "grdc_discharge",
+      "gsim_indices",
+      "noaa_coops_water_level",
+      "gesla3",
+      "gesla41",
+      "psmsl_rlr",
+      "gfd_modis_v1",
+      "dfo_event_archive",
+      "fathom_gfm3",
+      "cems_rapid_mapping",
+      "cems_gfm",
+      "swot_raster_d",
+      "swot_riversp_d"
+    ]
+  },
+  {
+    "id": "drought",
+    "label": "Drought & storage",
+    "icon": "dry",
+    "color": "#b0823d",
+    "products": [
+      "usgs_streamflow",
+      "grdc_discharge",
+      "gsim_indices",
+      "spei_gd_v1",
+      "esa_cci_sm_combined_v09_2",
+      "gpcc_monthly_v2025",
+      "grace_jpl_mascon_cri_rl063_v04",
+      "chirps_v2_daily",
+      "chirps_v3_daily_rnl",
+      "chirps_v3_daily_sat"
+    ]
+  },
+  {
+    "id": "precipitation",
+    "label": "Precipitation",
+    "icon": "rain",
+    "color": "#4e799c",
+    "products": [
+      "gpcc_monthly_v2025",
+      "gpm_imerg_final_v07b",
+      "trmm_3b42_v7",
+      "chirps_v2_daily",
+      "chirps_v3_daily_rnl",
+      "chirps_v3_daily_sat",
+      "ghcn_daily",
+      "isd_global_hourly",
+      "hadex3",
+      "mrms_radaronly_qpe",
+      "mrms_multisensor_qpe",
+      "stage_iv",
+      "ghcnh_hourly"
+    ]
+  },
+  {
+    "id": "temperature",
+    "label": "Temperature",
+    "icon": "thermometer",
+    "color": "#b86642",
+    "products": [
+      "era5_t2m",
+      "era5_t2m_interval_extrema",
+      "ghcn_daily",
+      "isd_global_hourly",
+      "hadex3",
+      "ghcnh_hourly"
+    ]
+  },
+  {
+    "id": "wind",
+    "label": "Cyclones & wind",
+    "icon": "wind",
+    "color": "#7a6c98",
+    "products": [
+      "era5_wind10",
+      "era5_gust10",
+      "isd_global_hourly",
+      "ibtracs_v04r01",
+      "hurdat2",
+      "merra2_wind10",
+      "ghcnh_hourly",
+      "ncei_storm_events_thunderstorm_wind"
+    ]
+  },
+  {
+    "id": "fire",
+    "label": "Wildfire",
+    "icon": "fire",
+    "color": "#bf7146",
+    "products": [
+      "modis_active_fire_standard",
+      "viirs_375_active_fire",
+      "mcd64a1",
+      "mtbs",
+      "gfed_5_1",
+      "gfed4_1s_legacy"
+    ]
+  },
+  {
+    "id": "snow",
+    "label": "Snow & ice",
+    "icon": "snow",
+    "color": "#6c949e",
+    "products": [
+      "modis_snow_mod10a1",
+      "ims_snow_ice"
+    ]
+  },
+  {
+    "id": "landslide",
+    "label": "Landslides",
+    "icon": "mountain",
+    "color": "#81795b",
+    "products": [
+      "nasa_coolr",
+      "lhasa_model"
+    ]
+  },
+  {
+    "id": "severe_convective",
+    "label": "Severe thunderstorms",
+    "icon": "storm",
+    "color": "#796292",
+    "products": [
+      "ncei_storm_events_hail",
+      "ncei_storm_events_tornado",
+      "ncei_storm_events_thunderstorm_wind",
+      "mrms_mesh"
+    ]
+  }
+]

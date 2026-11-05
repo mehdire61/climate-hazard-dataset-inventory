@@ -1,0 +1,1463 @@
+[
+  {
+    "evidence_id": "A01",
+    "title": "NASA IMERG V07 technical documentation",
+    "url": "https://gpm.nasa.gov/resources/documents/imerg-v07-technical-documentation",
+    "claims": "Half-hourly 0.1 degree multisatellite product; Final incorporates monthly gauge analysis; runs and latency differ.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A02",
+    "title": "NASA IMERG V08 transition schedule, 28 April 2026",
+    "url": "https://gpm.nasa.gov/data/news/imerg-v08-transition-schedule",
+    "claims": "Final V07 stops in September 2025, and Early/Late hybrid processing may introduce discontinuities.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A03",
+    "title": "NASA IMERG transition update, 6 August 2026",
+    "url": "https://gpm.nasa.gov/data/news/update-imerg-v08-transition-schedule-aug-2026",
+    "claims": "V08 is planned for fall 2026, subject to upstream readiness; forecast dates do not establish release availability.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A04",
+    "title": "NASA GPM/TRMM data usage and citation policy",
+    "url": "https://gpm.nasa.gov/data/policy",
+    "claims": "Public data and citation instructions; not CC BY-NC 4.0.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A05",
+    "title": "NASA Science Data Licenses",
+    "url": "https://science.data.nasa.gov/about/license",
+    "claims": "NASA-led mission data default to CC0 unless explicitly restricted, and explicit notices prevail. Third-party and other repository content differ, and citation is encouraged. This is mission-level policy, not a selected-file determination.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A06",
+    "title": "NASA TRMM 3B42 Version 7 collection metadata",
+    "url": "https://data.nasa.gov/dataset/trmm-tmpa-rainfall-estimate-l3-3-hour-0-25-degree-x-0-25-degree-v7-trmm-3b42-at-ges-disc-f41fb",
+    "doi": "10.5067/TRMM/TMPA/3H/7",
+    "claims": "0.25 degree, 3 hours, 50S-50N. The product was discontinued in December 2019, which differs from the 2015 end of the satellite mission.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A07",
+    "title": "UCSB CHIRPS v2 product page",
+    "url": "https://www.chc.ucsb.edu/data/chirps",
+    "claims": "0.05 degree, 50S-50N, 1981 onward; v2 production is planned to end in December 2026; data are stated to be public domain.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A08",
+    "title": "UCSB CHIRPS v3 product page",
+    "url": "https://www.chc.ucsb.edu/data/chirps3",
+    "claims": "0.05 degree, 60S-60N; daily rnl uses ERA5 and sat uses IMERG Late V07 to partition pentads. Station-day observation windows are not uniform, and rights statements are inconsistent.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A09",
+    "title": "UCSB CHIRPS3 FAQ",
+    "url": "https://wiki.chc.ucsb.edu/CHIRPS3_FAQ",
+    "claims": "rnl daily starts 1981, sat 2001; pentad definition includes variable last period of month.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "alternate_url": "https://www.chc.ucsb.edu/data/chirps3",
+    "alternate_label": "CHC CHIRPS v3 page (does not carry the FAQ date claim)"
+  },
+  {
+    "evidence_id": "A10",
+    "title": "UCSB CHIRPS3 diagnostics",
+    "url": "https://www.chc.ucsb.edu/data/chirps3/diagnostics",
+    "claims": "Historical IR gaps are filled with ERA5 through 2022; missing values from 2023 onward remain missing. Also documents corrections applied in CHIRPS3.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A11",
+    "title": "ECMWF CDS ERA5 hourly single-level dataset",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+    "doi": "10.24381/cds.adbb2d47",
+    "claims": "1940 onward hourly 0.25 degree distributed atmospheric grid; provisional ERA5T then final; dataset license linked.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A12",
+    "title": "ECMWF. ERA5: data documentation. Current page, updated 8 September 2026",
+    "url": "https://confluence.ecmwf.int/spaces/CKB/pages/76414402/ERA5+data+documentation",
+    "claims": "Documents instantaneous t2m and parameters 167, 201 and 202, forecast-only interval extrema, and 1-hour HRES and 3-hour EDA processing windows. The provider prefers hourly analysed temperature when constructing daily extrema, and analysed t2m can exceed forecast mx2t.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A13",
+    "title": "ECMWF support forum. Issue affecting some parameters from the ERA5 post-processed daily statistics on single levels. Announcement 8 June 2026; resolution reply 30 July 2026",
+    "url": "https://forum.ecmwf.int/t/issue-affecting-some-parameters-from-the-era5-post-processed-daily-statistics-on-single-levels/15057",
+    "claims": "Initial issue announcement; Resolution-thread context; Resolution reply body says 2027 despite 2026 timestamp. Use R8 official resolved-issues documentation for the fix date.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A14",
+    "title": "NOAA NCEI GHCN-Daily product documentation",
+    "url": "https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily",
+    "claims": "Station daily precipitation, Tmin/Tmax; quality/source/measurement flags, observation windows and revision history.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A15",
+    "title": "NOAA NCEI Integrated Surface Database",
+    "url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
+    "doi": "10.1175/2011BAMS3015.1",
+    "claims": "Hourly/synoptic observations include gusts, temperature and precipitation; station reporting and QC vary.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A16",
+    "title": "Met Office HadEX3 product documentation",
+    "url": "https://www.metoffice.gov.uk/hadobs/hadex3/index.html",
+    "doi": "10.1029/2019JD032263",
+    "claims": "v3.0.4; 1.875 degree longitude by 1.25 degree latitude; 1901-2018; monthly, annual or seasonal indices with no daily fields; links Open Government Licence terms.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A17",
+    "title": "NOAA NCEI IBTrACS v04r01 product documentation",
+    "url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+    "doi": "10.25921/82ty-9e16",
+    "claims": "Best tracks updated regularly, with distinct agency fields and provisional, main and spur tracks, in netCDF, CSV and shapefile formats.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A18",
+    "title": "NOAA IBTrACS v04r01 technical documentation, April 2025",
+    "url": "https://www.ncei.noaa.gov/sites/default/files/2025-04/IBTrACS_version4r01_Technical_Details.pdf",
+    "claims": "Nominal 3-hour interpolation from mostly 6-hour reports; WMO fields not all interpolated; knots/hPa and agency wind averaging periods.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A19",
+    "title": "NOAA NHC HURDAT2 archive",
+    "url": "https://www.nhc.noaa.gov/data/",
+    "claims": "Atlantic and northeast/north-central Pacific best tracks, predominantly 6-hourly, covering oceanic as well as landfalling storms.",
+    "checked_date": "2026-11-03",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED_DIRECT_OPEN_BLOCKED"
+  },
+  {
+    "evidence_id": "A20",
+    "title": "NASA MERRA-2 instantaneous hourly assimilation single-level diagnostics",
+    "url": "https://doi.org/10.5067/3Z173KIE2TPD",
+    "doi": "10.5067/3Z173KIE2TPD",
+    "claims": "M2I1NXASM V5.12.4, 1980 onward, 0.625 longitude x0.5 latitude; 10m U/V are not gust observations.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A21",
+    "title": "Funk et al. (2015), The climate hazards infrared precipitation with stations: a new environmental record for monitoring extremes. Scientific Data 2, 150066.",
+    "url": "https://www.nature.com/articles/sdata201566",
+    "doi": "10.1038/sdata.2015.66",
+    "claims": "Correct CHIRPS v2 paper, not Water Resources Research.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A22",
+    "title": "Hersbach et al. (2020), The ERA5 global reanalysis. Quarterly Journal of the Royal Meteorological Society 146, 1999-2049.",
+    "url": "https://doi.org/10.1002/qj.3803",
+    "doi": "10.1002/qj.3803",
+    "claims": "ERA5 methodological citation; current temporal coverage and access use current product docs.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A23",
+    "title": "Knapp et al. (2010), The International Best Track Archive for Climate Stewardship: Unifying tropical cyclone data. BAMS 91, 363-376.",
+    "url": "https://doi.org/10.1175/2009BAMS2755.1",
+    "doi": "10.1175/2009BAMS2755.1",
+    "claims": "Archive methodological citation, not evidence for current version-specific fields.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A24",
+    "title": "NASA precipitation data directory",
+    "url": "https://gpm.nasa.gov/data/directory",
+    "claims": "Lists the V07B archive as beginning January 1998. The generic present label conflicts with the more specific Final transition notice, and V08 availability is unresolved.",
+    "checked_date": "2026-11-03",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED"
+  },
+  {
+    "evidence_id": "A25",
+    "title": "NOAA NCEI: IBTrACS Version 4.01 collection record (Geoportal)",
+    "url": "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C01552/html",
+    "doi": "10.25921/82ty-9e16",
+    "claims": "Temporal extent 1842-10-25 to present at a 3-hour interval; DOI 10.25921/82ty-9e16; collection C01552. Exact file dates must be checked. Technical guide says 1841.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_history": {
+      "superseded_url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc%3AC01552",
+      "superseded_on": "2026-11-03",
+      "reason": "The legacy landing URL returned HTTP 503 on 2026-11-03. The current NCEI Geoportal record states the same collection dates."
+    }
+  },
+  {
+    "evidence_id": "A26",
+    "title": "NASA GPM IMERG data FAQ",
+    "url": "https://gpm.nasa.gov/data/imerg",
+    "claims": "Rate in mm/h applies to half-hour intervals; accumulation requires duration; interpolation can suppress maxima.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "A27",
+    "title": "NOAA GHCN-Daily Version 3 README: element units, flags and source formats",
+    "url": "https://www.ncei.noaa.gov/pub/data/ghcn/daily/readme.txt",
+    "claims": "Defines native .dly units, source, measurement and quality flags, and daily observation semantics.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S01",
+    "title": "NOAA NESDIS, Service Location Change for Integrated Surface Data, 23 June 2026",
+    "url": "https://www.nesdis.noaa.gov/news/service-location-change-integrated-surface-data-global-hourly",
+    "claims": "NCEI planned to retire its ISD FTP/HTTPS service on 31 July 2026. ISD has no updates beyond 24 August 2025, downloads remain available through NOAA Open Data Dissemination, and users are encouraged to use GHCNh.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S02",
+    "title": "NOAA NCEI GHCNh product page",
+    "url": "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly",
+    "claims": "Describes GHCNh as hourly and synoptic observations from fixed land stations, replacing ISD with essentially the same sources plus more than 100 others. Lists its variables and PSV and Parquet bulk formats.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S03",
+    "title": "GHCNh Version 1 collection metadata",
+    "url": "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C01688/html",
+    "doi": "10.25921/jp3d-3v19",
+    "claims": "Collection metadata: multisource hourly observations from fixed land stations worldwide, 1750-01-01 to present, in PSV and Parquet. Requires citation (DOI 10.25921/jp3d-3v19) and disclaims warranty.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S04",
+    "title": "GHCNh README v1.1.0, updated 10 March 2026",
+    "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/doc/ghcnh_DOCUMENTATION.pdf",
+    "claims": "Documentation v1.1.0 lists GHCNh elements and units: temperature in degrees Celsius to tenths, wind speed and gust in metres per second, wind direction in whole degrees and precipitation in millimetres. General quality checks cover six variables; others keep their source quality information.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S05",
+    "title": "Producer daily CHIRPS README",
+    "url": "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/readme.txt",
+    "claims": "Daily CHIRPS v3 values combine the pentadal amount with within-pentad timing from ERA5 (rnl, 1981 onward) or IMERG Late V07 (sat, 1998 onward), with no separate daily station blending. The method can create artificial wet-day runs. Also notes that CHIRPS2 daily uses CFSv2 for disaggregation.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S06",
+    "title": "Funk et al. (2026), The Climate Hazards Center Infrared Precipitation with Stations, Version 3. Scientific Data 13,718",
+    "url": "https://www.nature.com/articles/s41597-026-07096-4",
+    "doi": "10.1038/s41597-026-07096-4",
+    "claims": "primary paper methods/data-records/usage/rights sections",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S07",
+    "title": "CHIRPS3 daily archive directory",
+    "url": "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/",
+    "claims": "directory metadata only, no scientific payload",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S10",
+    "title": "NOAA CDO GHCN-Daily documentation",
+    "url": "https://www.ncei.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf",
+    "claims": "linked PDF, including rights paragraph; applicability unresolved",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S11",
+    "title": "NOAA GHCN-Daily Version 3 collection metadata",
+    "url": "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00861/html",
+    "claims": "Collection metadata: about 30 sources and well over 90,000 land stations, 1880-01-01 to present. States that the data are not homogenized and cannot quantify all aspects of climate variability without additional processing.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S13",
+    "title": "NASA M2I1NXASM V5.12.4 metadata",
+    "url": "https://data.nasa.gov/dataset/merra-2-inst1-2d-asm-nx-2d1-hourlyinstantaneoussingle-levelassimilationsingle-level-diagno-73caf",
+    "doi": "10.5067/3Z173KIE2TPD",
+    "claims": "Collection description: hourly instantaneous single-level diagnostics, including 10 m wind, on a global 0.625 by 0.5 degree grid from 1980 to present. Links a U.S. government-works license page.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S21",
+    "title": "ESA CCI COMBINED 09.2 record",
+    "url": "https://climate.esa.int/en/catalogue/d4e66299f5054129b8076fb7502949e1/",
+    "doi": "10.5285/d4e66299f5054129b8076fb7502949e1",
+    "claims": "Collection record: merged active and passive microwave product, 1978-11-01 to 2024-12-31, as global daily 0.25 degree NetCDF-4 in m3 m-3, extending v09.1.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S31",
+    "title": "HadEX3 terms and conditions",
+    "url": "https://www.metoffice.gov.uk/hadobs/hadex3/terms_and_conditions.html",
+    "claims": "provider terms; preserve linked OGL version rather than infer CC license",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_ATM_S35",
+    "title": "NOAA HRD: Atlantic Hurricane Database Re-analysis Project (archived copy of the provider page, 19 Sep 2026)",
+    "url": "https://web.archive.org/web/20260919025902/https://www.aoml.noaa.gov/hrd/data_sub/re_anal.html",
+    "claims": "Project description and updates, including September 2026 reanalysis of the 1971 to 1975 Atlantic seasons and the March 2026 HURDAT2 update adding 2025 best tracks.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_status": "ARCHIVED_COPY",
+    "link_history": {
+      "superseded_url": "https://www.aoml.noaa.gov/hrd/data_sub/re_anal.html",
+      "superseded_on": "2026-11-03",
+      "reason": "The live URL returned HTTP 200 but redirected to a generic temporary AOML home page on 2026-11-03, so HTTP 200 did not reach the evidence. This archived copy of the exact page does."
+    }
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_FIRMS_ARCHIVE",
+    "title": "NASA FIRMS: Firms Archive",
+    "url": "https://firms.modaps.eosdis.nasa.gov/download/",
+    "claims": "Distribution blends/replaces NRT with standard science data when available; stream-specific archive periods. Generic 'present' is not a verified endpoint.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_FIRMS_TYPE_FIX",
+    "title": "NASA FIRMS: Firms Type Fix",
+    "url": "https://firms.modaps.eosdis.nasa.gov/map/",
+    "claims": "Monthly Collection 2 Vxx14IMGML Type-field bug in versions 1/2; fixed May 2025 and files reprocessed to version 3.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_LAADS_ARCHIVE_RETENTION_PLAN",
+    "title": "LAADS DAAC alert: Cessation of Suomi NPP data to users on November 02, 2026 (updated 2026-10-06)",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/alerts-and-issues/199913",
+    "claims": "LAADS states that all the historical SNPP VIIRS product collections will remain available from the LAADS archive beyond the mission decommissioning date. This is a stated plan, not a verified final archive endpoint. Its 13:00 UTC cessation time is superseded by NOAA Update #4 (15:40 UTC).",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_history": {
+      "superseded_url": "https://forum.earthdata.nasa.gov/viewtopic.php?t=8108",
+      "superseded_on": "2026-11-03",
+      "reason": "Forum topic 8108 returned 404 on 2026-11-03. This dated LAADS alert carries the retention statement.",
+      "archived_copy_of_superseded_url": "https://web.archive.org/web/20260814162000/https://forum.earthdata.nasa.gov/viewtopic.php?t=8108"
+    }
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_LAADS_FIRE_DOMAIN",
+    "title": "NASA LAADS: Laads Fire Domain",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/science-domain/thermal-anomalies-fire",
+    "claims": "MOD14/MYD14 standard L2 versus MOD14A1/A2 and MYD14A1/A2 product distinctions.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_LAADS_MOD14",
+    "title": "NASA LAADS: Laads Mod14",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD14",
+    "claims": "Standard MOD14 Level 2, Terra, Collection 6.1, nominal 1 km, 5-minute granules.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_LAADS_VNP14IMG_ARCHIVE",
+    "title": "NASA LAADS: Laads Vnp14Img Archive",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/archive/allData/5200/VNP14IMG/",
+    "claims": "Historical collection archive remains cataloged; does not prove final granule or payload-download success.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_NOAA_SNPP_UPDATE4",
+    "title": "NOAA NESDIS: Noaa Snpp Update4",
+    "url": "https://www.nesdis.noaa.gov/news/update-4-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-november-2-2026-1800-utc",
+    "claims": "Distribution cessation and HRD disablement actually took effect at 15:40 UTC on 2 November 2026; NOAA-20/21 are alternative streams.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_FIRE_VIIRS_GUIDE_1_2",
+    "title": "Schroeder, W., Giglio, L., and Hall, J. Collection 2 VIIRS 375-m Active Fire Product User’s Guide, version 1.2, June 2025.",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/archive/Document%20Archive/Science%20Data%20Product%20Documentation/VIIRS_C2_AF-375m_User_Guide_1.2.pdf",
+    "claims": "Guide revision, monthly-file product version 03, platform product identity and 6-minute native swath support. The LAADS summary table gives a conflicting 5-minute value.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ATLAS_SITE_SRC03",
+    "title": "Provider: Site Src03",
+    "url": "https://nsidc.org/data/user-resources/data-announcements/user-notice-ims-daily-northern-hemisphere-snow-and-ice-analysis-files-renamed",
+    "claims": "18 April 2022 filename revision; valid-at-00UTC timestamp added; V1.1/V1.2 filename dates advanced by one day to represent validity rather than creation date.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CCI_LICENSE",
+    "title": "ESA Soil Moisture CCI dataset terms and conditions, v2.",
+    "url": "https://artefacts.ceda.ac.uk/licences/specific_licences/esacci_soilmoisture_terms_and_conditions_v2.pdf",
+    "claims": "Allows any user and any purpose, with acknowledgements and data DOIs, and states producer intellectual property rights and no warranty. These are custom terms, not a CC BY 4 label.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CCI_MERGING",
+    "title": "Gruber, A., Scanlon, T., van der Schalie, R., Wagner, W., and Dorigo, W. (2019). Evolution of the ESA CCI Soil Moisture climate data records and their underlying merging methodology. ESSD 11,717–739.",
+    "url": "https://essd.copernicus.org/articles/11/717/2019/",
+    "doi": "10.5194/essd-11-717-2019",
+    "claims": "Historical merging and scaling methods; do not attribute current v09.2 performance to one 2017 paper.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CCI_MODEL_INDEPENDENT",
+    "title": "Preimesberger, W. et al. (2026). ESA CCI SM MODEL-INDEPENDENT, version9.2, TU Wien Research Data.",
+    "url": "https://researchdata.tuwien.ac.at/records/y147y-q6j91",
+    "claims": "States that COMBINED scales to GLDAS-Noah while the separate MODEL-INDEPENDENT product uses satellite-only scaling and covers 2002-2024. Includes an early-development warning and a known issue.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CCI_PUG",
+    "title": "Rodriguez-Fernandez, N. J., van der Schalie, R., Pasik, A., Scanlon, T., and Kidd, R. (2026). ESA CCI+ Soil Moisture Product User Guide supporting v09.2, Version1.",
+    "url": "https://zenodo.org/records/19565425",
+    "doi": "10.5281/zenodo.19565425",
+    "claims": "Metadata and abstract state that v09.2 extends v09.1 through 2024 as daily NetCDF-4. The full user guide could not be retrieved, so its contents are not relied on here.",
+    "checked_date": "2026-11-01",
+    "verification": "METADATA_ABSTRACT_ONLY_FULL_GUIDE_NOT_RETRIEVED"
+  },
+  {
+    "evidence_id": "CCI_RECORD",
+    "title": "Dorigo, W. et al. (2026). ESA Soil Moisture CCI COMBINED, Version 09.2. CEDA, 13 April 2026.",
+    "url": "https://catalogue.ceda.ac.uk/uuid/d4e66299f5054129b8076fb7502949e1/",
+    "doi": "10.5285/d4e66299f5054129b8076fb7502949e1",
+    "claims": "1978-11-01–2024-12-31, 0.25° daily, sm m3/m3, NetCDF-4 classic, public nonregistered access, custom terms.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CRYO01",
+    "title": "MOD10A1 snow cover Collection 6.1",
+    "url": "https://nsidc.org/data/mod10a1/versions/61",
+    "doi": "10.5067/MODIS/MOD10A1.061",
+    "claims": "Version 61 (Collection 6.1): NDSI values with optional conversion to fractional or binary snow cover, cloud and polar-darkness limitations, and a warning of greater unrecoverable data loss from 7 July 2023 onward.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "CRYO02",
+    "title": "IMS Daily Northern Hemisphere Snow and Ice Analysis",
+    "url": "https://nsidc.org/data/g02156/versions/1",
+    "doi": "10.7265/N52R3PMC",
+    "claims": "Northern Hemisphere daily analyst snow and sea-ice analysis using satellite and in situ inputs, with selectable grids. Archive delivery is not an operational-service guarantee.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5LAND_DOC",
+    "title": "ECMWF. ERA5-Land: data documentation",
+    "url": "https://confluence.ecmwf.int/spaces/CKB/pages/140385202/ERA5-Land+data+documentation",
+    "claims": "Native ERA5-Land pev is open-water/pan evaporation; Native ERA5 pev is well-watered agricultural-land quantity; Parameter 228251; 18 November 2021 definition-documentation correction",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_DAILY_FIX",
+    "title": "ECMWF. ERA5 family post-processed daily statistics documentation. Resolved issues, updated 30 July 2026",
+    "url": "https://confluence.ecmwf.int/spaces/CKB/pages/462888259/ERA5+family+post-processed+daily+statistics+documentation",
+    "claims": "Five interval-extreme variables were affected by a missing one-hour processing shift, which moved values +1 hour relative to the requested time zone. Fixed on 30 July 2026; the provider recommends downloading affected data again. Daily statistics are generated at retrieval rather than permanently archived.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_TIME",
+    "title": "ECMWF. ERA5 terminology: analysis and forecast time and steps, instantaneous and accumulated and mean rates and min/max parameters",
+    "url": "https://confluence.ecmwf.int/spaces/CKB/pages/85402030/ERA5+terminology+analysis+and+forecast+time+and+steps+instantaneous+and+accumulated+and+mean+rates+and+min+max+parameters",
+    "claims": "Temporal support and forecast/analysis distinction",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F01",
+    "title": "GRDC Data Portal and Terms of Use",
+    "url": "https://grdc.bafg.de/data/data_portal/",
+    "claims": "Original discharge data are restricted to research use. Commercial use and unauthorized redistribution are prohibited. Daily and monthly records can be requested through a form and delivered by an emailed link. The portal documents six export formats.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F02",
+    "title": "Do et al. (2018): GSIM Part 1 dataset",
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.887477",
+    "doi": "10.1594/PANGAEA.887477",
+    "claims": "The archive contains a catalog of 30,959 stations and catchment metadata. The PANGAEA dataset is licensed under CC BY-SA 3.0.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F03",
+    "title": "Gudmundsson et al. (2018): GSIM Part 2 dataset",
+    "url": "https://doi.pangaea.de/10.1594/PANGAEA.887470",
+    "doi": "10.1594/PANGAEA.887470",
+    "claims": "The archive provides monthly, seasonal, and yearly indices, rather than the full underlying daily hydrographs. The PANGAEA dataset is licensed under CC BY-SA 3.0.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F04",
+    "title": "USGS: Migrating to Modernized USGS Water APIs",
+    "url": "https://api.waterdata.usgs.gov/docs/ogcapi/migration/",
+    "claims": "Current migration documentation points to v1 continuous and daily collections. Retain parameter, statistic, unit, approval, revision, and monitoring-location metadata. These services provide station data, not observed inundation rasters.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F05",
+    "title": "USGS: How Streamflow is Measured",
+    "url": "https://www.usgs.gov/water-science-school/science/how-streamflow-measured",
+    "claims": "Distinguishes observed stage from discharge inferred through a stage-discharge relation. Describes direct discharge measurements and the maintenance of rating curves.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F06",
+    "title": "USGS: Water Q&A: Floods",
+    "url": "https://www.usgs.gov/water-science-school/science/water-qa-floods",
+    "claims": "Explains uncertainty associated with extrapolating rating curves and estimating extreme discharge indirectly from high-water marks and channel properties.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F07",
+    "title": "NOAA CO-OPS Data Retrieval API documentation",
+    "url": "https://api.tidesandcurrents.noaa.gov/api/dev",
+    "claims": "The water_level product returns preliminary or verified six-minute observations. A datum is required. GMT can be requested. Tide predictions are a separate product.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F08",
+    "title": "NOAA: Data Inventory for The Battery, station 8518750",
+    "url": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750",
+    "claims": "The listed verified six-minute water-level record covers Hurricane Sandy in 2012.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F09",
+    "title": "NOAA: Inundation History for The Battery, station 8518750",
+    "url": "https://tidesandcurrents.noaa.gov/inundationdb/inundation.html?id=8518750",
+    "claims": "The historical peak listing identifies Hurricane Sandy and an observed peak dated October 30, 2012 in the displayed record.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F10",
+    "title": "GESLA download and release page",
+    "url": "https://gesla787883612.wordpress.com/downloads/",
+    "claims": "Lists GESLA 4.1 (July 2026), 4.0 (July 2025) and 3.0 (November 2021), with archive, ERDDAP and API access routes.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F11",
+    "title": "GESLA data format documentation",
+    "url": "https://gesla787883612.wordpress.com/format/",
+    "claims": "Sea levels are in metres relative to a record-specific datum, which may be unspecified. Separate quality and use-in-analysis flags include unreviewed and interpolated observations.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F12",
+    "title": "GESLA license page",
+    "url": "https://gesla787883612.wordpress.com/license/",
+    "claims": "The page explicitly describes GESLA-3 and provider-specific rights. City of Venice, University of Zagreb, and CMEMS records require additional permission for consultancy use.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F13",
+    "title": "Haigh et al.: GESLA Version 3 paper",
+    "url": "https://rmets.onlinelibrary.wiley.com/doi/10.1002/gdj3.174",
+    "doi": "10.1002/gdj3.174",
+    "claims": "First published online in 2022 and assigned to a 2023 journal issue. Describes 5,119 records and 91,021 station-years, including duplicate station records. BODC Part 1 has 4,527 records under CC BY 4.0; Part 2 has 592 under CC BY-NC 4.0.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F14",
+    "title": "BODC: GESLA Version 3, Part 2 dataset",
+    "url": "https://www.bodc.ac.uk/data/published_data_library/catalogue/10.5285/d21a496a-a48f-1f21-e053-6c86abc08512/",
+    "doi": "10.5285/d21a496a-a48f-1f21-e053-6c86abc08512",
+    "claims": "Contains 592 records for non-commercial use. The archive metadata gives temporal coverage from 1805 to October 2021.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F15",
+    "title": "UHSLC: GESLA 4.1 ERDDAP entry",
+    "url": "https://uhslc.soest.hawaii.edu/erddap/tabledap/global_hourly_gesla.html",
+    "claims": "API metadata were inspected, but no data subset was retrieved. The aggregate metadata report DATUM_INFORMATION as Unspecified. Original provider rights still require checking.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F16",
+    "title": "PSMSL: Revised Local Reference definition",
+    "url": "https://psmsl.org/data/obtaining/rlr.php",
+    "claims": "RLR is a station-local reference conventionally near 7,000 mm below mean sea level. Datum-history corrections preserve continuity; RLR does not create a common geoid reference.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F17",
+    "title": "PSMSL: Individual Station Data and Plot Notes",
+    "url": "https://psmsl.org/data/obtaining/notes.php",
+    "claims": "Monthly and annual values are in millimetres. Monthly means refer to calendar months. Missing-day and attention flags must be retained, and -99999 is a missing-value sentinel.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F18",
+    "title": "PSMSL: Referencing the Tide Gauge Data Set",
+    "url": "https://psmsl.org/data/obtaining/reference.php",
+    "claims": "Requests citation of Holgate et al. (2013), DOI 10.2112/JCOASTRES-D-12-00175.1, together with the dataset extraction date.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F19",
+    "title": "Earth Engine catalog: Global Flood Database v1",
+    "url": "https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1",
+    "claims": "Describes 913 events from 2000-2018 with three-day composites, machine-queryable access and a CC BY-NC 4.0 license. Lists 250 m MODIS water classification alongside a conflicting 30 m band grid, with permanent-water and clear-observation bands.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F20",
+    "title": "Tellman et al. (2021): Global Flood Database paper",
+    "url": "https://www.nature.com/articles/s41586-021-03695-w",
+    "claims": "Primary paper describing the flood mapping archive, its observational basis, data availability, and code availability. DOI: 10.1038/s41586-021-03695-w.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F21",
+    "title": "DFO Flood Records",
+    "url": "https://floodobservatory.colorado.edu/wiki/FloodRecords",
+    "claims": "The page reports 5,513 records and includes a 2024 event, while linked release v0.9.0 is labeled January 1985 through December 2023. It states a CC0 dedication for the event inventory. Broad affected-region outlines are not pixel-level water classifications. Download contents were not inspected.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F22",
+    "title": "DFO event 4676 page, Maximum Observed Flooding (archived copy of the provider page, 24 Feb 2024)",
+    "url": "https://web.archive.org/web/20240224134455/https://floodobservatory.colorado.edu/Events/4676/2018USA4676.html",
+    "claims": "Archived provider page: DFO maps event flooding from Sentinel, Landsat or MODIS files and offers GeoTIFF and Shp/MapInfo GIS files, so not all DFO outputs are coarse event outlines. Its stated map terms allow non-commercial use with attribution and commercial use with permission, unlike the CC0 event inventory. Product-specific methods and rights must be checked.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_status": "ARCHIVED_COPY",
+    "link_history": {
+      "superseded_url": "https://floodobservatory.colorado.edu/Events/4795/MaximumObservedFloodingData.pdf",
+      "superseded_on": "2026-11-03",
+      "reason": "Direct URL returned 404 on 2026-11-03; the Wayback Machine holds no copy of it. This archived page supports the same claim from another event. The provider moved to a new site in January 2026 and its live event pages returned 404."
+    }
+  },
+  {
+    "evidence_id": "F23",
+    "title": "Wing et al. (2024): Global Flood Map paper",
+    "url": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2023WR036460",
+    "doi": "10.1029/2023WR036460",
+    "claims": "Describes a two-dimensional LISFLOOD-FP framework with gauge-derived and other boundary conditions for multiple flood perils. Evaluations include observed high-water marks and engineering flood maps. The paper offers academic non-commercial access by request.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F24",
+    "title": "Zhao et al. (2021): Design-flood estimation paper",
+    "url": "https://hess.copernicus.org/articles/25/5981/2021/",
+    "claims": "Reports 11,793 stations selected for model development, a normalized RMSE of 0.708 for 100-year design-flow estimation, and an aggregate relative mean bias below 18% across selected return periods. These are not GFM v3 flood-map errors.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F25",
+    "title": "Fathom API: Static Layers",
+    "url": "https://api-docs.fathom.global/data/static_layers.html",
+    "claims": "Documents GFM v3.0 and v3.1 layer identifiers at one arcsecond resolution, including separate v3.1 Water Surface Elevation identifiers (FLOOD_MAP-1ARCSEC-NW_OFFSET-{PLUVIAL,FLUVIAL,COASTAL}-ELEVATION-v3.1). That page states no units or vertical reference for them. Access depends on the user's license. The exact requested layer must be pinned.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F28",
+    "title": "USGS: Hurricane Harvey data release",
+    "url": "https://www.usgs.gov/data/data-used-characterize-peak-streamflows-and-flood-inundation-resulting-hurricane-harvey",
+    "claims": "DOI 10.5066/F7VH5N3N provides high-water marks, inundation maps, boundaries, and depth rasters. The official data-release page states CC0 rights.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F29",
+    "title": "Watson et al. (2018): USGS Hurricane Harvey report",
+    "url": "https://pubs.usgs.gov/publication/sir20185070",
+    "doi": "10.3133/sir20185070",
+    "claims": "Official report states 2,123 surveyed high-water marks, with some averaging yielding 1,258 water-surface elevations, and 19 inundation maps. These are source-reported totals, not counts of an acquired and screened evaluation sample.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F30",
+    "title": "USGS Flood Event Viewer: 2017 Harvey",
+    "url": "https://apps.usgs.gov/fev/event/2017-harvey",
+    "claims": "Official event page with the event slug 2017-harvey, including high-water marks and sensor observations.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F31",
+    "title": "USGS high-water-mark methods",
+    "url": "https://pubs.usgs.gov/publication/tm3A24",
+    "claims": "Describes high-water-mark identification, surveying, uncertainty, and quality assessment.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "F34",
+    "title": "USGS API download product definitions",
+    "url": "https://api.waterdata.usgs.gov/download/",
+    "claims": "Annual peaks are instantaneous water-year maxima. Peak discharge and maximum water level need not occur at the same time. The page documents data types and metadata collections.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE01",
+    "title": "NASA MODAPS MCD14DL Collection 6.1 product description",
+    "url": "https://modaps.modaps.eosdis.nasa.gov/services/about/products/c61-nrt/MCD14DL-NRT.html",
+    "claims": "Describes MCD14DL near-real-time fire points as the centre of a flagged 1 km (at nadir) pixel, not necessarily the fire's location, with brightness temperature, FRP in MW and 0 to 100% confidence. NRT data can have geolocation errors and are usually replaced by standard products after 2 months.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE02",
+    "title": "MODIS Thermal Anomalies / Fire product suite",
+    "url": "https://modis.gsfc.nasa.gov/data/dataprod/mod14.php",
+    "claims": "Lists MODIS thermal anomaly and fire products for Terra and Aqua by level: Level 2 swath (MOD14/MYD14) and Level 3 daily and 8-day (MOD14A1/A2, MYD14A1/A2). Summary written from search-indexed text because the page could not be opened directly on this check date.",
+    "checked_date": "2026-11-04",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED_DIRECT_OPEN_BLOCKED",
+    "alternate_url": "https://web.archive.org/web/20261012064331/https://modis.gsfc.nasa.gov/data/dataprod/mod14.php",
+    "alternate_label": "Archived copy of the MODIS product page (12 Oct 2026)"
+  },
+  {
+    "evidence_id": "FIRE03",
+    "title": "Giglio, Schroeder and Justice (2016). The Collection 6 MODIS active fire detection algorithm and fire products. Remote Sensing of Environment 178, 31-41.",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6110110/",
+    "doi": "10.1016/j.rse.2016.02.054",
+    "claims": "Abstract describes Collection 6 changes to the MODIS active fire algorithm and swath product, including radiance-based FRP and processing over oceans and large water bodies. Reports MOD14 daytime global commission error of 1.2%, compared with 2.4% in Collection 5, and detection varying with regional fire size.",
+    "checked_date": "2026-11-04",
+    "verification": "PUBLICATION_METADATA_AND_ABSTRACT_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE04",
+    "title": "FIRMS VIIRS fire hotspot product description",
+    "url": "https://firms.modaps.eosdis.nasa.gov/content/descriptions/FIRMS_VIIRS_Firehotspots.html",
+    "claims": "Describes VIIRS 375 m thermal anomaly points from S-NPP, NOAA-20 and NOAA-21 as approximate pixel centres, including vegetation fires, volcanoes, gas flares and offshore detections by type code. Gives FRP in MW and low, nominal and high confidence, and notes saturation and South Atlantic Magnetic Anomaly false-alarm issues.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE05",
+    "title": "NASA VIIRS active-fire Version 1 validation statement (reviewed February 2024)",
+    "url": "https://viirsland.gsfc.nasa.gov/Val/Fire_Val.html",
+    "claims": "States that VNP14 and VNP14IMG Level 2 products are at stage 1 validation, assessed with airborne and ground reference data at select sites and comparisons with MODIS and TET-1. It gives no numeric detection accuracy.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE06",
+    "title": "Schroeder, Oliva, Giglio and Csiszar (2014). The New VIIRS 375m active fire detection data product: Algorithm description and initial assessment. Remote Sensing of Environment 143, 85-96.",
+    "url": "https://www.earthdata.nasa.gov/sites/default/files/imported/Schroeder_et_al_2014b_RSE.pdf",
+    "doi": "10.1016/j.rse.2013.12.008",
+    "claims": "Abstract introduces the VIIRS 375 m active fire algorithm, built on the MODIS contextual approach, and describes pixel saturation and South Atlantic Magnetic Anomaly artifacts. Initial assessment reports commission errors below 1.2% for nominal-confidence fire pixels and more detections than the 750 m product.",
+    "checked_date": "2026-11-04",
+    "verification": "PUBLICATION_METADATA_AND_ABSTRACT_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE07",
+    "title": "GFED5.1 fixed data/code release",
+    "url": "https://zenodo.org/records/16794692",
+    "doi": "10.5281/zenodo.16794692",
+    "claims": "Pinned version v1, dated 1 October 2025, with monthly area and emissions, daily emissions and an ecosystem breakdown. The rendered record shows no rights statement.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE08",
+    "title": "van der Werf et al. (2025). Landscape fire emissions from the 5th version of the Global Fire Emissions Database (GFED5). Scientific Data 12, 1870.",
+    "url": "https://www.nature.com/articles/s41597-025-06127-w",
+    "doi": "10.1038/s41597-025-06127-w",
+    "claims": "Publisher correction of 15 January 2026 (doi:10.1038/s41597-026-06613-9) changes the order of one author's given and family names (Roland Vernooij). It is not a scientific correction.",
+    "checked_date": "2026-11-01",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE09",
+    "title": "ORNL DAAC GFED4/GFED4.1s archived data guide",
+    "url": "https://daac.ornl.gov/VEGETATION/guides/fire_emissions_v4.html",
+    "doi": "10.3334/ORNLDAAC/1293",
+    "claims": "Overview and archived collection date ranges differ across page sections. Pin individual variable/file coverage rather than using generic present endpoint.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE10",
+    "title": "NASA MCD64A1 Collection 6.1 product",
+    "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mcd64a1-061",
+    "doi": "10.5067/MODIS/MCD64A1.061",
+    "claims": "Catalog entry for MCD64A1 Version 061: a monthly global 500 m burned-area product with per-pixel Burn Date and QA layers, combining MODIS surface reflectance with 1 km active fire observations from Terra and Aqua. Temporal extent is listed as 2000-11-01 to present.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE11",
+    "title": "MCD64A1 Collection 6.1 User Guide",
+    "url": "https://www.earthdata.nasa.gov/s3fs-public/2025-04/MCD64_User_Guide_V61.pdf",
+    "claims": "User guide describes MCD64A1 as a monthly Level-3 500 m product with Burn Date, Burn Date Uncertainty, QA, First Day and Last Day layers. Burn Date is the ordinal burn day, with 0 for unburned land, -1 for unmapped due to insufficient data and -2 for water.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE12",
+    "title": "NASA FIRMS FAQ: data use and citation guidance",
+    "url": "https://www.earthdata.nasa.gov/data/tools/firms/faq",
+    "claims": "The FIRMS FAQ says NASA promotes full and open sharing of data, asks that imagery be cited as NASA FIRMS, gives a suggested journal acknowledgment and points to the LANCE Disclaimer. It is guidance, not a licence for the selected native collection.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_history": {
+      "superseded_url": "https://forum.earthdata.nasa.gov/viewtopic.php?t=5184",
+      "superseded_on": "2026-11-03",
+      "reason": "Forum topic 5184 returned 404 on 2026-11-03. The FIRMS FAQ carries the equivalent guidance; an archived copy preserves the original post.",
+      "archived_copy_of_superseded_url": "https://web.archive.org/web/20250411204337/https://forum.earthdata.nasa.gov/viewtopic.php?t=5184"
+    }
+  },
+  {
+    "evidence_id": "FIRE13",
+    "title": "VIIRS Collection 2 375m active-fire User Guide",
+    "url": "https://www.earthdata.nasa.gov/s3fs-public/2024-07/VIIRS_C2_AF-375m_User_Guide_1.0.pdf",
+    "claims": "User guide defines VNP14IMG, VJ114IMG and VJ214IMG for S-NPP, NOAA-20 and NOAA-21 as 6-minute Level 2 granules with a fire mask, low, nominal and high confidence classes, and FRP in megawatts. It also covers the separate VNP14IMGML monthly fire location product.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE14",
+    "title": "MTBS mapping methods",
+    "url": "https://mtbs.gov/mapping-methods",
+    "claims": "Describes MTBS mapping from selected Landsat and Sentinel-2 scenes: prefire and postfire NBR are differenced to dNBR, with RdNBR also calculated. An analyst digitizes the perimeter and sets thresholds for typically 4 to 7 severity classes; the page calls this subjective and not equally applicable across regions.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE15",
+    "title": "MTBS FAQ",
+    "url": "https://www.mtbs.gov/faqs",
+    "claims": "States that MTBS maps fires from 1984 to present, at least 1,000 acres in the western and 500 acres in the eastern United States, with 30 m rasters and boundaries at 1:24,000 to 1:50,000. Defines severity as fire effects on above-ground biomass and says field data cannot validate results for all fires.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE16",
+    "title": "USGS MTBS v12.0 April 2025",
+    "url": "https://www.usgs.gov/data/monitoring-trends-burn-severity-ver-120-april-2025",
+    "doi": "10.5066/P9IED7RZ",
+    "claims": "Selected release v12.0: a 1984-2024 boundary inventory of eligible wildfires and prescribed fires, with documented omissions and an explicit CC0 dedication.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE21",
+    "title": "NOAA NESDIS Update 3, 30 October 2026: S-NPP scheduled data cessation at 15:40 UTC on 2 November 2026",
+    "url": "https://www.nesdis.noaa.gov/news/update-3-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-october-30-2026-1400-utc",
+    "claims": "Updated future cessation schedule; supersedes the earlier 13:00 UTC time. NOAA-20 and NOAA-21 continuation products.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "FIRE22",
+    "title": "NASA LAADS S-NPP cessation alert: historical VIIRS collections remain archived",
+    "url": "https://ladsweb.modaps.eosdis.nasa.gov/alerts-and-issues/199913",
+    "claims": "Historical collections remain available; alert carries an earlier cessation time than FIRE21.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GPCC_2025",
+    "title": "Rustemeier, E., Finger, P., Schirmeister, Z., and Ziese, M. (2025). GPCC Precipitation Analysis Monthly Version 2025 at 0.50°. DWD.",
+    "url": "https://opendata.dwd.de/climate_environment/GPCC/html/gpcc_precipitation_analysis_monthly_v2025_doi_download.html",
+    "doi": "10.5676/DWD_GPCC/MONTHLY_V2025_050",
+    "claims": "Specifies the new product name, coverage from January 1891, grids, two-month latency, precip_infill and station coverage variables, the sys_err multiplier and NetCDF formats. The DOI differs by selected resolution.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GPCC_DWD_GENERAL_LICENSE",
+    "title": "DWD Natural Hazards Portal, Copyright.",
+    "url": "https://www.naturgefahrenportal.de/en/copyright",
+    "claims": "DWD's current broad open spatial climate and weather data terms are CC BY 4.0 with source attribution. The linked GPCC legal notice was blocked, so the exact package scope and file metadata remain unconfirmed.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GPCC_GATE",
+    "title": "DWD GPCC current download gate.",
+    "url": "https://opendata.dwd.de/climate_environment/GPCC/html/download_gate.html",
+    "claims": "Current available monthly and daily products. GPCC DAILY 2025 is a separate daily product, so do not state GPCC as a whole lacks daily data.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRACE_GUIDE",
+    "title": "NASA JPL GRACE Tellus Global Mascons user guide.",
+    "url": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+    "claims": "States that grid cells are not independent, with a 2004-2009 anomaly baseline, ICE6G-D GIA and optional CLM scaling. A processing subheading cites v03 despite the current v04 page title, so confirm details in the selected file.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRACE_LEAKAGE",
+    "title": "Wiese, D. N., Landerer, F. W., and Watkins, M. M. (2016). Quantifying and reducing leakage errors in the JPL RL05M GRACE mascon solution. Water Resources Research 52.",
+    "url": "https://doi.org/10.1002/2016WR019344",
+    "doi": "10.1002/2016WR019344",
+    "claims": "Leakage/gain-factor methodological source, cited by official record; not version04 empirical accuracy guarantee.",
+    "checked_date": "2026-11-01",
+    "verification": "PROVIDER_CITED_METHOD_NOT_SEPARATELY_REVIEWED"
+  },
+  {
+    "evidence_id": "GRACE_METHOD",
+    "title": "Watkins, M. M. et al. (2015). Improved methods for observing Earth's time variable mass distribution with GRACE using spherical cap mascons. JGR Solid Earth 120.",
+    "url": "https://doi.org/10.1002/2014JB011547",
+    "doi": "10.1002/2014JB011547",
+    "claims": "Primary mascon method, cited by current official record.",
+    "checked_date": "2026-11-01",
+    "verification": "PROVIDER_CITED_METHOD_NOT_SEPARATELY_REVIEWED"
+  },
+  {
+    "evidence_id": "GRACE_RECORD",
+    "title": "Wiese, D. N., Yuan, D.-N., Boening, C., Landerer, F. W., and Watkins, M. M. (2023). JPL GRACE and GRACE-FO Mascon CRI Filtered RL06.3Mv04. PO.DAAC.",
+    "url": "https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4",
+    "doi": "10.5067/TEMSC-3JC634",
+    "claims": "Lists active v04, equivalent water thickness in cm, netCDF4, a 0.5-degree grid versus 3-degree mascons, access and login requirements, time_bounds, revisions and the DOI.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "HPET_DATA",
+    "title": "Singer et al. (2021). Hourly potential evapotranspiration hPET dataset, University of Bristol Research Data",
+    "url": "https://data.bris.ac.uk/data/dataset/qb8ujazzda0s2aykkv0oq0ctp",
+    "doi": "10.5523/bris.qb8ujazzda0s2aykkv0oq0ctp",
+    "claims": "Producer record for the 0.1-degree hourly hPET dataset, based on FAO Penman-Monteith and ERA5-Land, under CC BY 4.0. The hPET license does not by itself establish the SPEI-GD output license. Scientific data files were not downloaded.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "HPET_PAPER",
+    "title": "Singer, M. B., Asfaw, D. T., Rosolem, R., Cuthbert, M. O., Miralles, D. G., MacLeod, D., Quichimbo, E. A. and Michaelides, K. (2021). Hourly potential evapotranspiration at 0.1° resolution for the global land surface from 1981-present. Scientific Data 8, 224",
+    "url": "https://www.nature.com/articles/s41597-021-01003-9",
+    "doi": "10.1038/s41597-021-01003-9",
+    "claims": "Describes an FAO Penman-Monteith reference-crop based method that uses ERA5-Land net solar radiation rather than the strict fixed 0.23 reference albedo. The authors distinguish potential from strict reference evapotranspiration.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "LAND01",
+    "title": "NASA COOLR report and event inventories",
+    "url": "https://gpm.nasa.gov/applications/landslides/coolr",
+    "claims": "COOLR includes report-based catalogs plus event-based inventories; event inventories include rainfall and earthquake triggers.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "LAND02",
+    "title": "Kirschbaum, Stanley and Zhou (2015), Spatial and temporal analysis of a global landslide catalog. Geomorphology.",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0169555X15001579",
+    "claims": "Abstract, read through the UMBC repository record, presents a global landslide catalog of 5741 points for 2007 to 2013, based on media reports, online databases and other sources. It notes reporting and cataloging biases and likely regional under-reporting, and compares reported events with TRMM precipitation.",
+    "checked_date": "2026-11-04",
+    "verification": "PUBLICATION_METADATA_AND_ABSTRACT_REVIEWED"
+  },
+  {
+    "evidence_id": "LAND03",
+    "title": "NASA official LHASA repository version 2.1.1",
+    "url": "https://github.com/nasa/lhasa",
+    "claims": "NASA README labels LHASA 2.1.1 and explains its rainfall-triggered landslide purpose and daily approximately 1 km probability output. The model service is provided on a best-effort basis.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "LAND04",
+    "title": "NASA precipitation and landslide applications viewer",
+    "url": "https://pmmpublisher.pps.eosdis.nasa.gov/precip-apps-viewer.html",
+    "claims": "NASA viewer displaying IMERG 1-, 3- and 7-day precipitation accumulations and a global LHASA landslide nowcast layer with a 5 to 100% hazard legend. It describes LHASA inputs including rainfall, soil moisture, snow mass and slope. The legend shows this viewer's display, not the encoding of a selected file.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS01",
+    "title": "CEMS Rapid Mapping: service description",
+    "url": "https://mapping.emergency.copernicus.eu/about/",
+    "claims": "On-demand emergency mapping, multiple imagery and ancillary sources, product access.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS02",
+    "title": "CEMS Rapid Mapping: source imagery and product FAQ",
+    "url": "https://mapping.emergency.copernicus.eu/about/faqs/",
+    "claims": "Source imagery spans multiple resolution classes; no universal 10–20 m RM resolution.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS03",
+    "title": "CEMS Rapid Mapping: EXFLOS modeled flood extension and depth",
+    "url": "https://mapping.emergency.copernicus.eu/about/rapid-mapping-manual/detection-methods-damage-assessment/enhanced-flood-modelling-and-depth-mapping-capabilities-exflos/",
+    "claims": "Terrain-based flood extension and depth methods; SAR limitations in vegetation and urban areas.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS04",
+    "title": "CEMS on-demand mapping: terms and conditions",
+    "url": "https://mapping.emergency.copernicus.eu/terms-and-conditions/",
+    "claims": "Provider reuse/attribution terms, restrictions for sensitive information; no automatic CC designation.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS05",
+    "title": "CEMS GFM: product output layers",
+    "url": "https://extwiki.eodc.eu/GFM/PUM/Products",
+    "claims": "20 m processing, output layers and ancillary/exclusion/advisory metadata; satellite ensemble and limitations. Observed Water Extent is a logical OR of flood extent and reference water; it is not wholly same-pass new detection.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS06",
+    "title": "CEMS GFM: data access",
+    "url": "https://extwiki.eodc.eu/GFM/PUM/DataAccess",
+    "claims": "GloFAS/EFAS viewers, REST API, WMS, portal, STAC dissemination.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS07",
+    "title": "EODC: GFM data discovery and download",
+    "url": "https://docs.eodc.eu/tutorials/download_gfm_python.html",
+    "claims": "STAC API URL https://stac.eodc.eu/api/v1, collection GFM, asset discovery/download workflow, Equi7Grid with 20 m pixel spacing as the working grid.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "link_history": {
+      "superseded_url": "https://www.docs.eodc.eu/notebooks/gfm-download.html",
+      "superseded_on": "2026-11-03",
+      "reason": "www.docs.eodc.eu fails TLS hostname validation and docs.eodc.eu/notebooks/ returns 404. EODC moved the same-titled tutorial to /tutorials/; every claim was re-read there."
+    }
+  },
+  {
+    "evidence_id": "OBS09",
+    "title": "CEMS GloFAS/GFM: terms of service",
+    "url": "https://global-flood.emergency.copernicus.eu/terms-of-service/",
+    "claims": "CEMS/GloFAS terms explicitly include GFM and permit reuse under stated conditions.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS11",
+    "title": "PO.DAAC: SWOT L2 HR Raster Version D",
+    "url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_Raster_D",
+    "claims": "Version D, DOI, 100/250 m standard Raster, PIXC aggregation, quality/uncertainty, NetCDF4 and protected-data access.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS12",
+    "title": "PO.DAAC: SWOT L2 HR RiverSP Version D",
+    "url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D",
+    "claims": "Version D, DOI, prior river features, shapefiles, derived discharge including gauge-constrained estimates.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS13",
+    "title": "PO.DAAC: SWOT product overview",
+    "url": "https://podaac.jpl.nasa.gov/SWOT/",
+    "claims": "Nominal RiverSP reaches ~10 km and node spacing ~200 m; PIXC/RiverSP/Raster product distinctions.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS14",
+    "title": "NASA/JPL: SWOT science orbit",
+    "url": "https://swot.jpl.nasa.gov/resources/89/swot-science-orbit/",
+    "claims": "21-day science orbit repeat and approximate 78°S–78°N observation range; local revisit varies.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS15",
+    "title": "PO.DAAC: data use and citation policy",
+    "url": "https://podaac.jpl.nasa.gov/CitingPODAAC",
+    "claims": "PO.DAAC open sharing without restriction and recommended citation.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS19",
+    "title": "NOAA NSSL: MRMS operational GRIB2 field table",
+    "url": "https://www.nssl.noaa.gov/projects/mrms/operational/tables.php",
+    "claims": "Official v12.2 field names, GRIB units and update frequencies. This documents a table version, not the latest deployed algorithm.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS20",
+    "title": "NOAA WDTD: MRMS RadarOnly QPE",
+    "url": "https://vlab.noaa.gov/web/wdtd/-/qpe-radar-only",
+    "claims": "Radar-only QPE nominal1km, accumulation and update distinctions.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS21",
+    "title": "NOAA WDTD: MRMS MultiSensor QPE",
+    "url": "https://vlab.noaa.gov/web/wdtd/-/multi-sensor-qpe",
+    "claims": "Multisensor input types, gapfill, pass distinction. Page latency descriptions are inconsistent; selected stream should be verified. NWP-filled/blended cells require explicit source-type interpretation rather than automatic independent-observation classification.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS22",
+    "title": "NOAA WDTD: MRMS gauge bias correction",
+    "url": "https://vlab.noaa.gov/web/wdtd/-/qpe-w-gauge-bias-correcti-1",
+    "claims": "Gauge correction, HADS/MADIS inputs, bias-corrected product's role in v12 multisensor workflow.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS23",
+    "title": "NOAA NSSL: MRMS data access",
+    "url": "https://www.nssl.noaa.gov/projects/mrms/MRMS_data.php",
+    "claims": "NCEP HTTP/LDM GRIB2 operational access route.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS24",
+    "title": "NOAA NSSL: MRMS program",
+    "url": "https://www.nssl.noaa.gov/projects/mrms/",
+    "claims": "Product suite publicly available for use; software licensing is a separate matter.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS26",
+    "title": "NSF NCAR archive: NCEP/EMC 4 km Stage IV precipitation",
+    "url": "https://data.ucar.edu/dataset/ncep-emc-4km-gridded-data-grib-stage-iv-data",
+    "claims": "Archive-specific Stage IV support, accumulation, regional coverage changes, GRIB transition, metadata rights and DOI.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS27",
+    "title": "NOAA Water: precipitation analysis access",
+    "url": "https://api.water.noaa.gov/about/precipitation-data-access",
+    "claims": "NOAA regional analysis/mosaicking and current access context.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OBS28",
+    "title": "Lin and Mitchell (2005): NCEP Stage II/IV analysis and revision history",
+    "url": "https://ams.confex.com/ams/Annual2005/techprogram/paper_83847.htm",
+    "claims": "Initial/revised analyses and region-dependent manual QC timing; historical methodological primary source, not complete current product specification.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REV021_SUPPORT_GFM_ARCHIVE",
+    "title": "Copernicus GFM: the new GFM archive",
+    "url": "https://global-flood.emergency.copernicus.eu/media/events/4/the_new_gfm_archive.pdf",
+    "claims": "Backprocessed archive spans 2015-01 to 2021-06; near-real-time production ramped up 2021-07. Location-dependent observation intervals are reported as 1.5–12 days. This is documentation, not an inspected current asset inventory.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REV021_SUPPORT_IMS",
+    "title": "NSIDC IMS Version 1 User Guide",
+    "url": "https://nsidc.org/sites/default/files/g02156-v001-userguide_1_1.pdf",
+    "claims": "IMS 24 km daily analysis begins in 1997; 4 km began February 2004; 1 km began December 2014. The finest grid and earliest archive year do not describe one consistent product.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REVF03",
+    "title": "Wing et al. (2024), A 30 m Global Flood Inundation Model for Any Climate Scenario",
+    "url": "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2023WR036460",
+    "doi": "10.1029/2023WR036460",
+    "claims": "Protection standards are applied in post-processing in the described GFM. Some large historical events are compared with fitted local return-period composites; the authors explicitly acknowledge optimistic skill from this procedure. This documents actual practice and its limitation. ",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REVF04",
+    "title": "Smith, Patrick, Frazier and Kim (2021), Validation of Urban Flood Inundation Models Applied Using Nationally Available Data Sets: Novel Analyses of Observed High Water Information",
+    "url": "https://repository.library.noaa.gov/view/noaa/34035/noaa_34035_DS1.pdf",
+    "doi": "10.1061/(ASCE)HE.1943-5584.0002129",
+    "claims": "The primary study discusses the absence of consensus for handling model-dry HWM locations, identifies prior DEM-substitution and nearest-wet-cell approaches, and evaluates depth errors and hit percentages. It distinguishes on-ground from above-ground marks and shows that error metrics alone can favor underprediction.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REVF05",
+    "title": "Wing et al. (2021), Simulating historical flood events at the continental scale: observational validation of a large-scale hydrodynamic model",
+    "url": "https://nhess.copernicus.org/articles/21/559/2021/",
+    "doi": "10.5194/nhess-21-559-2021",
+    "claims": "Adapts a continental hazard-model framework to reproduce observed historical events and evaluates those simulations with event observations. Historical event simulations and uniform-return-period maps represent different conditions.",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REVF06",
+    "title": "Quinn et al. (2019), The Spatial Dependence of Flood Hazard and Risk in the United States",
+    "url": "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2018WR024205",
+    "doi": "10.1029/2018WR024205",
+    "claims": "Distinguishes local uniform-return-period assumptions from spatially varying flood events and uses a stochastic dependence model, hydraulic mapping, and loss calculations. Gauge marginal distributions and aggregate loss distributions are evaluated as distinct components. ",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REVF07",
+    "title": "Watson et al. (2018), USGS Scientific Investigations Report 2018-5070",
+    "url": "https://pubs.usgs.gov/publication/sir20185070",
+    "doi": "10.3133/sir20185070",
+    "claims": "The official abstract states that 2,123 HWMs were surveyed, with some averaging yielding 1,258 WSEs, and describes 19 inundation maps derived from some HWMs and gauge peaks. These are source-reported totals; no raw HWM data were acquired.",
+    "checked_date": "2026-11-02",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED_DIRECT_OPEN_BLOCKED"
+  },
+  {
+    "evidence_id": "SCS_IEM_01",
+    "title": "Iowa Environmental Mesonet: MRMS archive scope and retention",
+    "url": "https://mesonet.agron.iastate.edu/archive/mrms.php",
+    "claims": "Archive-provider documentation identifies NOAA cloud archival availability from October 2020, selected older fields, and a roughly 30-day hourly-ZIP cache. No selected MESH archive continuity was tested.",
+    "checked_date": "2026-11-04",
+    "verification": "ARCHIVE_PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_MRMS_02",
+    "title": "NWS WDTD: Maximum Estimated Size of Hail (MESH)",
+    "url": "https://vlab.noaa.gov/web/wdtd/-/maximum-estimated-size-of-hail-mes-2",
+    "claims": "Describes the 0.01-degree MESH grid, SHI input, millimetre base units versus inch display, model-temperature dependence, and storm-dependent retrieval limitations; legacy technical version note is retained.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_MRMS_04",
+    "title": "NOAA-managed MRMS archive and terms in the AWS Open Data registry",
+    "url": "https://registry.opendata.aws/noaa-mrms-pds/",
+    "claims": "Identifies the public NOAA MRMS S3 archive, open-data attribution conditions and the 14 October 2020 version transition. Software licensing is distinct from data terms.",
+    "checked_date": "2026-11-04",
+    "verification": "PROVIDER_DISTRIBUTION_METADATA_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_MRMS_05",
+    "title": "NCEP operational MESH GRIB2 directory",
+    "url": "https://mrms.ncep.noaa.gov/2D/MESH/",
+    "claims": "Directory lists timestamped MESH GRIB2 files and a changing latest-file alias; no GRIB2 payload was acquired or decoded.",
+    "checked_date": "2026-11-04",
+    "verification": "DIRECTORY_LISTING_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NCEI_01",
+    "title": "NOAA NCEI Storm Events Database: modern access portal",
+    "url": "https://www.ncei.noaa.gov/access/storm-events-database/",
+    "claims": "Public NWS Storm Data discovery, event search and bulk-access routes; coverage endpoint changes with the archive snapshot.",
+    "checked_date": "2026-11-04",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NCEI_02",
+    "title": "NOAA NCEI Storm Data Bulk CSV Format",
+    "url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv-Format.pdf",
+    "claims": "Defines event IDs, time-zone fields, magnitude/type codes, and tornado dimensions. Its EF wind-range table is inconsistent with NWS EF guidance and must not be copied.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NCEI_03",
+    "title": "NOAA NCEI Storm Events bulk CSV directory",
+    "url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+    "claims": "Annual compressed details, locations and fatalities tables with creation-date suffixes are listed; scientific CSV payloads were not downloaded.",
+    "checked_date": "2026-11-04",
+    "verification": "DIRECTORY_LISTING_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NWS_01",
+    "title": "NWS Storm Report Records: collection and historical coverage",
+    "url": "https://www.weather.gov/unr/storm_reports",
+    "claims": "Describes report sources and documented start years (tornadoes from 1950, severe thunderstorms from 1955, other events from 1996) and a 90 to 120 day publication delay.",
+    "checked_date": "2026-11-04",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NWS_02",
+    "title": "NWS Eastern Region technical attachment: 2010 severe hail threshold change",
+    "url": "https://www.weather.gov/media/erh/ta/ta2011-05.pdf",
+    "claims": "Documents the 5 January 2010 change in severe-hail criterion from 0.75 to 1.0 inch and discusses verification challenges.",
+    "checked_date": "2026-11-04",
+    "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NWS_03",
+    "title": "NWS Enhanced Fujita scale guidance",
+    "url": "https://www.weather.gov/oun/efscale",
+    "claims": "EF ratings use damage-based wind estimates; the EF scale became operational on 1 February 2007. Ratings are not direct wind measurements.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_NWS_04",
+    "title": "NWS Instruction 10-1605: Storm Data preparation and confirmation workflow (26 July 2021)",
+    "url": "https://www.weather.gov/media/directives/010_pdfs/pd01016005curr.pdf",
+    "claims": "Documents the NWS reporting and correction process, including SPC preliminary reports originating from local weather forecast offices and correction through Storm Data. This shared reporting workflow precludes assuming independent replication.",
+    "checked_date": "2026-11-04",
+    "verification": "DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SCS_SCI_01",
+    "title": "Potvin et al. (2022): Improving Estimates of U.S. Tornado Frequency by Accounting for Unreported and Underrated Tornadoes",
+    "url": "https://repository.library.noaa.gov/view/noaa/45079",
+    "doi": "10.1175/JAMC-D-21-0225.1",
+    "claims": "Investigates tornado underreporting and underrating associated with observer and damage-indicator availability; illustrates why raw reports are unsuitable as an unbiased census.",
+    "checked_date": "2026-11-04",
+    "verification": "PUBLICATION_METADATA_AND_ABSTRACT_REVIEWED"
+  },
+  {
+    "evidence_id": "SPEI_CODE",
+    "title": "Liu, X., SPEI-GD producer R script, main branch inspected 2026-11-01.",
+    "url": "https://github.com/XuebangLiu/SPEI-GD/blob/main/Improve%20the%20efficiency%20of%20computing%20SPEI%20with%20parallel%20tools.R",
+    "claims": "Concatenates 1982–2021 inputs, k=7 example, bare spei(vector,k), no explicit 1951–2000 fit. This does not establish downloaded product's algorithm; requires release correspondence.",
+    "checked_date": "2026-11-01",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SPEI_PAPER",
+    "title": "Liu, X., Yu, S., Yang, Z., Dong, J. and Peng, J. (2024). The first global multi-timescale daily SPEI dataset from 1982 to 2021. Scientific Data 11, 223",
+    "url": "https://www.nature.com/articles/s41597-024-03047-z",
+    "doi": "10.1038/s41597-024-03047-z",
+    "claims": "SPEI-GD uses Singer hPET; hPET seven ERA5-Land inputs; PET 0.1-degree hourly source, bilinear 0.25-degree resampling and daily integration",
+    "checked_date": "2026-11-02",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SPEI_RECORD",
+    "title": "Liu, X. (2023), SPEI-GD, version v1, Zenodo.",
+    "url": "https://zenodo.org/records/8060268",
+    "doi": "10.5281/zenodo.8060268",
+    "claims": "Describes a 112 GB ZIP/NetCDF distribution. The title and description give conflicting dates, and the rendered record shows no license.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_01",
+    "title": "NASA IMERG V07 Algorithm Theoretical Basis Document, 12 July 2023",
+    "url": "https://gpm.nasa.gov/sites/default/files/2023-07/IMERG_V07_ATBD_final_230712.pdf",
+    "claims": "Documents GPCC V2022 Full Data and Monitoring inputs. A broad GPCC lineage does not establish use of the cataloged 2025 product.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_02",
+    "title": "NASA TMPA 3B42/3B43 Version 7 technical documentation",
+    "url": "https://gpm.nasa.gov/sites/default/files/document_files/3B42_3B43_doc_V7.pdf",
+    "claims": "Documents GPCC Full analysis Version 4 through 2010 and Monitoring Version 6 thereafter. These are historical inputs, not GPCC Monthly 2025.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_03",
+    "title": "NASA LHASA source code, master inspected 3 November 2026",
+    "url": "https://github.com/nasa/LHASA/blob/master/lhasa.py",
+    "claims": "Default near-real-time path combines Late IMERG antecedent precipitation with Early IMERG for the most recent day; user-supplied inputs and forecast inputs are separate. The master branch can change and is not a frozen release.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_04",
+    "title": "NASA LHASA changelog, inspected 3 November 2026",
+    "url": "https://github.com/nasa/LHASA/blob/master/CHANGELOG.md",
+    "claims": "Release 2.1 switched default IMERG version to 07B; later unreleased entries mention 07C. Match selected code commit, stream and version before comparison.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_05",
+    "title": "Chen et al. (2023). GFED5 burned-area methodology",
+    "url": "https://essd.copernicus.org/articles/15/5227/2023/",
+    "doi": "10.5194/essd-15-5227-2023",
+    "claims": "The described GFED5 burned-area development uses Collection 6 MCD64A1 and Collection 6 MCD14ML, with period-specific treatment and higher-resolution adjustments. Do not equate this automatically to current Collection 6.1 assets.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_06",
+    "title": "Global Fire Emissions Database producer data description",
+    "url": "https://www.globalfiredata.org/data.html",
+    "claims": "Producer states GFED4s used MODIS Collection 5.1 burned area, with post-2016 extensions based on active-fire conversion. Exact archived file coverage and release must still be pinned.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V021_LINEAGE_07",
+    "title": "NOAA IBTrACS v04r01 release announcement, 14 June 2024",
+    "url": "https://groups.google.com/g/ibtracs-news/c/H6ICy83Qr3g",
+    "claims": "NOAA release announcement documents inclusion of 2023 HURDAT2 data. Independence depends on selected storm, agency fields, revision and dates.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "V024_COOPS_URL_BUILDER",
+    "title": "NOAA CO-OPS API URL Builder",
+    "url": "https://tidesandcurrents.noaa.gov/api-helper/url-generator.html",
+    "claims": "Provider tool that builds Data API requests for CO-OPS stations; links the API documentation. Example used here: The Battery (8518750), water_level, 29 to 30 Oct 2012, MLLW, GMT, metric.",
+    "checked_date": "2026-11-03",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  }
+]

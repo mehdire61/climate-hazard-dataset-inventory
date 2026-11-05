@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+.DS_Store
+Thumbs.db
+.playwright-cli/
+output/
+outputs/
+.claude/
+.codex/
+CLAUDE.md
+AGENTS.md
+*.zip
+*.mp4
+*.webm
