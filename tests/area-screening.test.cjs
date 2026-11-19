@@ -26,8 +26,8 @@ for (const id of ['montgomery-md', 'maryland', 'montgomery-multipart']) {
       const original = JSON.stringify(query);
       const start = performance.now();
       const results = screen.evaluateAll(products, rules, query, '2026-11-15');
-      assert.equal(results.length, 53);
-      assert.equal(new Set(results.map(r => r.productId)).size, 53);
+      assert.equal(results.length, products.length);
+      assert.equal(new Set(results.map(r => r.productId)).size, products.length);
       assert.ok(results.every(r => r.label !== 'Check inputs'));
       const byId = Object.fromEntries(results.map(r => [r.productId, r]));
       assert.equal(byId.chirps_v3_daily_rnl.spatialRelation, id==='montgomery-md'?'within':'partial');
@@ -58,7 +58,7 @@ test('all 242 bundled countries complete full screening with their original poly
     for (const feature of features) {
       const id = feature.properties.id, original = JSON.stringify(feature.geometry), start = performance.now();
       const results = screen.evaluateAll(products, rules, {mode:'area', geometry:feature.geometry, bufferKm:0, start:'2020-07-01', end:'2020-07-03'}, '2026-11-15');
-      assert.equal(results.length, 53, id);
+      assert.equal(results.length, products.length, id);
       assert.ok(results.every(r => r.label !== 'Check inputs'), id);
       assert.ok(results.find(r => r.productId === 'mcd64a1').landCheck.countryIds.includes(id), id + ': exact land check retains the selected country');
       assert.equal(JSON.stringify(feature.geometry), original, id + ': coordinates retained');

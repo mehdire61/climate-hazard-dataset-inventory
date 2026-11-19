@@ -49,7 +49,7 @@ def download(requests, folder, opener=urlopen, selection=None):
         try:
             if target.exists() or partial.exists(): raise FileExistsError("Target or partial already exists; nothing overwritten")
             digest, size = hashlib.sha256(), 0
-            with opener(Request(item["url"], headers={"User-Agent":"Climate-Hazard-Inventory/0.2"}), timeout=90) as response:
+            with opener(Request(item["url"], headers={"User-Agent":"Climate-Hazard-Inventory/0.3"}), timeout=90) as response:
                 if response.status != 200: raise ValueError("Expected complete HTTP 200 response")
                 first = response.read(65536)
                 if not first or "text/html" in response.headers.get("Content-Type", "").lower() or first.lstrip().lower().startswith((b"<!doctype html", b"<html")): raise ValueError("Empty or HTML response is not scientific data")
@@ -117,7 +117,7 @@ from urllib.request import Request, urlopen
 CONFIG = ${pythonConfig(config)}
 
 def get_json(url, opener=urlopen):
-    with opener(Request(url, headers={"User-Agent":"Climate-Hazard-Inventory/0.2"}), timeout=90) as response:
+    with opener(Request(url, headers={"User-Agent":"Climate-Hazard-Inventory/0.3"}), timeout=90) as response:
         if response.status != 200: raise ValueError("Expected complete HTTP 200 response")
         value = json.loads(response.read().decode("utf-8"))
     if not isinstance(value, dict) or value.get("error"): raise ValueError("Provider error or malformed response")

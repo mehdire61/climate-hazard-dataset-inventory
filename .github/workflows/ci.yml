@@ -1,0 +1,37 @@
+name: Validate inventory
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Verify the checked-in page matches its sources
+        run: |
+          python build.py
+          git diff --exit-code -- index.html
+      - name: Test build and catalog validation
+        run: python -B -m unittest discover -s tests -p 'build_test.py'
+      - name: Test application
+        run: node --test "tests/*.test.cjs"
+      - name: Check record links, filters and downloads in Chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser" --no-save --package-lock=false --ignore-scripts --no-audit --no-fund playwright-core@1.65.1
+          export NODE_PATH="$RUNNER_TEMP/browser/node_modules"
+          node "$NODE_PATH/playwright-core/cli.js" install --with-deps chromium
+          python -m http.server 8765 --bind 127.0.0.1 > "$RUNNER_TEMP/inventory-http.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          curl --fail --retry 5 --retry-connrefused --silent --output /dev/null http://127.0.0.1:8765/
+          node tests/inventory-browser.cjs http://127.0.0.1:8765/

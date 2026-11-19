@@ -1,8 +1,10 @@
-# Climate-Hazard Dataset Inventory v0.2
+# Climate-Hazard Dataset Inventory v0.3
 
-Find climate and water datasets for a project location and period. The inventory contains **53 records in nine overlapping hazard groups**, with links to 213 sources. [Open the inventory on GitHub Pages](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
+Find climate and water datasets for a project location and period. This local v0.3 release candidate contains **54 records in nine overlapping hazard groups** and links to 219 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
-v0.2 adds **Site check** and one dataset to the v0.1 catalog. **Copernicus satellite lake water levels** (v5.0) reports water surface height and uncertainty for monitored lakes. [Copernicus Climate Data Store](https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level)
+In **Inventory**, filter by commercial-use status, then narrow by hazard or provider. The result count and metadata CSV follow the selections. Open a record and choose **Copy record link** to cite it. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
+
+**SNOTEL daily snow water equivalent** adds snowpack water storage measured at individual western U.S. and Alaska stations. The checked example covers Brundage Reservoir, Idaho, on April 1–3, 2024. Use the NRCS station report to check your own project dates. [Open the record](index.html#inventory?record=nrcs_snotel_daily_swe) · [Provider responses and retrieval details](docs/evidence/snotel/receipts.json)
 
 ## Using the inventory
 
@@ -34,6 +36,8 @@ The site is static. GitHub Pages can serve it from the repository root. The page
 | `tests/` | Automated application and build tests, with sample provider responses |
 
 After editing the data or application source, rebuild with Python 3.10 or later and run the tests. The build uses the Python standard library. The JavaScript tests use Node.js 22 or later and Python on the command path.
+
+The GitHub Actions workflow rebuilds the committed page, runs both suites and checks record navigation, filters and CSV downloads in Chromium on pushes and pull requests. The build validates commercial-use, redistribution and license codes. v0.3 uses `PERMITTED_WITH_CONDITIONS` for the five records previously exported as `ALLOWED_WITH_CONDITIONS`. The Copernicus lake record uses `CC-BY-4.0`. CHIRPS retains its version-specific provider terms.
 
 ```sh
 python build.py

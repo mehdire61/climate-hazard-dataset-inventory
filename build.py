@@ -34,6 +34,22 @@ SOURCE_FIELDS = [
 ]
 LIST_FIELDS = {"hazard_family", "supported_use_cases", "non_uses", "limitations", "evidence_ids", "formats", "unresolved_questions"}
 OPTIONAL_PRODUCT_FIELDS = {"access_example_url", "license_url", "license_url_label"}
+RIGHTS_VALUES = {
+    "commercial_use_status": {
+        "PERMITTED_WITH_CONDITIONS", "PROHIBITED_WITHOUT_PERMISSION", "LICENSE_REQUIRED",
+        "RECORD_SPECIFIC", "UNKNOWN",
+    },
+    "redistribution_status": {"PERMITTED_WITH_CONDITIONS", "RESTRICTED", "RECORD_SPECIFIC", "UNKNOWN"},
+    "license_id": {
+        "CC-BY-4.0", "CC-BY-NC-4.0", "CC-BY-SA-3.0", "CC0-1.0", "CC0_PUBLIC_DOMAIN",
+        "CC-BY_DATASET_TERMS", "DWD_OPEN_DATA_TERMS", "ESA_CCI_SM_CUSTOM", "GRDC_RESEARCH_TERMS",
+        "MODEL_AND_INPUT_TERMS", "NASA_FIRMS_OPEN_DATA", "NASA_MISSION_DATA_POLICY",
+        "NASA_REPOSITORY_TERMS_UNRESOLVED", "NOAA_NODD_OPEN_DATA", "NOAA_PROVIDER_TERMS",
+        "PROVIDER_LICENSE_TEXT_CONFLICT", "PROVIDER_SPECIFIC_MIXED", "PROVIDER_SPECIFIC_TERMS",
+        "SOURCE_SPECIFIC", "SOURCE_SPECIFIC_TERMS_UNRESOLVED", "UK_OGL", "UNKNOWN",
+        "US_GOVERNMENT_DATA_TERMS", "VENDOR_LICENSE",
+    },
+}
 PRODUCT_URL_FIELDS = ("documentation_url", "access_url", "access_example_url", "license_url")
 REQUIRED_SOURCE_FIELDS = ("title", "url", "claims", "checked_date", "verification")
 OPTIONAL_SOURCE_TEXT_FIELDS = ("doi", "link_status", "alternate_url", "alternate_label")
@@ -359,6 +375,8 @@ def product_problems(product, label):
                 problems.append(f"{label}: {field} is empty")
         elif not isinstance(value, str) or not value.strip():
             problems.append(f"{label}: {field} must be non-empty text")
+        elif field in RIGHTS_VALUES and value not in RIGHTS_VALUES[field]:
+            problems.append(f"{label}: unrecognized {field} {value!r}")
     for field in PRODUCT_URL_FIELDS:
         if product.get(field) is not None and not is_web_url(product[field]):
             problems.append(f"{label}: {field} is not a web address")
@@ -526,7 +544,7 @@ def main():
             "revision": revision_parts[0],
             "snapshot_date": revision_parts[1],
             "rights_note": catalog["status_definitions"]["commercial_use_status"],
-            "review_version": "0.2",
+            "review_version": revision_parts[0].removeprefix("v"),
             "build_id": "__INVENTORY_BUILD_ID__",
         },
         "hazard_groups": groups,
@@ -580,7 +598,7 @@ def main():
     # Compute the content identifier before inserting it into the page.
     if page.count("__INVENTORY_BUILD_ID__") != 1:
         sys.exit("index.html was not changed: invalid build identity placeholder")
-    build_id = "v0.2-" + hashlib.sha256(page.encode("utf-8")).hexdigest()[:16]
+    build_id = revision_parts[0] + "-" + hashlib.sha256(page.encode("utf-8")).hexdigest()[:16]
     page = page.replace("__INVENTORY_BUILD_ID__", build_id)
     PAGE.write_text(page, encoding="utf-8", newline="\n")
     print(f"index.html: {len(products)} records, {len(groups)} hazard groups, "

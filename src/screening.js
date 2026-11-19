@@ -378,6 +378,7 @@
     }
     if (usgs)networkInScope=networkInScope??false;
     if (coops)networkInScope=indexedStation??(spatialRelation!=='unknown');
+    if (product.product_id==='nrcs_snotel_daily_swe') networkInScope=['within','partial'].includes(spatialRelation);
     if (rule.support_type==='station' && !spatialExcluded && spatialRelation!=='near'&&!indexedStation&&
         spatial!=='Inside mapped provider region'&&spatial!=='Project land within the usual USGS region') spatial='Search the station network';
     if(domain.radar_range_check&&!spatialExcluded){

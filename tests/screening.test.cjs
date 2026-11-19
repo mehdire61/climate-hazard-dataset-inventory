@@ -14,8 +14,8 @@ const products = Object.fromEntries(catalog.products.map((product) => [product.p
 const base = {lat: 38.9, lon: -77.04, start: '2020-07-01', end: '2020-07-03'};
 const evaluate = (id, query = {}, rule = rules[id]) => screen.evaluate(products[id], rule, {...base, ...query});
 
-test('all 53 catalog records have explicit rules and existing source evidence', () => {
-  assert.equal(Object.keys(rules).length, 53);
+test('all catalog records have explicit rules and existing source evidence', () => {
+  assert.equal(Object.keys(rules).length, catalog.products.length);
   assert.deepEqual(Object.keys(rules).sort(), Object.keys(products).sort());
   for (const [id, rule] of Object.entries(rules)) {
     assert.ok(rule.evidence_ids.length, id);
@@ -161,7 +161,7 @@ test('rule evaluation is deterministic, does not mutate inputs, and always retur
   for (const lat of [-90,-65,-50,0,38.9,60,90]) for (const lon of [-180,-77.04,0,179.99,180]) {
     for (const year of [1800,1900,1982,1999,2012,2020,2025]) {
       const results=screen.evaluateAll(catalog.products,rules,{lat,lon,start:`${year}-01-01`,end:`${year}-12-31`});
-      assert.equal(results.length,53);
+      assert.equal(results.length,catalog.products.length);
       for (const result of results) {
         assert.ok(['possible','excluded','unresolved','event','special'].includes(result.status));
         assert.ok(result.productId && result.label && result.spatial && result.temporal && result.reasons.length);
@@ -174,7 +174,7 @@ test('rule evaluation is deterministic, does not mutate inputs, and always retur
 test('area screening accepts geometry without point coordinates and returns all52 relationships',()=>{
   const query={mode:'area',geometry:geometry.rectangle(-10,55,10,65),bufferKm:0,start:'2020-01-01',end:'2020-12-31'};
   assert.deepEqual(screen.validate(query),[]);
-  const results=screen.evaluateAll(catalog.products,rules,query);assert.equal(results.length,53);
+  const results=screen.evaluateAll(catalog.products,rules,query);assert.equal(results.length,catalog.products.length);
   assert.ok(results.every(result=>['within','partial','outside','unknown','near'].includes(result.spatialRelation)));
   const chirps=results.find(result=>result.productId==='chirps_v3_daily_rnl');
   assert.equal(chirps.status,'possible');assert.equal(chirps.spatialRelation,'partial');assert.match(chirps.reasons[0],/Only part/);

@@ -70,7 +70,7 @@ test('invalid inputs and extreme valid Gregorian dates do not leak NaN or overfl
   for(const query of [{start:'0000-01-01',end:'0000-01-02'},{start:'2020-02-30',end:'2020-03-01'},{start:'2021-01-01',end:'2020-01-01'}])assert.equal(T.model(query,rules.era5_t2m).state,'invalid');
   for(const query of [{start:'0001-01-01',end:'0001-01-01'},{start:'9999-12-31',end:'9999-12-31'}]){const m=T.model(query,rule([{start:query.start,end:query.end}]));assert.ok(Number.isFinite(m.axis.startMs)&&Number.isFinite(m.axis.endMs));assert.ok(m.axis.endMs>m.axis.startMs);for(const r of m.rows)for(const s of r.segments){assert.ok(s.startFraction>=0&&s.startFraction<=1);assert.ok(s.endFraction>=0&&s.endFraction<=1);}}
 });
-test('all 53 rules produce deterministic input-preserving browser and Node models',()=>{
+test('all catalog rules produce deterministic input-preserving browser and Node models',()=>{
   const context={};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../src/coverage-timeline.js'),'utf8'),context);
   const before=JSON.stringify(rules);
   for(const [id,r]of Object.entries(rules)){const result=T.model(q,r);assert.deepEqual(T.model(q,r),result,id);assert.deepEqual(JSON.parse(JSON.stringify(context.SiteCoverageTimeline.model(q,r))),result,id);assert.equal(result.rows[0].id,'project');}

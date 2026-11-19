@@ -189,7 +189,7 @@ for r in selected:
         checksum = r.get("checksum") or ""
         md5 = hashlib.md5() if checksum.startswith("md5:") else None
         size = 0
-        with urlopen(Request(r["url"], headers={"User-Agent":"Climate-Hazard-Inventory/0.2"}), timeout=90) as response:
+        with urlopen(Request(r["url"], headers={"User-Agent":"Climate-Hazard-Inventory/0.3"}), timeout=90) as response:
             if response.status != 200: raise RuntimeError("Expected a complete HTTP200 response, got " + str(response.status))
             length = response.headers.get("Content-Length")
             if not args.confirm_transfer and length and network_bytes + int(length) >= 1000000000: raise RuntimeError("Response exceeds the 1 GB transfer safeguard; review before using --confirm-transfer")

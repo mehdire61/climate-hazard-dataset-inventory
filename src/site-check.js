@@ -317,9 +317,17 @@
     finally{restoringProject=false;}
     updateSharedProject();saveRecent();
   }
-  function restoreHash(){
+  function restoreHash(event){
     if(!location.hash.startsWith('#site-check?project='))return;
-    try{const encoded=location.hash.slice('#site-check?project='.length);if(encoded.length>12000)throw Error('This project link is too large. Open a project file instead.');restoreProject(SiteProjectState.parse(decodeURIComponent(encoded),[...byId.keys()],data.hazard_groups.map(g=>g.id)));}
+    try{
+      const encoded=location.hash.slice('#site-check?project='.length);
+      if(encoded.length>12000)throw Error('This project link is too large. Open a project file instead.');
+      const saved=decodeURIComponent(encoded);
+      // Returning from record details should preserve the observations in the open project.
+      if(event?.oldURL && new URL(event.oldURL).hash.startsWith('#inventory?record=') &&
+          saved===JSON.stringify(projectState()))return;
+      restoreProject(SiteProjectState.parse(saved,[...byId.keys()],data.hazard_groups.map(g=>g.id)));
+    }
     catch(error){projectMessage.textContent='Project link could not open: '+error.message;projectTools.open=true;}
   }
   function readRecent(){try{const value=JSON.parse(localStorage.getItem(recentKey)||'null');return value?.enabled&&Array.isArray(value.projects)?value:null;}catch(_){return null;}}
@@ -1318,7 +1326,7 @@
   function exportAccessManifest() {
     if (accessBlocked() || accessLoading || (!accessPlan && !accessFileResult)) return;
     const product = byId.get(selectedId), evidenceIds = [...new Set([...product.evidence_ids, ...(rules[selectedId]?.evidence_ids || [])])];
-    const manifest = {...(accessPlan?.manifest || {}), listedFileCoverage:accessFileResult?SiteAccess.fileCoverage(selectedId,accessFileResult.files||[],query,accessFileResult):null, uiContext: {tool: 'Climate-Hazard Dataset Inventory v0.2', exportedAt: new Date().toISOString(), 
+    const manifest = {...(accessPlan?.manifest || {}), listedFileCoverage:accessFileResult?SiteAccess.fileCoverage(selectedId,accessFileResult.files||[],query,accessFileResult):null, uiContext: {tool: 'Climate-Hazard Dataset Inventory ' + data.meta.revision, exportedAt: new Date().toISOString(),
       catalogRevision: data.meta.revision, screeningMetadata, productId: selectedId, query, options: {...accessOptions}, accessCapability: accessProfile(selectedId), screening: resultFor(selectedId), screeningRule: rules[selectedId],
       sourceRecord: product, referencedSources: Object.fromEntries(evidenceIds.filter(id => data.sources[id]).map(id => [id, data.sources[id]])),
       fileDiscovery: accessFileResult, selectedFileNumbers: selectedFileEntries(accessFileResult?.files || []).map(entry => entry.index + 1), artifacts: (accessPlan?.artifacts || []).map(artifact => ({name: artifact.name, mime: artifact.mime, role: artifact.role})), preparationErrors: accessPlan?.errors || [],
@@ -2194,7 +2202,7 @@
   function exportStations() {
     if (!discovery || dirty) return;
     const product = byId.get(selectedId);
-    download(JSON.stringify({tool: 'Climate-Hazard Dataset Inventory v0.2', exportedAt: new Date().toISOString(), 
+    download(JSON.stringify({tool: 'Climate-Hazard Dataset Inventory ' + data.meta.revision, exportedAt: new Date().toISOString(),
       catalogRevision: data.meta.revision, screeningMetadata, screeningRule: rules[selectedId], sourceRecord: product,
       candidateSearch: candidateSnapshot(), referencedSources: Object.fromEntries(product.evidence_ids.filter(id => data.sources[id]).map(id => [id, data.sources[id]]))}, null, 2) + '\n', 'application/json', selectedId + '_all-loaded-candidates_' + query.start + '_' + query.end + '.json');
   }
@@ -2203,7 +2211,7 @@
     const product = byId.get(selectedId);
     const evidenceIds = [...new Set([...product.evidence_ids, ...(rules[selectedId]?.evidence_ids || [])])];
     const referencedSources = Object.fromEntries(evidenceIds.filter(id => data.sources[id]).map(id => [id, data.sources[id]]));
-    const manifest = {tool: 'Climate-Hazard Dataset Inventory v0.2', exportedAt: new Date().toISOString(), mode: savedLabel ? 'saved-real-example' : 'live-response', example: savedLabel || null,
+    const manifest = {tool: 'Climate-Hazard Dataset Inventory ' + data.meta.revision, exportedAt: new Date().toISOString(), mode: savedLabel ? 'saved-real-example' : 'live-response', example: savedLabel || null,
       catalogRevision: data.meta.revision, screeningMetadata, screeningRule: rules[selectedId], referencedSources,
       query, productId: selectedId, productName: product.product_name, screening: resultFor(selectedId), station: sample.station, candidateSearch: candidateSnapshot(false),
       previewRequestWindow: sample.window, requestedWindow: sample.requestedWindow, requests: sample.requests, discoveryRequests: discovery ? discovery.requests : [], providerProvenance: sample.provenance,
@@ -2301,7 +2309,7 @@
     const printButton = node('button',{type:'button',class:'print'},'Print / Save PDF');
     printButton.setAttribute('onclick','window.print()');
     doc.body.append(printButton,
-      node('header',{},node('p',{},'Climate-Hazard Dataset Inventory v0.2'),node('h1',{},'Site screening brief'),node('strong',{},siteLabel(query)),
+      node('header',{},node('p',{},'Climate-Hazard Dataset Inventory ' + data.meta.revision),node('h1',{},'Site screening brief'),node('strong',{},siteLabel(query)),
         node('p',{},dateRange(query)+' · '+group)),node('h2',{},'Project extent'),node('p',{},footprintLabel()));
     if (query.mode==='area') {
       const attribution = source?.provider ? [source.provider,source.dataset,source.id,source.vintage].filter(Boolean).join(' · ') :
@@ -2329,7 +2337,7 @@
   function exportSummary() {
     if (dirty || hazardFilter === null) return;
     const scoped = scopedResults(), ids = new Set(scoped.flatMap(r => [...byId.get(r.productId).evidence_ids, ...(rules[r.productId]?.evidence_ids || [])]));
-    download(JSON.stringify({tool: 'Climate-Hazard Dataset Inventory v0.2', exportedAt: new Date().toISOString(), 
+    download(JSON.stringify({tool: 'Climate-Hazard Dataset Inventory ' + data.meta.revision, exportedAt: new Date().toISOString(),
       catalogRevision: data.meta.revision, inventoryBuild:buildIdentity, screeningMetadata, hazardGroup: hazardFilter || 'all', screeningRules: Object.fromEntries(scoped.map(r => [r.productId, rules[r.productId]])), referencedSources: hazardFilter === '' ? data.sources : Object.fromEntries([...ids].filter(id => data.sources[id]).map(id => [id, data.sources[id]])), query, candidateSearch: candidateSnapshot(),
       shortlist:[...shortlistIds(scoped)],availability:Object.fromEntries(scoped.filter(r=>evidenceFor(r.productId)).map(r=>[r.productId,evidenceFor(r.productId)])),
       selectedProductId:selectedId, selectedStationId:selectedStationId||null, observationPreview:sample?{source:savedLabel?'saved':'retrieved',selectedSeries:sample.series?.[activeSeries]?.key||null,result:sample}:null,

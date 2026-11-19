@@ -9,6 +9,21 @@ function ids(hazard,query,evidence=new Map()) {
   const regionalRain=hazard==='precipitation' && scoped.some(r=>r.productId==='stage_iv'&&r.status==='possible'&&r.spatialRelation==='within');
   return [...S.rank(scoped,{byId,rules,evidence,hazard,offshore:all.some(r=>r.landCheck?.land===false),regionalRain,limit:3})];
 }
+test('SNOTEL is a station search in its network and stays off distant snow shortlists',()=>{
+  const id='nrcs_snotel_daily_swe';
+  const idaho=point(45.04315,-116.13253,'2024-04-01','2024-04-03');
+  const alaska=point(64.9,-147.5), maryland=point(39.08,-77.15);
+  for(const q of [idaho,alaska]){
+    const r=screen.evaluate(byId.get(id),rules[id],q);
+    assert.equal(r.label,'Find a station');
+    assert.equal(r.networkInScope,true);
+    assert.ok(ids('snow',q).includes(id));
+  }
+  const remote=screen.evaluate(byId.get(id),rules[id],maryland);
+  assert.equal(remote.networkInScope,false);
+  assert.notEqual(remote.status,'excluded');
+  assert.ok(!ids('snow',maryland).includes(id));
+});
 test('regional jurisdiction, event match and radar reach take precedence over agency recognition',()=>{
   assert.deepEqual(ids('flood',point(29.76,-95.37)).slice(0,2),['usgs_hwm_harvey_2017','usgs_streamflow']);
   assert.equal(ids('precipitation',point(29.76,-95.37))[0],'stage_iv');

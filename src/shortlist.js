@@ -4,7 +4,7 @@
   const publicProviders=[
     [/^NOAA/,'NOAA'],[/^USGS/,'USGS'],[/^NASA/,'NASA'],[/^ESA /,'ESA'],[/^ECMWF/,'ECMWF / Copernicus'],
     [/^DWD /,'DWD / GPCC'],[/^GRDC /,'GRDC'],[/^(?:Copernicus|CEMS|European Commission Copernicus)/,'Copernicus'],
-    [/^Met Office/,'Met Office'],[/^US National Ice Center/,'USNIC / NSIDC'],[/^PSMSL$/,'PSMSL']
+    [/^Met Office/,'Met Office'],[/^US National Ice Center/,'USNIC / NSIDC'],[/^PSMSL$/,'PSMSL'],[/^USDA NRCS/,'USDA NRCS']
   ];
   function publisher(name) {
     const match=publicProviders.find(([pattern])=>pattern.test(name));
@@ -50,7 +50,7 @@
     return null;
   }
   function rank(scoped,{byId,rules,evidence,hazard,offshore,regionalRain,limit}) {
-    const landNetworks=['ghcn_daily','ghcnh_hourly','isd_global_hourly','grdc_discharge','gsim_indices','usgs_streamflow'];
+    const landNetworks=['ghcn_daily','ghcnh_hourly','isd_global_hourly','grdc_discharge','gsim_indices','usgs_streamflow','nrcs_snotel_daily_swe'];
     const state=r=>evidence.get(key(r.productId,hazard))?.level ?? 0;
     const kind=r=>rules[r.productId].support_type==='grid' && rules[r.productId].domain.kind==='regional'?'regional grid':rules[r.productId].support_type;
     const nationalRiver=r=>['flood','drought'].includes(hazard) && !offshore && r.productId==='usgs_streamflow' && r.networkInScope;

@@ -225,7 +225,7 @@ def main():
                 time.sleep(0.25)
                 attempt = {'requestNumber': number, 'page': page, 'url': url, 'requestedAt': utc_now()}
                 report['attempts'].append(attempt); persist()
-                with opener.open(Request(url, headers={'User-Agent': 'Climate-Hazard-Inventory/0.2', 'Accept': 'application/json'}), timeout=90) as response:
+                with opener.open(Request(url, headers={'User-Agent': 'Climate-Hazard-Inventory/0.3', 'Accept': 'application/json'}), timeout=90) as response:
                     attempt['httpStatus'] = response.status
                     if response.status != 200: raise ValueError('Expected HTTP200')
                     if 'html' in response.headers.get('Content-Type', '').lower(): raise ValueError('Provider returned an HTML page')

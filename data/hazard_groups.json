@@ -39,7 +39,8 @@
       "chirps_v2_daily",
       "chirps_v3_daily_rnl",
       "chirps_v3_daily_sat",
-      "c3s_lake_water_level"
+      "c3s_lake_water_level",
+      "nrcs_snotel_daily_swe"
     ]
   },
   {
@@ -114,7 +115,8 @@
     "color": "#6c949e",
     "products": [
       "modis_snow_mod10a1",
-      "ims_snow_ice"
+      "ims_snow_ice",
+      "nrcs_snotel_daily_swe"
     ]
   },
   {

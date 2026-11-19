@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "review_date": "2026-11-18",
-  "catalog_revision": "v0.2 | 2026-11-18 | Catalog snapshot",
+  "review_date": "2026-11-19",
+  "catalog_revision": "v0.3 | 2026-11-19 | Catalog snapshot",
   "scope": "Documented dates and extents for dataset discovery; actual files or station observations require a separate check.",
   "date_policy": "Historical inclusive calendar dates, ending no later than today in UTC. Monthly/annual/event/scenario support remains explicit; dates are not converted into daily availability.",
   "spatial_policy": "WGS84 longitude/latitude. Regional boxes are conservative screening bounds. A generalized Natural Earth country layer provides a coarse land check only; a possible mask conflict is never a firm no-data finding.",
@@ -13219,6 +13219,157 @@
       "catalog_documentation_checked_on": "2026-11-18",
       "basis": "Provider catalog and public CDS request constraints.",
       "note": "Compare vertical references before combining lake heights with gauges. Check per-observation uncertainty and gaps."
+    },
+    "nrcs_snotel_daily_swe": {
+      "support_type": "station",
+      "time_step": "daily",
+      "domain": {
+        "kind": "station",
+        "bounds": null,
+        "hard_bounds": false,
+        "mask": null,
+        "regions": [
+          {
+            "name": "AK",
+            "bounds": [
+              -165,
+              58,
+              -133,
+              68
+            ]
+          },
+          {
+            "name": "AZ",
+            "bounds": [
+              -113,
+              33,
+              -109,
+              37
+            ]
+          },
+          {
+            "name": "CA",
+            "bounds": [
+              -121,
+              38,
+              -119,
+              42
+            ]
+          },
+          {
+            "name": "CO",
+            "bounds": [
+              -109,
+              37,
+              -105,
+              41
+            ]
+          },
+          {
+            "name": "ID",
+            "bounds": [
+              -118,
+              42,
+              -111,
+              49
+            ]
+          },
+          {
+            "name": "MT",
+            "bounds": [
+              -116,
+              44,
+              -109,
+              49
+            ]
+          },
+          {
+            "name": "NM",
+            "bounds": [
+              -109,
+              32,
+              -105,
+              37
+            ]
+          },
+          {
+            "name": "NV",
+            "bounds": [
+              -120,
+              36,
+              -114,
+              42
+            ]
+          },
+          {
+            "name": "OR",
+            "bounds": [
+              -124,
+              42,
+              -117,
+              46
+            ]
+          },
+          {
+            "name": "SD",
+            "bounds": [
+              -104,
+              44,
+              -103,
+              45
+            ]
+          },
+          {
+            "name": "UT",
+            "bounds": [
+              -114,
+              37,
+              -109,
+              42
+            ]
+          },
+          {
+            "name": "WA",
+            "bounds": [
+              -124,
+              45,
+              -117,
+              49
+            ]
+          },
+          {
+            "name": "WY",
+            "bounds": [
+              -111,
+              41,
+              -104,
+              45
+            ]
+          }
+        ],
+        "note": "Coarse boxes enclose the November 2026 daily WTEQ station directory by state. Verify the actual station, elevation and distance in the NRCS directory."
+      },
+      "time": {
+        "kind": "station",
+        "intervals": [],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "Operating periods and available daily WTEQ values vary by station. Request the selected dates and inspect gaps."
+      },
+      "access_requirement": "public_api",
+      "access_note": "Public NRCS Report Generator and AWDB REST API. Supply a station triplet and dates.",
+      "evidence_ids": [
+        "NRCS_SNOTEL_SENSOR",
+        "NRCS_SNOTEL_NETWORK",
+        "NRCS_AWDB_API",
+        "NRCS_SNOTEL_DIRECTORY",
+        "NRCS_SNOTEL_WTEQ_SAMPLE",
+        "USDA_DIGITAL_RIGHTS"
+      ],
+      "curation_reviewed_on": "2026-11-19",
+      "catalog_documentation_checked_on": "2026-11-19",
+      "basis": "Coarse regions enclose coordinates in the cited provider directory, including inactive stations. The cited WTEQ sample verifies three daily values at one site.",
+      "note": "Choose a SNOTEL station whose location and elevation represent the project. Verify its daily observations and flags at NRCS."
     }
   },
   "storm_reporting_zones": {

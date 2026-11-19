@@ -1,0 +1,23 @@
+[
+  {
+    "file": "brundage-daily-wteq.json",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&duration=DAILY&beginDate=2024-04-01&endDate=2024-04-03&returnFlags=true",
+    "retrievedAt": "2026-11-19T14:26:10.036006+00:00",
+    "responseBytes": 458,
+    "responseSha256": "30e2cafb0bed4038c81c4ca74c357109afa71d6c2a94bcad701aeb2c27df7c1e"
+  },
+  {
+    "file": "brundage-station.json",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&returnStationElements=true",
+    "retrievedAt": "2026-11-19T14:26:10.298793+00:00",
+    "responseBytes": 1284,
+    "responseSha256": "59f40a7700bbbe82fd3ad059bce86f736320f17fb70575ecb6f5efacd503d5ce"
+  },
+  {
+    "file": "daily-wteq-stations.json.gz",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stationTriplets=%2A%3A%2A%3ASNTL&elements=WTEQ&durations=DAILY&activeOnly=false&returnStationElements=false",
+    "retrievedAt": "2026-11-19T14:26:46.483434+00:00",
+    "responseBytes": 397258,
+    "responseSha256": "c4bc084e6e9113156a4f5a829d566cb2dd1c3ccd150b630955a633f67883f626"
+  }
+]

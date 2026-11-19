@@ -214,7 +214,7 @@ def download_files(manifest, args, persist):
             if not name or name in ('.', '..') or target.exists() or partial.exists():
                 raise FileExistsError('Target or partial already exists, or filename is invalid; nothing overwritten')
             digest, size = hashlib.sha256(), 0
-            with urllib.request.urlopen(urllib.request.Request(item['url'], headers={'User-Agent':'Climate-Hazard-Inventory/0.2'}), timeout=90) as response:
+            with urllib.request.urlopen(urllib.request.Request(item['url'], headers={'User-Agent':'Climate-Hazard-Inventory/0.3'}), timeout=90) as response:
                 if response.status != 200: raise ValueError('Expected complete HTTP 200 response')
                 expected = response.headers.get('Content-Length')
                 if expected is not None and int(expected) != item['bytes']: raise ValueError('Response size differs from the observed object listing')

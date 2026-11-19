@@ -1,0 +1,174 @@
+// Usage: node tests/inventory-browser.cjs <running inventory URL> [chromium|chrome|msedge|firefox]
+const assert = require('node:assert/strict');
+const {execFileSync} = require('node:child_process');
+const {chromium, firefox} = require('playwright-core');
+const {products} = require('../data/catalog.json');
+const groups = require('../data/hazard_groups.json');
+
+const address = new URL(process.argv[2]);
+const browserName = process.argv[3] || 'chromium';
+const snowId = 'nrcs_snotel_daily_swe';
+const snowName = products.find(p => p.product_id === snowId).product_name;
+const snowFragment = '#inventory?record=' + snowId;
+const recordURL = new URL(snowFragment, address).href;
+const cards = page => page.locator('#results .product-card').evaluateAll(rows => rows.map(row => row.dataset.id));
+
+async function exportedRows(page) {
+  const ready = page.waitForEvent('download');
+  await page.getByRole('button', {name: /Download .* as CSV/}).click();
+  const download = await ready;
+  const bytes = [];
+  for await (const chunk of await download.createReadStream()) bytes.push(chunk);
+  const parser = 'import csv, io, json, sys; print(json.dumps(list(csv.DictReader(io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8-sig", newline="")))))';
+  return JSON.parse(execFileSync('python', ['-c', parser], {input: Buffer.concat(bytes)}));
+}
+
+async function checkFilters(page) {
+  const commercial = page.getByLabel('Commercial use', {exact: true});
+  const provider = page.getByLabel('Provider', {exact: true});
+  const group = page.getByLabel('Hazard group', {exact: true});
+  await page.getByRole('region', {name: 'The inventory', exact: true}).waitFor();
+  assert.equal((await cards(page)).length, products.length);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+  await page.getByLabel('Sort records').selectOption({label:'Product Z–A'});
+  const statuses = [...new Set(products.map(p => p.commercial_use_status))];
+  for (const status of statuses) {
+    const expected = products.filter(p => p.commercial_use_status === status);
+    await commercial.selectOption(status);
+    const visible = await cards(page);
+    assert.deepEqual([...visible].sort(), expected.map(p => p.product_id).sort());
+    assert.ok((await commercial.locator('option:checked').innerText()).endsWith('(' + expected.length + ')'));
+    const rows = await exportedRows(page);
+    assert.deepEqual(rows.map(row => row.product_id), visible);
+    for (const row of rows) {
+      const source = expected.find(p => p.product_id === row.product_id);
+      assert.equal(row.commercial_use_status, status);
+      assert.equal(row.redistribution_status, source.redistribution_status);
+      assert.equal(row.terms_id, source.license_id);
+      assert.equal(row.record_fragment, '#inventory?record=' + row.product_id);
+    }
+  }
+  await commercial.selectOption('');
+  await group.selectOption('snow');
+  const snow = products.filter(p => groups.find(g => g.id === 'snow').products.includes(p.product_id));
+  const options = await page.evaluate(() => Array.from(document.querySelector('#provider').options, option => option.value));
+  assert.deepEqual(options.filter(Boolean).sort(), [...new Set(snow.map(p => p.provider))].sort());
+  await provider.selectOption('USDA NRCS');
+  await commercial.selectOption('PERMITTED_WITH_CONDITIONS');
+  assert.deepEqual(await cards(page), [snowId]);
+  await group.selectOption('temperature');
+  assert.equal(await provider.inputValue(), '');
+  await page.getByRole('searchbox').fill('no such meteorological product');
+  assert.equal((await cards(page)).length, 0);
+  assert.equal(await page.locator('#download').isDisabled(), true);
+  await page.locator('#clear-empty').click();
+  assert.equal((await cards(page)).length, products.length);
+}
+
+async function checkRecord(page, context) {
+  const dialog = page.getByRole('dialog');
+  const snowLink = page.getByRole('link', {name: 'View details for ' + snowName});
+  await snowLink.click();
+  assert.equal(page.url(), recordURL);
+  await dialog.getByRole('heading', {name: snowName, exact:true}).waitFor();
+  if (browserName !== 'firefox') {
+    await context.grantPermissions(['clipboard-read','clipboard-write'], {origin: address.origin});
+    await dialog.getByRole('button', {name:'Copy record link'}).click();
+    await dialog.getByRole('status').filter({hasText:'link copied'}).waitFor();
+    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), recordURL);
+  }
+  await page.goBack();
+  await dialog.waitFor({state:'hidden'});
+  await page.goForward();
+  await dialog.waitFor();
+  await page.keyboard.press('Escape');
+  await dialog.waitFor({state:'hidden'});
+  assert.equal(await snowLink.evaluate(link => link === document.activeElement), true);
+
+  const direct = await context.newPage();
+  try {
+    const incoming = new URL(recordURL);
+    incoming.searchParams.set('utm_source','review');
+    await direct.goto(incoming.href);
+    await direct.getByRole('dialog').getByRole('heading', {name:snowName, exact:true}).waitFor();
+    await direct.reload();
+    const reopened = direct.getByRole('dialog');
+    await reopened.waitFor();
+    await direct.evaluate(() => Object.defineProperty(navigator, 'clipboard', {value:undefined, configurable:true}));
+    await reopened.getByRole('button', {name:'Copy record link'}).click();
+    const field = reopened.getByRole('textbox', {name:'Record URL to copy'});
+    assert.equal(await field.inputValue(), recordURL);
+    assert.equal(await field.evaluate(e => e.selectionEnd - e.selectionStart), recordURL.length);
+    await reopened.getByRole('button', {name:'Close record details'}).click();
+    await reopened.waitFor({state:'hidden'});
+    assert.equal(new URL(direct.url()).hash, '#inventory');
+    await direct.goto(new URL('#inventory?record=unknown_record_id',address).href);
+    await direct.locator('#unknown-record').waitFor();
+    assert.equal(await reopened.isVisible(), false);
+  } finally {
+    await direct.close();
+  }
+  await snowLink.click();
+  await dialog.getByRole('button', {name:'Check this record at a site'}).click();
+  await page.locator('#sc-detail').getByRole('heading', {name:snowName, exact:true}).waitFor();
+}
+
+async function checkProjectReturn(page) {
+  await page.getByRole('button', {name:'USGS streamflow', exact:true}).click();
+  const example = page.getByRole('region', {name:'Retrieved data preview'});
+  await example.waitFor();
+  const original = await example.innerText();
+  await page.locator('.sc-project-tools summary').click();
+  await page.getByRole('button', {name:'Create project link'}).click();
+  await page.waitForURL(url => url.hash.startsWith('#site-check?project='));
+  const projectURL = page.url();
+  await page.getByRole('button', {name:'View full inventory record'}).click();
+  await page.getByRole('dialog').waitFor();
+  assert.equal(new URL(page.url()).hash, '#inventory?record=usgs_streamflow');
+  await page.getByRole('button', {name:'Close record details'}).click();
+  await page.waitForURL(projectURL);
+  await example.waitFor();
+  assert.equal(await example.innerText(), original);
+}
+
+async function checkOffline(browser) {
+  const context = await browser.newContext({offline:true});
+  try {
+    const page = await context.newPage();
+    const entry = require('node:url').pathToFileURL(require('node:path').resolve(__dirname, '../index.html'));
+    await page.goto(new URL(snowFragment,entry).href);
+    const dialog = page.getByRole('dialog');
+    await dialog.getByRole('heading', {name:snowName, exact:true}).waitFor();
+    await dialog.getByRole('button', {name:'Close record details'}).click();
+    await page.getByLabel('Hazard group', {exact:true}).selectOption('snow');
+    await page.getByRole('link', {name:'View details for ' + snowName}).click();
+    await dialog.waitFor();
+    assert.equal(page.url(), new URL(snowFragment,entry).href);
+  } finally {
+    await context.close();
+  }
+}
+
+async function main() {
+  const browser = browserName === 'firefox' ? await firefox.launch() :
+    await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
+  try {
+    const context = await browser.newContext({viewport:{width:375,height:812}});
+    const errors = [];
+    context.on('weberror', e => errors.push(e.error().message));
+    const page = await context.newPage();
+    await page.goto(new URL('#inventory',address).href);
+    await checkFilters(page);
+    await checkRecord(page,context);
+    await page.setViewportSize({width:1280,height:850});
+    await checkProjectReturn(page);
+    assert.deepEqual(errors, []);
+    await context.close();
+    await checkOffline(browser);
+    console.log(browserName, browser.version(), 'passed record navigation, project return, mobile layout, CSV/filter and offline checks.');
+  } finally {
+    await browser.close();
+  }
+}
+
+main().catch(error => { console.error(error); process.exitCode = 1; });

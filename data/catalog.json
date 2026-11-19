@@ -1,8 +1,8 @@
 {
-  "schema_version": "1.3.3",
-  "catalog_revision": "v0.2 | 2026-11-18 | Catalog snapshot",
+  "schema_version": "1.4.0",
+  "catalog_revision": "v0.3 | 2026-11-19 | Catalog snapshot",
   "scope": "Climate-hazard dataset inventory: product metadata, documented uses, limitations and source links.",
-  "verification_scope": "The catalog summarizes provider documentation and scientific publications. v0.2 also includes selected public-file and station-response inspections, scoped by product, access method, version and date in the access evidence. These checks do not establish full archive coverage, measurement accuracy or scientific suitability.",
+  "verification_scope": "The catalog summarizes provider documentation and scientific publications. It includes selected public-file and station-response inspections, scoped by product, access method, version and date in the access evidence. These checks do not establish full archive coverage, measurement accuracy or scientific suitability.",
   "status_definitions": {
     "commercial_use_status": "Summary of retrieved provider terms, not a legal opinion or automatic redistribution authorization."
   },
@@ -641,8 +641,8 @@
       "access_method": "Restricted legacy v1 files. Open the version-specific Zenodo record and follow the provider access process; anonymous file downloads are not currently available.",
       "license_id": "CC-BY-4.0",
       "license_notes": "The v1 Zenodo API declares CC BY 4.0, checked 2026-11-16. This reuse declaration does not grant access to the currently restricted files; obtain provider access and retain attribution and product-specific notices.",
-      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
-      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "NetCDF in ZIP"
       ],
@@ -822,8 +822,8 @@
       "license_id": "CC-BY-4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
-      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
-      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "NetCDF-4"
       ],
@@ -1108,8 +1108,8 @@
       "access_method": "Provider download; authentication depends on distribution",
       "license_id": "CC-BY-4.0",
       "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Zenodo record API metadata, checked 2026-11-15. Retain attribution and any product-specific notices.",
-      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
-      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "NetCDF4 within ZIP"
       ],
@@ -2318,8 +2318,8 @@
       "license_id": "CC-BY-4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
-      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
-      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "NetCDF-4"
       ],
@@ -2376,8 +2376,8 @@
       "license_id": "CC-BY-4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
-      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
-      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "ESRI shapefiles for reach and node layers with metadata"
       ],
@@ -2875,7 +2875,7 @@
       "documentation_url": "https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level",
       "access_url": "https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level?tab=download",
       "access_method": "Choose a monitored lake. CDS supplies the lake record; select the project dates after retrieval.",
-      "license_id": "CC_BY_4_0",
+      "license_id": "CC-BY-4.0",
       "license_url": "https://spdx.org/licenses/CC-BY-4.0",
       "license_notes": "Credit the original source and identify changes under CC BY 4.0.",
       "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
@@ -2887,6 +2887,62 @@
         "Check the selected lake file for its actual date range, reference and uncertainty."
       ],
       "last_checked_date": "2026-11-18"
+    },
+    {
+      "product_id": "nrcs_snotel_daily_swe",
+      "product_name": "SNOTEL daily snow water equivalent",
+      "provider": "USDA NRCS",
+      "version": "Air and Water Database (AWDB) REST v1, daily WTEQ",
+      "hazard_family": [
+        "snowpack",
+        "snow_drought"
+      ],
+      "variable": "Snow water equivalent (SWE), the liquid-water depth stored in the snowpack at the station. AWDB element WTEQ.",
+      "units": "Water-equivalent depth. The checked AWDB response reports inches (1 in = 25.4 mm). Read the unit on each returned series.",
+      "data_nature": "In-situ snow-pillow measurement",
+      "spatial_support": "Point measurement at a snow monitoring station. Elevation, exposure and terrain affect representativeness.",
+      "temporal_support": "One snowpack value per provider daily date label. Retain the station time convention and quality flags.",
+      "temporal_coverage": "Varies by station and element. Check the first and last actual values and gaps for the chosen dates.",
+      "geographic_coverage": "SNOTEL sites in the western United States and Alaska, concentrated in mountain watersheds.",
+      "supported_use_cases": [
+        "Compare modeled and observed SWE at matched stations and elevations.",
+        "Examine seasonal snow storage, peak SWE and melt timing at a station after checking record completeness."
+      ],
+      "non_uses": [
+        "Basin-average water storage or basin runoff inferred from one station.",
+        "Using daily SWE as snow depth, new snowfall, daily precipitation or meltwater discharge."
+      ],
+      "limitations": [
+        "Station placement samples selected terrain and elevation bands. Snow-pillow bridging, sensor changes and missing dates can affect the series.",
+        "AWDB can revise values. Save the request, retrieval time, flags and units with the observations."
+      ],
+      "dependence_notes": "Check whether a model or gridded snow analysis used the same SNOTEL sites for assimilation, calibration or bias correction before treating them as independent validation.",
+      "evidence_ids": [
+        "NRCS_SNOTEL_SENSOR",
+        "NRCS_SNOTEL_NETWORK",
+        "NRCS_AWDB_API",
+        "NRCS_SNOTEL_DIRECTORY",
+        "NRCS_SNOTEL_WTEQ_SAMPLE",
+        "USDA_DIGITAL_RIGHTS"
+      ],
+      "documentation_url": "https://www.nrcs.usda.gov/resources/education-and-teaching-materials/water-and-climate-data-collection-and-stewardship",
+      "access_url": "https://wcc.sc.egov.usda.gov/reportGenerator/",
+      "access_example_url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&duration=DAILY&beginDate=2024-04-01&endDate=2024-04-03&returnFlags=true",
+      "access_method": "Use the NRCS Report Generator or AWDB REST v1. Select a SNTL station triplet, WTEQ, DAILY and the project dates. Request flags and inspect the returned units.",
+      "license_id": "US_GOVERNMENT_DATA_TERMS",
+      "license_url": "https://www.usda.gov/about-usda/policies-and-links",
+      "license_url_label": "USDA digital rights and copyright",
+      "license_notes": "Applies to NRCS-produced station measurements. USDA requests source credit and identifies exceptions for protected material. Check any additional provider notices when combining sources.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "JSON",
+        "CSV"
+      ],
+      "unresolved_questions": [
+        "Station and date availability, flags, local representativeness and independence for the proposed comparison."
+      ],
+      "last_checked_date": "2026-11-19"
     }
   ]
 }

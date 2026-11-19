@@ -48,7 +48,7 @@ class BuildChecks(unittest.TestCase):
         self.assertEqual(hashes, {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (self.folder / "data").glob("*.json")})
         page = first.decode("utf-8")
         payload = json.loads(re.search(r'<script id="inventory-data" type="application/json">(.*?)</script>', page, re.S)[1])
-        self.assertEqual(len(payload["products"]), 53)
+        self.assertEqual(len(payload["products"]), 54)
         source_records = json.loads((self.folder / "data/sources.json").read_text(encoding="utf-8"))
         self.assertEqual(set(payload["sources"]), {source["evidence_id"] for source in source_records})
         self.assertEqual(len(payload["hazard_groups"]), 9)
@@ -72,6 +72,19 @@ class BuildChecks(unittest.TestCase):
         self.edit_json("screening.json", lambda data: data["rules"].pop("ghcn_daily"))
         self.assert_rejected_unchanged()
 
+    def test_unrecognized_rights_codes_rejected_before_page_is_changed(self):
+        def introduce_invalid_codes(data):
+            data["products"][0]["commercial_use_status"] = "ALLOWED_WITH_CONDITIONS"
+            data["products"][1]["redistribution_status"] = "ALLOWED_WITH_CONDITIONS"
+            data["products"][2]["license_id"] = "CC_BY_4_0"
+        self.edit_json("catalog.json", introduce_invalid_codes)
+        before = (self.folder / "index.html").read_bytes()
+        result = self.run_build()
+        self.assertNotEqual(result.returncode, 0)
+        for field in ("commercial_use_status", "redistribution_status", "license_id"):
+            self.assertIn("unrecognized " + field, result.stderr)
+        self.assertEqual((self.folder / "index.html").read_bytes(), before)
+
     def test_open_interval_requires_explicit_availability_basis(self):
         self.edit_json("screening.json", lambda data: data["rules"]["ims_snow_ice"]["time"].pop("latest_availability"))
         self.assert_rejected_unchanged()
@@ -83,7 +96,7 @@ class BuildChecks(unittest.TestCase):
         source.write_text(source.read_text(encoding="utf-8") + "\n// Build identity regression fixture.\n", encoding="utf-8")
         self.assertEqual(self.run_build().returncode, 0)
         after = (self.folder / "index.html").read_text(encoding="utf-8")
-        identity = r'"build_id":"(v0.2-[a-f0-9]{16})"'
+        identity = r'"build_id":"(v0\.3-[a-f0-9]{16})"'
         self.assertNotEqual(re.search(identity, before)[1], re.search(identity, after)[1])
 
     def test_missing_catalog_access_profile_rejected(self):

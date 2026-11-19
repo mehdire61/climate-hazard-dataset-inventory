@@ -10,7 +10,7 @@ if __name__ == "__main__":
     handler = partial(SimpleHTTPRequestHandler, directory=str(root))
     with ThreadingHTTPServer(("127.0.0.1", 0), handler) as server:
         url = f"http://127.0.0.1:{server.server_port}/#site-check"
-        print(f"Climate-Hazard Dataset Inventory v0.2\n{url}\nClose with Ctrl+C.", flush=True)
+        print(f"Climate-Hazard Dataset Inventory v0.3\n{url}\nClose with Ctrl+C.", flush=True)
         webbrowser.open(url)
         try:
             server.serve_forever()

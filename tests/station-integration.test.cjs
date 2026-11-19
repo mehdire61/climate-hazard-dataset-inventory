@@ -50,7 +50,7 @@ test('hourly preview uses hourly slots and preserves two-field flags without inv
  const payload={metadata:{id:s.id},data:[{t:'1960-01-01 00:00',v:'1.2',f:'0,1'}]};
  const r=P._test.makeResult('noaa_coops_water_level',s,historical,payload,JSON.stringify(payload),[]);
  assert.equal(r.summaries[0].expectedSlots,72);assert.equal(r.series[0].cadenceMs,3600000);assert.equal(r.series[0].key,'hourly_height');
- assert.deepEqual(r.series[0].points[0].flags,{quality:null,dataFlags:'0,1',sigma:null});assert.equal(r.provenance.toolVersion,'v0.2');
+ assert.deepEqual(r.series[0].points[0].flags,{quality:null,dataFlags:'0,1',sigma:null});assert.equal(r.provenance.toolVersion,'v0.3');
 });
 test('full hourly plans cover historical leap years in bounded requests and preserve product gaps',()=>{
  const s={...station(),coopsProduct:'hourly_height'},historical={...q,start:'1959-01-01',end:'1961-12-31'};

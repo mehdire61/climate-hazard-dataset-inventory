@@ -1791,5 +1791,53 @@
     "claims": "CONUS definitions from daily GRIB sections on 2017-06-01, 2018-07-01 and 2024-02-02 agree on a 1121 x 881 north polar stereographic grid oriented at 105 W, nominal spacing 4.7625 km. The application reserves a two-cell interior margin. Check coastal cells and valid precipitation in the selected file.",
     "checked_date": "2026-11-17",
     "verification": "PROVIDER_FILES_INSPECTED"
+  },
+  {
+    "evidence_id": "NRCS_SNOTEL_SENSOR",
+    "title": "NRCS automated snow monitoring and instruments",
+    "url": "https://www.nrcs.usda.gov/resources/education-and-teaching-materials/water-and-climate-data-collection-and-stewardship",
+    "claims": "A standard SNOTEL snow pillow senses the weight of the snowpack and reports its water equivalent. Snow depth and precipitation use separate sensors.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "NRCS_SNOTEL_NETWORK",
+    "title": "NRCS SNOTEL network and public access",
+    "url": "https://www.nrcs.usda.gov/state-offices/nevada/what-is-a-snotel-station",
+    "claims": "NRCS operates SNOTEL stations in the western United States and Alaska. Measurements are publicly accessible.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "NRCS_AWDB_API",
+    "title": "NRCS Air and Water Database REST API specification",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/v3/api-docs",
+    "claims": "The station and data endpoints accept station triplets and element codes. The data endpoint supports daily duration, unit selection and quality flags.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "NRCS_SNOTEL_DIRECTORY",
+    "title": "NRCS directory of SNOTEL stations with daily WTEQ",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stationTriplets=%2A%3A%2A%3ASNTL&elements=WTEQ&durations=DAILY&activeOnly=false&returnStationElements=false",
+    "claims": "The November 19, 2026 response lists 897 station locations with daily WTEQ metadata, including inactive stations. Coarse search regions enclose the listed coordinates by state. Daily values and station operating periods require separate queries.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "NRCS_SNOTEL_WTEQ_SAMPLE",
+    "title": "NRCS daily WTEQ response at Brundage Reservoir, Idaho",
+    "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&duration=DAILY&beginDate=2024-04-01&endDate=2024-04-03&returnFlags=true",
+    "claims": "The 370:ID:SNTL daily WTEQ response for April 1–3, 2024 reports 24.0, 23.6 and 24.0 inches with QC and QA flags. The station metadata identifies the location and sensor. This check covers one station and three dates.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "USDA_DIGITAL_RIGHTS",
+    "title": "USDA digital rights and copyright policy",
+    "url": "https://www.usda.gov/about-usda/policies-and-links",
+    "claims": "USDA describes public-domain material and requests credit. Copyright, trademark and third-party exceptions can apply to specific material.",
+    "checked_date": "2026-11-19",
+    "verification": "PROVIDER_DOCUMENTATION"
   }
 ]

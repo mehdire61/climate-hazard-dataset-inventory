@@ -8,13 +8,33 @@ const area={mode:'area',areaName:'County test',areaSource:{kind:'test',vintage:'
  geometry:{type:'Polygon',coordinates:[[[-78,38],[-76,38],[-76,40],[-78,40],[-78,38]],[[-77.5,38.5],[-77.5,39],[-77,39],[-77,38.5],[-77.5,38.5]]]},start:point.start,end:point.end};
 
 test('Every original record has an explicit reviewed access route',()=>{
- assert.equal(catalog.length,53);
+ assert.equal(catalog.length,54);
  for(const product of catalog){const p=access.describe(product.product_id);assert.ok(['station','files','request','external'].includes(p.kind));
   for(const key of ['summary','auth','spatialDelivery','temporalDelivery','providerUrl','docsUrl'])assert.ok(p[key],product.product_id+' '+key);
   assert.ok(p.verification.label);assert.ok(p.verification.checkedAt);}
 });
 test('Three existing station routes are retained and have no new automatic discovery mode',()=>{
  for(const id of ['ghcn_daily','noaa_coops_water_level','usgs_streamflow'])assert.equal(access.describe(id).kind,'station');
+});
+test('SNOTEL handoff retains station and unit evidence without claiming a project download',()=>{
+ const id='nrcs_snotel_daily_swe',q={...point,lat:45.04315,lon:-116.13253,start:'2024-04-01',end:'2024-04-03'};
+ const {errors,files,manifest}=access.prepare(id,q);
+ assert.deepEqual(errors,[]);assert.deepEqual(files,[]);
+ assert.equal(manifest.accessCapability,'external');assert.deepEqual(manifest.query,q);
+ assert.equal(manifest.verification.status,'sample-payload-checked');
+ const url=new URL(manifest.referencedSources.NRCS_SNOTEL_WTEQ_SAMPLE.url);
+ assert.equal(url.searchParams.get('stationTriplets'),'370:ID:SNTL');
+ const folder=require('node:path').join(__dirname,'../docs/evidence/snotel');
+ const receipts=JSON.parse(fs.readFileSync(folder+'/receipts.json'));
+ for(const receipt of receipts){
+   const raw=fs.readFileSync(folder+'/'+receipt.file);
+   const response=receipt.file.endsWith('.gz')?require('node:zlib').gunzipSync(raw):raw;
+   assert.equal(require('node:crypto').createHash('sha256').update(response).digest('hex'),receipt.responseSha256);
+ }
+ const {stationElement,values}=JSON.parse(fs.readFileSync(folder+'/brundage-daily-wteq.json'))[0].data[0];
+ assert.equal(stationElement.elementCode,'WTEQ');assert.equal(stationElement.storedUnitCode,'in');
+ assert.deepEqual(values.map(v=>[v.date,v.value,v.qcFlag,v.qaFlag]),[
+   ['2024-04-01',24,'V','P'],['2024-04-02',23.6,'V','P'],['2024-04-03',24,'V','P']]);
 });
 test('CHIRPS plans retain monthly file support and exact original polygon including holes/source',()=>{
  const before=JSON.stringify(area),p=access.prepare('chirps_v2_daily',area);
