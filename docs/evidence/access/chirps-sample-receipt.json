@@ -1,0 +1,21 @@
+{
+  "url": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/netcdf/p05/by_month/chirps-v2.0.1985.06.days_p05.nc",
+  "resolvedUrl": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/netcdf/p05/by_month/chirps-v2.0.1985.06.days_p05.nc",
+  "retrievedAt": "2026-11-14T03:42:36.916096+00:00",
+  "status": 200,
+  "headers": {
+    "Server": "nginx/1.24.0 (Ubuntu)",
+    "Date": "Sat, 14 Nov 2026 03:42:30 GMT",
+    "Content-Type": "application/octet-stream",
+    "Content-Length": "75166064",
+    "Last-Modified": "Wed, 28 Apr 2021 17:17:56 GMT",
+    "Connection": "close",
+    "ETag": "\"608998c4-47af170\"",
+    "Accept-Ranges": "bytes"
+  },
+  "bytes": 75166064,
+  "sha256": "9d92d502f7bdca557a0a096d49289831b3a92c4319055643badb1b77b0d346c3",
+  "fullPayloadRetrieved": true,
+  "localPath": "work\\grid-access-payloads\\chirps-v2.0.1985.06.days_p05.nc",
+  "seconds": 7.83
+}

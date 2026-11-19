@@ -1,0 +1,26 @@
+{
+  "url": "https://data.eol.ucar.edu/dataset/21.093",
+  "resolvedUrl": "https://data.eol.ucar.edu/dataset/21.093",
+  "retrievedAt": "2026-11-14T03:48:06.242965+00:00",
+  "status": 200,
+  "headers": {
+    "Date": "Sat, 14 Nov 2026 03:48:06 GMT",
+    "Server": "Apache",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Frame-Options": "sameorigin",
+    "Upgrade": "h2",
+    "Connection": "Upgrade, close",
+    "Last-Modified": "Thu, 22 Oct 2026 17:52:52 GMT",
+    "ETag": "\"5ad-65e71885b82ef\"",
+    "Accept-Ranges": "bytes",
+    "Content-Length": "1453",
+    "Content-Security-Policy": "upgrade-insecure-requests;       default-src 'self';       base-uri 'self';       form-action 'self';       frame-ancestors 'self';       frame-src 'self';       child-src 'self';       script-src 'self' 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' orgnav.ucar.edu *.gstatic.com *.googleapis.com;       style-src 'self' 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' orgnav.ucar.edu *.gstatic.com *.googleapis.com;       connect-src 'self' orgnav.ucar.edu *.googleapis.com *.google.com *.gstatic.com data:;       img-src 'self' data: archive.eol.ucar.edu orgnav.ucar.edu *.eol.ucar.edu *.googleapis.com *.gstatic.com *.google.com *.googleusercontent.com https://img.youtube.com;       font-src 'self' data: https://fonts.gstatic.com;       manifest-src https://data.eol.ucar.edu/manifest.json;       ",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "Feature-Policy": "geolocation 'self'; vibrate 'none';",
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "sha256": "948045aa4abb4772794c987e9ca7831efa012e6593af94a743f82713c2a7e144",
+  "rawText": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n    <meta charset=\"utf-8\"/>\n    <link rel=\"icon\" href=\"/favicon.ico\"/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n    <meta name=\"theme-color\" content=\"#000000\"/>\n    <meta\n            name=\"description\"\n            content=\"Web site created using create-react-app\"\n    />\n    <link rel=\"apple-touch-icon\" href=\"/logo192.png\"/>\n    <!--\n      manifest.json provides metadata used when your web app is installed on a\n      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/\n    -->\n    <link rel=\"manifest\" href=\"/manifest.json\"/>\n\n    <!-- Google Fonts -->\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n\n    <!-- Font Poppins -->\n    <link href=\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap\"\n          rel=\"stylesheet\">\n\n    <title>NSF NCAR  EOL Field Data Archive</title>\n  <script type=\"module\" crossorigin src=\"/assets/index-BN2aPxlc.js\"></script>\n  <link rel=\"stylesheet\" crossorigin href=\"/assets/index-DJBgt8KT.css\">\n</head>\n<body>\n<noscript>This website requires JavaScript.</noscript>\n<div id=\"root\"></div>\n</body>\n</html>\n"
+}

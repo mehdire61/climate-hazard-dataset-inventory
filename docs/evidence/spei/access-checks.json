@@ -1,0 +1,53 @@
+[
+  {
+    "url": "https://zenodo.org/api/records/8060268",
+    "method": "GET",
+    "requestHeaders": {},
+    "maxBytesRead": 500000,
+    "bytesRead": 3819,
+    "status": 200,
+    "contentType": "application/json",
+    "checkedAt": "2026-11-16T19:19:22.616967+00:00",
+    "sha256": "e2488f048c2a2e3ee33147b07d8e324dc8397a6379e1c3db41811a0cdd9c951f",
+    "scope": "Public metadata or explicitly bounded anonymous content-access probe; no large dataset transfer.",
+    "file": "spei-v1-api.json"
+  },
+  {
+    "url": "https://zenodo.org/records/8060268",
+    "method": "GET",
+    "requestHeaders": {},
+    "maxBytesRead": 500000,
+    "bytesRead": 61617,
+    "status": 200,
+    "contentType": "text/html; charset=utf-8",
+    "checkedAt": "2026-11-16T19:19:23.237930+00:00",
+    "sha256": "8c16c462aaa9e7210d8008d9007bc9a013fda5c16a98810d564edac6b9567cd1",
+    "scope": "Public metadata or explicitly bounded anonymous content-access probe; no large dataset transfer."
+  },
+  {
+    "url": "https://zenodo.org/api/records/8060268/files/30days.zip/content",
+    "method": "HEAD",
+    "requestHeaders": {},
+    "maxBytesRead": 0,
+    "bytesRead": 0,
+    "status": 403,
+    "contentType": "application/json",
+    "checkedAt": "2026-11-16T19:19:23.578885+00:00",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "scope": "Public metadata or explicitly bounded anonymous content-access probe; no large dataset transfer."
+  },
+  {
+    "url": "https://zenodo.org/api/records/8060268/files/30days.zip/content",
+    "method": "GET",
+    "requestHeaders": {
+      "Range": "bytes=0-1023"
+    },
+    "maxBytesRead": 1024,
+    "bytesRead": 48,
+    "status": 403,
+    "contentType": "application/json",
+    "checkedAt": "2026-11-16T19:19:23.925536+00:00",
+    "sha256": "6c0aea9e4bc515388b2427c60971c378de92b611ec77a2d6d9cbc10b6517dafe",
+    "scope": "Public metadata or explicitly bounded anonymous content-access probe; no large dataset transfer."
+  }
+]

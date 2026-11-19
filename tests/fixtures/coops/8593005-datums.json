@@ -1,0 +1,106 @@
+{
+  "accepted": "Sep 28 2010",
+  "superseded": "",
+  "epoch": "1983-2001",
+  "units": "meters",
+  "OrthometricDatum": "NAVD88",
+  "datums": [
+    {
+      "name": "STND",
+      "description": "Station Datum",
+      "value": 0.0
+    },
+    {
+      "name": "MHHW",
+      "description": "Mean Higher-High Water",
+      "value": 0.797
+    },
+    {
+      "name": "MHW",
+      "description": "Mean High Water",
+      "value": 0.726
+    },
+    {
+      "name": "DTL",
+      "description": "Mean Diurnal Tide Level",
+      "value": 0.308
+    },
+    {
+      "name": "MTL",
+      "description": "Mean Tide Level",
+      "value": 0.296
+    },
+    {
+      "name": "MSL",
+      "description": "Mean Sea Level",
+      "value": 0.296
+    },
+    {
+      "name": "MLW",
+      "description": "Mean Low Water",
+      "value": -0.132
+    },
+    {
+      "name": "MLLW",
+      "description": "Mean Lower-Low Water",
+      "value": -0.179
+    },
+    {
+      "name": "GT",
+      "description": "Great Diurnal Range",
+      "value": 0.977
+    },
+    {
+      "name": "MN",
+      "description": "Mean Range of Tide",
+      "value": 0.859
+    },
+    {
+      "name": "DHQ",
+      "description": "Mean Diurnal High Water Inequality",
+      "value": 0.071
+    },
+    {
+      "name": "DLQ",
+      "description": "Mean Diurnal Low Water Inequality",
+      "value": 0.047
+    },
+    {
+      "name": "HWI",
+      "description": "Greenwich High Water Interval (in hours)",
+      "value": 0.483
+    },
+    {
+      "name": "LWI",
+      "description": "Greenwich Low Water Interval (in hours)",
+      "value": 7.621
+    },
+    {
+      "name": "NAVD88",
+      "description": "North American Vertical Datum of 1988",
+      "value": 0.276
+    }
+  ],
+  "LAT": null,
+  "LATdate": "",
+  "LATtime": "",
+  "HAT": null,
+  "HATdate": "",
+  "HATtime": "",
+  "min": null,
+  "mindate": "",
+  "mintime": "",
+  "max": null,
+  "maxdate": "",
+  "maxtime": "",
+  "disclaimers": {
+    "disclaimers": [],
+    "self": null
+  },
+  "DatumAnalysisPeriod": [
+    "08/01/1995 - 10/31/1995"
+  ],
+  "NGSLink": "",
+  "ctrlStation": "8594900 Washington, DC",
+  "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8593005/datums.json"
+}

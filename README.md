@@ -1,59 +1,48 @@
-# Climate-Hazard Dataset Inventory
+# Climate-Hazard Dataset Inventory v0.2
 
-A searchable inventory of climate-hazard datasets, with documented quantities, coverage, uses, limitations and links to the original sources.
+Find climate and water datasets for a project location and period. The inventory contains **53 records in nine overlapping hazard groups**, with links to 213 sources. [Open the inventory on GitHub Pages](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
-**Version v0.1 · Updated 4 November 2026**
+v0.2 adds **Site check** and one dataset to the v0.1 catalog. **Copernicus satellite lake water levels** (v5.0) reports water surface height and uncertainty for monitored lakes. [Copernicus Climate Data Store](https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level)
 
-**[Open the inventory](https://mehdire61.github.io/climate-hazard-dataset-inventory/)** — use it directly in your browser; no download or installation is needed.
+## Using the inventory
 
-Use this website address when sharing the inventory: https://mehdire61.github.io/climate-hazard-dataset-inventory/. The [GitHub repository](https://github.com/mehdire61/climate-hazard-dataset-inventory) provides the source files and issue tracker.
+1. Open **Site check** and choose a point with a search radius, a named boundary or your own area. Set the project dates.
+2. Choose a hazard group to see the shortlist. Each record explains what the product measures, its spatial and temporal resolution, and how to get it. Screening uses documented coverage. Actual availability can vary by station, grid cell, event and date.
+3. For supported stations, preview observations and inspect units, gaps, flags and the reporting period. For gridded products, follow the access route to the provider or prepare a file request. Some providers require an account.
+4. Export the project brief or screening CSV to share your findings. The **Inventory** tab also lets you browse, filter and export catalog metadata across all hazard groups.
 
-The inventory contains 52 records across nine overlapping hazard groups. Search or filter the records, open their details and supporting sources, or download the displayed metadata as CSV. The three NCEI Storm Events entries are views of one reporting collection; record counts do not represent independent datasets.
+## Running locally
 
-The inventory summarizes documentation and publications. Scientific data files have not been downloaded or tested here. Coverage is selective, and the severe-thunderstorm entries currently focus on the United States. Dataset-specific limitations and access conditions are stated in each record.
+Open [index.html](index.html) in a browser. Keep the directory structure intact so the map can load its regional tiles. The catalog, screening, saved examples and overview map work offline. Live station searches, provider downloads and optional online map detail need internet access.
 
-## Open locally
+To use a local web server, run the following from this folder. It opens the app in your default browser. Windows users can also double-click **Start preview.cmd**.
 
-Open [index.html](index.html) in a browser. The page is self-contained and does not require installation, a server or an internet connection to browse the embedded inventory. External source links require internet access.
+```sh
+python preview.py
+```
 
-## Files
+## Maintaining the site
 
-| File | Purpose |
+The site is static. GitHub Pages can serve it from the repository root. The page embeds the catalog and application code. Regional map tiles are loaded from `data/map-tiles/`.
+
+| Location | Contents |
 | --- | --- |
-| `index.html` | Complete page, styling, JavaScript and embedded public metadata |
-| `data/catalog.json` | Public dataset records and catalog revision |
-| `data/sources.json` | Linked source descriptions, review dates and access qualifications |
-| `data/hazard_groups.json` | Browsing groups and record membership |
-| `build.py` | Validates and embeds the JSON metadata in the page |
+| `data/` | Catalog records, sources, hazard groups, screening rules, access profiles, saved examples and map data |
+| `src/` | Site-check interface, screening, provider adapters, charts and exports |
+| `docs/evidence/` | Provider metadata and selected sample records referenced by the access profiles |
+| `vendor/` | Bundled browser libraries and their licences |
+| `tests/` | Automated application and build tests, with sample provider responses |
 
-The JSON files contain the public text used by the page. No separate wording transformation is required. Groups overlap; the total is calculated from unique product records.
+After editing the data or application source, rebuild with Python 3.10 or later and run the tests. The build uses the Python standard library. The JavaScript tests use Node.js 22 or later and Python on the command path.
 
-## Update the inventory
+```sh
+python build.py
+python -B -m unittest discover -s tests -p "build_test.py"
+node --test "tests/*.test.cjs"
+```
 
-1. Edit the relevant files in `data/`. Link sources through each record's `evidence_ids`, and include each new record in at least one browsing group.
-2. Update `catalog_revision` in `data/catalog.json`, preserving the `revision | YYYY-MM-DD | note` format. This tracks metadata changes separately from the public release version and is retained in JSON and CSV, rather than displayed on the page. Source checked dates should reflect when the documentation was reviewed.
-3. With Python 3.10 or later, run:
+## Sources and reuse
 
-   ```sh
-   python build.py
-   ```
+Records link to provider documentation, access conditions and scientific limitations. The three NOAA Storm Events entries describe hazard-specific views of one reporting collection. For corrections, include the record name and a supporting source. [Report a correction](https://github.com/mehdire61/climate-hazard-dataset-inventory/issues)
 
-4. Open the page and check the affected records, filters and CSV export.
-
-The build uses only the Python standard library. It validates required record and source fields, dates, web addresses, identifiers and group membership before rewriting the embedded data. It leaves the source JSON files unchanged. Edit `index.html` directly for layout or interface changes; the build replaces only its `inventory-data` block.
-
-The CSV contains the filtered public catalog metadata, in the displayed order. It includes scientific qualifications and source URLs, but not the complete source annotations or the underlying scientific data files. Its quantity column is named `quantity_represented`.
-
-## Website deployment
-
-GitHub Pages publishes this repository from **main → / (root)**. After rebuilding and checking a change locally, commit and push it to `main`; GitHub deploys the updated files at the same website address. The included `.nojekyll` file allows the static files to be served without Jekyll processing. No custom deployment workflow or server-side application is required.
-
-The page's canonical URL identifies the public website. `REPOSITORY_URL` in `index.html` points to the source repository so the correction link opens GitHub Issues.
-
-See [GitHub's Pages setup documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site).
-
-## Corrections and reuse
-
-To suggest a correction, [open a GitHub issue](https://github.com/mehdire61/climate-hazard-dataset-inventory/issues) with the record name, the text to change and a link to supporting provider documentation or a scientific publication.
-
-Linked datasets retain their providers' access and reuse conditions. A metadata listing does not grant permission to redistribute the underlying data. No repository-wide reuse licence has been selected for this release.
+Each provider sets the terms for its data. Source records, station previews and file checks describe the product, place and period examined. Project suitability also depends on scale, completeness and the analysis you intend to perform. The map credits OpenFreeMap, OpenMapTiles and OpenStreetMap contributors. [Map sources and attribution](docs/BASEMAP.md) · [Map data licence](data/offline-basemap-LICENSE.txt)

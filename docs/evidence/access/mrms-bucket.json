@@ -1,0 +1,18 @@
+{
+  "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&delimiter=/",
+  "resolvedUrl": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&delimiter=/",
+  "retrievedAt": "2026-11-14T03:48:06.174341+00:00",
+  "status": 200,
+  "headers": {
+    "x-amz-id-2": "/d9GRnONii9Qf+sF3TQalE0P4sFIyTOlZED95Y+rueLq3yfyW1rWPCKfmom7Gel56OdRIwR4fSNWxsMhEJ5OjWbsy0hQuo5l",
+    "x-amz-request-id": "88Q1WR23B9B2S6B1",
+    "Server": "AmazonS3",
+    "Date": "Sat, 14 Nov 2026 03:48:07 GMT",
+    "x-amz-bucket-region": "us-east-1",
+    "Content-Type": "application/xml",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close"
+  },
+  "sha256": "4165c5a044bb5a23a5e9f534465f2b572a9e6575784961127b921452c5429b74",
+  "rawText": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ListBucketResult xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"><Name>noaa-mrms-pds</Name><Prefix></Prefix><KeyCount>11</KeyCount><MaxKeys>1000</MaxKeys><Delimiter>/</Delimiter><IsTruncated>false</IsTruncated><Contents><Key>index.html</Key><LastModified>2025-11-24T20:33:40.000Z</LastModified><ETag>&quot;0d6853386d167e668f7e862944150ab0&quot;</ETag><ChecksumAlgorithm>CRC32</ChecksumAlgorithm><ChecksumType>FULL_OBJECT</ChecksumType><Size>36822</Size><StorageClass>STANDARD</StorageClass></Contents><CommonPrefixes><Prefix>ALASKA/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>ANC/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>CARIB/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>CONUS/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>CONUS_5KM/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>ConvectProb/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>GUAM/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>HAWAII/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>ProbSevere/</Prefix></CommonPrefixes><CommonPrefixes><Prefix>unsupported/</Prefix></CommonPrefixes></ListBucketResult>"
+}

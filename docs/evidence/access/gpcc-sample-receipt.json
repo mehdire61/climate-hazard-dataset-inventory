@@ -1,0 +1,23 @@
+{
+  "url": "https://opendata.dwd.de/climate_environment/GPCC/GPCC_Precipitation_Analysis_Monthly/Version_2025/100_degree/gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+  "resolvedUrl": "https://opendata.dwd.de/climate_environment/GPCC/GPCC_Precipitation_Analysis_Monthly/Version_2025/100_degree/gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+  "retrievedAt": "2026-11-14T03:42:39.230174+00:00",
+  "status": 200,
+  "headers": {
+    "Server": "nginx",
+    "Date": "Sat, 14 Nov 2026 03:42:38 GMT",
+    "Content-Type": "application/octet-stream",
+    "Content-Length": "324408",
+    "Last-Modified": "Fri, 19 Dec 2025 11:30:13 GMT",
+    "Connection": "close",
+    "ETag": "\"69453745-4f338\"",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Strict-Transport-Security": "max-age=31536000",
+    "Accept-Ranges": "bytes"
+  },
+  "bytes": 324408,
+  "sha256": "cd5103036acebd5e1ee791c6fb6279e5196bdd02602931f70a2efee8ee63e921",
+  "fullPayloadRetrieved": true,
+  "localPath": "work\\grid-access-payloads\\gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+  "seconds": 1.31
+}

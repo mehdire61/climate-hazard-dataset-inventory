@@ -1,1 +1,10 @@
 * text=auto eol=lf
+
+# Preserve the original bytes of provider responses, map tiles and vendored assets.
+docs/evidence/** -text
+tests/fixtures/** -text
+data/map-tiles/** -text
+vendor/** -text
+*.mp4 binary
+*.webm binary
+*.zip binary

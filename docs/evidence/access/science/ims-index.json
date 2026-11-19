@@ -1,0 +1,14 @@
+{
+  "url": "https://noaadata.apps.nsidc.org/NOAA/G02156/",
+  "retrievedAt": "2026-11-14T03:45:28.992Z",
+  "status": 200,
+  "headers": {
+    "connection": "Keep-Alive",
+    "content-type": "text/html",
+    "date": "Sat, 14 Nov 2026 03:45:29 GMT",
+    "keep-alive": "timeout=3, max=100",
+    "server": "nginx/1.23.4",
+    "transfer-encoding": "chunked"
+  },
+  "rawText": "<html>\r\n<head><title>Index of /NOAA/G02156/</title></head>\r\n<body>\r\n<h1>Index of /NOAA/G02156/</h1><hr><pre><a href=\"../\">../</a>\r\n<a href=\"1km/\">1km/</a>                                               01-Jan-2026 14:10                   -\r\n<a href=\"24km/\">24km/</a>                                              01-Jan-2026 14:10                   -\r\n<a href=\"4km/\">4km/</a>                                               01-Jan-2026 14:10                   -\r\n<a href=\"GIS/\">GIS/</a>                                               03-Mar-2015 00:32                   -\r\n<a href=\"images/\">images/</a>                                            01-Jan-2026 14:10                   -\r\n<a href=\"metadata/\">metadata/</a>                                          17-Sep-2025 22:58                   -\r\n<a href=\"netcdf/\">netcdf/</a>                                            03-Jul-2024 17:40                   -\r\n<a href=\"software/\">software/</a>                                          07-Aug-2017 22:46                   -\r\n</pre><hr></body>\r\n</html>\r\n"
+}

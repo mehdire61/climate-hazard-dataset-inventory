@@ -1,0 +1,79 @@
+[
+  {
+    "file": "turf.min.js",
+    "url": "https://unpkg.com/@turf/turf@7.4.0/turf.min.js",
+    "sha256": "5db5dda50210fa0f25394672383ba4a2e6fcde3c9e95ae0e21d62d327fc66d05",
+    "license": "MIT",
+    "runtime": "embedded locally in index.html; no CDN request"
+  },
+  {
+    "file": "TURF-LICENSE.txt",
+    "url": "https://unpkg.com/@turf/turf@7.4.0/LICENSE",
+    "sha256": "f9b32b82fd5a1d3a990526d86da97f42fb805d9f4d9f978125c4679b674fce44",
+    "license": "MIT",
+    "runtime": "embedded locally in index.html; no CDN request"
+  },
+  {
+    "file": "leaflet.js",
+    "url": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+    "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a",
+    "license": "BSD-2-Clause",
+    "runtime": "embedded locally in index.html; no CDN request"
+  },
+  {
+    "file": "leaflet.css",
+    "url": "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    "sha256": "a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6",
+    "license": "BSD-2-Clause",
+    "runtime": "embedded locally in index.html; no CDN request"
+  },
+  {
+    "file": "LEAFLET-LICENSE.txt",
+    "url": "https://unpkg.com/leaflet@1.9.4/LICENSE",
+    "sha256": "53e8dc25862014e4324741ca18fbe3611e11d42ef69f59f86ea8c5389647d4cb",
+    "license": "BSD-2-Clause",
+    "runtime": "embedded locally in index.html; no CDN request"
+  },
+  {
+    "file": "protomaps-leaflet.js",
+    "url": "https://unpkg.com/protomaps-leaflet@5.1.0/dist/protomaps-leaflet.js",
+    "sha256": "26af014f7b1af308ec120b791cff76657bb9c3383633b52033e6edf9e5e4cdb5",
+    "license": "BSD-3-Clause",
+    "runtime": "Local vector basemap renderer"
+  },
+  {
+    "file": "PROTOMAPS-LEAFLET-LICENSE.txt",
+    "url": "https://unpkg.com/protomaps-leaflet@5.1.0/LICENSE",
+    "sha256": "a2ada548aa25012e833b71364a402d6924f2afcf5f8f146e2989a377290ab3ad",
+    "license": "BSD-3-Clause",
+    "runtime": "Local vector basemap renderer"
+  },
+  {
+    "file": "hyparquet-ghcn.min.js",
+    "url": "https://registry.npmjs.org/hyparquet/-/hyparquet-1.33.1.tgz",
+    "sha256": "469b11f1cb9be8bd1befc4b6f01fd123735a5e59813a4185d57c83527ad6d772",
+    "license": "MIT",
+    "runtime": "Local browser bundle of parquetMetadataAsync and parquetRead; hyparquet 1.33.1, esbuild 0.25.12."
+  },
+  {
+    "file": "HYPARQUET-LICENSE.txt",
+    "url": "https://registry.npmjs.org/hyparquet/-/hyparquet-1.33.1.tgz",
+    "sha256": "6e19a315e03f36020f37dedcb1dd93b4eba6ebfd94ccdd13ec55b940776fb55e",
+    "license": "MIT",
+    "runtime": "Local browser bundle of parquetMetadataAsync and parquetRead; hyparquet 1.33.1, esbuild 0.25.12."
+  },
+  {
+    "file": "pako-inflate.min.js",
+    "url": "https://registry.npmjs.org/pako/-/pako-3.0.3.tgz",
+    "sha256": "04a895459e5b456d4883d55f14e2e414864ee023b90b1ce51c759cf7b7ade73b",
+    "license": "MIT AND Zlib",
+    "runtime": "Local pako 3.0.3 gzip decoder for NOAA multi-member station archives."
+  },
+  {
+    "file": "PAKO-LICENSE.txt",
+    "url": "https://registry.npmjs.org/pako/-/pako-3.0.3.tgz",
+    "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539",
+    "license": "MIT AND Zlib",
+    "runtime": "Local pako 3.0.3 gzip decoder for NOAA multi-member station archives."
+  }
+]

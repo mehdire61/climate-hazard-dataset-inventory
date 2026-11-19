@@ -1,0 +1,110 @@
+{
+  "count": 1,
+  "units": null,
+  "stations": [
+    {
+      "tidal": false,
+      "greatlakes": true,
+      "shefcode": "",
+      "details": {
+        "id": "9063075",
+        "established": "2014-04-01 00:00:00",
+        "removed": "2014-10-27 00:00:00",
+        "noaachart": "14830",
+        "timemeridian": -75,
+        "timezone": -5.0,
+        "origyear": "2014-06-02 10:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/details.json"
+      },
+      "sensors": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/sensors.json"
+      },
+      "floodlevels": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/floodlevels.json"
+      },
+      "datums": {
+        "accepted": null,
+        "superseded": null,
+        "epoch": null,
+        "units": "meters",
+        "OrthometricDatum": null,
+        "datums": [
+          {
+            "name": "GL_LWD",
+            "description": "Great Lakes Lower Water Datum",
+            "value": 173.5
+          }
+        ],
+        "LAT": null,
+        "LATdate": null,
+        "LATtime": null,
+        "HAT": null,
+        "HATdate": null,
+        "HATtime": null,
+        "min": null,
+        "mindate": null,
+        "mintime": null,
+        "max": null,
+        "maxdate": null,
+        "maxtime": null,
+        "disclaimers": {
+          "disclaimers": [],
+          "self": null
+        },
+        "DatumAnalysisPeriod": [],
+        "NGSLink": null,
+        "ctrlStation": null,
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/datums.json"
+      },
+      "supersededdatums": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/supersededdatums.json"
+      },
+      "harmonicConstituents": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/harcon.json"
+      },
+      "benchmarks": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/benchmarks.json"
+      },
+      "tidePredOffsets": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/tidepredoffsets.json"
+      },
+      "ofsMapOffsets": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/ofsmapoffsets.json"
+      },
+      "state": "OH",
+      "timezone": "EST",
+      "timezonecorr": -5,
+      "observedst": true,
+      "stormsurge": false,
+      "nearby": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/nearby.json"
+      },
+      "forecast": false,
+      "outlook": false,
+      "HTFhistorical": false,
+      "HTFmonthly": false,
+      "nonNavigational": false,
+      "inundationdb": false,
+      "id": "9063075",
+      "name": "Old Woman Creek NERRS",
+      "lat": 41.382553,
+      "lng": -82.514366,
+      "affiliations": "",
+      "portscode": null,
+      "products": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/products.json"
+      },
+      "disclaimers": {
+        "disclaimers": [],
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/disclaimers.json"
+      },
+      "notices": {
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075/notices.json"
+      },
+      "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9063075.json",
+      "expand": "details,sensors,floodlevels,datums,harcon,tidepredoffsets,ofsmapoffsets,products,disclaimers,notices",
+      "tideType": "Great Lakes"
+    }
+  ],
+  "self": null
+}

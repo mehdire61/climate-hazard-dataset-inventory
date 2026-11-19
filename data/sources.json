@@ -120,8 +120,8 @@
     "title": "NOAA NCEI Integrated Surface Database",
     "url": "https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database",
     "doi": "10.1175/2011BAMS3015.1",
-    "claims": "Hourly/synoptic observations include gusts, temperature and precipitation; station reporting and QC vary.",
-    "checked_date": "2026-11-01",
+    "claims": "NOAA describes the legacy ISD archive as extending back to 1901. Hourly station, variable and quality coverage vary.",
+    "checked_date": "2026-11-17",
     "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
   },
   {
@@ -513,8 +513,8 @@
     "evidence_id": "F01",
     "title": "GRDC Data Portal and Terms of Use",
     "url": "https://grdc.bafg.de/data/data_portal/",
-    "claims": "Original discharge data are restricted to research use. Commercial use and unauthorized redistribution are prohibited. Daily and monthly records can be requested through a form and delivered by an emailed link. The portal documents six export formats.",
-    "checked_date": "2026-11-01",
+    "claims": "The web portal supplies original discharge data for research. Attributed analysis and statistical products are permitted. Portal terms restrict redistribution.",
+    "checked_date": "2026-11-17",
     "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
   },
   {
@@ -776,8 +776,8 @@
     "claims": "Lists MODIS thermal anomaly and fire products for Terra and Aqua by level: Level 2 swath (MOD14/MYD14) and Level 3 daily and 8-day (MOD14A1/A2, MYD14A1/A2). Summary written from search-indexed text because the page could not be opened directly on this check date.",
     "checked_date": "2026-11-04",
     "verification": "OFFICIAL_INDEXED_TEXT_REVIEWED_DIRECT_OPEN_BLOCKED",
-    "alternate_url": "https://web.archive.org/web/20261012064331/https://modis.gsfc.nasa.gov/data/dataprod/mod14.php",
-    "alternate_label": "Archived copy of the MODIS product page (12 Oct 2026)"
+    "alternate_url": "https://www.earthdata.nasa.gov/s3fs-public/2023-09/MODIS_C6_C6.1_Fire_User_Guide_1.0.pdf",
+    "alternate_label": "NASA Collection 6 and 6.1 Active Fire Product User’s Guide"
   },
   {
     "evidence_id": "FIRE03",
@@ -986,6 +986,8 @@
     "url": "https://data.bris.ac.uk/data/dataset/qb8ujazzda0s2aykkv0oq0ctp",
     "doi": "10.5523/bris.qb8ujazzda0s2aykkv0oq0ctp",
     "claims": "Producer record for the 0.1-degree hourly hPET dataset, based on FAO Penman-Monteith and ERA5-Land, under CC BY 4.0. The hPET license does not by itself establish the SPEI-GD output license. Scientific data files were not downloaded.",
+    "alternate_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8385079/",
+    "alternate_label": "Producer paper and dataset DOI",
     "checked_date": "2026-11-02",
     "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
   },
@@ -1391,8 +1393,8 @@
     "title": "Liu, X. (2023), SPEI-GD, version v1, Zenodo.",
     "url": "https://zenodo.org/records/8060268",
     "doi": "10.5281/zenodo.8060268",
-    "claims": "Describes a 112 GB ZIP/NetCDF distribution. The title and description give conflicting dates, and the rendered record shows no license.",
-    "checked_date": "2026-11-03",
+    "claims": "Version v1 remains identifiable by DOI 10.5281/zenodo.8060268. Its title and description give conflicting periods. The current landing page states that the record is public but files are restricted; the newer version is separate.",
+    "checked_date": "2026-11-16",
     "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
   },
   {
@@ -1459,5 +1461,335 @@
     "claims": "Provider tool that builds Data API requests for CO-OPS stations; links the API documentation. Example used here: The Battery (8518750), water_level, 29 to 30 Oct 2012, MLLW, GMT, metric.",
     "checked_date": "2026-11-03",
     "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_USGS_OKINAWA",
+    "title": "USGS historical daily discharge at Benoki-Gawa at Benoki, Okinawa",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v1/collections/daily/items?f=json&monitoring_location_id=USGS-16875200&parameter_code=00060&statistic_id=00003&time=1967-05-01%2F1967-05-03&limit=10",
+    "claims": "The USGS OGC service returns approved daily mean discharge at this Japanese station for May 1–3, 1967. The network includes some historical records beyond its usual U.S. coverage.",
+    "checked_date": "2026-11-17",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "R26_USGS",
+    "title": "USGS Water Data API overview",
+    "url": "https://api.waterdata.usgs.gov/docs/ogcapi/",
+    "claims": "U.S. water monitoring; a station and its series must be located. Regional screening uses deliberately broad sourced geographic boxes.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_COOPS",
+    "title": "NOAA CO-OPS station network",
+    "url": "https://tidesandcurrents.noaa.gov/stations.html",
+    "claims": "U.S. coastal, Great Lakes and territorial station network. Individual station periods and datums require lookup.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_STORM",
+    "title": "NOAA Storm Events 2026 file",
+    "url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/StormEvents_details-ftp_v1.0_d2026_c20261026.csv.gz",
+    "claims": "Direct CSV inspection found the latest event date 2026-07-31; the regional scope is the United States and adjacent waters.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_MTBS",
+    "title": "MTBS coverage FAQ",
+    "url": "https://www.mtbs.gov/faqs",
+    "claims": "MTBS includes CONUS, Alaska, Hawaii and Puerto Rico.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_STAGE4",
+    "title": "NCAR Stage IV metadata",
+    "url": "https://data.ucar.edu/dataset/ncep-emc-4km-gridded-data-grib-stage-iv-data",
+    "claims": "NCAR lists data through 2026-09-30, CONUS coverage and Alaska/Puerto Rico additions from April 2017; component boxes are conservative screening approximations.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_MRMS",
+    "title": "MRMS historical archive and domains",
+    "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsguides/gridded-boundary-condition-data/gridded-data-sources",
+    "claims": "The government data guide lists MRMS QPE from 2012 and five geographic sectors. NOAA AWS first-listed files and GRIB grid headers were checked separately; 2020-10-14 is the selected archive start, not a universal MRMS start.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_HURDAT",
+    "title": "NHC HURDAT2 basin archives",
+    "url": "https://www.nhc.noaa.gov/data/",
+    "claims": "HURDAT2 covers the North Atlantic and northeast/central Pacific basins; the encoded box is a broad screening envelope rather than an observed-track footprint.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_MOD14",
+    "title": "MOD14 collection dates",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2271754179-LPCLOUD.umm_json",
+    "claims": "Collection 061 begins 2000-02-24.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_MCD64A1",
+    "title": "MCD64A1 collection dates",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565786756-LPCLOUD.umm_json",
+    "claims": "Collection 061 begins 2000-11-01.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_MOD10A1",
+    "title": "MOD10A1 collection dates",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565093311-NSIDC_CPRD.umm_json",
+    "claims": "Collection 61 begins 2000-02-24.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_VIIRS",
+    "title": "NASA VIIRS collection dates",
+    "url": "https://cmr.earthdata.nasa.gov/search/collections.umm_json?short_name=VNP14IMG",
+    "claims": "CMR metadata for VNP14IMG, VJ114IMG and VJ214IMG establishes platform-specific starts; their responses are preserved with verification evidence.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_GFM",
+    "title": "EODC GFM collection extent",
+    "url": "https://catalogue.services.eodc.eu/collections/GFM",
+    "claims": "The live collection metadata gives a 2015-01-01 archive start. This does not establish that item searches are operational.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_CEMS",
+    "title": "Copernicus EMS operational start",
+    "url": "https://documentation.dataspace.copernicus.eu/Data/CEMS.html",
+    "claims": "The service has operated since 1 April 2012; each activation and product footprint still requires lookup.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_SWOT_L2_HR_Raster_D",
+    "title": "SWOT_L2_HR_Raster_D dates and provider license",
+    "url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_Raster_D",
+    "claims": "CMR collection start is 2022-12-16; the earliest listed D granule starts 2023-03-28. Provider Dataset JSON-LD explicitly declares CC BY 4.0.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_SWOT_L2_HR_RiverSP_D",
+    "title": "SWOT_L2_HR_RiverSP_D dates and provider license",
+    "url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D",
+    "claims": "CMR collection start is 2022-12-16; the earliest listed D granule starts 2023-03-28. Provider Dataset JSON-LD explicitly declares CC BY 4.0.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_LHASA",
+    "title": "NASA LHASA collection metadata",
+    "url": "https://cmr.earthdata.nasa.gov/search/collections.umm_json?short_name=Global_Landslide_Nowcast",
+    "claims": "V2.0.0 C2654319036-GES_DISC spans 2015-04-03 through 2021-02-10 in collection metadata. V1.1 is a distinct categorical archive dating to 2000.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_IBTRACS",
+    "title": "IBTrACS v04r01 original CSV",
+    "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.ALL.list.v04r01.csv",
+    "claims": "The first dated rows begin 1842-10-25; no 1841 observation was inferred.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_GRACE_GAP",
+    "title": "GRACE end and GRACE-FO restart",
+    "url": "https://podaac.jpl.nasa.gov/announcements/2019-04-10_Complete_historical_records_of_GRACE_Level-2_RL06_datasets",
+    "claims": "GRACE RL06 historical records end June 2017; GRACE-FO measurements resume June 2018. The current JPL mascon granule was checked through 2026-09-16.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_GRACE_FO",
+    "title": "NASA GRACE-FO mission timeline",
+    "url": "https://www.jpl.nasa.gov/missions/gravity-recovery-and-climate-experiment-follow-on-grace-fo/",
+    "claims": "GRACE-FO has continued measurements since June 2018.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_CHIRPS3",
+    "title": "CHIRPS3 daily provider readme",
+    "url": "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/daily/readme.txt",
+    "claims": "The daily CHIRPS3 satellite-disaggregation series is explicitly available from 1998.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_LICENSE_spei_gd_v1",
+    "title": "Provider dataset license metadata",
+    "url": "https://zenodo.org/api/records/8060268",
+    "claims": "The record explicitly declares cc-by-4.0. File access permissions are separate from reuse terms.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_LICENSE_gfed_5_1",
+    "title": "Provider dataset license metadata",
+    "url": "https://zenodo.org/api/records/16794692",
+    "claims": "The record explicitly declares cc-by-4.0. File access permissions are separate from reuse terms.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_GRACE_LICENSE",
+    "title": "JPL mascon dataset license",
+    "url": "https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4",
+    "claims": "Dataset JSON-LD explicitly declares Creative Commons Attribution 4.0, superseding an inferred general NASA default.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R2_MRMS_NOAA",
+    "title": "NOAA NSSL MRMS operational deployment",
+    "url": "https://www.nssl.noaa.gov/projects/mrms/",
+    "claims": "Operational deployment in 2014; does not specify a universal field start or complete archive.",
+    "checked_date": "2026-11-15",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "R26_GRACE_CURRENT_GRANULE",
+    "title": "Current JPL GRACE/GRACE-FO v04 CMR granule metadata",
+    "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C3195527175-POCLOUD&page_size=1&sort_key=-start_date",
+    "claims": "The listed GRCTellus.JPL.200204_202609.GLO.RL06.3M.MSCNv04CRI granule spans 2002-04-16 through 2026-09-16 in CMR metadata. Payload time coordinates and valid observations were not inspected; this is a soft metadata horizon.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRO26_SPEI_ACCESS",
+    "title": "SPEI-GD v1 current restricted access",
+    "url": "https://zenodo.org/api/records/8060268",
+    "claims": "Current v1 API reports access_right restricted and no public files. The v1 landing page agrees; independent HEAD and bounded GET requests to the former 30days.zip content URL returned HTTP 403. License metadata and access permission are separate.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRO26_STAGE4_PROCESSING",
+    "title": "NWS Service Change Notice 17-17, updated March 2017",
+    "url": "https://www.weather.gov/media/notification/pdfs/scn17-17rtma_urma_aaa.pdf",
+    "claims": "The notice, effective May 2017, changes the CONUS 24-hour mosaic from a simple sum of 6-hour Stage IV fields to RFC-dependent 24-, 6- and 1-hour QPE inputs and fallbacks. Check processing era and selected archive/file lineage.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REV2_MOD10_LATEST",
+    "title": "NASA CMR MOD10A1.061 latest granule metadata, checked 16 November 2026",
+    "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565093311-NSIDC_CPRD&page_size=1&sort_key=-start_date",
+    "claims": "Latest-start query returns a 2026-11-14 granule. The bounded Houston search for 10-16 November lists 10-14 November only. File metadata do not verify valid pixels or observations.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "REV2_IMERG_END",
+    "title": "NASA CMR IMERG Final V07B last listed granule, checked 16 November 2026",
+    "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2723754847-GES_DISC&page_size=1&sort_key=-start_date",
+    "claims": "The latest-start V07B granule ends 2025-09-30T23:59:59.999Z, consistent with the producer-documented V07 Final record endpoint. This does not establish V08 release availability.",
+    "checked_date": "2026-11-16",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "JPL_RL06_SOLUTION_MONTHS",
+    "title": "JPL RL06 monthly solution and processing-day table",
+    "url": "https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/gracefo/open/docs/GRACE_GRACE-FO_Months_RL06.csv",
+    "claims": "The nominal month serial and record index distinguish missing monthly solutions and shifted sampling bounds. The checked table reaches May 2026.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "JPL_CRI_V4_TIME_AXIS",
+    "title": "JPL land time series for the CRI RL06.3 v4 product",
+    "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&b=-120%2C36%2C-119%2C37&startTime=2002-04-01T00%3A00%3A00Z&endTime=2026-09-30T23%3A59%3A59Z&output=JSON",
+    "claims": "The public JPL service returned 261 timestamps for a Fresno-area land box through 2026-09-16. Solution timestamps are distinct from sampling bounds or spatial coverage.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "LHASA_V2_ARCHIVE_GUIDE",
+    "title": "NASA GES DISC LHASA v2.0.0 archived nowcast guide",
+    "url": "https://docserver.gesdisc.eosdis.nasa.gov/public/project/Community/LHASA/README.Global_Landslide_Nowcast_2.0.0.pdf",
+    "claims": "Archived p_landslide is a unitless 0–1 hazard estimate on a daily 30-arcsecond grid. NASA recommends relative hazard interpretation and documents the file convention and fill value.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRDC_POLICY",
+    "title": "GRDC policy guidelines for data dissemination, sections 2.3–2.4",
+    "url": "https://grdc.bafg.de/downloads/policy_guidelines.pdf",
+    "claims": "Commercial use requires prior consent of contributing providers, requested through GRDC. Third-party transfer requires written GRDC consent.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NWS_ZONES",
+    "title": "NWS public forecast zones",
+    "url": "https://www.weather.gov/gis/PublicZones",
+    "claims": "Effective 16 April 2026. National public zone polygons include land/islands in American Samoa, the Northern Marianas, Guam, Palau, the Marshall Islands and the Federated States of Micronesia.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NWS_MARINE",
+    "title": "NWS coastal, offshore and high seas zones",
+    "url": "https://www.weather.gov/gis/MarineZones",
+    "claims": "The 16 April 2026 coastal zone file includes Great Lakes, Pago Pago and Guam-served waters. Separate offshore and high-seas forecast zones are not evidence of a severe-event report.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "STORM_FSM",
+    "title": "NCEI Storm Events, Micronesia zone event 5284604",
+    "url": "https://www.ncei.noaa.gov/stormevents/eventdetails.jsp?id=5284604",
+    "claims": "NCEI records an April 2002 Micronesia flood under Guam. Archive reporting geography includes parts of FSM; this is not a hail, tornado or wind observation.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "STORM_MHL",
+    "title": "NCEI Storm Events, Marshall Islands zone event 579251",
+    "url": "https://www.ncei.noaa.gov/stormevents/eventdetails.jsp?id=579251",
+    "claims": "NCEI records a March 2015 Marshall Islands tropical storm under Guam. Archive reporting geography includes the Marshall Islands; finding a specific event type requires a record search.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SWOT_HANDBOOK",
+    "title": "SWOT Science Data Products User Handbook, sections 3.3.4 and 3.4",
+    "url": "https://earthdata.nasa.gov/s3fs-public/2024-06/D-109532_SWOT_UserHandbook_20240502.pdf",
+    "claims": "Satellite orbit limits observations to about 78 degrees north and south. Collection-level global bounding coordinates do not demonstrate a swath near the poles.",
+    "checked_date": "2026-11-17",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "C3S_LAKE_ALTIMETRY",
+    "title": "C3S satellite lake water levels, v5.0, and CDS lake selector",
+    "url": "https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level",
+    "doi": "10.24381/cds.5714c668",
+    "claims": "Per-lake water surface height and uncertainty, 1–27 day sampling, collection from 1992 and CC BY 4.0. The public CDS selector lists named region/lake pairs including Victoria.",
+    "checked_date": "2026-11-18",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED",
+    "alternate_url": "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/satellite-lake-water-level"
+  },
+  {
+    "evidence_id": "NOAA_STAGE4_SOURCE",
+    "title": "NOAA NCEP Stage IV daily precipitation source data",
+    "url": "https://water.noaa.gov/about/precipitation-data-access",
+    "claims": "CONUS definitions from daily GRIB sections on 2017-06-01, 2018-07-01 and 2024-02-02 agree on a 1121 x 881 north polar stereographic grid oriented at 105 W, nominal spacing 4.7625 km. The application reserves a two-cell interior margin. Check coastal cells and valid precipitation in the selected file.",
+    "checked_date": "2026-11-17",
+    "verification": "PROVIDER_FILES_INSPECTED"
   }
 ]

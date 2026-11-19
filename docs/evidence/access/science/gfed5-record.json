@@ -1,0 +1,12 @@
+{
+  "url": "https://zenodo.org/api/records/16794692",
+  "retrievedAt": "2026-11-14T03:45:28.664Z",
+  "status": 403,
+  "headers": {
+    "content-length": "763",
+    "content-type": "text/html; charset=utf-8",
+    "date": "Sat, 14 Nov 2026 03:45:29 GMT",
+    "server": "nginx"
+  },
+  "rawText": "\n          <html>\n          <head><title>403 Forbidden</title></head>\n          <body style=\"max-width: 600px; margin: 40px auto; padding: 0 20px; line-height: 1.6;\">\n          <h1>403 Forbidden</h1>\n          <hr>\n          <p>Access to this resource has been restricted due to unusual traffic from your network.</p>\n          <p>If you believe this is a mistake, please <a href=\"/support?ref=31eefaf6c466a718574e557d08b984bf&category=problem-report\">contact our support line</a> and we will look into your request.</p>\n          <p>\n          <strong>Reference:</strong> <code>31eefaf6c466a718574e557d08b984bf</code><br>\n          <strong>Timestamp:</strong> <code>2026-11-14T04:45:29+01:00</code><br>\n          </p>\n          </body>\n          </html>\n        "
+}

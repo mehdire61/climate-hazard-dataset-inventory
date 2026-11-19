@@ -1,0 +1,20 @@
+{
+  "url": "https://noaadata.apps.nsidc.org/NOAA/G02156/4km/2020/ims2020183_00UTC_4km_v1.3.asc.gz",
+  "resolvedUrl": "https://noaadata.apps.nsidc.org/NOAA/G02156/4km/2020/ims2020183_00UTC_4km_v1.3.asc.gz",
+  "retrievedAt": "2026-11-14T03:47:51.816Z",
+  "status": 200,
+  "headers": {
+    "accept-ranges": "bytes",
+    "connection": "Keep-Alive",
+    "content-length": "431904",
+    "content-type": "application/octet-stream",
+    "date": "Sat, 14 Nov 2026 03:47:52 GMT",
+    "etag": "\"625d8fb0-69720\"",
+    "keep-alive": "timeout=3, max=100",
+    "last-modified": "Mon, 18 Apr 2022 16:20:00 GMT",
+    "server": "nginx/1.23.4"
+  },
+  "bytes": 431904,
+  "sha256": "c5d4ebe1016741dd844650964c79d901902feb100ac2f05d61565284f2c39a00",
+  "magic": "1f8b08083b8bfc5e"
+}

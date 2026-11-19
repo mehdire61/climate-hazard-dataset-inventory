@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><DataInventory xmlns="https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/wsdl"><station ID="9752621" name="Isabel Segunda, Vieques Island"><metadata><location><lat>18.1525</lat><long>-65.4438</long><state>PR</state></location><date_established>2023-03-20</date_established><shef_id>VQSP4</shef_id><deployment_designation>COASTAL</deployment_designation></metadata><parameter first="2023-05-10 19:30" last="2024-06-25 20:42" name="Preliminary 6-Minute Water Level"/><parameter first="2024-09-26 17:00" last="2026-11-14 16:54" name="Preliminary 6-Minute Water Level"/></station></DataInventory></soapenv:Body></soapenv:Envelope>
+            
+
+
+
+
+

@@ -1,0 +1,32 @@
+{
+  "url": "https://storage.googleapis.com/gfd_v1_4/DFO_1587_From_20000217_to_20000311.zip",
+  "retrievedAt": "2026-11-14T03:54:42.403Z",
+  "status": 200,
+  "headers": {
+    "accept-ranges": "bytes",
+    "access-control-allow-origin": "*",
+    "access-control-expose-headers": "Content-Type",
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "cache-control": "public, max-age=3600",
+    "content-length": "8533308",
+    "content-type": "application/octet-stream",
+    "date": "Sat, 14 Nov 2026 03:54:42 GMT",
+    "etag": "\"b58f1ee408ebabb276f6a1f819d5cd2a\"",
+    "expires": "Sat, 14 Nov 2026 04:54:42 GMT",
+    "last-modified": "Fri, 30 Jun 2023 21:04:59 GMT",
+    "server": "UploadServer",
+    "x-goog-custom-time": "2023-06-30T21:00:28.934Z",
+    "x-goog-generation": "1688159099068680",
+    "x-goog-hash": "crc32c=iwwhdw==, md5=tY8e5Ajrq7J29qH4GdXNKg==",
+    "x-goog-meta-x-goog-reserved-source-generation": "1688158828933137",
+    "x-goog-metageneration": "1",
+    "x-goog-storage-class": "STANDARD",
+    "x-goog-stored-content-encoding": "identity",
+    "x-goog-stored-content-length": "8533308",
+    "x-guploader-uploadid": "AFy3sg3wdJCTZmD2qHjNmA_8hgjoReXq3qZ1BqR8DQGHDRMiT9qVUm-_OlvGg5gF12eUhTHB"
+  },
+  "bytes": 8533308,
+  "sha256": "c9bc3a5129367b1c1f6bb50a20dcebf0892168eaeaa74bb195cc0b0e30fc8441",
+  "md5": "b58f1ee408ebabb276f6a1f819d5cd2a",
+  "payloadRetrieved": true
+}

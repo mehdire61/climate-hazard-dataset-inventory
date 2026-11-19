@@ -1,0 +1,21 @@
+{
+  "url": "https://dap.ceda.ac.uk/neodc/esacci/soil_moisture/data/daily_files/COMBINED/v09.2/2020/ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-20200701000000-fv09.2.nc",
+  "resolvedUrl": "https://dap.ceda.ac.uk/neodc/esacci/soil_moisture/data/daily_files/COMBINED/v09.2/2020/ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-20200701000000-fv09.2.nc",
+  "retrievedAt": "2026-11-14T03:47:51.652Z",
+  "status": 200,
+  "headers": {
+    "accept-ranges": "bytes",
+    "content-length": "2600592",
+    "content-type": "application/octet-stream",
+    "date": "Sat, 14 Nov 2026 03:47:51 GMT",
+    "etag": "\"6928702c-27ae90\"",
+    "last-modified": "Thu, 27 Nov 2025 15:37:16 GMT",
+    "server": "nginx",
+    "strict-transport-security": "max-age=15768000",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "DENY"
+  },
+  "bytes": 2600592,
+  "sha256": "cad98f4362781e5348dc387ee883b209012d54832d2fff3aed6d427b8e2c859c",
+  "magic": "894844460d0a1a0a"
+}

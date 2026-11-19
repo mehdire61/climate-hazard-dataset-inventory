@@ -1,0 +1,355 @@
+{
+  "id": "8518750",
+  "greatlakes": false,
+  "coopsAvailability": {
+    "schemaVersion": 1,
+    "stationId": "8518750",
+    "state": "outside_period",
+    "label": "Outside listed six-minute periods",
+    "message": "The requested dates do not overlap the listed six-minute observation intervals. Station installation/removal dates are not used as observation-period boundaries. Hourly heights are also listed for these dates; select that product explicitly to inspect its intervals.",
+    "query": {
+      "start": "1960-01-01",
+      "end": "1960-01-03"
+    },
+    "periods": [
+      {
+        "product": "Preliminary 6-Minute Water Level",
+        "kind": "preliminary",
+        "start": "2001-01-01",
+        "end": "2026-11-14",
+        "first": "2001-01-01 00:00",
+        "last": "2026-11-14 20:48",
+        "startTime": "2001-01-01T00:00:00.000Z",
+        "endTime": "2026-11-14T20:48:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1994-02-03",
+        "end": "1994-02-03",
+        "first": "1994-02-03 07:30",
+        "last": "1994-02-03 19:06",
+        "startTime": "1994-02-03T07:30:00.000Z",
+        "endTime": "1994-02-03T19:06:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1995-11-30",
+        "end": "1997-06-06",
+        "first": "1995-11-30 00:00",
+        "last": "1997-06-06 02:54",
+        "startTime": "1995-11-30T00:00:00.000Z",
+        "endTime": "1997-06-06T02:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1997-11-20",
+        "end": "2000-12-31",
+        "first": "1997-11-20 01:00",
+        "last": "2000-12-31 23:54",
+        "startTime": "1997-11-20T01:00:00.000Z",
+        "endTime": "2000-12-31T23:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "2001-05-01",
+        "end": "2004-01-31",
+        "first": "2001-05-01 00:00",
+        "last": "2004-01-31 23:54",
+        "startTime": "2001-05-01T00:00:00.000Z",
+        "endTime": "2004-01-31T23:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "2004-06-01",
+        "end": "2026-10-31",
+        "first": "2004-06-01 00:00",
+        "last": "2026-10-31 23:54",
+        "startTime": "2004-06-01T00:00:00.000Z",
+        "endTime": "2026-10-31T23:54:00.000Z"
+      }
+    ],
+    "hourlyPeriods": [
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "1920-06-01",
+        "end": "1921-12-01",
+        "first": "1920-06-01 05:00",
+        "last": "1921-12-01 04:00",
+        "startTime": "1920-06-01T05:00:00.000Z",
+        "endTime": "1921-12-01T04:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "1926-11-20",
+        "end": "1958-01-22",
+        "first": "1926-11-20 05:00",
+        "last": "1958-01-22 17:00",
+        "startTime": "1926-11-20T05:00:00.000Z",
+        "endTime": "1958-01-22T17:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "1958-05-01",
+        "end": "1976-11-29",
+        "first": "1958-05-01 05:00",
+        "last": "1976-11-29 04:00",
+        "startTime": "1958-05-01T05:00:00.000Z",
+        "endTime": "1976-11-29T04:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "1977-05-06",
+        "end": "1997-06-06",
+        "first": "1977-05-06 05:00",
+        "last": "1997-06-06 02:00",
+        "startTime": "1977-05-06T05:00:00.000Z",
+        "endTime": "1997-06-06T02:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "1997-11-20",
+        "end": "2000-12-31",
+        "first": "1997-11-20 01:00",
+        "last": "2000-12-31 23:00",
+        "startTime": "1997-11-20T01:00:00.000Z",
+        "endTime": "2000-12-31T23:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "2001-05-01",
+        "end": "2004-01-31",
+        "first": "2001-05-01 00:00",
+        "last": "2004-01-31 23:00",
+        "startTime": "2001-05-01T00:00:00.000Z",
+        "endTime": "2004-01-31T23:00:00.000Z"
+      },
+      {
+        "product": "Verified Hourly Height Water Level",
+        "kind": "verified",
+        "start": "2004-06-01",
+        "end": "2026-10-31",
+        "first": "2004-06-01 00:00",
+        "last": "2026-10-31 23:00",
+        "startTime": "2004-06-01T00:00:00.000Z",
+        "endTime": "2026-10-31T23:00:00.000Z"
+      }
+    ],
+    "listedProducts": [
+      "Air Temperature",
+      "Water Temperature",
+      "Barometric Pressure",
+      "Preliminary 6-Minute Water Level",
+      "Verified 6-Minute Water Level",
+      "Verified Hourly Height Water Level",
+      "Verified High/Low Water Level",
+      "Verified Monthly Mean Water Level"
+    ],
+    "availableDatums": [
+      {
+        "code": "STND",
+        "label": "Station Datum (station-specific reference)",
+        "basis": "NOAA station datum table",
+        "sourceName": "STND"
+      },
+      {
+        "code": "MHHW",
+        "label": "Mean Higher High Water",
+        "basis": "NOAA station datum table",
+        "sourceName": "MHHW"
+      },
+      {
+        "code": "MHW",
+        "label": "Mean High Water",
+        "basis": "NOAA station datum table",
+        "sourceName": "MHW"
+      },
+      {
+        "code": "MTL",
+        "label": "Mean Tide Level",
+        "basis": "NOAA station datum table",
+        "sourceName": "MTL"
+      },
+      {
+        "code": "MSL",
+        "label": "Mean Sea Level",
+        "basis": "NOAA station datum table",
+        "sourceName": "MSL"
+      },
+      {
+        "code": "MLW",
+        "label": "Mean Low Water",
+        "basis": "NOAA station datum table",
+        "sourceName": "MLW"
+      },
+      {
+        "code": "MLLW",
+        "label": "Mean Lower Low Water",
+        "basis": "NOAA station datum table",
+        "sourceName": "MLLW"
+      },
+      {
+        "code": "NAVD",
+        "label": "North American Vertical Datum",
+        "basis": "NOAA station datum table",
+        "sourceName": "NAVD88"
+      }
+    ],
+    "defaultDatum": "MSL",
+    "selectedDatum": "MSL",
+    "tryDatum": "MSL",
+    "selectionMode": "default",
+    "canTryPreview": false,
+    "inventoryStatus": "ok",
+    "metadataStatus": "ok",
+    "datumTableStatus": "listed",
+    "requests": [
+      {
+        "source": "metadata",
+        "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750.json?expand=details,datums&units=metric",
+        "attempt": 1,
+        "requestedAt": "2026-11-14T20:56:25.556Z",
+        "httpStatus": 200,
+        "retrievedAt": "2026-11-14T20:56:25.638Z",
+        "contentType": "application/json",
+        "textLength": 5598,
+        "outcome": "success"
+      },
+      {
+        "source": "inventory",
+        "url": "https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/response.jsp?stationId=8518750&format=xml&Submit=Submit",
+        "attempt": 1,
+        "requestedAt": "2026-11-14T20:56:25.819Z",
+        "httpStatus": 200,
+        "retrievedAt": "2026-11-14T20:56:26.292Z",
+        "contentType": "text/xml;charset=ISO-8859-1",
+        "textLength": 3207,
+        "outcome": "success"
+      }
+    ],
+    "checkedAt": "2026-11-14T20:56:26.300Z",
+    "errors": [],
+    "inventoryUrl": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750",
+    "documentation": [
+      "https://tidesandcurrents.noaa.gov/js/inventory.js",
+      "https://api.tidesandcurrents.noaa.gov/mdapi/prod/",
+      "https://api.tidesandcurrents.noaa.gov/api/prod/",
+      "https://tidesandcurrents.noaa.gov/js/wlcgi.js?hash=123456"
+    ],
+    "greatlakes": false,
+    "stationDetails": {
+      "id": "8518750",
+      "established": "1920-05-24 00:00:00",
+      "removed": "",
+      "noaachart": "12335",
+      "timemeridian": -75,
+      "timezone": -5,
+      "origyear": "1989-09-12 00:00:00",
+      "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750/details.json"
+    },
+    "datumMetadata": {
+      "epoch": "1983-2001",
+      "units": "meters",
+      "accepted": "Nov 19 2012",
+      "sourceNames": [
+        "STND",
+        "MHHW",
+        "MHW",
+        "DTL",
+        "MTL",
+        "MSL",
+        "MLW",
+        "MLLW",
+        "GT",
+        "MN",
+        "DHQ",
+        "DLQ",
+        "HWI",
+        "LWI",
+        "NAVD88"
+      ]
+    },
+    "datumReviewRequired": false,
+    "datumNote": "Datum options follow NOAA metadata and its own water-level interface. They do not establish actual observations, datum equivalence or epoch compatibility.",
+    "product": "water_level",
+    "productLabel": "Six-minute water levels",
+    "selectedPeriods": [
+      {
+        "product": "Preliminary 6-Minute Water Level",
+        "kind": "preliminary",
+        "start": "2001-01-01",
+        "end": "2026-11-14",
+        "first": "2001-01-01 00:00",
+        "last": "2026-11-14 20:48",
+        "startTime": "2001-01-01T00:00:00.000Z",
+        "endTime": "2026-11-14T20:48:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1994-02-03",
+        "end": "1994-02-03",
+        "first": "1994-02-03 07:30",
+        "last": "1994-02-03 19:06",
+        "startTime": "1994-02-03T07:30:00.000Z",
+        "endTime": "1994-02-03T19:06:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1995-11-30",
+        "end": "1997-06-06",
+        "first": "1995-11-30 00:00",
+        "last": "1997-06-06 02:54",
+        "startTime": "1995-11-30T00:00:00.000Z",
+        "endTime": "1997-06-06T02:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "1997-11-20",
+        "end": "2000-12-31",
+        "first": "1997-11-20 01:00",
+        "last": "2000-12-31 23:54",
+        "startTime": "1997-11-20T01:00:00.000Z",
+        "endTime": "2000-12-31T23:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "2001-05-01",
+        "end": "2004-01-31",
+        "first": "2001-05-01 00:00",
+        "last": "2004-01-31 23:54",
+        "startTime": "2001-05-01T00:00:00.000Z",
+        "endTime": "2004-01-31T23:54:00.000Z"
+      },
+      {
+        "product": "Verified 6-Minute Water Level",
+        "kind": "verified",
+        "start": "2004-06-01",
+        "end": "2026-10-31",
+        "first": "2004-06-01 00:00",
+        "last": "2026-10-31 23:54",
+        "startTime": "2004-06-01T00:00:00.000Z",
+        "endTime": "2026-10-31T23:54:00.000Z"
+      }
+    ],
+    "cadenceMs": 360000,
+    "alternativeProduct": {
+      "id": "hourly_height",
+      "label": "Hourly heights",
+      "url": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750"
+    }
+  }
+}

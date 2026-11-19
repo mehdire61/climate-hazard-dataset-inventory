@@ -1,0 +1,154 @@
+{
+  "dataModel": "NETCDF4",
+  "dimensions": {
+    "longitude": 7200,
+    "latitude": 2000,
+    "time": 30
+  },
+  "variables": {
+    "latitude": {
+      "dimensions": [
+        "latitude"
+      ],
+      "shape": [
+        2000
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "units": "degrees_north",
+        "standard_name": "latitude",
+        "long_name": "latitude",
+        "axis": "Y"
+      }
+    },
+    "longitude": {
+      "dimensions": [
+        "longitude"
+      ],
+      "shape": [
+        7200
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "units": "degrees_east",
+        "standard_name": "longitude",
+        "long_name": "longitude",
+        "axis": "X"
+      }
+    },
+    "precip": {
+      "dimensions": [
+        "time",
+        "latitude",
+        "longitude"
+      ],
+      "shape": [
+        30,
+        2000,
+        7200
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "units": "mm/day",
+        "standard_name": "convective precipitation rate",
+        "long_name": "Climate Hazards group InfraRed Precipitation with Stations",
+        "time_step": "day",
+        "missing_value": "-9999.0",
+        "_FillValue": "-9999.0",
+        "geostatial_lat_min": "-50.0",
+        "geostatial_lat_max": "50.0",
+        "geostatial_lon_min": "-180.0",
+        "geostatial_lon_max": "180.0"
+      }
+    },
+    "time": {
+      "dimensions": [
+        "time"
+      ],
+      "shape": [
+        30
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "units": "days since 1980-1-1 0:0:0",
+        "standard_name": "time",
+        "calendar": "gregorian",
+        "axis": "T"
+      }
+    }
+  },
+  "globalAttributes": {
+    "Conventions": "CF-1.6",
+    "title": "CHIRPS Version 2.0",
+    "history": "created by Climate Hazards Group",
+    "version": "Version 2.0",
+    "date_created": "2021-04-28",
+    "creator_name": "Pete Peterson",
+    "creator_email": "pete@geog.ucsb.edu",
+    "institution": "Climate Hazards Group.  University of California at Santa Barbara",
+    "documentation": "http://pubs.usgs.gov/ds/832/",
+    "reference": "Funk, C.C., Peterson, P.J., Landsfeld, M.F., Pedreros, D.H., Verdin, J.P., Rowland, J.D., Romero, B.E., Husak, G.J., Michaelsen, J.C., and Verdin, A.P., 2014, A quasi-global precipitation time series for drought monitoring: U.S. Geological Survey Data Series 832, 4 p., http://dx.doi.org/110.3133/ds832. ",
+    "comments": " time variable denotes the # of days since 1980-01-01 ",
+    "acknowledgements": "The Climate Hazards Group InfraRed Precipitation with Stations development process was carried out through U.S. Geological Survey (USGS) cooperative agreement #G09AC000001 \"Monitoring and Forecasting Climate, Water and Land Use for Food Production in the Developing World\" with funding from: U.S. Agency for International Development Office of Food for Peace, award #AID-FFP-P-10-00002 for \"Famine Early Warning Systems Network Support,\" the National Aeronautics and Space Administration Applied Sciences Program, Decisions award #NN10AN26I for \"A Land Data Assimilation System for Famine Early Warning,\" SERVIR award #NNH12AU22I for \"A Long Time-Series Indicator of Agricultural Drought for the Greater Horn of Africa,\" The National Oceanic and Atmospheric Administration award NA11OAR4310151 for \"A Global Standardized Precipitation Index supporting the US Drought Portal and the Famine Early Warning System Network,\" and the USGS Land Change Science Program.",
+    "ftp_url": "ftp://chg-ftpout.geog.ucsb.edu/pub/org/chg/products/CHIRPS-latest/",
+    "website": "http://chg.geog.ucsb.edu/data/chirps/index.html",
+    "faq": "http://chg-wiki.geog.ucsb.edu/wiki/CHIRPS_FAQ"
+  },
+  "timeDates": [
+    "1985-06-01 00:00:00",
+    "1985-06-02 00:00:00",
+    "1985-06-03 00:00:00",
+    "1985-06-04 00:00:00",
+    "1985-06-05 00:00:00",
+    "1985-06-06 00:00:00",
+    "1985-06-07 00:00:00",
+    "1985-06-08 00:00:00",
+    "1985-06-09 00:00:00",
+    "1985-06-10 00:00:00",
+    "1985-06-11 00:00:00",
+    "1985-06-12 00:00:00",
+    "1985-06-13 00:00:00",
+    "1985-06-14 00:00:00",
+    "1985-06-15 00:00:00",
+    "1985-06-16 00:00:00",
+    "1985-06-17 00:00:00",
+    "1985-06-18 00:00:00",
+    "1985-06-19 00:00:00",
+    "1985-06-20 00:00:00",
+    "1985-06-21 00:00:00",
+    "1985-06-22 00:00:00",
+    "1985-06-23 00:00:00",
+    "1985-06-24 00:00:00",
+    "1985-06-25 00:00:00",
+    "1985-06-26 00:00:00",
+    "1985-06-27 00:00:00",
+    "1985-06-28 00:00:00",
+    "1985-06-29 00:00:00",
+    "1985-06-30 00:00:00"
+  ],
+  "firstFieldNumericCells": 3858552,
+  "firstFieldMin": 0.0,
+  "firstFieldMax": 292.35467529296875,
+  "payloadReceipt": {
+    "url": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/netcdf/p05/by_month/chirps-v2.0.1985.06.days_p05.nc",
+    "resolvedUrl": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/global_daily/netcdf/p05/by_month/chirps-v2.0.1985.06.days_p05.nc",
+    "retrievedAt": "2026-11-14T03:42:36.916096+00:00",
+    "status": 200,
+    "headers": {
+      "Server": "nginx/1.24.0 (Ubuntu)",
+      "Date": "Sat, 14 Nov 2026 03:42:30 GMT",
+      "Content-Type": "application/octet-stream",
+      "Content-Length": "75166064",
+      "Last-Modified": "Wed, 28 Apr 2021 17:17:56 GMT",
+      "Connection": "close",
+      "ETag": "\"608998c4-47af170\"",
+      "Accept-Ranges": "bytes"
+    },
+    "bytes": 75166064,
+    "sha256": "9d92d502f7bdca557a0a096d49289831b3a92c4319055643badb1b77b0d346c3",
+    "fullPayloadRetrieved": true,
+    "localPath": "work\\grid-access-payloads\\chirps-v2.0.1985.06.days_p05.nc",
+    "seconds": 7.83
+  },
+  "scope": "Metadata and representative first field inspected. No site extraction, area averaging or scientific suitability assessment."
+}

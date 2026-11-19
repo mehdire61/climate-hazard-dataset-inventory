@@ -1,0 +1,1862 @@
+{
+  "station": {
+    "id": "8518750",
+    "greatlakes": false,
+    "coopsAvailability": {
+      "schemaVersion": 1,
+      "stationId": "8518750",
+      "state": "outside_period",
+      "label": "Outside listed six-minute periods",
+      "message": "The requested dates do not overlap the listed six-minute observation intervals. Station installation/removal dates are not used as observation-period boundaries. Hourly heights are also listed for these dates; select that product explicitly to inspect its intervals.",
+      "query": {
+        "start": "1960-01-01",
+        "end": "1960-01-03"
+      },
+      "periods": [
+        {
+          "product": "Preliminary 6-Minute Water Level",
+          "kind": "preliminary",
+          "start": "2001-01-01",
+          "end": "2026-11-14",
+          "first": "2001-01-01 00:00",
+          "last": "2026-11-14 20:48",
+          "startTime": "2001-01-01T00:00:00.000Z",
+          "endTime": "2026-11-14T20:48:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1994-02-03",
+          "end": "1994-02-03",
+          "first": "1994-02-03 07:30",
+          "last": "1994-02-03 19:06",
+          "startTime": "1994-02-03T07:30:00.000Z",
+          "endTime": "1994-02-03T19:06:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1995-11-30",
+          "end": "1997-06-06",
+          "first": "1995-11-30 00:00",
+          "last": "1997-06-06 02:54",
+          "startTime": "1995-11-30T00:00:00.000Z",
+          "endTime": "1997-06-06T02:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:54",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:54",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:54",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:54:00.000Z"
+        }
+      ],
+      "hourlyPeriods": [
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1920-06-01",
+          "end": "1921-12-01",
+          "first": "1920-06-01 05:00",
+          "last": "1921-12-01 04:00",
+          "startTime": "1920-06-01T05:00:00.000Z",
+          "endTime": "1921-12-01T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1926-11-20",
+          "end": "1958-01-22",
+          "first": "1926-11-20 05:00",
+          "last": "1958-01-22 17:00",
+          "startTime": "1926-11-20T05:00:00.000Z",
+          "endTime": "1958-01-22T17:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1958-05-01",
+          "end": "1976-11-29",
+          "first": "1958-05-01 05:00",
+          "last": "1976-11-29 04:00",
+          "startTime": "1958-05-01T05:00:00.000Z",
+          "endTime": "1976-11-29T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1977-05-06",
+          "end": "1997-06-06",
+          "first": "1977-05-06 05:00",
+          "last": "1997-06-06 02:00",
+          "startTime": "1977-05-06T05:00:00.000Z",
+          "endTime": "1997-06-06T02:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:00",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:00",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:00",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:00:00.000Z"
+        }
+      ],
+      "listedProducts": [
+        "Air Temperature",
+        "Water Temperature",
+        "Barometric Pressure",
+        "Preliminary 6-Minute Water Level",
+        "Verified 6-Minute Water Level",
+        "Verified Hourly Height Water Level",
+        "Verified High/Low Water Level",
+        "Verified Monthly Mean Water Level"
+      ],
+      "availableDatums": [
+        {
+          "code": "STND",
+          "label": "Station Datum (station-specific reference)",
+          "basis": "NOAA station datum table",
+          "sourceName": "STND"
+        },
+        {
+          "code": "MHHW",
+          "label": "Mean Higher High Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MHHW"
+        },
+        {
+          "code": "MHW",
+          "label": "Mean High Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MHW"
+        },
+        {
+          "code": "MTL",
+          "label": "Mean Tide Level",
+          "basis": "NOAA station datum table",
+          "sourceName": "MTL"
+        },
+        {
+          "code": "MSL",
+          "label": "Mean Sea Level",
+          "basis": "NOAA station datum table",
+          "sourceName": "MSL"
+        },
+        {
+          "code": "MLW",
+          "label": "Mean Low Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MLW"
+        },
+        {
+          "code": "MLLW",
+          "label": "Mean Lower Low Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MLLW"
+        },
+        {
+          "code": "NAVD",
+          "label": "North American Vertical Datum",
+          "basis": "NOAA station datum table",
+          "sourceName": "NAVD88"
+        }
+      ],
+      "defaultDatum": "MSL",
+      "selectedDatum": "MSL",
+      "tryDatum": "MSL",
+      "selectionMode": "default",
+      "canTryPreview": false,
+      "inventoryStatus": "ok",
+      "metadataStatus": "ok",
+      "datumTableStatus": "listed",
+      "requests": [
+        {
+          "source": "metadata",
+          "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750.json?expand=details,datums&units=metric",
+          "attempt": 1,
+          "requestedAt": "2026-11-14T20:56:25.556Z",
+          "httpStatus": 200,
+          "retrievedAt": "2026-11-14T20:56:25.638Z",
+          "contentType": "application/json",
+          "textLength": 5598,
+          "outcome": "success"
+        },
+        {
+          "source": "inventory",
+          "url": "https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/response.jsp?stationId=8518750&format=xml&Submit=Submit",
+          "attempt": 1,
+          "requestedAt": "2026-11-14T20:56:25.819Z",
+          "httpStatus": 200,
+          "retrievedAt": "2026-11-14T20:56:26.292Z",
+          "contentType": "text/xml;charset=ISO-8859-1",
+          "textLength": 3207,
+          "outcome": "success"
+        }
+      ],
+      "checkedAt": "2026-11-14T20:56:26.300Z",
+      "errors": [],
+      "inventoryUrl": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750",
+      "documentation": [
+        "https://tidesandcurrents.noaa.gov/js/inventory.js",
+        "https://api.tidesandcurrents.noaa.gov/mdapi/prod/",
+        "https://api.tidesandcurrents.noaa.gov/api/prod/",
+        "https://tidesandcurrents.noaa.gov/js/wlcgi.js?hash=123456"
+      ],
+      "greatlakes": false,
+      "stationDetails": {
+        "id": "8518750",
+        "established": "1920-05-24 00:00:00",
+        "removed": "",
+        "noaachart": "12335",
+        "timemeridian": -75,
+        "timezone": -5,
+        "origyear": "1989-09-12 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750/details.json"
+      },
+      "datumMetadata": {
+        "epoch": "1983-2001",
+        "units": "meters",
+        "accepted": "Nov 19 2012",
+        "sourceNames": [
+          "STND",
+          "MHHW",
+          "MHW",
+          "DTL",
+          "MTL",
+          "MSL",
+          "MLW",
+          "MLLW",
+          "GT",
+          "MN",
+          "DHQ",
+          "DLQ",
+          "HWI",
+          "LWI",
+          "NAVD88"
+        ]
+      },
+      "datumReviewRequired": false,
+      "datumNote": "Datum options follow NOAA metadata and its own water-level interface. They do not establish actual observations, datum equivalence or epoch compatibility.",
+      "product": "water_level",
+      "productLabel": "Six-minute water levels",
+      "selectedPeriods": [
+        {
+          "product": "Preliminary 6-Minute Water Level",
+          "kind": "preliminary",
+          "start": "2001-01-01",
+          "end": "2026-11-14",
+          "first": "2001-01-01 00:00",
+          "last": "2026-11-14 20:48",
+          "startTime": "2001-01-01T00:00:00.000Z",
+          "endTime": "2026-11-14T20:48:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1994-02-03",
+          "end": "1994-02-03",
+          "first": "1994-02-03 07:30",
+          "last": "1994-02-03 19:06",
+          "startTime": "1994-02-03T07:30:00.000Z",
+          "endTime": "1994-02-03T19:06:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1995-11-30",
+          "end": "1997-06-06",
+          "first": "1995-11-30 00:00",
+          "last": "1997-06-06 02:54",
+          "startTime": "1995-11-30T00:00:00.000Z",
+          "endTime": "1997-06-06T02:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:54",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:54",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:54",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:54:00.000Z"
+        }
+      ],
+      "cadenceMs": 360000,
+      "alternativeProduct": {
+        "id": "hourly_height",
+        "label": "Hourly heights",
+        "url": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750"
+      }
+    },
+    "coopsProduct": "hourly_height"
+  },
+  "series": [
+    {
+      "key": "hourly_height",
+      "label": "Verified hourly height · MSL",
+      "unit": "m",
+      "cadenceMs": 3600000,
+      "points": [
+        {
+          "time": "1960-01-01T00:00:00Z",
+          "value": -0.017,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T01:00:00Z",
+          "value": 0.288,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T02:00:00Z",
+          "value": 0.501,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T03:00:00Z",
+          "value": 0.592,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T04:00:00Z",
+          "value": 0.471,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T05:00:00Z",
+          "value": 0.135,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T06:00:00Z",
+          "value": -0.261,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T07:00:00Z",
+          "value": -0.566,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T08:00:00Z",
+          "value": -0.871,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T09:00:00Z",
+          "value": -1.053,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T10:00:00Z",
+          "value": -0.962,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T11:00:00Z",
+          "value": -0.444,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T12:00:00Z",
+          "value": 0.074,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T13:00:00Z",
+          "value": 0.501,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T14:00:00Z",
+          "value": 0.806,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T15:00:00Z",
+          "value": 0.989,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T16:00:00Z",
+          "value": 0.897,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T17:00:00Z",
+          "value": 0.501,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T18:00:00Z",
+          "value": 0.013,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T19:00:00Z",
+          "value": -0.444,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T20:00:00Z",
+          "value": -0.749,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T21:00:00Z",
+          "value": -0.962,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T22:00:00Z",
+          "value": -0.993,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-01T23:00:00Z",
+          "value": -0.657,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T00:00:00Z",
+          "value": -0.261,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T01:00:00Z",
+          "value": 0.135,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T02:00:00Z",
+          "value": 0.44,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T03:00:00Z",
+          "value": 0.684,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T04:00:00Z",
+          "value": 0.745,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T05:00:00Z",
+          "value": 0.592,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T06:00:00Z",
+          "value": 0.227,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T07:00:00Z",
+          "value": -0.261,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T08:00:00Z",
+          "value": -0.566,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T09:00:00Z",
+          "value": -0.779,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T10:00:00Z",
+          "value": -0.871,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T11:00:00Z",
+          "value": -0.627,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T12:00:00Z",
+          "value": -0.17,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T13:00:00Z",
+          "value": 0.257,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T14:00:00Z",
+          "value": 0.562,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T15:00:00Z",
+          "value": 0.775,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T16:00:00Z",
+          "value": 0.928,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T17:00:00Z",
+          "value": 0.775,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T18:00:00Z",
+          "value": 0.44,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T19:00:00Z",
+          "value": -0.048,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T20:00:00Z",
+          "value": -0.444,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T21:00:00Z",
+          "value": -0.718,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T22:00:00Z",
+          "value": -0.901,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-02T23:00:00Z",
+          "value": -0.81,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T00:00:00Z",
+          "value": -0.413,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T01:00:00Z",
+          "value": -0.017,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T02:00:00Z",
+          "value": 0.288,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T03:00:00Z",
+          "value": 0.501,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T04:00:00Z",
+          "value": 0.714,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T05:00:00Z",
+          "value": 0.867,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T06:00:00Z",
+          "value": 0.684,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T07:00:00Z",
+          "value": 0.349,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T08:00:00Z",
+          "value": -0.109,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T09:00:00Z",
+          "value": -0.322,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T10:00:00Z",
+          "value": -0.474,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T11:00:00Z",
+          "value": -0.535,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T12:00:00Z",
+          "value": -0.322,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T13:00:00Z",
+          "value": 0.166,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T14:00:00Z",
+          "value": 0.531,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T15:00:00Z",
+          "value": 0.714,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T16:00:00Z",
+          "value": 0.867,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T17:00:00Z",
+          "value": 0.745,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T18:00:00Z",
+          "value": 0.379,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T19:00:00Z",
+          "value": -0.109,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T20:00:00Z",
+          "value": -0.474,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T21:00:00Z",
+          "value": -0.688,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T22:00:00Z",
+          "value": -0.718,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        },
+        {
+          "time": "1960-01-03T23:00:00Z",
+          "value": -0.718,
+          "flags": {
+            "quality": null,
+            "dataFlags": "0,0",
+            "sigma": "0.0"
+          }
+        }
+      ]
+    }
+  ],
+  "rawText": "{\"metadata\":{\"id\":\"8518750\",\"name\":\"The Battery\",\"lat\":\"40.7006\",\"lon\":\"-74.0142\"}, \"data\": [{\"t\":\"1960-01-01 00:00\", \"v\":\"-0.017\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 01:00\", \"v\":\"0.288\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 02:00\", \"v\":\"0.501\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 03:00\", \"v\":\"0.592\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 04:00\", \"v\":\"0.471\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 05:00\", \"v\":\"0.135\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 06:00\", \"v\":\"-0.261\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 07:00\", \"v\":\"-0.566\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 08:00\", \"v\":\"-0.871\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 09:00\", \"v\":\"-1.053\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 10:00\", \"v\":\"-0.962\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 11:00\", \"v\":\"-0.444\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 12:00\", \"v\":\"0.074\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 13:00\", \"v\":\"0.501\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 14:00\", \"v\":\"0.806\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 15:00\", \"v\":\"0.989\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 16:00\", \"v\":\"0.897\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 17:00\", \"v\":\"0.501\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 18:00\", \"v\":\"0.013\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 19:00\", \"v\":\"-0.444\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 20:00\", \"v\":\"-0.749\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 21:00\", \"v\":\"-0.962\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 22:00\", \"v\":\"-0.993\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-01 23:00\", \"v\":\"-0.657\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 00:00\", \"v\":\"-0.261\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 01:00\", \"v\":\"0.135\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 02:00\", \"v\":\"0.44\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 03:00\", \"v\":\"0.684\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 04:00\", \"v\":\"0.745\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 05:00\", \"v\":\"0.592\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 06:00\", \"v\":\"0.227\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 07:00\", \"v\":\"-0.261\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 08:00\", \"v\":\"-0.566\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 09:00\", \"v\":\"-0.779\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 10:00\", \"v\":\"-0.871\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 11:00\", \"v\":\"-0.627\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 12:00\", \"v\":\"-0.17\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 13:00\", \"v\":\"0.257\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 14:00\", \"v\":\"0.562\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 15:00\", \"v\":\"0.775\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 16:00\", \"v\":\"0.928\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 17:00\", \"v\":\"0.775\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 18:00\", \"v\":\"0.44\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 19:00\", \"v\":\"-0.048\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 20:00\", \"v\":\"-0.444\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 21:00\", \"v\":\"-0.718\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 22:00\", \"v\":\"-0.901\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-02 23:00\", \"v\":\"-0.81\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 00:00\", \"v\":\"-0.413\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 01:00\", \"v\":\"-0.017\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 02:00\", \"v\":\"0.288\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 03:00\", \"v\":\"0.501\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 04:00\", \"v\":\"0.714\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 05:00\", \"v\":\"0.867\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 06:00\", \"v\":\"0.684\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 07:00\", \"v\":\"0.349\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 08:00\", \"v\":\"-0.109\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 09:00\", \"v\":\"-0.322\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 10:00\", \"v\":\"-0.474\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 11:00\", \"v\":\"-0.535\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 12:00\", \"v\":\"-0.322\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 13:00\", \"v\":\"0.166\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 14:00\", \"v\":\"0.531\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 15:00\", \"v\":\"0.714\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 16:00\", \"v\":\"0.867\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 17:00\", \"v\":\"0.745\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 18:00\", \"v\":\"0.379\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 19:00\", \"v\":\"-0.109\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 20:00\", \"v\":\"-0.474\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 21:00\", \"v\":\"-0.688\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 22:00\", \"v\":\"-0.718\", \"s\":\"0.0\", \"f\":\"0,0\"},{\"t\":\"1960-01-03 23:00\", \"v\":\"-0.718\", \"s\":\"0.0\", \"f\":\"0,0\"}]}\n",
+  "rawFormat": "json",
+  "rawMime": "application/json",
+  "requests": [
+    {
+      "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=hourly_height&application=climate_inventory_review&begin_date=19600101+00%3A00&end_date=19600103+23%3A00&datum=MSL&station=8518750&time_zone=gmt&units=metric&format=json",
+      "retrievedAt": "2026-11-14T20:57:28.466Z",
+      "httpStatus": 200,
+      "contentType": "application/json;charset=UTF-8"
+    }
+  ],
+  "provenance": {
+    "schemaVersion": "1.1",
+    "toolVersion": "v0.2-review",
+    "productId": "noaa_coops_water_level",
+    "site": {
+      "mode": "point",
+      "lat": 40.81,
+      "lon": -96.7,
+      "radiusKm": 100
+    },
+    "query": {
+      "mode": "point",
+      "lat": 40.81,
+      "lon": -96.7,
+      "radiusKm": 100,
+      "start": "1960-01-01",
+      "end": "1960-01-03"
+    },
+    "station": {
+      "id": "8518750",
+      "greatlakes": false,
+      "coopsAvailability": {
+        "schemaVersion": 1,
+        "stationId": "8518750",
+        "state": "outside_period",
+        "label": "Outside listed six-minute periods",
+        "message": "The requested dates do not overlap the listed six-minute observation intervals. Station installation/removal dates are not used as observation-period boundaries. Hourly heights are also listed for these dates; select that product explicitly to inspect its intervals.",
+        "query": {
+          "start": "1960-01-01",
+          "end": "1960-01-03"
+        },
+        "periods": [
+          {
+            "product": "Preliminary 6-Minute Water Level",
+            "kind": "preliminary",
+            "start": "2001-01-01",
+            "end": "2026-11-14",
+            "first": "2001-01-01 00:00",
+            "last": "2026-11-14 20:48",
+            "startTime": "2001-01-01T00:00:00.000Z",
+            "endTime": "2026-11-14T20:48:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1994-02-03",
+            "end": "1994-02-03",
+            "first": "1994-02-03 07:30",
+            "last": "1994-02-03 19:06",
+            "startTime": "1994-02-03T07:30:00.000Z",
+            "endTime": "1994-02-03T19:06:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1995-11-30",
+            "end": "1997-06-06",
+            "first": "1995-11-30 00:00",
+            "last": "1997-06-06 02:54",
+            "startTime": "1995-11-30T00:00:00.000Z",
+            "endTime": "1997-06-06T02:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1997-11-20",
+            "end": "2000-12-31",
+            "first": "1997-11-20 01:00",
+            "last": "2000-12-31 23:54",
+            "startTime": "1997-11-20T01:00:00.000Z",
+            "endTime": "2000-12-31T23:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "2001-05-01",
+            "end": "2004-01-31",
+            "first": "2001-05-01 00:00",
+            "last": "2004-01-31 23:54",
+            "startTime": "2001-05-01T00:00:00.000Z",
+            "endTime": "2004-01-31T23:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "2004-06-01",
+            "end": "2026-10-31",
+            "first": "2004-06-01 00:00",
+            "last": "2026-10-31 23:54",
+            "startTime": "2004-06-01T00:00:00.000Z",
+            "endTime": "2026-10-31T23:54:00.000Z"
+          }
+        ],
+        "hourlyPeriods": [
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "1920-06-01",
+            "end": "1921-12-01",
+            "first": "1920-06-01 05:00",
+            "last": "1921-12-01 04:00",
+            "startTime": "1920-06-01T05:00:00.000Z",
+            "endTime": "1921-12-01T04:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "1926-11-20",
+            "end": "1958-01-22",
+            "first": "1926-11-20 05:00",
+            "last": "1958-01-22 17:00",
+            "startTime": "1926-11-20T05:00:00.000Z",
+            "endTime": "1958-01-22T17:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "1958-05-01",
+            "end": "1976-11-29",
+            "first": "1958-05-01 05:00",
+            "last": "1976-11-29 04:00",
+            "startTime": "1958-05-01T05:00:00.000Z",
+            "endTime": "1976-11-29T04:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "1977-05-06",
+            "end": "1997-06-06",
+            "first": "1977-05-06 05:00",
+            "last": "1997-06-06 02:00",
+            "startTime": "1977-05-06T05:00:00.000Z",
+            "endTime": "1997-06-06T02:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "1997-11-20",
+            "end": "2000-12-31",
+            "first": "1997-11-20 01:00",
+            "last": "2000-12-31 23:00",
+            "startTime": "1997-11-20T01:00:00.000Z",
+            "endTime": "2000-12-31T23:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "2001-05-01",
+            "end": "2004-01-31",
+            "first": "2001-05-01 00:00",
+            "last": "2004-01-31 23:00",
+            "startTime": "2001-05-01T00:00:00.000Z",
+            "endTime": "2004-01-31T23:00:00.000Z"
+          },
+          {
+            "product": "Verified Hourly Height Water Level",
+            "kind": "verified",
+            "start": "2004-06-01",
+            "end": "2026-10-31",
+            "first": "2004-06-01 00:00",
+            "last": "2026-10-31 23:00",
+            "startTime": "2004-06-01T00:00:00.000Z",
+            "endTime": "2026-10-31T23:00:00.000Z"
+          }
+        ],
+        "listedProducts": [
+          "Air Temperature",
+          "Water Temperature",
+          "Barometric Pressure",
+          "Preliminary 6-Minute Water Level",
+          "Verified 6-Minute Water Level",
+          "Verified Hourly Height Water Level",
+          "Verified High/Low Water Level",
+          "Verified Monthly Mean Water Level"
+        ],
+        "availableDatums": [
+          {
+            "code": "STND",
+            "label": "Station Datum (station-specific reference)",
+            "basis": "NOAA station datum table",
+            "sourceName": "STND"
+          },
+          {
+            "code": "MHHW",
+            "label": "Mean Higher High Water",
+            "basis": "NOAA station datum table",
+            "sourceName": "MHHW"
+          },
+          {
+            "code": "MHW",
+            "label": "Mean High Water",
+            "basis": "NOAA station datum table",
+            "sourceName": "MHW"
+          },
+          {
+            "code": "MTL",
+            "label": "Mean Tide Level",
+            "basis": "NOAA station datum table",
+            "sourceName": "MTL"
+          },
+          {
+            "code": "MSL",
+            "label": "Mean Sea Level",
+            "basis": "NOAA station datum table",
+            "sourceName": "MSL"
+          },
+          {
+            "code": "MLW",
+            "label": "Mean Low Water",
+            "basis": "NOAA station datum table",
+            "sourceName": "MLW"
+          },
+          {
+            "code": "MLLW",
+            "label": "Mean Lower Low Water",
+            "basis": "NOAA station datum table",
+            "sourceName": "MLLW"
+          },
+          {
+            "code": "NAVD",
+            "label": "North American Vertical Datum",
+            "basis": "NOAA station datum table",
+            "sourceName": "NAVD88"
+          }
+        ],
+        "defaultDatum": "MSL",
+        "selectedDatum": "MSL",
+        "tryDatum": "MSL",
+        "selectionMode": "default",
+        "canTryPreview": false,
+        "inventoryStatus": "ok",
+        "metadataStatus": "ok",
+        "datumTableStatus": "listed",
+        "requests": [
+          {
+            "source": "metadata",
+            "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750.json?expand=details,datums&units=metric",
+            "attempt": 1,
+            "requestedAt": "2026-11-14T20:56:25.556Z",
+            "httpStatus": 200,
+            "retrievedAt": "2026-11-14T20:56:25.638Z",
+            "contentType": "application/json",
+            "textLength": 5598,
+            "outcome": "success"
+          },
+          {
+            "source": "inventory",
+            "url": "https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/response.jsp?stationId=8518750&format=xml&Submit=Submit",
+            "attempt": 1,
+            "requestedAt": "2026-11-14T20:56:25.819Z",
+            "httpStatus": 200,
+            "retrievedAt": "2026-11-14T20:56:26.292Z",
+            "contentType": "text/xml;charset=ISO-8859-1",
+            "textLength": 3207,
+            "outcome": "success"
+          }
+        ],
+        "checkedAt": "2026-11-14T20:56:26.300Z",
+        "errors": [],
+        "inventoryUrl": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750",
+        "documentation": [
+          "https://tidesandcurrents.noaa.gov/js/inventory.js",
+          "https://api.tidesandcurrents.noaa.gov/mdapi/prod/",
+          "https://api.tidesandcurrents.noaa.gov/api/prod/",
+          "https://tidesandcurrents.noaa.gov/js/wlcgi.js?hash=123456"
+        ],
+        "greatlakes": false,
+        "stationDetails": {
+          "id": "8518750",
+          "established": "1920-05-24 00:00:00",
+          "removed": "",
+          "noaachart": "12335",
+          "timemeridian": -75,
+          "timezone": -5,
+          "origyear": "1989-09-12 00:00:00",
+          "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750/details.json"
+        },
+        "datumMetadata": {
+          "epoch": "1983-2001",
+          "units": "meters",
+          "accepted": "Nov 19 2012",
+          "sourceNames": [
+            "STND",
+            "MHHW",
+            "MHW",
+            "DTL",
+            "MTL",
+            "MSL",
+            "MLW",
+            "MLLW",
+            "GT",
+            "MN",
+            "DHQ",
+            "DLQ",
+            "HWI",
+            "LWI",
+            "NAVD88"
+          ]
+        },
+        "datumReviewRequired": false,
+        "datumNote": "Datum options follow NOAA metadata and its own water-level interface. They do not establish actual observations, datum equivalence or epoch compatibility.",
+        "product": "water_level",
+        "productLabel": "Six-minute water levels",
+        "selectedPeriods": [
+          {
+            "product": "Preliminary 6-Minute Water Level",
+            "kind": "preliminary",
+            "start": "2001-01-01",
+            "end": "2026-11-14",
+            "first": "2001-01-01 00:00",
+            "last": "2026-11-14 20:48",
+            "startTime": "2001-01-01T00:00:00.000Z",
+            "endTime": "2026-11-14T20:48:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1994-02-03",
+            "end": "1994-02-03",
+            "first": "1994-02-03 07:30",
+            "last": "1994-02-03 19:06",
+            "startTime": "1994-02-03T07:30:00.000Z",
+            "endTime": "1994-02-03T19:06:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1995-11-30",
+            "end": "1997-06-06",
+            "first": "1995-11-30 00:00",
+            "last": "1997-06-06 02:54",
+            "startTime": "1995-11-30T00:00:00.000Z",
+            "endTime": "1997-06-06T02:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "1997-11-20",
+            "end": "2000-12-31",
+            "first": "1997-11-20 01:00",
+            "last": "2000-12-31 23:54",
+            "startTime": "1997-11-20T01:00:00.000Z",
+            "endTime": "2000-12-31T23:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "2001-05-01",
+            "end": "2004-01-31",
+            "first": "2001-05-01 00:00",
+            "last": "2004-01-31 23:54",
+            "startTime": "2001-05-01T00:00:00.000Z",
+            "endTime": "2004-01-31T23:54:00.000Z"
+          },
+          {
+            "product": "Verified 6-Minute Water Level",
+            "kind": "verified",
+            "start": "2004-06-01",
+            "end": "2026-10-31",
+            "first": "2004-06-01 00:00",
+            "last": "2026-10-31 23:54",
+            "startTime": "2004-06-01T00:00:00.000Z",
+            "endTime": "2026-10-31T23:54:00.000Z"
+          }
+        ],
+        "cadenceMs": 360000,
+        "alternativeProduct": {
+          "id": "hourly_height",
+          "label": "Hourly heights",
+          "url": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750"
+        }
+      },
+      "coopsProduct": "hourly_height"
+    },
+    "requestedWindow": {
+      "start": "1960-01-01",
+      "end": "1960-01-03"
+    },
+    "retrievedWindow": {
+      "start": "1960-01-01",
+      "end": "1960-01-03",
+      "startTime": "1960-01-01T00:00:00.000Z",
+      "endTime": "1960-01-03T23:00:00.000Z",
+      "datum": "MSL",
+      "available": true,
+      "requestedStart": "1960-01-01",
+      "requestedEnd": "1960-01-03",
+      "maxDays": 28,
+      "product": "hourly_height",
+      "cadenceMs": 3600000,
+      "shifted": false,
+      "basis": "coops_inventory",
+      "coverageStatus": "match",
+      "unverifiedMetadata": false,
+      "notes": [
+        "The listed hourly intervals span the requested period and a request datum is identified. Internal gaps, quality and actual returned observations remain unverified.",
+        "Preview request: 1960-01-01 00:00:00 GMT to 1960-01-03 23:00:00 GMT. Original project dates are retained. Inventory first/last timestamps do not verify continuity or data quality."
+      ]
+    },
+    "requests": [
+      {
+        "url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=hourly_height&application=climate_inventory_review&begin_date=19600101+00%3A00&end_date=19600103+23%3A00&datum=MSL&station=8518750&time_zone=gmt&units=metric&format=json",
+        "retrievedAt": "2026-11-14T20:57:28.466Z",
+        "httpStatus": 200,
+        "contentType": "application/json;charset=UTF-8"
+      }
+    ],
+    "processing": "Provider JSON response text retained unchanged. Numerical values parsed for display and sorted by provider timestamp. No interpolation, resampling, quality filtering or local unit conversion.",
+    "units": [
+      {
+        "key": "hourly_height",
+        "unit": "m"
+      }
+    ],
+    "timeConvention": "GMT / UTC",
+    "datum": "MSL (Mean Sea Level)",
+    "datumCode": "MSL",
+    "coopsAvailability": {
+      "schemaVersion": 1,
+      "stationId": "8518750",
+      "state": "match",
+      "label": "Nominal period match",
+      "message": "The listed hourly intervals span the requested period and a request datum is identified. Internal gaps, quality and actual returned observations remain unverified.",
+      "query": {
+        "start": "1960-01-01",
+        "end": "1960-01-03"
+      },
+      "periods": [
+        {
+          "product": "Preliminary 6-Minute Water Level",
+          "kind": "preliminary",
+          "start": "2001-01-01",
+          "end": "2026-11-14",
+          "first": "2001-01-01 00:00",
+          "last": "2026-11-14 20:48",
+          "startTime": "2001-01-01T00:00:00.000Z",
+          "endTime": "2026-11-14T20:48:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1994-02-03",
+          "end": "1994-02-03",
+          "first": "1994-02-03 07:30",
+          "last": "1994-02-03 19:06",
+          "startTime": "1994-02-03T07:30:00.000Z",
+          "endTime": "1994-02-03T19:06:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1995-11-30",
+          "end": "1997-06-06",
+          "first": "1995-11-30 00:00",
+          "last": "1997-06-06 02:54",
+          "startTime": "1995-11-30T00:00:00.000Z",
+          "endTime": "1997-06-06T02:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:54",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:54",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:54:00.000Z"
+        },
+        {
+          "product": "Verified 6-Minute Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:54",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:54:00.000Z"
+        }
+      ],
+      "hourlyPeriods": [
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1920-06-01",
+          "end": "1921-12-01",
+          "first": "1920-06-01 05:00",
+          "last": "1921-12-01 04:00",
+          "startTime": "1920-06-01T05:00:00.000Z",
+          "endTime": "1921-12-01T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1926-11-20",
+          "end": "1958-01-22",
+          "first": "1926-11-20 05:00",
+          "last": "1958-01-22 17:00",
+          "startTime": "1926-11-20T05:00:00.000Z",
+          "endTime": "1958-01-22T17:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1958-05-01",
+          "end": "1976-11-29",
+          "first": "1958-05-01 05:00",
+          "last": "1976-11-29 04:00",
+          "startTime": "1958-05-01T05:00:00.000Z",
+          "endTime": "1976-11-29T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1977-05-06",
+          "end": "1997-06-06",
+          "first": "1977-05-06 05:00",
+          "last": "1997-06-06 02:00",
+          "startTime": "1977-05-06T05:00:00.000Z",
+          "endTime": "1997-06-06T02:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:00",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:00",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:00",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:00:00.000Z"
+        }
+      ],
+      "listedProducts": [
+        "Air Temperature",
+        "Water Temperature",
+        "Barometric Pressure",
+        "Preliminary 6-Minute Water Level",
+        "Verified 6-Minute Water Level",
+        "Verified Hourly Height Water Level",
+        "Verified High/Low Water Level",
+        "Verified Monthly Mean Water Level"
+      ],
+      "availableDatums": [
+        {
+          "code": "STND",
+          "label": "Station Datum (station-specific reference)",
+          "basis": "NOAA station datum table",
+          "sourceName": "STND"
+        },
+        {
+          "code": "MHHW",
+          "label": "Mean Higher High Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MHHW"
+        },
+        {
+          "code": "MHW",
+          "label": "Mean High Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MHW"
+        },
+        {
+          "code": "MTL",
+          "label": "Mean Tide Level",
+          "basis": "NOAA station datum table",
+          "sourceName": "MTL"
+        },
+        {
+          "code": "MSL",
+          "label": "Mean Sea Level",
+          "basis": "NOAA station datum table",
+          "sourceName": "MSL"
+        },
+        {
+          "code": "MLW",
+          "label": "Mean Low Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MLW"
+        },
+        {
+          "code": "MLLW",
+          "label": "Mean Lower Low Water",
+          "basis": "NOAA station datum table",
+          "sourceName": "MLLW"
+        },
+        {
+          "code": "NAVD",
+          "label": "North American Vertical Datum",
+          "basis": "NOAA station datum table",
+          "sourceName": "NAVD88"
+        }
+      ],
+      "defaultDatum": "MSL",
+      "selectedDatum": "MSL",
+      "tryDatum": "MSL",
+      "selectionMode": "default",
+      "canTryPreview": false,
+      "inventoryStatus": "ok",
+      "metadataStatus": "ok",
+      "datumTableStatus": "listed",
+      "requests": [
+        {
+          "source": "metadata",
+          "url": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750.json?expand=details,datums&units=metric",
+          "attempt": 1,
+          "requestedAt": "2026-11-14T20:56:25.556Z",
+          "httpStatus": 200,
+          "retrievedAt": "2026-11-14T20:56:25.638Z",
+          "contentType": "application/json",
+          "textLength": 5598,
+          "outcome": "success"
+        },
+        {
+          "source": "inventory",
+          "url": "https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/response.jsp?stationId=8518750&format=xml&Submit=Submit",
+          "attempt": 1,
+          "requestedAt": "2026-11-14T20:56:25.819Z",
+          "httpStatus": 200,
+          "retrievedAt": "2026-11-14T20:56:26.292Z",
+          "contentType": "text/xml;charset=ISO-8859-1",
+          "textLength": 3207,
+          "outcome": "success"
+        }
+      ],
+      "checkedAt": "2026-11-14T20:56:26.300Z",
+      "errors": [],
+      "inventoryUrl": "https://tidesandcurrents.noaa.gov/inventory.html?id=8518750",
+      "documentation": [
+        "https://tidesandcurrents.noaa.gov/js/inventory.js",
+        "https://api.tidesandcurrents.noaa.gov/mdapi/prod/",
+        "https://api.tidesandcurrents.noaa.gov/api/prod/",
+        "https://tidesandcurrents.noaa.gov/js/wlcgi.js?hash=123456"
+      ],
+      "greatlakes": false,
+      "stationDetails": {
+        "id": "8518750",
+        "established": "1920-05-24 00:00:00",
+        "removed": "",
+        "noaachart": "12335",
+        "timemeridian": -75,
+        "timezone": -5,
+        "origyear": "1989-09-12 00:00:00",
+        "self": "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/8518750/details.json"
+      },
+      "datumMetadata": {
+        "epoch": "1983-2001",
+        "units": "meters",
+        "accepted": "Nov 19 2012",
+        "sourceNames": [
+          "STND",
+          "MHHW",
+          "MHW",
+          "DTL",
+          "MTL",
+          "MSL",
+          "MLW",
+          "MLLW",
+          "GT",
+          "MN",
+          "DHQ",
+          "DLQ",
+          "HWI",
+          "LWI",
+          "NAVD88"
+        ]
+      },
+      "datumReviewRequired": false,
+      "datumNote": "Datum options follow NOAA metadata and its own water-level interface. They do not establish actual observations, datum equivalence or epoch compatibility.",
+      "product": "hourly_height",
+      "productLabel": "Verified hourly heights",
+      "selectedPeriods": [
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1920-06-01",
+          "end": "1921-12-01",
+          "first": "1920-06-01 05:00",
+          "last": "1921-12-01 04:00",
+          "startTime": "1920-06-01T05:00:00.000Z",
+          "endTime": "1921-12-01T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1926-11-20",
+          "end": "1958-01-22",
+          "first": "1926-11-20 05:00",
+          "last": "1958-01-22 17:00",
+          "startTime": "1926-11-20T05:00:00.000Z",
+          "endTime": "1958-01-22T17:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1958-05-01",
+          "end": "1976-11-29",
+          "first": "1958-05-01 05:00",
+          "last": "1976-11-29 04:00",
+          "startTime": "1958-05-01T05:00:00.000Z",
+          "endTime": "1976-11-29T04:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1977-05-06",
+          "end": "1997-06-06",
+          "first": "1977-05-06 05:00",
+          "last": "1997-06-06 02:00",
+          "startTime": "1977-05-06T05:00:00.000Z",
+          "endTime": "1997-06-06T02:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "1997-11-20",
+          "end": "2000-12-31",
+          "first": "1997-11-20 01:00",
+          "last": "2000-12-31 23:00",
+          "startTime": "1997-11-20T01:00:00.000Z",
+          "endTime": "2000-12-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2001-05-01",
+          "end": "2004-01-31",
+          "first": "2001-05-01 00:00",
+          "last": "2004-01-31 23:00",
+          "startTime": "2001-05-01T00:00:00.000Z",
+          "endTime": "2004-01-31T23:00:00.000Z"
+        },
+        {
+          "product": "Verified Hourly Height Water Level",
+          "kind": "verified",
+          "start": "2004-06-01",
+          "end": "2026-10-31",
+          "first": "2004-06-01 00:00",
+          "last": "2026-10-31 23:00",
+          "startTime": "2004-06-01T00:00:00.000Z",
+          "endTime": "2026-10-31T23:00:00.000Z"
+        }
+      ],
+      "cadenceMs": 3600000,
+      "alternativeProduct": null
+    },
+    "unverifiedMetadataAttempt": false,
+    "datumSelectionMode": "default",
+    "summaries": [
+      {
+        "key": "hourly_height",
+        "numericValues": 72,
+        "returnedRows": 72,
+        "expectedSlots": 72,
+        "definition": "Numeric returned values / nominal hourly slots in the preview window. Flags are retained; this is not a count of quality-approved values."
+      }
+    ],
+    "documentation": [
+      "https://api.tidesandcurrents.noaa.gov/api/prod/",
+      "https://api.tidesandcurrents.noaa.gov/api/dev/responseHelp.html"
+    ],
+    "qualification": "Data retrieval and software checks only; scientific suitability is not established.",
+    "rawSha256": "efe965e7808b824054f1e0bbf396a2da483eaa6d9c2fc95406d92486f9ea1849"
+  },
+  "notes": [
+    "Only the displayed preview window was downloaded. No interpolation, aggregation, QC filtering or local unit conversion was applied.",
+    "The listed hourly intervals span the requested period and a request datum is identified. Internal gaps, quality and actual returned observations remain unverified.",
+    "Preview request: 1960-01-01 00:00:00 GMT to 1960-01-03 23:00:00 GMT. Original project dates are retained. Inventory first/last timestamps do not verify continuity or data quality.",
+    "Verified hourly observed total water level, in metres relative to MSL, with timestamps requested in GMT. This is not a surge residual, wave height or flood depth.",
+    "Requested datum MSL; selection mode: default. The provider returned the requested reference; this tool applied no local datum conversion or automatic substitution. STND is station-specific and is not equivalent to MSL; IGLD, LWD and NAVD are distinct references. Review epoch compatibility separately.",
+    "Verified hourly heights retain NOAA flags: inferred value (I) and limits exceeded (L). The hourly product need not include a q quality field; no quality value is invented. Hourly samples can miss sub-hourly peaks. Datum suitability and epoch alignment require separate review."
+  ],
+  "summaries": [
+    {
+      "key": "hourly_height",
+      "numericValues": 72,
+      "returnedRows": 72,
+      "expectedSlots": 72,
+      "definition": "Numeric returned values / nominal hourly slots in the preview window. Flags are retained; this is not a count of quality-approved values."
+    }
+  ],
+  "observationCount": 72,
+  "window": {
+    "start": "1960-01-01",
+    "end": "1960-01-03",
+    "startTime": "1960-01-01T00:00:00.000Z",
+    "endTime": "1960-01-03T23:00:00.000Z",
+    "datum": "MSL",
+    "available": true,
+    "requestedStart": "1960-01-01",
+    "requestedEnd": "1960-01-03",
+    "maxDays": 28,
+    "product": "hourly_height",
+    "cadenceMs": 3600000,
+    "shifted": false,
+    "basis": "coops_inventory",
+    "coverageStatus": "match",
+    "unverifiedMetadata": false,
+    "notes": [
+      "The listed hourly intervals span the requested period and a request datum is identified. Internal gaps, quality and actual returned observations remain unverified.",
+      "Preview request: 1960-01-01 00:00:00 GMT to 1960-01-03 23:00:00 GMT. Original project dates are retained. Inventory first/last timestamps do not verify continuity or data quality."
+    ]
+  },
+  "requestedWindow": {
+    "start": "1960-01-01",
+    "end": "1960-01-03"
+  }
+}

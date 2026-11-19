@@ -1,0 +1,139 @@
+{
+  "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/1742/psv/GHCNh_USU00001168_1742.psv",
+  "retrieved_at": "2026-11-14T23:25:48.460289+00:00",
+  "status": 200,
+  "sha256": "5dd0521e1590b456c8673454d0ab90049b00b7745cdde8f877c23a63cdce4633",
+  "size": 37143,
+  "rows": 60,
+  "station": "CAMBRIDGE",
+  "coordinates": [
+    {
+      "coordinates": [
+        -71.11,
+        42.374
+      ],
+      "type": "point"
+    }
+  ],
+  "fields": {
+    "temperature": {
+      "count": 60,
+      "quality_codes": {
+        "": 60
+      },
+      "examples": [
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T14:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "temperature": "-8.9",
+          "temperature_Measurement_Code": "",
+          "temperature_Quality_Code": "",
+          "temperature_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T21:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "temperature": "-6.0",
+          "temperature_Measurement_Code": "",
+          "temperature_Quality_Code": "",
+          "temperature_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-12T03:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "temperature": "-0.9",
+          "temperature_Measurement_Code": "",
+          "temperature_Quality_Code": "",
+          "temperature_Source_Code": "404"
+        }
+      ]
+    },
+    "wind_speed": {
+      "count": 59,
+      "quality_codes": {
+        "": 59
+      },
+      "examples": [
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T14:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_speed": "0.8",
+          "wind_speed_Measurement_Code": "",
+          "wind_speed_Quality_Code": "",
+          "wind_speed_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T21:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_speed": "0.8",
+          "wind_speed_Measurement_Code": "",
+          "wind_speed_Quality_Code": "",
+          "wind_speed_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-12T03:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_speed": "2.4",
+          "wind_speed_Measurement_Code": "",
+          "wind_speed_Quality_Code": "",
+          "wind_speed_Source_Code": "404"
+        }
+      ]
+    },
+    "wind_direction": {
+      "count": 55,
+      "quality_codes": {
+        "": 55
+      },
+      "examples": [
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T14:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_direction": "11",
+          "wind_direction_Measurement_Code": "",
+          "wind_direction_Quality_Code": "",
+          "wind_direction_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-11T21:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_direction": "11",
+          "wind_direction_Measurement_Code": "",
+          "wind_direction_Quality_Code": "",
+          "wind_direction_Source_Code": "404"
+        },
+        {
+          "STATION": "USU00001168",
+          "DATE": "1742-12-12T03:00:00",
+          "LATITUDE": "42.374",
+          "LONGITUDE": "-71.11",
+          "wind_direction": "101",
+          "wind_direction_Measurement_Code": "",
+          "wind_direction_Quality_Code": "",
+          "wind_direction_Source_Code": "404"
+        }
+      ]
+    },
+    "precipitation": {
+      "count": 0,
+      "quality_codes": {},
+      "examples": []
+    }
+  }
+}

@@ -19,7 +19,8 @@
       "cems_rapid_mapping",
       "cems_gfm",
       "swot_raster_d",
-      "swot_riversp_d"
+      "swot_riversp_d",
+      "c3s_lake_water_level"
     ]
   },
   {
@@ -37,7 +38,8 @@
       "grace_jpl_mascon_cri_rl063_v04",
       "chirps_v2_daily",
       "chirps_v3_daily_rnl",
-      "chirps_v3_daily_sat"
+      "chirps_v3_daily_sat",
+      "c3s_lake_water_level"
     ]
   },
   {

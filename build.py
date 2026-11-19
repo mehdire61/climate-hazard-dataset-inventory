@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh the data block embedded in index.html from the JSON files in data/.
+"""Validate and embed catalog data, Site check rules, examples and source assets.
 
 Usage: python build.py
 
@@ -8,6 +8,9 @@ Only fields used by the page or metadata export are embedded. The source JSON fi
 are never changed. The script stops without changing index.html if validation fails.
 """
 import json
+import copy
+import hashlib
+import math
 import re
 import sys
 from datetime import date
@@ -35,10 +38,286 @@ PRODUCT_URL_FIELDS = ("documentation_url", "access_url", "access_example_url", "
 REQUIRED_SOURCE_FIELDS = ("title", "url", "claims", "checked_date", "verification")
 OPTIONAL_SOURCE_TEXT_FIELDS = ("doi", "link_status", "alternate_url", "alternate_label")
 DATA_BLOCK = re.compile(r'(<script id="inventory-data" type="application/json">).*?(</script>)', re.S)
+PAGE_ASSETS = {
+    "leaflet-styles": ("style", "vendor/leaflet.css"),
+    "site-check-styles": ("style", "src/site-check.css"),
+    "turf-code": ("script", "vendor/turf.min.js"),
+    "leaflet-code": ("script", "vendor/leaflet.js"),
+    "geometry-code": ("script", "src/geometry.js"),
+    "screening-code": ("script", "src/screening.js"),
+    "shortlist-code": ("script", "src/shortlist.js"),
+    "coops-availability-code": ("script", "src/coops-availability.js"),
+    "ghcn-parquet-code": ("script", "vendor/hyparquet-ghcn.min.js"),
+    "ghcn-gzip-code": ("script", "vendor/pako-inflate.min.js"),
+    "ghcn-archive-code": ("script", "src/ghcn-archive.js"),
+    "providers-code": ("script", "src/providers.js"),
+    "station-download-code": ("script", "src/station-download.js"),
+    "observation-chart-code": ("script", "src/observation-chart.js"),
+    "project-state-code": ("script", "src/project-state.js"),
+    "coverage-timeline-code": ("script", "src/coverage-timeline.js"),
+    "areas-code": ("script", "src/areas.js"),
+    "reference-renderer-code": ("script", "vendor/protomaps-leaflet.js"),
+    "reference-map-code": ("script", "src/reference-map.js"),
+    "project-map-code": ("script", "src/project-map.js"),
+    "grid-access-code": ("script", "src/grid-access.js"),
+    "earth-access-code": ("script", "src/earth-access.js"),
+    "stac-access-code": ("script", "src/stac-access.js"),
+    "provider-requests-code": ("script", "src/provider-requests.js"),
+    "science-requests-code": ("script", "src/science-requests.js"),
+    "access-code": ("script", "src/access.js"),
+    "access-guide-code": ("script", "src/access-guide.js"),
+    "grdc-catalogue-code": ("script", "src/grdc-catalogue.js"),
+    "site-check-code": ("script", "src/site-check.js"),
+}
+SUPPORT_TYPES = {"station", "grid", "event", "track", "climate_state", "acquisition", "model"}
+TIME_STEPS = {"accumulation_specific", "acquisition", "annual_monthly_seasonal", "daily", "daily_accumulations", "daily_index",
+              "daily_monthly", "event", "half_hourly", "hourly", "hourly_interval", "hourly_or_finer",
+              "hourly_synoptic", "irregular_track", "mixed", "monthly", "monthly_annual", "monthly_irregular",
+              "monthly_seasonal_annual", "overpass", "return_period_scenario", "six_minute_hourly", "three_hourly", "two_minute"}
+ACCESS_REQUIREMENTS = {"cds_account_and_terms", "commercial_licence", "earthdata_account", "platform_account",
+                       "provider_terms", "public_api", "registration_or_terms", "request", "route_dependent"}
+INDEXED_SCREENING_PRODUCTS = {"chirps_v2_daily", "chirps_v3_daily_rnl", "chirps_v3_daily_sat", "gpcc_monthly_v2025"}
+
+
+def screening_source_urls_valid(urls):
+    if not isinstance(urls, list) or not urls:
+        return False
+    try:
+        return all(isinstance(url, str) and urlsplit(url).scheme == "https" and urlsplit(url).hostname
+                   and not urlsplit(url).username and not urlsplit(url).password for url in urls)
+    except ValueError:
+        return False
+
+
+def derive_screening_index_metadata(screening, grid):
+    """Derive soft listing horizons in memory; never change source catalog or JSON."""
+    derived = copy.deepcopy(screening)
+    for pid, rule in derived.get("rules", {}).items():
+        period = rule.get("time", {})
+        reference = period.get("index_reference")
+        if reference is None:
+            continue
+        if reference not in INDEXED_SCREENING_PRODUCTS or reference != pid:
+            raise ValueError(f"{pid}: invalid screening file-index reference")
+        product = grid.get("products", {}).get(reference, {})
+        files, checks = product.get("files"), product.get("listingChecks")
+        if not isinstance(files, list) or not files or any(not isinstance(f, dict) or not is_iso_date(f.get("start")) or not is_iso_date(f.get("end")) or f["start"] > f["end"] for f in files):
+            raise ValueError(f"{pid}: cannot derive screening from missing/invalid indexed file intervals")
+        if not isinstance(checks, list) or not checks or any(not isinstance(c, dict) or not isinstance(c.get("metadataCheckedAt"), str) or not is_iso_date(c["metadataCheckedAt"][:10]) for c in checks) or not screening_source_urls_valid([c.get("url") for c in checks]):
+            raise ValueError(f"{pid}: cannot derive screening without dated provider listing sources")
+        snapshot = {"source": "data/grid-access-index.json", "first_file_start": min(f["start"] for f in files),
+                    "last_file_end": max(f["end"] for f in files), "checked_on": min(c["metadataCheckedAt"][:10] for c in checks),
+                    "source_urls": list(dict.fromkeys(c["url"] for c in checks)), "file_count": len(files)}
+        period["known_through"] = snapshot["last_file_end"]
+        period["index_snapshot"] = snapshot
+    return derived
+
+
+def rule_is_valid(rule):
+    if not isinstance(rule, dict) or rule.get("support_type") not in SUPPORT_TYPES or rule.get("time_step") not in TIME_STEPS or rule.get("access_requirement") not in ACCESS_REQUIREMENTS:
+        return False
+    if not is_iso_date(rule.get("curation_reviewed_on")):
+        return False
+    domain, period = rule.get("domain", {}), rule.get("time", {})
+    if domain.get("kind") not in {"global", "envelope", "station", "regional", "unknown"} or period.get("kind") not in {"range", "station", "event", "scenario", "unknown"}:
+        return False
+    bounds = domain.get("bounds")
+    if domain.get("kind") == "envelope" and bounds is None:
+        return False
+    if bounds is not None:
+        if not isinstance(bounds, list) or len(bounds) != 4 or any(type(n) not in (int, float) or not math.isfinite(n) for n in bounds):
+            return False
+        if not (-180 <= bounds[0] <= 180 and -180 <= bounds[2] <= 180 and -90 <= bounds[1] <= bounds[3] <= 90):
+            return False
+    if type(domain.get("hard_bounds")) is not bool:
+        return False
+    if "regions" in domain:
+        if not isinstance(domain["regions"], list) or not domain["regions"]:
+            return False
+        for region in domain["regions"]:
+            if not isinstance(region, dict):
+                return False
+            b = region.get("bounds")
+            if not isinstance(b, list) or len(b) != 4 or any(type(v) not in (int, float) or not math.isfinite(v) for v in b) or not (-180 <= b[0] <= 180 and -180 <= b[2] <= 180 and -90 <= b[1] <= b[3] <= 90):
+                return False
+            if any(region.get(k) is not None and not is_iso_date(region[k]) for k in ("start", "end")):
+                return False
+    if "access_route_start" in period and not is_iso_date(period["access_route_start"]):
+        return False
+    for key in ("intervals", "uncertain_windows"):
+        if not isinstance(period.get(key), list):
+            return False
+        for interval in period[key]:
+            if not isinstance(interval, dict) or any(interval.get(k) is not None and not is_iso_date(interval[k]) for k in ("start", "end")):
+                return False
+            if interval.get("start") and interval.get("end") and interval["start"] > interval["end"]:
+                return False
+    if "solution_calendar" in period:
+        rows = period["solution_calendar"]
+        if not isinstance(rows, list) or not rows or not is_iso_date(period.get("known_through")):
+            return False
+        previous_month = ""
+        for row in rows:
+            if not isinstance(row, dict):
+                return False
+            month, stamp = row.get("month"), row.get("timestamp")
+            lo, hi = row.get("samplingStart"), row.get("samplingEnd")
+            if not isinstance(month, str) or not is_iso_date(month + "-01") or month <= previous_month or not is_iso_date(stamp):
+                return False
+            if (lo is not None or hi is not None) and not (is_iso_date(lo) and is_iso_date(hi) and lo <= stamp <= hi):
+                return False
+            previous_month = month
+        if previous_month != period["known_through"][:7]:
+            return False
+    if "index_reference" in period and period["index_reference"] not in INDEXED_SCREENING_PRODUCTS:
+        return False
+    if "index_snapshot" in period:
+        snapshot = period["index_snapshot"]
+        if not period.get("index_reference") or not isinstance(snapshot, dict) or any(not is_iso_date(snapshot.get(k)) for k in ("first_file_start", "last_file_end", "checked_on")) or snapshot["first_file_start"] > snapshot["last_file_end"] or snapshot.get("source") != "data/grid-access-index.json" or type(snapshot.get("file_count")) is not int or snapshot["file_count"] <= 0 or not screening_source_urls_valid(snapshot.get("source_urls")) or period.get("known_through") != snapshot["last_file_end"]:
+            return False
+    if "access_route_end" in period and (not is_iso_date(period["access_route_end"]) or not isinstance(period.get("access_route_note"), str) or not period["access_route_note"]):
+        return False
+    if "publication_policy" in period:
+        policy = period["publication_policy"]
+        if not isinstance(policy, dict) or policy.get("kind") not in {"era5_cds", "merra2_monthly", "mcd64a1_monthly"} or not is_iso_date(policy.get("checked_on")) or not screening_source_urls_valid(policy.get("source_urls")):
+            return False
+    if period.get("latest_availability") == "unchecked" and (type(period.get("recent_window_days")) is not int or not 1 <= period["recent_window_days"] <= 366):
+        return False
+    if period.get("latest_availability") not in (None, "unchecked"):
+        return False
+    if any(i.get("end") is None for i in period["intervals"]) and not any(period.get(k) for k in ("known_through", "index_reference", "publication_policy", "access_route_end", "latest_availability")):
+        return False
+    return period.get("known_through") is None or is_iso_date(period["known_through"])
+
+
+def example_payload_matches(example):
+    """Independently check saved plotted values/flags against the preserved JSON."""
+    try:
+        result, station = example["result"], example["station"]
+        raw = result["rawText"]
+        if result["station"]["id"] != station["id"] or result["provenance"]["rawSha256"] != hashlib.sha256(raw.encode("utf-8")).hexdigest():
+            return False
+        rows = json.loads(raw)
+        expected = {}
+
+        def number(value):
+            if value is None or isinstance(value, bool) or str(value).strip() == "":
+                return None
+            try:
+                value = float(value)
+                return value if math.isfinite(value) else None
+            except (ValueError, TypeError):
+                return None
+
+        def add(key, unit, time, value, flags):
+            expected.setdefault((key, unit), []).append({"time": time, "value": value, "flags": flags})
+
+        pid = example["productId"]
+        if pid == "ghcn_daily":
+            for row in rows:
+                if row["STATION"] != station["id"]:
+                    return False
+                for key, unit in (("TMAX", "°C"), ("TMIN", "°C"), ("PRCP", "mm")):
+                    attr = row.get(key + "_ATTRIBUTES")
+                    parts = attr.split(",") if isinstance(attr, str) else []
+                    parts += [None] * (4 - len(parts))
+                    value = number(row.get(key))
+                    flags = dict(zip(("measurementFlag", "qualityFlag", "sourceFlag", "observationTime"), parts[:4]))
+                    flags["attributes"] = attr
+                    if value == -9999:
+                        value, flags["missingSentinel"] = None, "-9999"
+                    add(key, unit, row["DATE"], value, flags)
+        elif pid == "noaa_coops_water_level":
+            if str(rows["metadata"]["id"]) != station["id"]:
+                return False
+            for row in rows["data"]:
+                add("water_level", "m", row["t"].replace(" ", "T") + ":00Z", number(row.get("v")),
+                    {"quality": row.get("q"), "dataFlags": row.get("f"), "sigma": row.get("s")})
+        elif pid == "usgs_streamflow":
+            for feature in rows["features"]:
+                row = feature["properties"]
+                if row["monitoring_location_id"] != station["id"] or row["parameter_code"] != "00060" or row["statistic_id"] != "00003":
+                    return False
+                add(row["time_series_id"] + "|" + row["unit_of_measure"], row["unit_of_measure"], row["time"], number(row.get("value")),
+                    {"approvalStatus": row.get("approval_status"), "qualifier": row.get("qualifier"), "lastModified": row.get("last_modified"), "timeSeriesId": row["time_series_id"]})
+        else:
+            return False
+        actual = {(s["key"], s["unit"]): s["points"] for s in result["series"]}
+        if len(actual) != len(result["series"]):
+            return False
+        for points in expected.values():
+            points.sort(key=lambda point: point["time"])
+        return expected == actual
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
+
+
+def screening_problems(screening, examples, products, sources):
+    """Check that screening rules and examples reference catalog products and sources."""
+    problems = []
+    ids = {p["product_id"] for p in products}
+    product_sources = {p["product_id"]: set(p["evidence_ids"]) for p in products}
+    rules = screening.get("rules", {})
+    if set(rules) != ids:
+        problems.append("screening.rules must have exactly one rule per catalog product")
+    for pid, rule in rules.items():
+        evidence = rule.get("evidence_ids", [])
+        if not evidence or any(e not in sources or e not in product_sources.get(pid, set()) for e in evidence):
+            problems.append(f"{pid}: screening must cite evidence belonging to the same catalog record")
+        if not rule_is_valid(rule):
+            problems.append(f"{pid}: invalid controlled screening metadata")
+        if rule.get("time", {}).get("index_reference", pid) != pid:
+            problems.append(f"{pid}: screening file-index reference belongs to a different record")
+    example_ids = set()
+    for example in examples.get("examples", []):
+        label = example.get("id", "<missing example id>")
+        if label in example_ids or not example.get("id"):
+            problems.append(f"{label}: missing or duplicate example id")
+        example_ids.add(label)
+        if example.get("productId") not in ids:
+            problems.append(f"{label}: example product missing from catalog")
+        query = example.get("query", {})
+        if not all(is_iso_date(query.get(d)) for d in ("start", "end")):
+            problems.append(f"{label}: example dates invalid")
+        result = example.get("result", {})
+        if not result.get("rawText") or not result.get("requests"):
+            problems.append(f"{label}: example must retain original payload and request receipt")
+        if not example_payload_matches(example):
+            problems.append(f"{label}: saved values, flags, units or station do not match the hashed provider payload")
+        for request in result.get("requests", []):
+            if not is_web_url(request.get("url")) or not request.get("retrievedAt"):
+                problems.append(f"{label}: example receipt lacks a URL or retrieval time")
+    if not example_ids:
+        problems.append("examples.json must contain real saved examples")
+    return problems
 
 
 def load(name):
     return json.loads((ROOT / "data" / name).read_text(encoding="utf-8"))
+
+
+def geography_problems(geography):
+    """Keep context and exact project fixtures distinct and detect fixture changes."""
+    problems = []
+    if geography.get("schema_version") != 1 or geography.get("context", {}).get("type") != "FeatureCollection":
+        problems.append("geography.json: missing supported schema or context collection")
+    if not geography.get("contextSource", {}).get("note") or not geography.get("provenance"):
+        problems.append("geography.json: missing map provenance or context qualification")
+    ids = set()
+    for example in geography.get("examples", []):
+        shape, source = example.get("geometry", {}), example.get("source", {})
+        label = example.get("id")
+        if not label or label in ids or shape.get("type") not in {"Polygon", "MultiPolygon"}:
+            problems.append("geography.json: invalid project fixture identity or geometry")
+        ids.add(label)
+        geometry_hash = hashlib.sha256(json.dumps(shape, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+        if source.get("geometrySha256") != geometry_hash:
+            problems.append(f"{label}: project geometry does not match its retained hash")
+        if not is_web_url(source.get("url")) or not source.get("vintage") or not source.get("rawSha256"):
+            problems.append(f"{label}: missing boundary source, vintage or payload hash")
+    if not ids or not geography.get("states") or not geography.get("countries"):
+        problems.append("geography.json: missing sourced project examples or boundary indexes")
+    return problems
 
 
 def is_web_url(value):
@@ -139,10 +418,72 @@ def find_problems(products, sources_by_id, groups):
     return problems
 
 
+def access_problems(access, grid, products):
+    problems = []
+    ids = {p["product_id"] for p in products}
+    profiles = access.get("profiles", {})
+    if access.get("schemaVersion") != 1 or set(profiles) != ids:
+        problems.append("access.json must contain exactly one reviewed profile for every catalog record")
+    strategies = {"station", "grid", "snapshot", "cmr", "stac", "cds", "mrms", "erddap",
+                  "daily-template", "ims-daily-template", "coolr-arcgis", "portal", "versioned-model-handoff"}
+    def https(value):
+        try:
+            url = urlsplit(value)
+            return url.scheme == "https" and bool(url.netloc) and not url.username and not url.password
+        except (ValueError, TypeError):
+            return False
+    for pid, profile in profiles.items():
+        label = f"access.json {pid}"
+        if profile.get("productId") != pid or profile.get("kind") not in {"station", "files", "request", "external"} or profile.get("strategy") not in strategies:
+            problems.append(f"{label}: invalid identity or route")
+        if any(not isinstance(profile.get(k), str) or not profile[k] for k in ("summary", "auth", "spatialDelivery", "temporalDelivery")):
+            problems.append(f"{label}: missing access qualification")
+        verification = profile.get("verification", {})
+        if not verification.get("label") or not is_iso_date(str(verification.get("checkedAt", ""))[:10]):
+            problems.append(f"{label}: missing dated verification")
+        if any(not https(profile.get(k)) for k in ("providerUrl", "docsUrl")):
+            problems.append(f"{label}: unsafe provider/documentation URL")
+        options = profile.get("options", [])
+        if len({o.get("key") for o in options}) != len(options):
+            problems.append(f"{label}: duplicate option key")
+        for option in options:
+            values = [str(c.get("value")) for c in option.get("choices", [])]
+            if not option.get("key") or not option.get("label") or len(set(values)) != len(values) or str(option.get("value")) not in values:
+                problems.append(f"{label}: invalid option choices/default")
+        files = profile.get("files", [])
+        if len({f.get("id", f.get("url")) for f in files}) != len(files):
+            problems.append(f"{label}: duplicate file identity")
+        for file in files:
+            if not https(file.get("url")) or not file.get("name"):
+                problems.append(f"{label}: unsafe or unnamed file")
+            if file.get("checksum") and not re.fullmatch(r"md5:[a-fA-F0-9]{32}", str(file["checksum"])):
+                problems.append(f"{label}: invalid provider checksum")
+        if profile.get("strategy") == "cmr" and (not profile.get("collections") or any(not re.fullmatch(r"C\d+-[A-Za-z0-9_]+", c.get("id", "")) or not c.get("shortName") or not c.get("version") for c in profile["collections"])):
+            problems.append(f"{label}: invalid exact CMR collection")
+    grid_ids = {pid for pid, p in profiles.items() if p.get("strategy") == "grid"}
+    if grid.get("schemaVersion") != 1 or set(grid.get("products", {})) != grid_ids:
+        problems.append("grid-access-index.json does not match the reviewed grid routes")
+    for pid, product in grid.get("products", {}).items():
+        files = product.get("files", [])
+        if not files or len({f.get("url") for f in files}) != len(files):
+            problems.append(f"{pid}: missing or duplicate grid files")
+        for file in files:
+            if not https(file.get("url")) or not is_iso_date(file.get("start")) or not is_iso_date(file.get("end")) or file["start"] > file["end"] or not is_iso_date(str(file.get("metadataCheckedAt", ""))[:10]):
+                problems.append(f"{pid}: invalid grid file URL, dates or verification")
+    return problems
+
+
 def main():
     catalog = load("catalog.json")
     source_list = load("sources.json")
     groups = load("hazard_groups.json")
+    screening = load("screening.json")
+    examples = load("examples.json")
+    geography = load("geography.json")
+    country_boundaries = load("country-boundaries.json")
+    station_reference = load("station-reference.json")
+    access = load("access.json")
+    grid_access = load("grid-access-index.json")
     sources_by_id = {source["evidence_id"]: source for source in source_list}
     products = catalog["products"]
 
@@ -164,26 +505,83 @@ def main():
     }
     for evidence_id, source in public_sources.items():
         problems += source_problems(source, evidence_id)
+    problems += screening_problems(screening, examples, products, public_sources)
+    problems += geography_problems(geography)
+    for name, reference in (("country-boundaries", country_boundaries), ("station-reference", station_reference)):
+        if reference.get("schema_version") != 1 or not re.fullmatch(r"[a-f0-9]{64}", reference.get("source", {}).get("sha256", "")):
+            problems.append(name + ": missing reference schema or source hash")
+    if not country_boundaries.get("features") or not station_reference.get("elevationsM") or not station_reference.get("locationChecks"):
+        problems.append("Missing country or station reference data")
+    problems += access_problems(access, grid_access, products)
     if problems:
         sys.exit("index.html was not changed:\n  " + "\n  ".join(dict.fromkeys(problems)))
+
+    try:
+        derive_screening_index_metadata(screening, grid_access)  # Validate the index; embed the source rules unchanged.
+    except ValueError as error:
+        sys.exit("index.html was not changed:\n  " + str(error))
 
     payload = {
         "meta": {
             "revision": revision_parts[0],
             "snapshot_date": revision_parts[1],
             "rights_note": catalog["status_definitions"]["commercial_use_status"],
+            "review_version": "0.2",
+            "build_id": "__INVENTORY_BUILD_ID__",
         },
         "hazard_groups": groups,
         "products": public_products,
         "sources": public_sources,
+        "screening": screening,
+        "examples": examples,
+        "geography": {k: v for k, v in geography.items() if k not in {"context", "contextSource"}},
+        "countryBoundaries": country_boundaries,
+        "stationReference": station_reference,
+        "access": access,
+        "gridAccess": grid_access,
     }
     # "<" is escaped so catalog text can never close the surrounding script element.
-    block = json.dumps(payload, ensure_ascii=False, indent=1).replace("<", "\\u003c")
+    block = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
 
     page = PAGE.read_text(encoding="utf-8")
     page, replaced = DATA_BLOCK.subn(lambda m: f"{m.group(1)}\n{block}\n{m.group(2)}", page)
     if replaced != 1:
         sys.exit("index.html was not changed: could not find its inventory-data block")
+    overview = load("offline-basemap.json")
+    if not isinstance(overview.get("maxZoom"), int) or not overview.get("tiles", {}).get("0/0/0"):
+        sys.exit("Invalid OpenFreeMap overview")
+    for key, digest in overview.get("shards", {}).items():
+        if not re.fullmatch(r"\d+-\d+-\d+", key) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            sys.exit("Invalid OpenFreeMap tile archive identifier")
+        shard = ROOT / "data" / "map-tiles" / f"{key}.{digest[:16]}.js"
+        if not shard.is_file() or hashlib.sha256(shard.read_bytes()).hexdigest() != digest:
+            sys.exit(f"Invalid or missing OpenFreeMap tile archive: {key}")
+    packed = json.dumps(overview, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    pattern = re.compile(r'(<script id="reference-map-data" type="application/json">).*?(</script>)', re.S)
+    page, count = pattern.subn(lambda m: m[1] + packed + m[2], page)
+    if count != 1:
+        sys.exit("Missing or duplicate reference-map-data block")
+    if '<script id="grdc-catalogue-code">' not in page:
+        page = page.replace('<script id="site-check-code">', '<script id="grdc-catalogue-code"></script>\n<script id="site-check-code">')
+    if '<script id="ghcn-archive-code">' not in page:
+        page = page.replace('<script id="providers-code">', '<script id="ghcn-parquet-code"></script>\n<script id="ghcn-archive-code"></script>\n<script id="providers-code">')
+    if '<script id="ghcn-gzip-code">' not in page:
+        page = page.replace('<script id="ghcn-archive-code">', '<script id="ghcn-gzip-code"></script>\n<script id="ghcn-archive-code">')
+    if '<script id="shortlist-code">' not in page:
+        page = page.replace('<script id="screening-code">', '<script id="shortlist-code"></script>\n<script id="screening-code">')
+    for asset_id, (tag, filename) in PAGE_ASSETS.items():
+        content = (ROOT / filename).read_text(encoding="utf-8")
+        if re.search(fr"</{tag}", content, re.I):
+            sys.exit(f"index.html was not changed: unsafe closing tag in {filename}")
+        pattern = re.compile(fr'(<{tag} id="{asset_id}">).*?(</{tag}>)', re.S)
+        page, count = pattern.subn(lambda m: f"{m.group(1)}\n{content.rstrip()}\n{m.group(2)}", page)
+        if count != 1:
+            sys.exit(f"index.html was not changed: missing or duplicate {asset_id} block")
+    # Compute the content identifier before inserting it into the page.
+    if page.count("__INVENTORY_BUILD_ID__") != 1:
+        sys.exit("index.html was not changed: invalid build identity placeholder")
+    build_id = "v0.2-" + hashlib.sha256(page.encode("utf-8")).hexdigest()[:16]
+    page = page.replace("__INVENTORY_BUILD_ID__", build_id)
     PAGE.write_text(page, encoding="utf-8", newline="\n")
     print(f"index.html: {len(products)} records, {len(groups)} hazard groups, "
           f"{len(linked_ids)} linked sources, catalog {revision_parts[0]} ({revision_parts[1]})")

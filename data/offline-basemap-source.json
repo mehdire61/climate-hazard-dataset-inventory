@@ -1,0 +1,197 @@
+{
+  "archive": "https://btrfs.openfreemap.com/areas/planet/20261115_080022_pt/tiles.pmtiles",
+  "officialDownloads": "https://github.com/hyperknot/openfreemap",
+  "archiveRelease": "20261115_080022_pt",
+  "archiveBytes": 87494821440,
+  "osmDate": "2026-11-09",
+  "osmReplicationTime": "2026-11-09T01:00:03Z",
+  "schemaVersionOpenMapTiles": "3.16.0",
+  "sourceTileJSON": "https://tiles.openfreemap.org/planet",
+  "minimumZoom": 0,
+  "maximumZoom": 6,
+  "tiles": 5461,
+  "originalUniqueTiles": 4503,
+  "retainedLayers": [
+    "boundary",
+    "place",
+    "transportation",
+    "water",
+    "water_name",
+    "waterway"
+  ],
+  "retainedProperties": [
+    "admin_level",
+    "class",
+    "name",
+    "name:en",
+    "rank"
+  ],
+  "featureSelection": "All original features in retained layers except ferry routes and nonpoint water labels, which the inventory style does not draw.",
+  "geometryProcessing": "Retains original MVT feature geometry commands, including polygon inner rings.",
+  "usage": "Generalized geographic context. Beyond the offline native zoom the existing geometry can be enlarged; local shoreline or street detail may be absent. This layer is not used to determine data eligibility.",
+  "dataLicense": "https://www.openstreetmap.org/copyright",
+  "schemaLicense": "https://github.com/openmaptiles/openmaptiles/blob/master/LICENSE.md",
+  "lowZoomSources": "https://openmaptiles.org/docs/schema/#water",
+  "manifestSHA256": "cefa5345ab43ba4359a7acf98856f2d0e22d6ed2df15f497eeefbb5d4f5eb528",
+  "manifestBytes": 875768,
+  "shardCount": 340,
+  "shardBytes": 31617752,
+  "archiveBytesRead": 111895931,
+  "rangeReceipts": [
+    {
+      "start": 0,
+      "bytes": 127,
+      "sha256": "153830d19c2afb291c4749af9aba6842096648ddbe42a55b7ada21982763c7b6"
+    },
+    {
+      "start": 127,
+      "bytes": 16196,
+      "sha256": "e09eb01b96765e017da92b2a714a64e3d3131041a17bbbd9b4f5f3e53e8b45f4"
+    },
+    {
+      "start": 16323,
+      "bytes": 1545,
+      "sha256": "914d04a5ab96f2ca78dfb9a39207e39c6079378f98a8a7f2070d28ef4b18a107"
+    },
+    {
+      "start": 17868,
+      "bytes": 28949,
+      "sha256": "16ef9d03dba135cce0fbf6516c55be51c8b4f48e59a925bf91eb707db756c071"
+    },
+    {
+      "start": 96562613,
+      "bytes": 4194304,
+      "sha256": "da695d32772d3c93d910cc0a241c28080087c4f6480bacfc74c21d475f1e9770"
+    },
+    {
+      "start": 100756917,
+      "bytes": 4194304,
+      "sha256": "37ac4242315b9ab7d47dc3942f6393bef8f8d307e5a619696891325e5db35c5a"
+    },
+    {
+      "start": 104951221,
+      "bytes": 4194304,
+      "sha256": "7763303d58a4a61fa5560fc3c9b3007afe8def578548e5d69f4364f16af6de41"
+    },
+    {
+      "start": 109145525,
+      "bytes": 4194304,
+      "sha256": "9998ac87845de358bec838ecf52035df70563dea779a6f51c1e8f11abe378274"
+    },
+    {
+      "start": 113339829,
+      "bytes": 4194304,
+      "sha256": "23865bd8a5d820b196204b5ffa80d210d9b4f7251b66132a06eb2620e93ed40b"
+    },
+    {
+      "start": 117534133,
+      "bytes": 4194304,
+      "sha256": "f29f86cefce658d7597fbb20cf66564b2b772c5f056e9ae67a104bbc54b4b433"
+    },
+    {
+      "start": 121728437,
+      "bytes": 4194304,
+      "sha256": "5b83fbe243f4739b83ec0cf83b1f441738b2e9bf48655c613d471b10fda48324"
+    },
+    {
+      "start": 125922741,
+      "bytes": 4194304,
+      "sha256": "be67f32353d2c19488439b6cf731db4fcbeab56504beed0379aae00ca18fdd08"
+    },
+    {
+      "start": 130117045,
+      "bytes": 4194304,
+      "sha256": "08d8b05248ab028eadd684f06582124972d00a78cc5ddee9093b32e03a95321b"
+    },
+    {
+      "start": 134311349,
+      "bytes": 4194304,
+      "sha256": "1a0b17c32967aaacab9961ce5b362077acd4a317d777990e865e1a57495f989f"
+    },
+    {
+      "start": 138505653,
+      "bytes": 4194304,
+      "sha256": "6209d37e94a8dd3c6eceb90188ce8cdb4135de33d2fbf1f3ffb5d879d9c2b428"
+    },
+    {
+      "start": 142699957,
+      "bytes": 4194304,
+      "sha256": "96a0918639837a5774a33e6b5192b260e8fe5f6fe5ec7e5623eca64df72b79fb"
+    },
+    {
+      "start": 146894261,
+      "bytes": 4194304,
+      "sha256": "f61980a2c45b2d36b9b9da0ab332bd695a14ab4e8eadac04da7cd8955ebf13e3"
+    },
+    {
+      "start": 151088565,
+      "bytes": 4194304,
+      "sha256": "719c55ce9555e4385d14624e82fbf2bf9068521354d5aec812b998da391f6234"
+    },
+    {
+      "start": 155282869,
+      "bytes": 4194304,
+      "sha256": "16e152b3c3206707518e0dc7dea14404619d635abd5ca9d2ce4ae2ab3db73371"
+    },
+    {
+      "start": 159477173,
+      "bytes": 4194304,
+      "sha256": "f5b0d32283fab4c300336cb0892b418fc262fb834dbf6cb60471d56ee248397a"
+    },
+    {
+      "start": 163671477,
+      "bytes": 4194304,
+      "sha256": "46f9806a668d1194aefebe9c0e079e0d75d55fd431cc600e977dec4d7ca8261f"
+    },
+    {
+      "start": 167865781,
+      "bytes": 4194304,
+      "sha256": "03a5ed0edb6975b71003abaff191a00867ae01b135b3e5d47d1fe8103b3a354b"
+    },
+    {
+      "start": 172060085,
+      "bytes": 4194304,
+      "sha256": "d106a85c8c018bd93dc035166082d800bf49e9562e10b1a37a467a8d1ac96775"
+    },
+    {
+      "start": 176254389,
+      "bytes": 4194304,
+      "sha256": "2bdc707a1ce2ca08e4dd39e60c48c04ed7083084dfcc9f37cc45f6437871ae5a"
+    },
+    {
+      "start": 180448693,
+      "bytes": 4194304,
+      "sha256": "bc2578a1243817a25d3516ba7bc762352b43079279e419f8319e26141740762a"
+    },
+    {
+      "start": 184642997,
+      "bytes": 4194304,
+      "sha256": "2b0875295961b5cdaa173762808f15e50a347438be7371d9fb367a793de96c87"
+    },
+    {
+      "start": 188837301,
+      "bytes": 4194304,
+      "sha256": "d667d3afd80abf3ce5a1b920da76b3283888dbf54f13605da90b27ad468b5aee"
+    },
+    {
+      "start": 193031605,
+      "bytes": 4194304,
+      "sha256": "499029448c7cacb4cc7e078faac275e1a5335e21352f6e82a30d894bcc614b6a"
+    },
+    {
+      "start": 197225909,
+      "bytes": 4194304,
+      "sha256": "c398513ffa439293765b1d6b7be34559e7cc5acc27933555752533d216fbbdc7"
+    },
+    {
+      "start": 201420213,
+      "bytes": 4194304,
+      "sha256": "9b7b4a923c1af346b731bcf95067a39b11db9855215a6cc17872d20bfd3399de"
+    },
+    {
+      "start": 205614517,
+      "bytes": 2797210,
+      "sha256": "606ded1a888f5f34ea8e03b1a2852d1b4dbc2a904568fa5687bbc4daf49dbfa1"
+    }
+  ]
+}

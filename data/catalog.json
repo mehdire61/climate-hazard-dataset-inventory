@@ -1,32 +1,32 @@
 {
   "schema_version": "1.3.3",
-  "catalog_revision": "v1.3.6 | 2026-11-04 | clarify landslide trigger scope in COOLR",
+  "catalog_revision": "v0.2 | 2026-11-18 | Catalog snapshot",
   "scope": "Climate-hazard dataset inventory: product metadata, documented uses, limitations and source links.",
-  "verification_scope": "The inventory summarizes provider documentation and scientific publications. Source review dates and access qualifications are recorded individually. Scientific dataset files have not been downloaded or tested for this inventory.",
+  "verification_scope": "The catalog summarizes provider documentation and scientific publications. v0.2 also includes selected public-file and station-response inspections, scoped by product, access method, version and date in the access evidence. These checks do not establish full archive coverage, measurement accuracy or scientific suitability.",
   "status_definitions": {
     "commercial_use_status": "Summary of retrieved provider terms, not a legal opinion or automatic redistribution authorization."
   },
   "products": [
     {
       "product_id": "usgs_streamflow",
-      "product_name": "USGS Water Data for the Nation discharge, stage, and annual peaks",
+      "product_name": "USGS streamgages · daily mean discharge",
       "provider": "USGS",
       "version": "Live service; pin the response timestamp and API version",
       "hazard_family": [
         "riverine_flood",
         "hydrological_drought"
       ],
-      "variable": "Discharge; gage height; annual peak discharge",
-      "units": "Source-dependent ft³/s or m³/s for discharge; ft or m for stage",
+      "variable": "Daily mean streamflow (USGS parameter 00060, statistic 00003). USGS also provides continuous discharge, gage height and annual peaks where available.",
+      "units": "Discharge in the provider’s reported unit, usually ft³/s. Check the unit and vertical datum for gage height at USGS.",
       "data_nature": "in_situ_observation_and_rating_derived_estimate",
       "spatial_support": "Station and contributing catchment",
-      "temporal_support": "Continuous observations, often at 15-minute intervals; daily statistics; annual instantaneous peaks in a separate collection",
+      "temporal_support": "The preview and project-period download use daily means. Continuous observations and annual instantaneous peaks have separate records at USGS.",
       "temporal_coverage": "Station- and product-specific historical periods through selected archive snapshot",
-      "geographic_coverage": "United States and territories; station-specific",
+      "geographic_coverage": "Primarily United States and territories, with some international historical records. Coverage varies by station and series.",
       "supported_use_cases": [
         "Evaluation of matched discharge hydrographs",
-        "Peak discharge and peak timing",
-        "Stage comparison after datum checks"
+        "Event timing and instantaneous peak discharge from separate USGS records",
+        "Stage comparison using a separate USGS gage-height series after datum checks"
       ],
       "non_uses": [
         "Pixel-level flood-extent truth",
@@ -41,11 +41,13 @@
         "F04",
         "F05",
         "F06",
-        "F34"
+        "F34",
+        "R26_USGS",
+        "R26_USGS_OKINAWA"
       ],
       "documentation_url": "https://api.waterdata.usgs.gov/docs/ogcapi/migration/",
       "access_url": "https://api.waterdata.usgs.gov/download/",
-      "access_method": "OGC API or official export",
+      "access_method": "Daily mean discharge through the USGS API. Open the selected station’s USGS links for continuous discharge, gage height or annual peak discharge.",
       "license_id": "US_GOVERNMENT_DATA_TERMS",
       "license_notes": "Provider open-data terms; acknowledge source and retain version/record notices. Review any third-party restrictions.",
       "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
@@ -144,14 +146,15 @@
       ],
       "dependence_notes": "The same national records may occur in other archives and in the calibration data of a model being evaluated.",
       "evidence_ids": [
-        "F01"
+        "F01",
+        "GRDC_POLICY"
       ],
       "documentation_url": "https://grdc.bafg.de/data/data_portal/",
       "access_url": "https://grdc.bafg.de/data/data_portal/",
       "access_method": "Select stations, complete a form, accept the terms, and receive an emailed download link",
       "license_id": "GRDC_RESEARCH_TERMS",
-      "license_url": "https://grdc.bafg.de/data/data_portal/",
-      "license_notes": "Original data are restricted to research use. Commercial use and unauthorized redistribution are prohibited. The terms provide a separate allowance for analysis, processing, and statistical products with attribution.",
+      "license_url": "https://grdc.bafg.de/downloads/policy_guidelines.pdf",
+      "license_notes": "Portal downloads are for research. For commercial use of original discharge data, ask GRDC to obtain prior consent from the contributing providers. Sharing original data with third parties requires written GRDC consent. The portal permits attributed analysis and statistical products.",
       "commercial_use_status": "PROHIBITED_WITHOUT_PERMISSION",
       "redistribution_status": "RESTRICTED",
       "formats": [
@@ -165,7 +168,7 @@
       "unresolved_questions": [
         "Permission for the intended workflow"
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-17"
     },
     {
       "product_id": "gsim_indices",
@@ -251,7 +254,8 @@
         "F07",
         "F08",
         "F09",
-        "V024_COOPS_URL_BUILDER"
+        "V024_COOPS_URL_BUILDER",
+        "R26_COOPS"
       ],
       "documentation_url": "https://api.tidesandcurrents.noaa.gov/api/dev",
       "access_url": "https://tidesandcurrents.noaa.gov/api-helper/url-generator.html",
@@ -435,7 +439,7 @@
         "flood_extent"
       ],
       "variable": "Event maximum surface-water or flood extent; inundation duration; observation quality indicators",
-      "units": "Binary water class; days; percentage of clear observations",
+      "units": "Binary water class and duration in days. The provider describes clear_perc as percent. The downloadable GeoTIFF for event 1587 stores a fraction (0.9375 means 93.75% clear). Verify the scale of the selected asset before applying a cloud threshold.",
       "data_nature": "satellite_derived_classification",
       "spatial_support": "250 m MODIS water classification; the Earth Engine catalog lists a 30 m asset grid, so inspect the selected asset's projection",
       "temporal_support": "Event products constructed from three-day MODIS composites",
@@ -461,7 +465,7 @@
       ],
       "documentation_url": "https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1",
       "access_url": "https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1",
-      "access_method": "Earth Engine ImageCollection GLOBAL_FLOOD_DB/MODIS_EVENTS/V1 or the provider's documented download route",
+      "access_method": "Earth Engine ImageCollection GLOBAL_FLOOD_DB/MODIS_EVENTS/V1 or the provider's documented download access method",
       "license_id": "CC-BY-NC-4.0",
       "license_url": "https://creativecommons.org/licenses/by-nc/4.0/",
       "license_notes": "The Earth Engine catalog states CC BY-NC 4.0. Platform access terms are separate from the dataset license.",
@@ -476,7 +480,7 @@
         "Event-specific observation quality",
         "Permission for commercial use"
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-17"
     },
     {
       "product_id": "dfo_event_archive",
@@ -599,7 +603,7 @@
       "units": "1",
       "data_nature": "reanalysis-derived standardized index",
       "spatial_support": "0.25° grid; not point support",
-      "temporal_support": "daily outputs at 5,30,90,180,360-day accumulation windows",
+      "temporal_support": "Daily dimensionless index at a selected 5-, 30-, 90-, 180- or 360-day accumulation window; not a daily total.",
       "temporal_coverage": "1982–2021 per paper/description; record title says 1983–2020",
       "geographic_coverage": "Global gridded land product with sparsely vegetated/barren land-cover masks; inspect actual cells",
       "supported_use_cases": [
@@ -618,7 +622,8 @@
         "metadata coverage conflict",
         "large distribution archives",
         "Sparsely vegetated/barren land-cover classes are masked; inspect the selected NetCDF mask.",
-        "hPET is reference-crop based but uses ERA5-Land net solar radiation, so it is not an exact fixed-albedo FAO ET0 implementation. Native ERA5-Land pev is a different open-water/pan quantity and cannot be substituted."
+        "hPET is reference-crop based but uses ERA5-Land net solar radiation, so it is not an exact fixed-albedo FAO ET0 implementation. Native ERA5-Land pev is a different open-water/pan quantity and cannot be substituted.",
+        "The v1 record is public, but its files are restricted as checked 2026-11-16. Older successful file-prefix checks do not establish current download access. A newer version is a separate product and is not substituted here."
       ],
       "dependence_notes": "ERA5 precipitation and Singer et al. (2021) hPET calculated offline from ERA5-Land meteorological fields. hPET uses a FAO Penman-Monteith based formulation with documented radiation treatment; it is not native ERA5-Land pev. Whether forcing is shared depends on the model being evaluated.",
       "evidence_ids": [
@@ -627,26 +632,29 @@
         "SPEI_CODE",
         "HPET_PAPER",
         "HPET_DATA",
-        "ERA5LAND_DOC"
+        "ERA5LAND_DOC",
+        "R26_LICENSE_spei_gd_v1",
+        "PRO26_SPEI_ACCESS"
       ],
       "documentation_url": "https://www.nature.com/articles/s41597-024-03047-z",
       "access_url": "https://zenodo.org/records/8060268",
-      "access_method": "public file download; ZIP of NetCDF",
-      "license_id": "UNKNOWN",
-      "license_notes": "UNKNOWN: accessible rendered record did not expose license text; DOI/record API/export unavailable in review. Article license is not sufficient to infer dataset license.",
-      "commercial_use_status": "UNKNOWN",
-      "redistribution_status": "UNKNOWN",
+      "access_method": "Restricted legacy v1 files. Open the version-specific Zenodo record and follow the provider access process; anonymous file downloads are not currently available.",
+      "license_id": "CC-BY-4.0",
+      "license_notes": "The v1 Zenodo API declares CC BY 4.0, checked 2026-11-16. This reuse declaration does not grant access to the currently restricted files; obtain provider access and retain attribution and product-specific notices.",
+      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
+      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
       "formats": [
         "NetCDF in ZIP"
       ],
       "unresolved_questions": [
-        "dataset license",
         "actual first/last valid timestamps per window",
         "Exact precipitation variable, collection snapshot and transformations for a reproducible selected release",
         "seasonal standardization and reference period",
         "published code/release linkage"
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-16",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_url_label": "Creative Commons Attribution 4.0"
     },
     {
       "product_id": "esa_cci_sm_combined_v09_2",
@@ -777,8 +785,8 @@
       "units": "cm liquid water equivalent thickness anomaly",
       "data_nature": "satellite gravimetry inverse estimate with geophysical corrections and regularization",
       "spatial_support": "0.5° reporting grid; native 3° equal-area mascons (several hundred km)",
-      "temporal_support": "Approximately monthly solutions with time bounds; identify missing solutions from time coordinates and retain the mission gap",
-      "temporal_coverage": "2002-04 onward; collection metadata checked 2026-11-03 lists granules through 2026-08-16. Actual file time bounds/revision uninspected.",
+      "temporal_support": "Approximately monthly terrestrial storage anomaly estimates with irregular sampling bounds and missing solutions.",
+      "temporal_coverage": "April 2002–September 2026 includes 261 monthly solutions and 33 missing months. Latest solution timestamp: 2026-09-16.",
       "geographic_coverage": "Global gridded product",
       "supported_use_cases": [
         "large-basin terrestrial storage anomaly evaluation",
@@ -791,12 +799,8 @@
         "treating 0.5° cells as independent measurements"
       ],
       "limitations": [
-        "leakage and regularization",
-        "missing months and mission gap",
-        "geophysical correction uncertainty",
-        "updated files revise earlier months",
-        "gain factors model-dependent",
-        "Collection metadata checked 2026-11-03 list a granule-time endpoint of 2026-08-16. Confirm the selected file's own time bounds."
+        "Signal can leak across basin boundaries. Nearby grid cells share a much coarser gravity estimate.",
+        "Missing months, geophysical corrections, model-dependent gain factors and later revisions affect basin estimates."
       ],
       "dependence_notes": "JPL guide reports GIA correction (ICE6G-D) and optional CLM-derived gain factors; no additional arbitrary smoothing. Match selected version release notes and anomaly baseline. Guide states baseline Jan 2004–Dec 2009 but processing subheading is older v03, so confirm in v04 file attrs.",
       "evidence_ids": [
@@ -804,16 +808,22 @@
         "GRACE_GUIDE",
         "GRACE_METHOD",
         "GRACE_LEAKAGE",
-        "A05"
+        "A05",
+        "R26_GRACE_GAP",
+        "R26_GRACE_FO",
+        "R26_GRACE_LICENSE",
+        "R26_GRACE_CURRENT_GRANULE",
+        "JPL_RL06_SOLUTION_MONTHS",
+        "JPL_CRI_V4_TIME_AXIS"
       ],
       "documentation_url": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
       "access_url": "https://podaac.jpl.nasa.gov/dataset/TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4",
       "access_method": "PO.DAAC Earthdata download or cloud; Earthdata Login required for protected data",
-      "license_id": "NASA_MISSION_DATA_POLICY",
-      "license_url": "https://science.data.nasa.gov/about/license",
-      "license_notes": "NASA-led mission data default to CC0 absent an explicit restrictive notice; preserve product notices and cite producer. This does not automatically apply to third-party repository content.",
-      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
-      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
+      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
+      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
       "formats": [
         "NetCDF-4"
       ],
@@ -823,7 +833,8 @@
         "whether gain factors appropriate and applied",
         "temporal covariance and uncertainty aggregation"
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-17",
+      "license_url_label": "Creative Commons Attribution 4.0"
     },
     {
       "product_id": "modis_active_fire_standard",
@@ -838,7 +849,7 @@
       "data_nature": "satellite retrieval",
       "spatial_support": "nominal 1 km at nadir, actual scan/track footprint varies",
       "temporal_support": "Native 5-minute swath granules; detections at satellite overpass. FIRMS table cadence and NRT/standard stream depend on selection.",
-      "temporal_coverage": "global; Terra since 2000, Aqua since 2002; actual archive extent must be queried",
+      "temporal_coverage": "Global; Terra MOD14 Collection 061 metadata begin 2000-02-24; Aqua is a separate stream beginning in 2002. Query actual granules and platform-specific coverage.",
       "geographic_coverage": "Global satellite detections during MODIS overpasses; observation conditions vary",
       "supported_use_cases": [
         "active-fire detection comparison at matched overpass and footprint",
@@ -865,7 +876,8 @@
         "A05",
         "ATLAS_FIRE_LAADS_MOD14",
         "ATLAS_FIRE_LAADS_FIRE_DOMAIN",
-        "ATLAS_FIRE_FIRMS_ARCHIVE"
+        "ATLAS_FIRE_FIRMS_ARCHIVE",
+        "R26_MOD14"
       ],
       "documentation_url": "https://ladsweb.modaps.eosdis.nasa.gov/missions-and-measurements/products/MOD14",
       "access_url": "https://firms.modaps.eosdis.nasa.gov/download/",
@@ -882,7 +894,7 @@
       "unresolved_questions": [
         "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-16"
     },
     {
       "product_id": "viirs_375_active_fire",
@@ -929,7 +941,8 @@
         "ATLAS_FIRE_LAADS_VNP14IMG_ARCHIVE",
         "ATLAS_FIRE_LAADS_ARCHIVE_RETENTION_PLAN",
         "ATLAS_FIRE_VIIRS_GUIDE_1_2",
-        "ATLAS_FIRE_FIRMS_TYPE_FIX"
+        "ATLAS_FIRE_FIRMS_TYPE_FIX",
+        "R26_VIIRS"
       ],
       "documentation_url": "https://ladsweb.modaps.eosdis.nasa.gov/archive/Document%20Archive/Science%20Data%20Product%20Documentation/VIIRS_C2_AF-375m_User_Guide_1.2.pdf",
       "access_url": "https://firms.modaps.eosdis.nasa.gov/download/",
@@ -962,7 +975,7 @@
       "data_nature": "satellite retrieval",
       "spatial_support": "nominal 500m sinusoidal grid",
       "temporal_support": "monthly files; estimated per-pixel burn day within the product",
-      "temporal_coverage": "global since late 2000; query exact archive extent",
+      "temporal_coverage": "Global; MCD64A1 Collection 061 metadata begin 2000-11-01. Query the selected monthly granules and per-pixel usable dates.",
       "geographic_coverage": "Global gridded product; cells can be unmapped where data are insufficient",
       "supported_use_cases": [
         "burned-area and burn-date comparisons at defensible aggregate support"
@@ -980,7 +993,8 @@
       "evidence_ids": [
         "FIRE10",
         "FIRE11",
-        "A05"
+        "A05",
+        "R26_MCD64A1"
       ],
       "documentation_url": "https://www.earthdata.nasa.gov/s3fs-public/2025-04/MCD64_User_Guide_V61.pdf",
       "access_url": "https://doi.org/10.5067/MODIS/MCD64A1.061",
@@ -997,7 +1011,7 @@
       "unresolved_questions": [
         "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-16"
     },
     {
       "product_id": "mtbs",
@@ -1033,7 +1047,8 @@
       "evidence_ids": [
         "FIRE14",
         "FIRE15",
-        "FIRE16"
+        "FIRE16",
+        "R26_MTBS"
       ],
       "documentation_url": "https://mtbs.gov/mapping-methods",
       "access_url": "https://www.usgs.gov/data/monitoring-trends-burn-severity-ver-120-april-2025",
@@ -1085,22 +1100,25 @@
         "FIRE07",
         "FIRE08",
         "FIRE09",
-        "V021_LINEAGE_05"
+        "V021_LINEAGE_05",
+        "R26_LICENSE_gfed_5_1"
       ],
       "documentation_url": "https://www.nature.com/articles/s41597-025-06127-w",
       "access_url": "https://zenodo.org/records/16794692",
       "access_method": "Provider download; authentication depends on distribution",
-      "license_id": "UNKNOWN",
-      "license_notes": "Dataset license not identified: the Zenodo record page showed no license. The article's CC-BY-NC-ND license does not automatically apply to the data, and CC-BY should not be assumed. Verify machine-readable metadata before redistribution.",
-      "commercial_use_status": "UNKNOWN",
-      "redistribution_status": "UNKNOWN",
+      "license_id": "CC-BY-4.0",
+      "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Zenodo record API metadata, checked 2026-11-15. Retain attribution and any product-specific notices.",
+      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
+      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
       "formats": [
         "NetCDF4 within ZIP"
       ],
       "unresolved_questions": [
         "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-01",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_url_label": "Creative Commons Attribution 4.0"
     },
     {
       "product_id": "gpm_imerg_final_v07b",
@@ -1115,7 +1133,7 @@
       "data_nature": "multisatellite microwave/IR retrieval with monthly gauge adjustment",
       "spatial_support": "0.1 degree reporting grid, near-global including high latitudes in V07; retrieval support varies",
       "temporal_support": "30-minute intervals; intensity must be multiplied by duration for accumulation",
-      "temporal_coverage": "January 1998 through September 2025 for the producer-documented V07 Final record; exact last file unparsed",
+      "temporal_coverage": "1998-01-01 to 2025-09-30; producer-documented V07 Final endpoint, consistent with latest checked V07B granule metadata",
       "geographic_coverage": "Near-global grid, including high latitudes in V07; retrieval support varies",
       "supported_use_cases": [
         "Subdaily and accumulated precipitation intercomparison at matched support",
@@ -1129,7 +1147,8 @@
       "limitations": [
         "Retrieval errors vary by terrain, phase, storm and latitude.",
         "Monthly gauge adjustment does not ensure accurate half-hour peaks.",
-        "Generic current directory says present; specific transition notice ends Final in September 2025."
+        "Generic current directory says present; specific transition notice ends Final in September 2025.",
+        "V07 Final ends September 2025. For later periods, separately verify V08 availability/version or another run; Early/Late are not interchangeable with Final."
       ],
       "dependence_notes": "Monthly gauge analysis and satellite calibration; shared GPCC or station inputs require review. V07 Early/Late hybrid inputs differ from frozen Final.",
       "evidence_ids": [
@@ -1140,7 +1159,8 @@
         "A24",
         "A26",
         "A05",
-        "V021_LINEAGE_01"
+        "V021_LINEAGE_01",
+        "REV2_IMERG_END"
       ],
       "documentation_url": "https://gpm.nasa.gov/resources/documents/imerg-v07-technical-documentation",
       "access_url": "https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGHH_07/summary",
@@ -1159,7 +1179,7 @@
         "Whether V08 has become available at actual acquisition; do not infer from schedule.",
         "Exact collection version, variable name, fill values and time bounds."
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-16"
     },
     {
       "product_id": "trmm_3b42_v7",
@@ -1245,7 +1265,7 @@
         "A21",
         "ATLAS_ATM_S05"
       ],
-      "documentation_url": "https://www.chc.ucsb.edu/data/chirps",
+      "documentation_url": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/README-CHIRPS2-Daily.txt",
       "access_url": "https://data.chc.ucsb.edu/products/CHIRPS/v2.0/",
       "access_method": "Provider download or API",
       "license_id": "CC0_PUBLIC_DOMAIN",
@@ -1335,7 +1355,7 @@
       "data_nature": "gauge/infrared pentad analysis disaggregated with IMERG Late V07",
       "spatial_support": "0.05 degree global land, 60S to 60N",
       "temporal_support": "Daily partitioning of pentad totals; calendar labels are not a uniform station observation window",
-      "temporal_coverage": "1998 onward per current producer daily README; paper/older FAQ state 2001. Earliest selected payload and endpoint remain uninspected.",
+      "temporal_coverage": "1998 onward in the current daily README. Older documentation starts in 2001. Check the archive for your dates and format.",
       "geographic_coverage": "Global land, 60S to 60N",
       "supported_use_cases": [
         "Precipitation comparison with explicit variant and daily-window convention",
@@ -1361,7 +1381,8 @@
         "A10",
         "ATLAS_ATM_S05",
         "ATLAS_ATM_S06",
-        "ATLAS_ATM_S07"
+        "ATLAS_ATM_S07",
+        "R26_CHIRPS3"
       ],
       "documentation_url": "https://www.chc.ucsb.edu/data/chirps3",
       "access_url": "https://data.chc.ucsb.edu/products/CHIRPS/v3.0/",
@@ -1378,7 +1399,7 @@
         "BIL"
       ],
       "unresolved_questions": [
-        "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
+        "Verify the requested format and early dates with the producer. Check for shared observations when using CHIRPS as a reference."
       ],
       "last_checked_date": "2026-11-03"
     },
@@ -1662,7 +1683,7 @@
       "data_nature": "station observation compilation",
       "spatial_support": "Global stations with uneven temporal and geographic sampling",
       "temporal_support": "Hourly/synoptic and available subhourly reports; gust intervals vary",
-      "temporal_coverage": "Station-specific historical records; no updates beyond 2025-08-24 per NOAA notice",
+      "temporal_coverage": "NOAA documents the legacy network archive from 1901. Updates ended on 2025-08-24. Actual observation dates depend on station and element.",
       "geographic_coverage": "Stations worldwide; sampling varies by place and period",
       "supported_use_cases": [
         "Measured winds/gusts with height, exposure and averaging metadata",
@@ -1700,7 +1721,7 @@
       "unresolved_questions": [
         "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-17"
     },
     {
       "product_id": "hadex3",
@@ -1784,7 +1805,8 @@
         "A18",
         "A23",
         "A25",
-        "V021_LINEAGE_07"
+        "V021_LINEAGE_07",
+        "R26_IBTRACS"
       ],
       "documentation_url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
       "access_url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/",
@@ -1833,7 +1855,8 @@
       "evidence_ids": [
         "A19",
         "A18",
-        "ATLAS_ATM_S35"
+        "ATLAS_ATM_S35",
+        "R26_HURDAT"
       ],
       "documentation_url": "https://www.nhc.noaa.gov/data/",
       "access_url": "https://www.nhc.noaa.gov/data/",
@@ -1958,7 +1981,7 @@
       "data_nature": "optical satellite retrieval",
       "spatial_support": "Global nominal 500 m sinusoidal grid",
       "temporal_support": "Daily product subject to observation and quality availability",
-      "temporal_coverage": "2000 onward through pinned archive endpoint",
+      "temporal_coverage": "MOD10A1 Collection 61 metadata begin 2000-02-24; query the selected granules and current archive endpoint.",
       "geographic_coverage": "Global 500 m grid; cloud and polar darkness limit observations",
       "supported_use_cases": [
         "Snow-cover comparison at supported observation times and spatial scale"
@@ -1970,12 +1993,14 @@
       ],
       "limitations": [
         "Cloud, darkness, forest and snow-detection limitations; retain QA.",
-        "NSIDC reports more frequent unrecoverable data loss from 7 July 2023 onward; daily nominal cadence is not proof of complete observations."
+        "NSIDC reports more frequent unrecoverable data loss from 7 July 2023 onward; daily documented cadence is not proof of complete observations."
       ],
       "dependence_notes": "MODIS inputs and possible model assimilation overlap.",
       "evidence_ids": [
         "CRYO01",
-        "A05"
+        "A05",
+        "R26_MOD10A1",
+        "REV2_MOD10_LATEST"
       ],
       "documentation_url": "https://nsidc.org/data/mod10a1/versions/61",
       "access_url": "https://nsidc.org/data/mod10a1/versions/61",
@@ -1991,7 +2016,7 @@
       "unresolved_questions": [
         "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-16"
     },
     {
       "product_id": "ims_snow_ice",
@@ -2039,7 +2064,7 @@
         "NetCDF"
       ],
       "unresolved_questions": [
-        "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
+        "Check the selected grid, version, dates and local classification accuracy."
       ],
       "last_checked_date": "2026-11-03"
     },
@@ -2092,50 +2117,54 @@
     },
     {
       "product_id": "lhasa_model",
-      "product_name": "LHASA landslide hazard model",
-      "provider": "NASA",
-      "version": "Model release 2.1.1 documented; pin code and inputs",
+      "product_name": "LHASA v2.0.0 archived landslide nowcasts",
+      "provider": "NASA GSFC / GES DISC",
+      "version": "Global_Landslide_Nowcast 2.0.0 (GES DISC)",
       "hazard_family": [
         "landslide"
       ],
-      "variable": "Modeled daily landslide-occurrence probability",
-      "units": "Model probability; confirm the output encoding and range for the selected release",
-      "data_nature": "statistical/machine-learning hazard model",
-      "spatial_support": "30 arcsecond grid (approximately 1 km near the equator) documented for LHASA version 2; domain, mask and projection are release-specific",
-      "temporal_support": "Daily probability output. Issue time and service refresh are separate: NASA describes best-effort delivery, typically twice each day, with frequent server downtime. Confirm the probability window for the selected release",
-      "temporal_coverage": "Run and input dependent",
-      "geographic_coverage": "Global model domain; confirm the selected release's mask",
+      "variable": "p_landslide, modeled rainfall-triggered landslide occurrence probability",
+      "units": "Unitless, 0–1. Interpret as relative hazard ranking.",
+      "data_nature": "Retrospective machine-learning nowcast of rainfall-triggered landslide hazard",
+      "spatial_support": "30 arcsecond grid, approximately 1 km near the equator. Inspect land mask and fill values.",
+      "temporal_support": "Daily retrospective model output. The granule interval can extend into the day following the nominal filename date.",
+      "temporal_coverage": "Daily v2.0.0 files are dated 3 April 2015 through 9 February 2021.",
+      "geographic_coverage": "60° S to 60° N, worldwide longitude, subject to valid model cells.",
       "supported_use_cases": [
-        "Model intercomparison and process/context review"
+        "Retrospective comparison of modeled relative hazard for rapid, rainfall-triggered landslides."
       ],
       "non_uses": [
-        "Observed landslide intensity truth",
-        "Independent validation when training/input lineage overlaps"
+        "Treating the output as a landslide occurrence inventory.",
+        "Long-term probability calibration, property-specific risk or loss estimates.",
+        "Independent validation against overlapping model inputs or training inventories."
       ],
       "limitations": [
-        "Inventory bias, input availability and model assumptions."
+        "The 1.1 archive uses ordinal classes. The separately published 2.1.1 model code and near-real-time service have separate provenance.",
+        "A high modeled hazard can occur without a reported landslide. Preserve the -9999 fill value and inspect grid cells and file time bounds."
       ],
       "dependence_notes": "Precipitation and other geospatial inputs, plus training inventories; overlap with any model being evaluated requires explicit assessment.",
       "evidence_ids": [
         "LAND03",
         "LAND04",
         "V021_LINEAGE_03",
-        "V021_LINEAGE_04"
+        "V021_LINEAGE_04",
+        "R26_LHASA",
+        "LHASA_V2_ARCHIVE_GUIDE"
       ],
-      "documentation_url": "https://github.com/nasa/lhasa",
-      "access_url": "https://github.com/nasa/lhasa",
-      "access_method": "Provider download or API",
+      "documentation_url": "https://docserver.gesdisc.eosdis.nasa.gov/public/project/Community/LHASA/README.Global_Landslide_Nowcast_2.0.0.pdf",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C2654319036-GES_DISC",
+      "access_method": "Public NASA CMR granule discovery for collection C2654319036-GES_DISC. Earthdata Login is required for protected NetCDF files.",
       "license_id": "MODEL_AND_INPUT_TERMS",
-      "license_notes": "Software license is distinct from input and output data permissions; verify all relevant terms.",
+      "license_notes": "Verify the archive data terms and citation for redistribution or commercial use. Code and model inputs can have separate terms.",
       "commercial_use_status": "UNKNOWN",
       "redistribution_status": "UNKNOWN",
       "formats": [
-        "Model-specific outputs"
+        "NetCDF-4"
       ],
       "unresolved_questions": [
-        "File metadata and quality flags have not been checked. For model evaluation, assess shared observations or training data."
+        "Local validity, file-level time coordinate and quality, and shared training or input data."
       ],
-      "last_checked_date": "2026-11-04"
+      "last_checked_date": "2026-11-17"
     },
     {
       "product_id": "cems_rapid_mapping",
@@ -2150,7 +2179,7 @@
       "data_nature": "Satellite-derived interpreted event mapping; some products include modeled extension/depth",
       "spatial_support": "Activation/product-specific imagery resolution and mapping scale; no single 10–20 m standard",
       "temporal_support": "Selected acquisition or event assessment times; on-demand",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Global service subject to selected acquisition, activation and valid observation coverage",
       "supported_use_cases": [
         "Acquisition-matched flood/water extent within independently valid observation coverage"
@@ -2170,7 +2199,8 @@
         "OBS01",
         "OBS02",
         "OBS03",
-        "OBS04"
+        "OBS04",
+        "R26_CEMS"
       ],
       "documentation_url": "https://mapping.emergency.copernicus.eu/about/",
       "access_url": "https://mapping.emergency.copernicus.eu/",
@@ -2202,7 +2232,7 @@
       "data_nature": "Automated satellite-derived Sentinel-1 flood classification ensemble",
       "spatial_support": "20 m processed grid, Equi7Grid; not 20 m positional/measurement accuracy",
       "temporal_support": "Per available processed Sentinel-1 IW GRD acquisition; actual revisit varies",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Global service domain subject to Sentinel-1 acquisition availability, processed land imagery and valid observation coverage; not an activation-based service.",
       "supported_use_cases": [
         "Acquisition-matched flood/water extent within independently valid observation coverage"
@@ -2223,11 +2253,12 @@
         "OBS06",
         "OBS07",
         "OBS09",
-        "REV021_SUPPORT_GFM_ARCHIVE"
+        "REV021_SUPPORT_GFM_ARCHIVE",
+        "R26_GFM"
       ],
       "documentation_url": "https://extwiki.eodc.eu/GFM/PUM/Products",
       "access_url": "https://extwiki.eodc.eu/GFM/PUM/DataAccess",
-      "access_method": "STAC asset discovery/download, dedicated web portal, REST API, WMS; API authentication depends on route",
+      "access_method": "STAC asset discovery/download, dedicated web portal, REST API, WMS; API authentication depends on access method",
       "license_id": "PROVIDER_SPECIFIC_TERMS",
       "license_url": "https://global-flood.emergency.copernicus.eu/terms-of-service/",
       "license_notes": "CEMS/GloFAS terms explicitly cover GFM and allow reuse subject to stated terms and attribution. No generic CC assignment.",
@@ -2257,7 +2288,7 @@
       "data_nature": "Raster aggregation of satellite radar pixel-cloud retrievals",
       "spatial_support": "Standard 100 m and 250 m UTM grids; select one explicitly; nominal 128 x 128 km granules",
       "temporal_support": "Single-pass acquisition; 21-day science-orbit repeat, locally variable sampling",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Science-orbit domain approximately 78 degrees south to 78 degrees north; actual KaRIn swaths, acquisition plan and valid retrievals determine coverage.",
       "supported_use_cases": [
         "Acquisition-matched water-surface elevation and water area at the selected product support"
@@ -2277,16 +2308,18 @@
       "evidence_ids": [
         "OBS11",
         "OBS14",
-        "OBS15"
+        "OBS15",
+        "R26_SWOT_L2_HR_Raster_D",
+        "SWOT_HANDBOOK"
       ],
       "documentation_url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_Raster_D",
       "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3233944993-POCLOUD",
       "access_method": "Earthdata granule search, PO.DAAC subscriber or authenticated cloud/download",
-      "license_id": "PROVIDER_SPECIFIC_TERMS",
-      "license_url": "https://podaac.jpl.nasa.gov/CitingPODAAC",
-      "license_notes": "PO.DAAC states data openly shared without restriction and requests citation. Do not infer a separate CC license from this statement.",
-      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
-      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
+      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
+      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
       "formats": [
         "NetCDF-4"
       ],
@@ -2295,7 +2328,8 @@
         "For model evaluation, independence from shared observations or training data has not been assessed.",
         "Full selected PDD field definitions and correction/vertical-reference conventions; collection version D was confirmed as available but may not be the latest"
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-02",
+      "license_url_label": "Creative Commons Attribution 4.0"
     },
     {
       "product_id": "swot_riversp_d",
@@ -2311,7 +2345,7 @@
       "data_nature": "Satellite retrievals aggregated to prior-database river features; discharge fields are derived estimates",
       "spatial_support": "Prior-database reaches approximately 10 km long and nodes approximately 200 m apart; geometry-specific support",
       "temporal_support": "Single pass; 21-day science-orbit repeat with variable local sampling",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Science-orbit domain approximately 78 degrees south to 78 degrees north; actual KaRIn swaths, acquisition plan and valid retrievals determine coverage. RiverSP is limited to represented prior-database river features.",
       "supported_use_cases": [
         "Acquisition-matched water-surface elevation and water area at the selected product support"
@@ -2332,16 +2366,18 @@
         "OBS12",
         "OBS13",
         "OBS14",
-        "OBS15"
+        "OBS15",
+        "R26_SWOT_L2_HR_RiverSP_D",
+        "SWOT_HANDBOOK"
       ],
       "documentation_url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D",
       "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3233944997-POCLOUD",
       "access_method": "Earthdata granule search, PO.DAAC subscriber or authenticated cloud/download",
-      "license_id": "PROVIDER_SPECIFIC_TERMS",
-      "license_url": "https://podaac.jpl.nasa.gov/CitingPODAAC",
-      "license_notes": "PO.DAAC states data openly shared without restriction and requests citation; no independent CC assignment made.",
-      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
-      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "license_notes": "The dataset provider explicitly declares CC BY 4.0 in Dataset JSON-LD on its PO.DAAC page, checked 2026-11-15. Retain attribution and any product-specific notices.",
+      "commercial_use_status": "ALLOWED_WITH_CONDITIONS",
+      "redistribution_status": "ALLOWED_WITH_CONDITIONS",
       "formats": [
         "ESRI shapefiles for reach and node layers with metadata"
       ],
@@ -2350,7 +2386,8 @@
         "For model evaluation, independence from shared observations or training data has not been assessed.",
         "Full selected PDD field definitions and correction/vertical-reference conventions; collection version D was confirmed as available but may not be the latest"
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-02",
+      "license_url_label": "Creative Commons Attribution 4.0"
     },
     {
       "product_id": "mrms_radaronly_qpe",
@@ -2365,7 +2402,7 @@
       "data_nature": "Radar-derived quantitative precipitation estimate",
       "spatial_support": "Nominal 1 km grid, effective support determined by radar retrieval and mosaic",
       "temporal_support": "Specify accumulation and refresh separately. In the v12.2 table, RadarOnly_QPE_01H refreshes every 2 minutes, the 15M field every 15 minutes, and 03H to 72H and Since12Z fields every 60 minutes",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Selected operational/archival MRMS domain; verify grid, radar coverage and dates",
       "supported_use_cases": [
         "Matched-duration gridded precipitation evaluation and spatial-support sensitivity in the documented domain"
@@ -2384,7 +2421,9 @@
         "OBS19",
         "OBS20",
         "OBS23",
-        "OBS24"
+        "OBS24",
+        "R26_MRMS",
+        "R2_MRMS_NOAA"
       ],
       "documentation_url": "https://www.nssl.noaa.gov/projects/mrms/operational/tables.php",
       "access_url": "https://www.nssl.noaa.gov/projects/mrms/MRMS_data.php",
@@ -2416,7 +2455,7 @@
       "data_nature": "Multisensor analysis including radar, gauges and possible NWP/climatology-assisted gapfill",
       "spatial_support": "Nominal 1 km grid",
       "temporal_support": "Pass- and field-specific accumulation, refresh and latency; do not borrow radar-only cadence",
-      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual payload dates not inspected",
+      "temporal_coverage": "Selected archive, asset and acquisition dependent; actual file contents dates not inspected",
       "geographic_coverage": "Selected operational/archival MRMS domain; verify grid, radar coverage and dates",
       "supported_use_cases": [
         "Matched-duration gridded precipitation evaluation and spatial-support sensitivity in the documented domain"
@@ -2436,7 +2475,9 @@
         "OBS21",
         "OBS22",
         "OBS19",
-        "OBS23"
+        "OBS23",
+        "R26_MRMS",
+        "R2_MRMS_NOAA"
       ],
       "documentation_url": "https://vlab.noaa.gov/web/wdtd/-/multi-sensor-qpe",
       "access_url": "https://www.nssl.noaa.gov/projects/mrms/MRMS_data.php",
@@ -2467,8 +2508,8 @@
       "units": "Precipitation accumulation; verify GRIB variable units",
       "data_nature": "Mosaic of regional multisensor precipitation analyses with varying manual QC",
       "spatial_support": "Nominal 4 km HRAP polar-stereographic grid",
-      "temporal_support": "Hourly, 6-hourly and 24-hourly accumulations; 24-hour totals derived from 6-hourly analyses in the selected archive",
-      "temporal_coverage": "Selected NCAR metadata lists 31 December 2001 through 31 August 2026; actual per-file coverage and later updates not acquired",
+      "temporal_support": "Hourly, 6-hourly and 24-hourly accumulations. The 24-hour construction varies by RFC and processing era; inspect the selected archive documentation and file lineage before assuming it equals four 6-hour values.",
+      "temporal_coverage": "Selected NCAR metadata checked 2026-11-16 lists 31 December 2001 through 30 September 2026. This is a metadata snapshot, not a permanent archive endpoint; actual per-file coverage and valid cells remain uninspected.",
       "geographic_coverage": "Historically CONUS RFC mosaic; selected archive adds Alaska and Puerto Rico from April 2017; inspect actual grids/masks and dates",
       "supported_use_cases": [
         "Matched-duration gridded precipitation evaluation and spatial-support sensitivity in the documented domain"
@@ -2480,13 +2521,17 @@
       ],
       "limitations": [
         "Pin regional source/RFC, accumulation, units, grid/mask, initial or revised analysis, QC and archive snapshot.",
-        "Gauge/radar support, beam blockage, precipitation phase and infilling vary; quantify representativeness and observation error."
+        "Gauge/radar support, beam blockage, precipitation phase and infilling vary; quantify representativeness and observation error.",
+        "The NCAR summary describes 24-hour accumulation from 6-hour analyses, while NWS SCN 17-17 documents a 2017 change to RFC-dependent 24-, 6- and 1-hour inputs. This conflict is retained as processing-era uncertainty; representative GRIB payload lineage has not been inspected."
       ],
       "dependence_notes": "Stage IV mosaics regional RFC multisensor analyses; contributing gauges and radar can overlap the inputs of a model being evaluated or other datasets. Pin initial/revised analysis, accumulation, RFC/source and archive snapshot; MRMS RadarOnly/MultiSensor pass labels do not apply.",
       "evidence_ids": [
         "OBS26",
         "OBS27",
-        "OBS28"
+        "OBS28",
+        "R26_STAGE4",
+        "PRO26_STAGE4_PROCESSING",
+        "NOAA_STAGE4_SOURCE"
       ],
       "documentation_url": "https://data.ucar.edu/dataset/ncep-emc-4km-gridded-data-grib-stage-iv-data",
       "access_url": "https://doi.org/10.5065/D6PG1QDD",
@@ -2504,7 +2549,7 @@
         "Actual source files, dates, flags and units not inspected",
         "For model evaluation, independence from shared observations or training data has not been assessed."
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-16"
     },
     {
       "product_id": "ghcnh_hourly",
@@ -2521,7 +2566,7 @@
       "data_nature": "multisource station observation compilation",
       "spatial_support": "fixed land stations; spatial and temporal sampling varies",
       "temporal_support": "hourly/synoptic reports, with variable-specific accumulation or averaging intervals",
-      "temporal_coverage": "Collection metadata: 1750 onward; individual elements/stations have shorter, discontinuous records",
+      "temporal_coverage": "Dates vary by station and variable. Some records reach December 1742.",
       "geographic_coverage": "Global land-station compilation; station/element availability varies",
       "supported_use_cases": [
         "Station temperature and wind evaluation with compatible reporting intervals, exposure and quality",
@@ -2545,7 +2590,7 @@
       ],
       "documentation_url": "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly",
       "access_url": "https://www.ncei.noaa.gov/products/global-historical-climatology-network-hourly",
-      "access_method": "Provider product page and documented distribution routes; actual files not acquired",
+      "access_method": "Provider product page and documented distribution access methods; actual files not acquired",
       "license_id": "SOURCE_SPECIFIC_TERMS_UNRESOLVED",
       "license_notes": "Selected source-country and release terms remain unresolved. Public availability and NOAA hosting do not establish blanket redistribution rights.",
       "commercial_use_status": "UNKNOWN",
@@ -2555,10 +2600,7 @@
         "Parquet"
       ],
       "unresolved_questions": [
-        "Element and flag availability in selected files; scientific data files were not downloaded or decoded",
-        "current exact file/version and last valid times",
-        "source-country rights",
-        "selected-case continuity, station history and exposure"
+        "Check the selected station’s reporting history, continuity, exposure and reuse rights."
       ],
       "last_checked_date": "2026-11-04"
     },
@@ -2576,7 +2618,7 @@
       "spatial_support": "Reported locations within counties; coordinates can be uncertain or absent. Points do not delineate hail swaths.",
       "temporal_support": "Irregular event reports. Interpret local event times using CZ_TIMEZONE; timestamp precision is not event-time accuracy.",
       "temporal_coverage": "Severe-thunderstorm reporting is documented from 1955 onward in the NWS archive summary; exact first/last hail records and completeness depend on the selected snapshot.",
-      "geographic_coverage": "United States and territories represented in NWS Storm Data; completeness varies. Marine event categories are excluded from this view.",
+      "geographic_coverage": "U.S. states, territories and reported Pacific jurisdictions served by NWS, including Micronesia and the Marshall Islands. Geographic screening includes coastal zones; separate marine event categories are excluded from this view.",
       "supported_use_cases": [
         "Find documented historical hail events and reported sizes.",
         "Provide event-context evidence after checking report source, location and time."
@@ -2597,11 +2639,16 @@
         "SCS_NCEI_03",
         "SCS_NWS_01",
         "SCS_NWS_02",
-        "SCS_NWS_04"
+        "SCS_NWS_04",
+        "R26_STORM",
+        "NWS_ZONES",
+        "NWS_MARINE",
+        "STORM_FSM",
+        "STORM_MHL"
       ],
       "documentation_url": "https://www.ncei.noaa.gov/access/storm-events-database/",
       "access_url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
-      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access routes; no event data are embedded.",
+      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access methods; no event data are embedded.",
       "license_id": "NOAA_PROVIDER_TERMS",
       "license_notes": "Public NOAA archive. Preserve attribution and source metadata; selected redistribution terms were not separately audited in this metadata review.",
       "commercial_use_status": "UNKNOWN",
@@ -2610,7 +2657,7 @@
         "CSV (gzip)"
       ],
       "unresolved_questions": [
-        "No scientific CSV payload inspected; selected event-type availability, end date, flags and coordinate completeness remain unverified.",
+        "No scientific CSV file contents inspected; selected event-type availability, end date, flags and coordinate completeness remain unverified.",
         "Historical event-type naming and reporting changes must be checked for the intended period.",
         "For model evaluation, overlap with reports used for training or calibration has not been assessed."
       ],
@@ -2630,7 +2677,7 @@
       "spatial_support": "Reported county/WFO tornado segments and endpoint coordinates; not continuous surveyed damage-footprint polygons.",
       "temporal_support": "Irregular event reports. Interpret local event times using CZ_TIMEZONE; timestamp precision is not event-time accuracy.",
       "temporal_coverage": "Tornado records documented from 1950 onward; exact end date, dimensions and completeness depend on the selected snapshot.",
-      "geographic_coverage": "United States and territories represented in NWS Storm Data; completeness varies. Marine event categories are excluded from this view.",
+      "geographic_coverage": "U.S. states, territories and reported Pacific jurisdictions served by NWS, including Micronesia and the Marshall Islands. Geographic screening includes coastal zones; separate marine event categories are excluded from this view.",
       "supported_use_cases": [
         "Locate documented tornado cases and inspect reported path and damage-rating information.",
         "Select historical cases after checking segment continuity, reporting conditions and uncertainty."
@@ -2653,11 +2700,16 @@
         "SCS_NWS_01",
         "SCS_NWS_03",
         "SCS_SCI_01",
-        "SCS_NWS_04"
+        "SCS_NWS_04",
+        "R26_STORM",
+        "NWS_ZONES",
+        "NWS_MARINE",
+        "STORM_FSM",
+        "STORM_MHL"
       ],
       "documentation_url": "https://www.ncei.noaa.gov/access/storm-events-database/",
       "access_url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
-      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access routes; no event data are embedded.",
+      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access methods; no event data are embedded.",
       "license_id": "NOAA_PROVIDER_TERMS",
       "license_notes": "Public NOAA archive. Preserve attribution and source metadata; selected redistribution terms were not separately audited in this metadata review.",
       "commercial_use_status": "UNKNOWN",
@@ -2666,7 +2718,7 @@
         "CSV (gzip)"
       ],
       "unresolved_questions": [
-        "No scientific CSV payload inspected; selected segment linkage, end date, missing dimensions and location quality remain unverified.",
+        "No scientific CSV file contents inspected; selected segment linkage, end date, missing dimensions and location quality remain unverified.",
         "Do not copy the inconsistent EF wind ranges in the bulk-format PDF; retain the reported category and refer to NWS EF guidance.",
         "For model evaluation, overlap with training or calibration records has not been assessed."
       ],
@@ -2687,7 +2739,7 @@
       "spatial_support": "Reported event locations; exposure, observing height and measurement method are source-dependent or absent.",
       "temporal_support": "Irregular event reports. Interpret local event times using CZ_TIMEZONE; timestamp precision is not event-time accuracy.",
       "temporal_coverage": "Severe-thunderstorm records documented from 1955 onward; exact event-type coverage and end date require the selected snapshot.",
-      "geographic_coverage": "United States and territories represented in NWS Storm Data; completeness varies. Marine event categories are excluded from this view.",
+      "geographic_coverage": "U.S. states, territories and reported Pacific jurisdictions served by NWS, including Micronesia and the Marshall Islands. Geographic screening includes coastal zones; separate marine event categories are excluded from this view.",
       "supported_use_cases": [
         "Find documented severe convective wind cases and distinguish instrumental measurements from estimates.",
         "Corroborate event context with compatible station or other evidence."
@@ -2699,7 +2751,7 @@
       ],
       "limitations": [
         "Reporting effort and damage-based wind estimation are uneven.",
-        "Source type, gust versus sustained semantics, and missing values must be retained.",
+        "Source type, gust versus sustained semantics, and missing values must be kept.",
         "Multiple reports may describe the same storm; a missing report is not a negative observation."
       ],
       "dependence_notes": "This is a view of NWS Storm Data. The three NCEI hazard views share one collection, and SPC historical severe-weather compilations overlap that reporting lineage. They are not independent replications.",
@@ -2708,11 +2760,16 @@
         "SCS_NCEI_02",
         "SCS_NCEI_03",
         "SCS_NWS_01",
-        "SCS_NWS_04"
+        "SCS_NWS_04",
+        "R26_STORM",
+        "NWS_ZONES",
+        "NWS_MARINE",
+        "STORM_FSM",
+        "STORM_MHL"
       ],
       "documentation_url": "https://www.ncei.noaa.gov/access/storm-events-database/",
       "access_url": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
-      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access routes; no event data are embedded.",
+      "access_method": "Provider web search or annual compressed CSV tables. This inventory links to metadata and access methods; no event data are embedded.",
       "license_id": "NOAA_PROVIDER_TERMS",
       "license_notes": "Public NOAA archive. Preserve attribution and source metadata; selected redistribution terms were not separately audited in this metadata review.",
       "commercial_use_status": "UNKNOWN",
@@ -2721,7 +2778,7 @@
         "CSV (gzip)"
       ],
       "unresolved_questions": [
-        "No scientific CSV payload inspected; selected magnitude/type completeness, time zone and end date remain unverified.",
+        "No scientific CSV file contents inspected; selected magnitude/type completeness, time zone and end date remain unverified.",
         "Instrument siting, observing height and averaging period may be absent.",
         "For model evaluation, overlap with training or calibration reports has not been assessed."
       ],
@@ -2740,7 +2797,7 @@
       "data_nature": "Radar-derived hail-size retrieval using model temperature information",
       "spatial_support": "Documented 0.01-degree latitude by 0.01-degree longitude grid; effective support varies with radar geometry and processing.",
       "temporal_support": "Nominal two-minute updates for MESH. MESHMax window-maximum products are distinct fields with separate temporal support.",
-      "temporal_coverage": "Operational snapshots and selected archives; the October 2020 onward cloud route is documented, but actual MESH completeness was not tested.",
+      "temporal_coverage": "Operational snapshots and selected archives; the October 2020 onward cloud access method is documented, but actual MESH completeness was not tested.",
       "geographic_coverage": "CONUS for this entry; verify the selected file's domain, radar coverage and missing-data mask. No global coverage is implied.",
       "supported_use_cases": [
         "Find a spatial radar-based hail-size estimate for a documented storm.",
@@ -2763,7 +2820,9 @@
         "OBS23",
         "SCS_MRMS_04",
         "SCS_MRMS_05",
-        "SCS_IEM_01"
+        "SCS_IEM_01",
+        "R26_MRMS",
+        "R2_MRMS_NOAA"
       ],
       "documentation_url": "https://www.nssl.noaa.gov/projects/mrms/operational/tables.php",
       "access_url": "https://mrms.ncep.noaa.gov/2D/MESH/",
@@ -2777,11 +2836,57 @@
         "GRIB2 (gzip)"
       ],
       "unresolved_questions": [
-        "No GRIB2 payload inspected; selected algorithm, actual grid/mask, units and historical completeness remain unverified.",
+        "No GRIB2 file contents inspected; selected algorithm, actual grid/mask, units and historical completeness remain unverified.",
         "The older WDTD technical note and v12.2 field table do not establish current deployment status.",
         "For model evaluation, input and calibration overlap has not been assessed."
       ],
       "last_checked_date": "2026-11-04"
+    },
+    {
+      "product_id": "c3s_lake_water_level",
+      "product_name": "Copernicus satellite lake water levels",
+      "provider": "Copernicus Climate Change Service / CLS",
+      "version": "5.0",
+      "hazard_family": [
+        "riverine_flood",
+        "hydrological_drought"
+      ],
+      "variable": "Lake water surface height and uncertainty",
+      "units": "m above the product geoid",
+      "data_nature": "satellite_altimetry_observation",
+      "spatial_support": "One water level per monitored lake and observation time.",
+      "temporal_support": "Overpass sampling, generally 1–27 days apart; varies by lake and mission.",
+      "temporal_coverage": "Collection from 1992; individual lake records, gaps and latest observations vary.",
+      "geographic_coverage": "Selected lakes along mission ground tracks, including Lake Victoria.",
+      "supported_use_cases": [
+        "Compare observed lake-level changes over time",
+        "Screen a monitored lake for water-level response"
+      ],
+      "non_uses": [
+        "Flood extent, river discharge or site-specific shoreline elevation"
+      ],
+      "limitations": [
+        "Compare vertical references before combining lake heights with gauges. Check per-observation uncertainty and gaps."
+      ],
+      "dependence_notes": "Missions and altimetry inputs can overlap with other satellite lake products.",
+      "evidence_ids": [
+        "C3S_LAKE_ALTIMETRY"
+      ],
+      "documentation_url": "https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level",
+      "access_url": "https://cds.climate.copernicus.eu/datasets/satellite-lake-water-level?tab=download",
+      "access_method": "Choose a monitored lake. CDS supplies the lake record; select the project dates after retrieval.",
+      "license_id": "CC_BY_4_0",
+      "license_url": "https://spdx.org/licenses/CC-BY-4.0",
+      "license_notes": "Credit the original source and identify changes under CC BY 4.0.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "NetCDF-4"
+      ],
+      "unresolved_questions": [
+        "Check the selected lake file for its actual date range, reference and uncertainty."
+      ],
+      "last_checked_date": "2026-11-18"
     }
   ]
 }

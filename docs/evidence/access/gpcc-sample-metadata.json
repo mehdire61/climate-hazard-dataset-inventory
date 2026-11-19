@@ -1,0 +1,287 @@
+{
+  "dataModel": "NETCDF3_64BIT_OFFSET",
+  "dimensions": {
+    "time": 1,
+    "lon": 360,
+    "lat": 180
+  },
+  "variables": {
+    "time": {
+      "dimensions": [
+        "time"
+      ],
+      "shape": [
+        1
+      ],
+      "dtype": "float64",
+      "attributes": {
+        "standard_name": "time",
+        "units": "hours since 2025-1-1 00:00:00",
+        "calendar": "proleptic_gregorian",
+        "axis": "T"
+      }
+    },
+    "lon": {
+      "dimensions": [
+        "lon"
+      ],
+      "shape": [
+        360
+      ],
+      "dtype": "float64",
+      "attributes": {
+        "standard_name": "longitude",
+        "long_name": "longitude",
+        "units": "degrees_east",
+        "axis": "X"
+      }
+    },
+    "lat": {
+      "dimensions": [
+        "lat"
+      ],
+      "shape": [
+        180
+      ],
+      "dtype": "float64",
+      "attributes": {
+        "standard_name": "latitude",
+        "long_name": "latitude",
+        "units": "degrees_north",
+        "axis": "Y"
+      }
+    },
+    "precip": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, precipitation per grid cell",
+        "units": "mm/month",
+        "code": "20",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "gauge": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, number of gauges per grid cell",
+        "units": "number of gauges per grid cell",
+        "code": "21",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "err": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, interpolation error (YAMAMOTO) per grid cell",
+        "units": "mm/month",
+        "code": "22",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "sys_err": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, gpcc mean systematic gauge error correction factor per grid cell",
+        "units": "multiplier",
+        "code": "23",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "gauge_int": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, number of gauges used by interpolation per grid cell",
+        "units": "number gauges used per grid cell interpolation",
+        "code": "25",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "dist_int": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, mean distance of gauges used by interpolation per grid cell",
+        "units": "mean distance in kilometer",
+        "code": "26",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "liquid": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, proportion of liquid precipitation per grid cell",
+        "units": "%/month",
+        "code": "27",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "solid": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, proportion of solid precipitation per grid cell",
+        "units": "%/month",
+        "code": "28",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    },
+    "precip_infill": {
+      "dimensions": [
+        "time",
+        "lat",
+        "lon"
+      ],
+      "shape": [
+        1,
+        180,
+        360
+      ],
+      "dtype": "float32",
+      "attributes": {
+        "long_name": "gpcc monthly version 2025, precipitation per grid cell with climatological station values infilling",
+        "units": "mm/month",
+        "code": "29",
+        "_FillValue": "-99999.99",
+        "missing_value": "-99999.99"
+      }
+    }
+  },
+  "globalAttributes": {
+    "CDI": "Climate Data Interface version 2.2.1 (https://mpimet.mpg.de/cdi)",
+    "Conventions": "CF-1.6",
+    "history": "Sat Nov 29 10:31:49 2025: cdo -setattribute,FILE=gattfile_10 ./RESULT/monthly_v2025_10.nc tmp10.nc\nSat Nov 29 10:31:49 2025: cdo -merge ./RESULT/precip_v2025_10.nc ./RESULT/gauge_v2025_10.nc ./RESULT/err_v2025_10.nc ./RESULT/sys_err_v2025_10.nc ./RESULT/gauge_int_v2025_10.nc ./RESULT/dist_int_v2025_10.nc ./RESULT/liquid_v2025_10.nc ./RESULT/solid_v2025_10.nc ./RESULT/precip_infill_v2025_10.nc ./RESULT/monthly_v2025_10.nc\nSat Nov 29 10:30:52 2025: cdo cat tmp10.nc ./RESULT/precip_v2025_10.nc\nSat Nov 29 10:30:52 2025: cdo -b F32 -r -f nc -setgrid,monthly_10.asc -setmissval,-99999.99 -setname,precip -setpartab,codetable.txt -setcode,20 -setdate,2025-01-01 -input,r360x180 tmp10.nc",
+    "title": "GPCC Analysis Monthly Version 2025, precipitation in mm/month, 1.0 degree",
+    "summary": "The GPCC Analysis Monthly Product is of much higher accuracy compared to the GPCC near real-time products mentioned above. Therefore, its application is recommended for hydrometeorological model verification and water cycle studies, e.g. in context of UNESCO, GEWEX, and GTN-H (Global Terrestrial Network for Hydrology). This analysis product is based on all stations, near real-time and non real-time, in the GPCC data base supplying data for the individual month. The GPCC Analysis Monthly Product Version 2025 covers the period from 1891 to present ; this new extended product version using the new GPCC climatology as analysis background was generated in November 2025. The data coverage per month varies from less than 10,000 to more than 52,000 stations. The GPCC Analysis Monthly Product will be updated at irregular time intervals subsequent to significant data base improvements.",
+    "keywords": "precipitation climatology,gpcc,global,gpcp,",
+    "id": "full_data_precipitation_10",
+    "creator_url": "http://gpcc.dwd.de",
+    "creator_name": "GPCC/DWD",
+    "creator_email": "gpcc@dwd.de",
+    "institution": "Deutscher Wetterdienst",
+    "date_created": "Sa 29. Nov 10:31:49 UTC 2025",
+    "time_coverage_start": "2025-01",
+    "time_coverage_end": "2025-01",
+    "time_coverage_resolution": "month",
+    "geospatial_lat_min": "-90.0",
+    "geospatial_lat_max": "90.0",
+    "geospatial_lon_min": "-180.0",
+    "geospatial_lon_max": "180.0",
+    "CDO": "Climate Data Operators version 2.2.0 (https://mpimet.mpg.de/cdo)"
+  },
+  "timeDates": [
+    "2025-01-01 00:00:00"
+  ],
+  "firstFieldNumericCells": 18967,
+  "firstFieldMin": 0.0,
+  "firstFieldMax": 1362.8599853515625,
+  "payloadReceipt": {
+    "url": "https://opendata.dwd.de/climate_environment/GPCC/GPCC_Precipitation_Analysis_Monthly/Version_2025/100_degree/gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+    "resolvedUrl": "https://opendata.dwd.de/climate_environment/GPCC/GPCC_Precipitation_Analysis_Monthly/Version_2025/100_degree/gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+    "retrievedAt": "2026-11-14T03:42:39.230174+00:00",
+    "status": 200,
+    "headers": {
+      "Server": "nginx",
+      "Date": "Sat, 14 Nov 2026 03:42:38 GMT",
+      "Content-Type": "application/octet-stream",
+      "Content-Length": "324408",
+      "Last-Modified": "Fri, 19 Dec 2025 11:30:13 GMT",
+      "Connection": "close",
+      "ETag": "\"69453745-4f338\"",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Strict-Transport-Security": "max-age=31536000",
+      "Accept-Ranges": "bytes"
+    },
+    "bytes": 324408,
+    "sha256": "cd5103036acebd5e1ee791c6fb6279e5196bdd02602931f70a2efee8ee63e921",
+    "fullPayloadRetrieved": true,
+    "localPath": "work\\grid-access-payloads\\gpcc_precipitation_analysis_monthly_2025_01_v2025_100.nc.gz",
+    "seconds": 1.31
+  },
+  "scope": "Metadata and representative first field inspected. No site extraction, area averaging or scientific suitability assessment."
+}

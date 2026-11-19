@@ -1,0 +1,28 @@
+{
+  "url": "https://gis.earthdata.nasa.gov/portal/rest/services/Landslides/COOLR_Reports_Points/FeatureServer/0/query?f=geojson&where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&resultRecordCount=1",
+  "resolvedUrl": "https://gis.earthdata.nasa.gov/portal/rest/services/Landslides/COOLR_Reports_Points/FeatureServer/0/query?f=geojson&where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&resultRecordCount=1",
+  "retrievedAt": "2026-11-14T03:47:52.438Z",
+  "status": 200,
+  "headers": {
+    "cache-control": "max-age=0,must-revalidate",
+    "connection": "keep-alive",
+    "content-encoding": "gzip",
+    "content-length": "578",
+    "content-security-policy": "script-src 'self';",
+    "content-type": "application/geo+json;charset=UTF-8",
+    "date": "Sat, 14 Nov 2026 03:47:52 GMT",
+    "etag": "\"c2e62a3d8b921001bb90e7b214af33b8bf4da484c5b8dc4000ee676f495009b2\"",
+    "server": "CloudFront",
+    "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+    "vary": "Origin",
+    "via": "1.1 29e51fc5bac0897053e2f02edda4aecc.cloudfront.net (CloudFront)",
+    "x-amz-cf-id": "Ii8NxOwCw6KolmugDKvKuSGOdb7Qdjz9-juxbSG1uKw1-039Y0r6zA==",
+    "x-amz-cf-pop": "IAD55-P5",
+    "x-cache": "Miss from cloudfront",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-request-id": "Ii8NxOwCw6KolmugDKvKuSGOdb7Qdjz9-juxbSG1uKw1-039Y0r6zA==",
+    "x-xss-protection": "1; mode=block"
+  },
+  "rawText": "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":1,\"geometry\":{\"type\":\"Point\",\"coordinates\":[94.693509410000047,18.741125390000036]},\"properties\":{\"objectid\":1,\"source_name\":\"NASA SERVIR Science Coordination Office & SERVIR-Mekong\",\"source_link\":\"https://servir.adpc.net/\",\"event_id\":11757,\"event_date\":null,\"event_time\":null,\"event_title\":\"Landslide in Myanmar\",\"event_description\":null,\"location_description\":null,\"location_accuracy\":\"exact\",\"landslide_category\":\"landslide\",\"landslide_trigger\":\"unknown\",\"landslide_size\":\"unknown\",\"landslide_setting\":\"burned_area\",\"fatality_count\":null,\"injury_count\":null,\"storm_name\":null,\"photo_link\":null,\"comments\":\"Cherrington/Medium/adjusted confidence/\",\"event_import_source\":\"SMMML\",\"event_import_id\":\"178\",\"latitude\":18.741125390000001,\"longitude\":94.693509410000004,\"country_name\":\"Myanmar\",\"country_code\":\"MM\",\"admin_division_name\":\"Rakhine\",\"gazetteer_closest_point\":\"Buyo Chaung\",\"gazetteer_distance\":18.350000000000001,\"submitted_date\":1534464000000,\"last_edited_date\":null}}],\"exceededTransferLimit\":true,\"properties\":{\"exceededTransferLimit\":true}}"
+}

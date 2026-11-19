@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><DataInventory xmlns="https://opendap.co-ops.nos.noaa.gov/axis/webservices/datainventory/wsdl"><station ID="8593005" name="WASHINGTON NAVY YARD,D.C."><metadata><location><lat>38.8717</lat><long>-76.9950</long><state>DC</state></location><date_established>1974-08-16</date_established><shef_id></shef_id><deployment_designation></deployment_designation></metadata><parameter first="1995-07-17 20:00" last="1995-11-17 17:00" name="Verified 6-Minute Water Level"/><parameter first="1995-07-17 20:00" last="1995-10-31 23:00" name="Verified Hourly Height Water Level"/><parameter first="1995-07-17 20:00" last="1995-10-31 23:54" name="Verified High/Low Water Level"/><parameter first="1995-08-01 00:00" last="1995-10-31 23:54" name="Verified Monthly Mean Water Level"/></station></DataInventory></soapenv:Body></soapenv:Envelope>
+            
+
+
+
+
+

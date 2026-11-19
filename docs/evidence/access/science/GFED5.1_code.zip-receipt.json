@@ -1,0 +1,16 @@
+{
+  "url": "https://zenodo.org/records/16794692/files/GFED5.1_code.zip?download=1",
+  "resolvedUrl": "https://zenodo.org/records/16794692/files/GFED5.1_code.zip?download=1",
+  "retrievedAt": "2026-11-14T03:47:50.858Z",
+  "status": 403,
+  "headers": {
+    "content-length": "763",
+    "content-type": "text/html; charset=utf-8",
+    "date": "Sat, 14 Nov 2026 03:47:51 GMT",
+    "server": "nginx"
+  },
+  "error": "\n          <html>\n          <head><title>403 Forbidden</title></head>\n          <body style=\"max-width: 600px; margin: 40px auto; padding: 0 20px; line-height: 1.6;\">\n          <h1>403 Forbidden</h1>\n          <hr>\n          <p>Access to this resource has been restricted due to unusual traffic from ",
+  "evidenceType": "failed_download",
+  "verificationScope": "HTTP 403 error response only. No provider data file was downloaded.",
+  "payloadRetrieved": false
+}

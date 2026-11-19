@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><soapenv:Fault><faultcode>soapenv:Server.userException</faultcode><faultstring>java.lang.NumberFormatException: For input string: &quot;&quot;</faultstring><detail><ns1:hostname xmlns:ns1="http://xml.apache.org/axis/">ip-10-26-17-54.ec2.internal</ns1:hostname></detail></soapenv:Fault></soapenv:Body></soapenv:Envelope>
+            
+
+
+
+
+
