@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-11-23T15:35:38Z",
+  "doi": "10.5281/zenodo.14724263",
+  "depositUrl": "https://zenodo.org/records/14724263",
+  "archiveUrl": "https://zenodo.org/records/14724263/files/GLEAM4.2a_Evaporation.zip?download=1",
+  "archiveBytes": 112999343962,
+  "zenodoReportedArchiveMd5": "e3ba70c6bac18bc4c1a6dd91f82568c6",
+  "method": "Read two HTTP byte ranges, inflate the enclosing ZIP members, then read the 1980 daily NetCDF header and the complete 1980 annual NetCDF. The annual member CRC and SHA-256 are checked. The whole archive checksum is provider-reported.",
+  "ranges": [
+    {
+      "outerMember": "daily.zip",
+      "startByte": 0,
+      "lengthBytes": 2097152,
+      "sha256": "dd6ca58e3f9c01f81e45abc38b8205d3c29c9c51eaf256ea5de0608a97673764"
+    },
+    {
+      "outerMember": "yearly.zip",
+      "startByte": 112708234247,
+      "lengthBytes": 16777216,
+      "sha256": "8358e42e218b5a04883d28239b9e41589871065c2d2643f9067bae732c2c1dc4"
+    }
+  ],
+  "dailyHeader": {
+    "member": "daily/E_1980_GLEAM_v4.2a.nc",
+    "variable": "E",
+    "shape": [
+      366,
+      1800,
+      3600
+    ],
+    "units": "mm.day-1",
+    "fillValue": -999,
+    "calendar": "proleptic_gregorian",
+    "timeUnits": "days since 1980-01-01 00:00:00",
+    "numericDailyValuesInspected": false
+  },
+  "annual": {
+    "member": "yearly/E/E_1980_GLEAM_v4.2a_YR.nc",
+    "bytes": 6794615,
+    "sha256": "27d8d54f402250598867ffb9841e0076d71d881511126e06f2cde00f203c3dab",
+    "innerZipCrcVerified": true,
+    "variable": "E",
+    "shape": [
+      1,
+      1800,
+      3600
+    ],
+    "units": "mm.year-1",
+    "fillValue": "NaN",
+    "date": "1980-12-31",
+    "period": "calendar year 1980",
+    "timeUnits": "days since 1980-12-31",
+    "timeValue": 0,
+    "cells": [
+      {
+        "index": [
+          0,
+          510,
+          1029
+        ],
+        "lon": -77.05,
+        "lat": 38.95,
+        "value": 762.3919677734375
+      },
+      {
+        "index": [
+          0,
+          899,
+          399
+        ],
+        "lon": -140.05,
+        "lat": 0.05,
+        "value": null,
+        "meaning": "masked, NaN"
+      }
+    ]
+  },
+  "scope": "One annual land-cell value and one ocean mask check. The land value is a single grid-cell estimate; no HUC12 area mean was computed.",
+  "rights": {
+    "depositMetadata": "https://zenodo.org/api/records/14724263",
+    "metadataLicenseId": "cc-by-4.0",
+    "providerPolicy": "https://www.gleam.eu/",
+    "providerCommercialCondition": "Internal approval requested for commercial use.",
+    "catalogStatus": "UNKNOWN"
+  }
+}

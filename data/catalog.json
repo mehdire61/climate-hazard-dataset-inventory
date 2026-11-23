@@ -1,6 +1,6 @@
 {
   "schema_version": "1.4.0",
-  "catalog_revision": "v0.3 | 2026-11-19 | Catalog snapshot",
+  "catalog_revision": "v0.3 | 2026-11-23 | Catalog snapshot",
   "scope": "Climate-hazard dataset inventory: product metadata, documented uses, limitations and source links.",
   "verification_scope": "The catalog summarizes provider documentation and scientific publications. It includes selected public-file and station-response inspections, scoped by product, access method, version and date in the access evidence. These checks do not establish full archive coverage, measurement accuracy or scientific suitability.",
   "status_definitions": {
@@ -2943,6 +2943,61 @@
         "Station and date availability, flags, local representativeness and independence for the proposed comparison."
       ],
       "last_checked_date": "2026-11-19"
+    },
+    {
+      "product_id": "gleam_v4_2a_actual_evaporation",
+      "product_name": "GLEAM v4.2a · actual evapotranspiration",
+      "provider": "Ghent University / GLEAM",
+      "version": "GLEAM4.2a, frozen 1980–2023 archive (Zenodo 14724263)",
+      "hazard_family": [
+        "hydrological_drought",
+        "water_balance"
+      ],
+      "variable": "Total actual terrestrial evaporation (E), also called evapotranspiration. GLEAM estimates transpiration, soil and open-water evaporation, interception, sublimation and condensation.",
+      "units": "Daily E is in mm/day. The annual files report the accumulated depth in mm/year. Read the units and fill value from the chosen file.",
+      "data_nature": "Satellite- and reanalysis-driven land evaporation model estimate",
+      "spatial_support": "Regular 0.1° land grid. Each value represents a grid cell. A HUC12 mean requires overlap-area weighting of valid cells and reporting the covered fraction.",
+      "temporal_support": "Daily estimates with separate monthly and yearly aggregates. The inspected annual file is dated December 31 and represents the calendar year.",
+      "temporal_coverage": "January 1, 1980 through December 31, 2023 for the archived v4.2a release.",
+      "geographic_coverage": "Global land surfaces. Open-ocean cells can be missing. Inspect the mask around coasts and small assessment areas.",
+      "supported_use_cases": [
+        "Evaluate seasonal or annual land-water balance alongside precipitation, runoff and storage change.",
+        "Compare modelled evapotranspiration at matched spatial and temporal support after checking common inputs."
+      ],
+      "non_uses": [
+        "Direct station measurements or field-scale irrigation demand.",
+        "Potential evaporation (Ep), transpiration alone (Et), or an automatically computed catchment mean."
+      ],
+      "limitations": [
+        "Mixed land cover and coastal masking affect small-area comparisons. Negative net evaporation can occur during condensation.",
+        "Daily and annual files can use different missing-value encodings. The checked daily header declares −999, while the checked annual file uses NaN."
+      ],
+      "dependence_notes": "The a stream uses MSWEP precipitation, MSWX meteorology, ERA5 wind and ESA CCI soil moisture. Eddy-covariance and sap-flow observations informed model training. Check overlapping forcings and sites before an independence claim.",
+      "evidence_ids": [
+        "GLEAM42_ARCHIVE",
+        "GLEAM42_MANUAL",
+        "GLEAM4_METHOD",
+        "GLEAM42_DEPOSIT_RIGHTS",
+        "GLEAM_USER_POLICY"
+      ],
+      "documentation_url": "https://doi.org/10.1038/s41597-025-04610-y",
+      "access_url": "https://zenodo.org/records/14724263",
+      "access_method": "Open the versioned Zenodo deposit. The 113 GB ZIP contains separate daily, monthly and yearly archives. Select E, the period and the land cells needed for the project.",
+      "license_id": "PROVIDER_LICENSE_TEXT_CONFLICT",
+      "license_url": "https://www.gleam.eu/",
+      "license_url_label": "GLEAM user policy",
+      "license_notes": "The v4.2a Zenodo deposit metadata lists CC BY 4.0. GLEAM’s user policy calls for internal approval for commercial use. The archive README requests scientific citations. Confirm the applicable terms for commercial work or redistribution.",
+      "commercial_use_status": "UNKNOWN",
+      "redistribution_status": "UNKNOWN",
+      "formats": [
+        "NetCDF-4",
+        "ZIP"
+      ],
+      "unresolved_questions": [
+        "Which reuse terms govern the intended use of this archived release?",
+        "How much of the project area has valid grid-cell coverage in the selected period?"
+      ],
+      "last_checked_date": "2026-11-23"
     }
   ]
 }

@@ -1,12 +1,14 @@
 # Climate-Hazard Dataset Inventory v0.3
 
-Find climate and water datasets for a project location and period. This local v0.3 release candidate contains **54 records in nine overlapping hazard groups** and links to 219 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
+Find climate and water datasets for a project location and period. This v0.3 development build contains **55 records in nine overlapping hazard groups** and links to 224 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
 In **Inventory**, filter by commercial-use status, then narrow by hazard or provider. The result count and metadata CSV follow the selections. Open a record and choose **Copy record link** to cite it. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
 
 **SNOTEL daily snow water equivalent** adds snowpack water storage measured at individual western U.S. and Alaska stations. The checked example covers Brundage Reservoir, Idaho, on April 1–3, 2024. Use the NRCS station report to check your own project dates. [Open the record](index.html#inventory?record=nrcs_snotel_daily_swe) · [Provider responses and retrieval details](docs/evidence/snotel/receipts.json)
 
 ## Using the inventory
+
+**GLEAM v4.2a actual evapotranspiration** covers 1980–2023 on a 0.1° land grid. The annual 1980 file reports 762.392 mm for the cell at 38.95°N, 77.05°W. Calculating a HUC12 mean requires intersecting its boundary with the valid cells. The record flags the different reuse terms on Zenodo and the GLEAM website. [Open the record](index.html#inventory?record=gleam_v4_2a_actual_evaporation) · [File inspection](docs/evidence/gleam/receipt.json)
 
 For a U.S. assessment, choose **Project area → U.S. hydrologic unit (HUC)**. HUC12 is the default level. Search the USGS Watershed Boundary Dataset by code or name, or find the units containing the project point. Select a result and click **Check site** to apply its mapped footprint. HUC10 and HUC8 are also available. A unit containing a point can have contributing drainage upstream of its boundary.
 

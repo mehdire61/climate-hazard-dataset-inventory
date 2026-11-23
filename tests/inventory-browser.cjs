@@ -114,6 +114,10 @@ async function checkRecord(page, context) {
     await direct.goto(new URL('#inventory?record=unknown_record_id',address).href);
     await direct.locator('#unknown-record').waitFor();
     assert.equal(await reopened.isVisible(), false);
+    await direct.goto(new URL('#inventory?record=gleam_v4_2a_actual_evaporation',address).href);
+    await reopened.getByRole('heading',{name:'GLEAM v4.2a · actual evapotranspiration',exact:true}).waitFor();
+    assert.ok(await reopened.locator('a[href="https://zenodo.org/records/14724263"]').count());
+    assert.match(await reopened.textContent(),/approval for commercial use/);
   } finally {
     await direct.close();
   }

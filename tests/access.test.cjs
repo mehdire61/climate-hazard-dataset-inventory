@@ -8,13 +8,29 @@ const area={mode:'area',areaName:'County test',areaSource:{kind:'test',vintage:'
  geometry:{type:'Polygon',coordinates:[[[-78,38],[-76,38],[-76,40],[-78,40],[-78,38]],[[-77.5,38.5],[-77.5,39],[-77,39],[-77,38.5],[-77.5,38.5]]]},start:point.start,end:point.end};
 
 test('Every original record has an explicit reviewed access route',()=>{
- assert.equal(catalog.length,54);
+ assert.equal(catalog.length,55);
  for(const product of catalog){const p=access.describe(product.product_id);assert.ok(['station','files','request','external'].includes(p.kind));
   for(const key of ['summary','auth','spatialDelivery','temporalDelivery','providerUrl','docsUrl'])assert.ok(p[key],product.product_id+' '+key);
   assert.ok(p.verification.label);assert.ok(p.verification.checkedAt);}
 });
 test('Three existing station routes are retained and have no new automatic discovery mode',()=>{
  for(const id of ['ghcn_daily','noaa_coops_water_level','usgs_streamflow'])assert.equal(access.describe(id).kind,'station');
+});
+test('GLEAM screens the frozen archive and separates grid-cell values, time units and reuse terms',()=>{
+ const id='gleam_v4_2a_actual_evaporation';
+ const {errors,files,manifest}=access.prepare(id,area);
+ assert.deepEqual(errors,[]);assert.deepEqual(files,[]);assert.deepEqual(manifest.query.geometry,area.geometry);
+ assert.equal(manifest.accessCapability,'external');
+ assert.ok(access.prepare(id,{...point,start:'2024-01-01',end:'2024-01-02'}).errors.length);
+ const record=catalog.find(p=>p.product_id===id),receipt=require('../docs/evidence/gleam/receipt.json');
+ assert.equal(record.commercial_use_status,'UNKNOWN');assert.equal(record.redistribution_status,'UNKNOWN');
+ assert.equal(record.license_id,'PROVIDER_LICENSE_TEXT_CONFLICT');
+ assert.equal(manifest.referencedSources.GLEAM42_DEPOSIT_RIGHTS.url,receipt.rights.depositMetadata);
+ assert.equal(record.license_url,receipt.rights.providerPolicy);
+ assert.equal(receipt.dailyHeader.units,'mm.day-1');assert.equal(receipt.annual.units,'mm.year-1');
+ assert.equal(receipt.dailyHeader.numericDailyValuesInspected,false);
+ assert.ok(manifest.verification.label.includes(receipt.annual.cells[0].value.toFixed(3)));
+ assert.equal(receipt.annual.cells[1].value,null);
 });
 test('SNOTEL handoff retains station and unit evidence without claiming a project download',()=>{
  const id='nrcs_snotel_daily_swe',q={...point,lat:45.04315,lon:-116.13253,start:'2024-04-01',end:'2024-04-03'};

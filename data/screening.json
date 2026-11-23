@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "review_date": "2026-11-19",
-  "catalog_revision": "v0.3 | 2026-11-19 | Catalog snapshot",
+  "review_date": "2026-11-23",
+  "catalog_revision": "v0.3 | 2026-11-23 | Catalog snapshot",
   "scope": "Documented dates and extents for dataset discovery; actual files or station observations require a separate check.",
   "date_policy": "Historical inclusive calendar dates, ending no later than today in UTC. Monthly/annual/event/scenario support remains explicit; dates are not converted into daily availability.",
   "spatial_policy": "WGS84 longitude/latitude. Regional boxes are conservative screening bounds. A generalized Natural Earth country layer provides a coarse land check only; a possible mask conflict is never a firm no-data finding.",
@@ -13370,6 +13370,42 @@
       "catalog_documentation_checked_on": "2026-11-19",
       "basis": "Coarse regions enclose coordinates in the cited provider directory, including inactive stations. The cited WTEQ sample verifies three daily values at one site.",
       "note": "Choose a SNOTEL station whose location and elevation represent the project. Verify its daily observations and flags at NRCS."
+    },
+    "gleam_v4_2a_actual_evaporation": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "global",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "GLEAM models land surfaces. Check the actual cell mask and land coverage before averaging."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1980-01-01",
+            "end": "2023-12-31"
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "Fixed extent documented for the v4.2a deposit."
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Versioned public Zenodo archive. Reuse terms differ between the deposit and the GLEAM policy.",
+      "evidence_ids": [
+        "GLEAM42_ARCHIVE",
+        "GLEAM42_MANUAL",
+        "GLEAM4_METHOD",
+        "GLEAM42_DEPOSIT_RIGHTS",
+        "GLEAM_USER_POLICY"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider release documentation and a bounded inspection of the daily and annual 1980 files.",
+      "note": "Grid-cell estimates of actual evapotranspiration. The project footprint does not produce a HUC12 average in this inventory."
     }
   },
   "storm_reporting_zones": {

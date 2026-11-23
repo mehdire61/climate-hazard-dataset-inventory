@@ -1839,5 +1839,45 @@
     "claims": "USDA describes public-domain material and requests credit. Copyright, trademark and third-party exceptions can apply to specific material.",
     "checked_date": "2026-11-19",
     "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "GLEAM42_ARCHIVE",
+    "title": "GLEAM v4.2a versioned evaporation archive",
+    "url": "https://zenodo.org/records/14724263",
+    "claims": "The producer deposit contains the evaporation archive and README. Inspection located daily E in mm/day and a complete annual 1980 E grid in mm/year.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "GLEAM42_MANUAL",
+    "title": "GLEAM v4.2 dataset README",
+    "url": "https://zenodo.org/records/14724263/files/README_GLEAM4.2.pdf",
+    "claims": "Defines the a and b inputs, 0.1° daily grid, E and Ep, units, archive structure and acknowledgement policy.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "GLEAM4_METHOD",
+    "title": "Miralles et al. (2025) · GLEAM4 land evaporation and soil moisture",
+    "url": "https://doi.org/10.1038/s41597-025-04610-y",
+    "claims": "Describes the hybrid evaporation model, meteorological inputs, observation-based training, grid support and validation.",
+    "checked_date": "2026-11-23",
+    "verification": "DOCUMENTATION_OR_PUBLICATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GLEAM42_DEPOSIT_RIGHTS",
+    "title": "Zenodo metadata for GLEAM v4.2a (record 14724263)",
+    "url": "https://zenodo.org/api/records/14724263",
+    "claims": "The license identifier in metadata.license.id is cc-by-4.0 for this deposit.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "GLEAM_USER_POLICY",
+    "title": "GLEAM data user policy",
+    "url": "https://www.gleam.eu/",
+    "claims": "The GLEAM team asks for internal approval for commercial use and identifies scientific publications to cite.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
   }
 ]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-19T14:26:46.483434+00:00",
+  "reviewedAt": "2026-11-23T15:35:38Z",
   "profiles": {
     "ghcn_daily": {
       "productId": "ghcn_daily",
@@ -26575,6 +26575,59 @@
         {
           "label": "Brundage Reservoir station metadata (JSON)",
           "url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&returnStationElements=true"
+        }
+      ]
+    },
+    "gleam_v4_2a_actual_evaporation": {
+      "productId": "gleam_v4_2a_actual_evaporation",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Inspect the versioned GLEAM v4.2a archive and select actual evaporation (E).",
+      "auth": "The Zenodo deposit is public and can be read without an account.",
+      "providerUrl": "https://zenodo.org/records/14724263",
+      "docsUrl": "https://zenodo.org/records/14724263/files/README_GLEAM4.2.pdf",
+      "spatialDelivery": "Global 0.1° land grid. Subset and area-weight valid cells externally for a project polygon.",
+      "temporalDelivery": "Daily, monthly and yearly members for 1980–2023. Choose the corresponding units and dates.",
+      "verification": {
+        "status": "sample-payload-checked",
+        "label": "Inspected the 1980 daily file header and a complete 1980 annual grid. The grid cell at 38.95°N, 77.05°W reports 762.392 mm/year.",
+        "checkedAt": "2026-11-23T15:35:38Z"
+      },
+      "notes": [
+        "The public archive is about 113 GB. The inventory opens its landing page.",
+        "The deposit and GLEAM website give different reuse guidance. See both before commercial use."
+      ],
+      "steps": [
+        "Open the v4.2a deposit and its README.",
+        "Choose daily, monthly or yearly E and the files for your dates.",
+        "Inspect units and the missing-value encoding, then subset the grid. For HUC12, report overlap-weighted valid area and coverage."
+      ],
+      "files": [],
+      "options": [],
+      "requiredSelections": [
+        "Actual evaporation (E)",
+        "Time aggregation and period",
+        "Land grid cells or polygon weights"
+      ],
+      "catalogEvidenceIds": [
+        "GLEAM42_ARCHIVE",
+        "GLEAM42_MANUAL",
+        "GLEAM4_METHOD",
+        "GLEAM42_DEPOSIT_RIGHTS",
+        "GLEAM_USER_POLICY"
+      ],
+      "relatedLinks": [
+        {
+          "label": "Version-specific README",
+          "url": "https://zenodo.org/records/14724263/files/README_GLEAM4.2.pdf"
+        },
+        {
+          "label": "GLEAM user policy",
+          "url": "https://www.gleam.eu/"
+        },
+        {
+          "label": "Versioned deposit metadata",
+          "url": "https://zenodo.org/api/records/14724263"
         }
       ]
     }
