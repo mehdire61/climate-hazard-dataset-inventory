@@ -9,6 +9,7 @@ const {products} = require('../data/catalog.json');
 const groups = require('../data/hazard_groups.json');
 const discovery = require('../data/discovery.json');
 const {examples} = require('../data/examples.json');
+const checkLegacyObservationCharts = require('./legacy-observations.cjs');
 
 const address = new URL(process.argv[2]);
 const browserName = process.argv[3] || 'chromium';
@@ -167,7 +168,7 @@ async function checkPublishedWorkflows(context) {
     await page.waitForFunction(lat=>Number(document.querySelector('#sc-lat').value)===lat,baseline.project.query.lat);
     const saved=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
     for (const key of ['schema','query','selectedId','hazard']) assert.deepEqual(saved[key],baseline.project[key],key);
-    assert.equal(saved.inventoryBuild.version,'v0.3');
+    assert.equal(saved.inventoryBuild.id,await page.evaluate(()=>window.InventoryApp.data.meta.build_id));
   } finally {await page.close();}
 }
 
@@ -621,10 +622,15 @@ async function main() {
     await checkPublishedWorkflows(context);
     await checkDiscoveryFilters(browser);
     await checkComparison(browser);
+    const chartPage=await context.newPage();
+    await chartPage.goto(new URL('#site-check',address).href);
+    const legacy=await checkLegacyObservationCharts(chartPage,downloadBytes);
+    assert.deepEqual(legacy.errors,[]);
+    await chartPage.close();
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed discovery filters, comparison and sharing, HUC12 selection/export/reopen, flood tiles, station and gridded snow, vertical references, project return, charts, mobile layout, CSV and offline checks.');
+    console.log(browserName, browser.version(), 'passed inventory and Site check workflows, v0.2 searches and projects, snow maps, comparison timelines, offline use, and',legacy.checks.length,'archived chart and export checks.');
   } finally {
     await browser.close();
   }
