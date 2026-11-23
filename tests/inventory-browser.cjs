@@ -4,6 +4,7 @@ const {execFileSync} = require('node:child_process');
 const {chromium, firefox} = require('playwright-core');
 const {products} = require('../data/catalog.json');
 const groups = require('../data/hazard_groups.json');
+const {examples} = require('../data/examples.json');
 
 const address = new URL(process.argv[2]);
 const browserName = process.argv[3] || 'chromium';
@@ -13,14 +14,19 @@ const snowFragment = '#inventory?record=' + snowId;
 const recordURL = new URL(snowFragment, address).href;
 const cards = page => page.locator('#results .product-card').evaluateAll(rows => rows.map(row => row.dataset.id));
 
-async function exportedRows(page) {
+async function downloadBytes(page, button) {
   const ready = page.waitForEvent('download');
-  await page.getByRole('button', {name: /Download .* as CSV/}).click();
+  await button.click();
   const download = await ready;
   const bytes = [];
   for await (const chunk of await download.createReadStream()) bytes.push(chunk);
+  return Buffer.concat(bytes);
+}
+
+async function exportedRows(page) {
+  const bytes = await downloadBytes(page, page.getByRole('button', {name: /Download .* as CSV/}));
   const parser = 'import csv, io, json, sys; print(json.dumps(list(csv.DictReader(io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8-sig", newline="")))))';
-  return JSON.parse(execFileSync('python', ['-c', parser], {input: Buffer.concat(bytes)}));
+  return JSON.parse(execFileSync('python', ['-c', parser], {input: bytes}));
 }
 
 async function checkFilters(page) {
@@ -149,6 +155,37 @@ async function checkOffline(browser) {
   }
 }
 
+async function checkObservationGap(page) {
+  const saved = examples.find(example => example.productId === 'ghcn_daily');
+  // Remove the middle day from a preserved NOAA response to create a known gap.
+  const rows = JSON.parse(saved.result.rawText).filter(row => row.DATE !== '2020-07-02');
+  const raw = JSON.stringify(rows);
+  await page.route('https://www.ncei.noaa.gov/access/services/data/v1?*', route =>
+    route.fulfill({contentType:'application/json', body:raw}));
+  await page.getByRole('button', {name:'GHCN-Daily', exact:true}).click();
+  await page.getByText('Change station', {exact:true}).click();
+  await page.getByRole('button', {name:'Retrieve 3-day preview', exact:true}).click();
+  const preview = page.getByRole('region', {name:'Retrieved data preview'});
+  await preview.getByText('Live provider response', {exact:true}).waitFor();
+  await preview.getByRole('button', {name:'Daily maximum temperature', exact:true}).click();
+  const chart = preview.locator('.sc-chart');
+  const gap = chart.locator('[data-missing="absent timestamp"]');
+  assert.match(await gap.locator('title').textContent(), /2020-07-02/);
+  assert.equal(await chart.locator('[data-observation-line]').count(), 0);
+  const marks = chart.locator('[data-observation]');
+  assert.equal(await marks.count(), rows.length);
+  for (const [index, row] of rows.entries()) {
+    assert.equal(await marks.nth(index).getAttribute('data-time'), row.DATE);
+  }
+  await preview.getByRole('button', {name:'Daily precipitation', exact:true}).click();
+  assert.equal(await chart.getAttribute('data-chart-kind'), 'bars');
+  assert.match(await chart.locator('.sc-chart-completeness').innerText(), /2 of 3 days/);
+  assert.equal(await chart.locator('[data-zero="true"]').getAttribute('data-time'), '2020-07-03');
+  assert.match(await gap.locator('title').textContent(), /2020-07-02/);
+  const bytes = await downloadBytes(page, preview.getByRole('button', {name:'Download original JSON'}));
+  assert.deepEqual(bytes, Buffer.from(raw));
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -162,10 +199,11 @@ async function main() {
     await checkRecord(page,context);
     await page.setViewportSize({width:1280,height:850});
     await checkProjectReturn(page);
+    await checkObservationGap(page);
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed record navigation, project return, mobile layout, CSV/filter and offline checks.');
+    console.log(browserName, browser.version(), 'passed record navigation, project return, observation gap and raw download, mobile layout, CSV/filter and offline checks.');
   } finally {
     await browser.close();
   }
