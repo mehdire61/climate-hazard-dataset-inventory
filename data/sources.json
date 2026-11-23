@@ -1935,5 +1935,69 @@
     "claims": "License identified in the JRC catalogue and versioned README. Includes attribution and share-alike conditions for applicable uses.",
     "checked_date": "2026-11-23",
     "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_NSIDC",
+    "title": "NSIDC G02158 Version 1",
+    "url": "https://nsidc.org/data/g02158/versions/1",
+    "claims": "Daily snow analyses, masked and unmasked products, DOI and required citation.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_GUIDE",
+    "title": "NSIDC SNODAS user guide",
+    "url": "https://nsidc.org/data/documentation/snow-data-assimilation-system-snodas-data-products-nsidc-version-1-user-guide",
+    "claims": "Snow model, meteorological forcing, observations, daily variables and product limitations.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_FORMAT",
+    "title": "NOHRSC archive format instructions",
+    "url": "https://www.nohrsc.noaa.gov/archived_data/instructions.html",
+    "claims": "Variable 11034 identifies SWE. Read the binary raster as big-endian and use its matching header.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_SHIFT",
+    "title": "NSIDC raster conversion guidance",
+    "url": "https://nsidc.org/data/user-resources/help-center/how-do-i-convert-snodas-binary-files-geotiff-or-netcdf",
+    "claims": "Grid registration changed on 2013-10-01. Coordinates and pixel offsets must use the individual file header.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_GAPS",
+    "title": "NSIDC SNODAS missing files and errata",
+    "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/G02158_missing_files.txt",
+    "claims": "Distinct masked/unmasked exception lists, missing SWE member and erroneous all-zero masked SWE day.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_FILES",
+    "title": "NSIDC masked daily archive",
+    "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/",
+    "claims": "Anonymous dated multi-variable tar files. September 2003 and November 2026 listings checked.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_SAMPLE",
+    "title": "NSIDC masked archive for 2024-04-01",
+    "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/2024/04_Apr/SNODAS_20240401.tar",
+    "claims": "Original SWE header and raster decoded at three cells. Valid time 06:00 UTC and raw units mm of water equivalent.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SNODAS_NWS_TERMS",
+    "title": "NOAA/NWS terms of use",
+    "url": "https://www.weather.gov/disclaimer/",
+    "claims": "NOAA/NWS data reuse, credit, no implied endorsement and identification of changes.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
   }
 ]

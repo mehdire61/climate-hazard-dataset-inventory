@@ -1,10 +1,12 @@
 # Climate-Hazard Dataset Inventory v0.3
 
-Find climate and water datasets for a project location and period. This v0.3 development build contains **56 records in nine overlapping hazard groups** and links to 231 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
+Find climate and water datasets for a project location and period. This v0.3 development build contains **57 records in nine overlapping hazard groups** and links to 239 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
 In **Inventory**, choose a hazard, provider, commercial-use status, search text and sort order. **Copy filtered view** shares those selections. A fresh tab opens the same rows in the same order for this catalog version, and the metadata CSV follows that order. Use **Copy record link** to cite an individual dataset. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
 
 **SNOTEL daily snow water equivalent** adds snowpack water storage measured at individual western U.S. and Alaska stations. The checked example covers Brundage Reservoir, Idaho, on April 1–3, 2024. Use the NRCS station report to check your own project dates. [Open the record](index.html#inventory?record=nrcs_snotel_daily_swe) · [Provider responses and retrieval details](docs/evidence/snotel/receipts.json)
+
+**SNODAS daily gridded snow water equivalent** covers the conterminous United States. Site check prepares the requested daily archives and flags provider-documented gaps and erroneous SWE. On April 1, 2024 the masked grid cell containing Brundage Reservoir, Idaho, held 609 mm at 06:00 UTC. [Open the record](index.html#inventory?record=nohrsc_snodas_daily_swe) · [Original-file inspection](docs/evidence/snodas/receipt.json)
 
 ## Using the inventory
 

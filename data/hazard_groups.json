@@ -42,7 +42,8 @@
       "chirps_v3_daily_sat",
       "c3s_lake_water_level",
       "nrcs_snotel_daily_swe",
-      "gleam_v4_2a_actual_evaporation"
+      "gleam_v4_2a_actual_evaporation",
+      "nohrsc_snodas_daily_swe"
     ]
   },
   {
@@ -118,7 +119,8 @@
     "products": [
       "modis_snow_mod10a1",
       "ims_snow_ice",
-      "nrcs_snotel_daily_swe"
+      "nrcs_snotel_daily_swe",
+      "nohrsc_snodas_daily_swe"
     ]
   },
   {

@@ -13440,6 +13440,114 @@
       ],
       "curation_reviewed_on": "2026-11-23",
       "catalog_documentation_checked_on": "2026-11-23"
+    },
+    "nohrsc_snodas_daily_swe": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -124.734,
+          24.949,
+          -66.941,
+          52.876
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Outer envelope spans both grid registrations. Confirm the masked CONUS cell in the original raster."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "2003-09-30",
+            "end": "2003-10-29"
+          },
+          {
+            "start": "2003-10-31",
+            "end": "2004-02-24"
+          },
+          {
+            "start": "2004-02-26",
+            "end": "2004-08-30"
+          },
+          {
+            "start": "2004-09-01",
+            "end": "2004-09-26"
+          },
+          {
+            "start": "2004-09-28",
+            "end": "2005-06-24"
+          },
+          {
+            "start": "2005-06-26",
+            "end": "2005-07-30"
+          },
+          {
+            "start": "2005-08-03",
+            "end": "2006-08-25"
+          },
+          {
+            "start": "2006-08-28",
+            "end": "2006-09-07"
+          },
+          {
+            "start": "2006-09-09",
+            "end": "2006-09-29"
+          },
+          {
+            "start": "2006-10-02",
+            "end": "2007-02-13"
+          },
+          {
+            "start": "2007-02-15",
+            "end": "2007-03-25"
+          },
+          {
+            "start": "2007-03-27",
+            "end": "2008-03-12"
+          },
+          {
+            "start": "2008-03-14",
+            "end": "2008-06-12"
+          },
+          {
+            "start": "2008-06-14",
+            "end": "2008-06-17"
+          },
+          {
+            "start": "2008-06-19",
+            "end": "2009-08-19"
+          },
+          {
+            "start": "2009-08-21",
+            "end": "2012-12-19"
+          },
+          {
+            "start": "2012-12-21",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2026-11-23",
+        "note": "Provider-listed missing or erroneous SWE days are excluded. Other dates represent nominal coverage, pending a valid cell in the file."
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Public masked daily files from NSIDC.",
+      "basis": "Masked archive, version guide, provider errata and a decoded original daily SWE file.",
+      "note": "Read the header for the selected day and distinguish missing cells from genuine zero SWE.",
+      "evidence_ids": [
+        "SNODAS_NSIDC",
+        "SNODAS_GUIDE",
+        "SNODAS_FORMAT",
+        "SNODAS_SHIFT",
+        "SNODAS_GAPS",
+        "SNODAS_FILES",
+        "SNODAS_SAMPLE",
+        "SNODAS_NWS_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23"
     }
   },
   "storm_reporting_zones": {

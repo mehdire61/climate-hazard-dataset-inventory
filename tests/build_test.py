@@ -48,7 +48,7 @@ class BuildChecks(unittest.TestCase):
         self.assertEqual(hashes, {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (self.folder / "data").glob("*.json")})
         page = first.decode("utf-8")
         payload = json.loads(re.search(r'<script id="inventory-data" type="application/json">(.*?)</script>', page, re.S)[1])
-        self.assertEqual(len(payload["products"]), 56)
+        self.assertEqual(len(payload["products"]), 57)
         source_records = json.loads((self.folder / "data/sources.json").read_text(encoding="utf-8"))
         self.assertEqual(set(payload["sources"]), {source["evidence_id"] for source in source_records})
         self.assertEqual(len(payload["hazard_groups"]), 9)

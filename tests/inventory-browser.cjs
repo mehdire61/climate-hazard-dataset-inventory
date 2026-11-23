@@ -321,6 +321,21 @@ async function checkFloodDepth(context) {
   } finally { await page.close(); }
 }
 
+async function checkGriddedSnow(context) {
+  const page = await context.newPage();
+  try {
+    await page.goto(new URL('#inventory?record=nohrsc_snodas_daily_swe',address).href);
+    await page.getByRole('dialog').getByRole('button',{name:'Check this record at a site'}).click();
+    await page.getByRole('button',{name:'Show download steps'}).click();
+    await page.getByText('Optional project records and request details',{exact:true}).click();
+    const manifest=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Save access manifest'})));
+    assert.equal(manifest.productId,'nohrsc_snodas_daily_swe');
+    assert.equal(manifest.requests.length,3);
+    assert.match(manifest.requests[0].url,/\/masked\/2020\/07_Jul\/SNODAS_20200701\.tar$/);
+    assert.equal(manifest.transferSummary.unknownCount,3);
+  } finally { await page.close(); }
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -337,6 +352,7 @@ async function main() {
     await checkObservationGap(page);
     await checkHydrologicUnit(context);
     await checkFloodDepth(context);
+    await checkGriddedSnow(context);
     await checkSharedInventory(browser);
     assert.deepEqual(errors, []);
     await context.close();

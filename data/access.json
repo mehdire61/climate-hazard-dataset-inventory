@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-11-23T19:37:11Z",
+  "reviewedAt": "2026-11-23T19:50:43Z",
   "profiles": {
     "ghcn_daily": {
       "productId": "ghcn_daily",
@@ -29393,6 +29393,77 @@
         "JRC_FLOODMAP_SAMPLE",
         "JRC_FLOODMAP_NOTICE",
         "JRC_FLOODMAP_ODBL"
+      ]
+    },
+    "nohrsc_snodas_daily_swe": {
+      "kind": "request",
+      "strategy": "daily-template",
+      "summary": "Prepare masked CONUS archives containing daily SWE. Each tar also contains other variables.",
+      "auth": "Anonymous public HTTPS files.",
+      "providerUrl": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/",
+      "docsUrl": "https://nsidc.org/data/g02158/versions/1",
+      "spatialDelivery": "Whole masked CONUS grid. Apply project geometry and compute valid area separately.",
+      "temporalDelivery": "One archive per requested day except documented missing or erroneous SWE days. Read the SWE member’s header for its valid time.",
+      "verification": {
+        "status": "sample-payload-checked",
+        "label": "2024-04-01 original daily archive decoded. The cell containing Brundage Reservoir holds 609 mm at 06:00 UTC. Other dates and sites require their own checks.",
+        "checkedAt": "2026-11-23T19:50:43Z",
+        "evidenceFiles": [
+          "docs/evidence/snodas/receipt.json"
+        ]
+      },
+      "notes": [
+        "Missing dates and the known erroneous all-zero day are excluded using the NSIDC masked-product errata.",
+        "Use the dated raster header, especially across the October 2013 grid shift."
+      ],
+      "steps": [
+        "Review the dated requests before downloading the whole daily archives.",
+        "Find variable 11034 and its paired text header. Decode signed big-endian values in mm and mask −9999."
+      ],
+      "files": [],
+      "options": [],
+      "missingSWEDates": {
+        "2003-10-30": "NSIDC lists the SWE member as missing.",
+        "2004-02-25": "NSIDC lists the entire masked daily archive as missing.",
+        "2004-08-31": "NSIDC lists the entire masked daily archive as missing.",
+        "2004-09-27": "NSIDC lists the entire masked daily archive as missing.",
+        "2005-06-25": "NSIDC lists the entire masked daily archive as missing.",
+        "2005-07-31": "NSIDC reports erroneous zeros throughout the SWE grid.",
+        "2005-08-01": "NSIDC lists the entire masked daily archive as missing.",
+        "2005-08-02": "NSIDC lists the entire masked daily archive as missing.",
+        "2006-08-26": "NSIDC lists the entire masked daily archive as missing.",
+        "2006-08-27": "NSIDC lists the entire masked daily archive as missing.",
+        "2006-09-08": "NSIDC lists the entire masked daily archive as missing.",
+        "2006-09-30": "NSIDC lists the entire masked daily archive as missing.",
+        "2006-10-01": "NSIDC lists the entire masked daily archive as missing.",
+        "2007-02-14": "NSIDC lists the entire masked daily archive as missing.",
+        "2007-03-26": "NSIDC lists the entire masked daily archive as missing.",
+        "2008-03-13": "NSIDC lists the entire masked daily archive as missing.",
+        "2008-06-13": "NSIDC lists the entire masked daily archive as missing.",
+        "2008-06-18": "NSIDC lists the entire masked daily archive as missing.",
+        "2009-08-20": "NSIDC lists the entire masked daily archive as missing.",
+        "2012-12-20": "NSIDC lists the entire masked daily archive as missing."
+      },
+      "relatedLinks": [
+        {
+          "label": "Provider errata",
+          "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/G02158_missing_files.txt"
+        },
+        {
+          "label": "Reading the masked grid",
+          "url": "https://nsidc.org/data/user-resources/help-center/how-do-i-convert-snodas-binary-files-geotiff-or-netcdf"
+        }
+      ],
+      "productId": "nohrsc_snodas_daily_swe",
+      "catalogEvidenceIds": [
+        "SNODAS_NSIDC",
+        "SNODAS_GUIDE",
+        "SNODAS_FORMAT",
+        "SNODAS_SHIFT",
+        "SNODAS_GAPS",
+        "SNODAS_FILES",
+        "SNODAS_SAMPLE",
+        "SNODAS_NWS_TERMS"
       ]
     }
   },

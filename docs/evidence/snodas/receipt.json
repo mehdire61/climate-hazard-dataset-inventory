@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-11-23T19:50:43Z",
+  "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/2024/04_Apr/SNODAS_20240401.tar",
+  "bytes": 17981440,
+  "sha256": "be71fa79780264755d68ad72e7c166bdaaeda99d5032dd4083e7729d16c7c45c",
+  "header": "us_ssmv11034tS__T0001TTNATS2024040105HP001.txt.gz",
+  "headerSha256": "ef4154b7ee430adbdecbbb26fa126d70cccb95099384e09074d0f39b6201ab23",
+  "raster": "us_ssmv11034tS__T0001TTNATS2024040105HP001.dat.gz",
+  "rasterSha256": "f26a598724583f36b256934dd4bdbb6573fb4eb36156a938e4b5cffc9d46c2f0",
+  "shape": [
+    3351,
+    6935
+  ],
+  "dtype": "big-endian signed int16",
+  "noData": -9999,
+  "valueUnits": "mm water equivalent",
+  "validTime": "2024-04-01T06:00:00Z",
+  "grid": {
+    "westEdge": -124.733333333328,
+    "northEdge": 52.8749999999979,
+    "dx": 0.008333333333333,
+    "dy": 0.008333333333333,
+    "datum": "WGS84"
+  },
+  "cells": [
+    {
+      "site": "Brundage Reservoir, Idaho",
+      "lat": 45.04315,
+      "lon": -116.13253,
+      "rowZeroBased": 939,
+      "colZeroBased": 1032,
+      "rawValue": 609,
+      "sweMm": 609
+    },
+    {
+      "site": "Washington, DC",
+      "lat": 38.9,
+      "lon": -77.04,
+      "rowZeroBased": 1676,
+      "colZeroBased": 5723,
+      "rawValue": 0,
+      "sweMm": 0
+    },
+    {
+      "site": "Atlantic offshore",
+      "lat": 39,
+      "lon": -73,
+      "rowZeroBased": 1664,
+      "colZeroBased": 6207,
+      "rawValue": -9999,
+      "sweMm": null
+    }
+  ],
+  "method": "Read the SWE member and its own header from the original masked daily tar. Floor the offset from the northwest outer edge by the header spacing. Read the signed big-endian integer at the resulting row and column.",
+  "listingChecks": [
+    {
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/2003/09_Sep/",
+      "first": "2003-09-30",
+      "last": "2003-09-30",
+      "count": 1
+    },
+    {
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/masked/2026/11_Nov/",
+      "first": "2026-11-01",
+      "last": "2026-11-23",
+      "count": 23
+    }
+  ],
+  "errata": {
+    "url": "https://noaadata.apps.nsidc.org/NOAA/G02158/G02158_missing_files.txt",
+    "sha256": "955d43f6ebdab124d841b8ceb173400eb6faf168ce5a5d03cf83311df22091b9",
+    "unusableSWEDays": 20
+  },
+  "qualification": "One original daily archive was decoded. Directory listings establish filenames. Cell and basin accuracy were not assessed."
+}

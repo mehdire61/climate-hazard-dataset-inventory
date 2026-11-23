@@ -280,6 +280,7 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
     } else if(['daily-template','ims-daily-template','coolr-arcgis'].includes(profile.strategy)) {
       const prepared=moduleFor('SiteScienceRequests','science-requests.js').prepare(profile,query,chosen);
       requests=prepared.requests||[];artifacts.push(...prepared.artifacts||[]);notes.push(...prepared.notes||[]);errors.push(...prepared.errors||[]);
+      base.uncoveredIntervals=prepared.uncoveredIntervals||[];
     } else if(profile.strategy==='cmr') {
       const earth=moduleFor('SiteEarthAccess','earth-access.js'),cmrProfile={...profile,kind:'cmr'};
       requests=earth.scopes(cmrProfile,query).map(scope=>({method:'GET',url:earth.requestURL(scope,query),collectionId:scope.collection.id,operation:'First metadata page; follow CMR-Search-After for remaining granules.'}));

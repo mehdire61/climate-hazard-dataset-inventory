@@ -8,10 +8,27 @@ const area={mode:'area',areaName:'County test',areaSource:{kind:'test',vintage:'
  geometry:{type:'Polygon',coordinates:[[[-78,38],[-76,38],[-76,40],[-78,40],[-78,38]],[[-77.5,38.5],[-77.5,39],[-77,39],[-77,38.5],[-77.5,38.5]]]},start:point.start,end:point.end};
 
 test('Every original record has an explicit reviewed access route',()=>{
- assert.equal(catalog.length,56);
+ assert.equal(catalog.length,57);
  for(const product of catalog){const p=access.describe(product.product_id);assert.ok(['station','files','request','external'].includes(p.kind));
   for(const key of ['summary','auth','spatialDelivery','temporalDelivery','providerUrl','docsUrl'])assert.ok(p[key],product.product_id+' '+key);
   assert.ok(p.verification.label);assert.ok(p.verification.checkedAt);}
+});
+test('SNODAS selects dated masked archives, preserves documented SWE gaps and distinguishes dry and missing cells',()=>{
+ const id='nohrsc_snodas_daily_swe',receipt=require('../docs/evidence/snodas/receipt.json');
+ const plan=(start,end=start,location=point)=>access.prepare(id,{...location,start,end});
+ assert.equal(plan('2024-04-01').manifest.requests[0].url,receipt.url);
+ assert.deepEqual(receipt.cells.map(c=>c.sweMm),[609,0,null]);
+ assert.equal(receipt.validTime,'2024-04-01T06:00:00Z');
+ const leap=plan('2024-02-28','2024-03-01');
+ assert.deepEqual(leap.manifest.requests.map(r=>r.url.split('/').slice(-2).join('/')),
+   ['02_Feb/SNODAS_20240228.tar','02_Feb/SNODAS_20240229.tar','03_Mar/SNODAS_20240301.tar']);
+ const gap=plan('2005-07-30','2005-08-03');
+ assert.deepEqual(gap.manifest.requests.map(r=>r.date),['2005-07-30','2005-08-03']);
+ assert.deepEqual(gap.manifest.uncoveredIntervals.map(r=>r.start),['2005-07-31','2005-08-01','2005-08-02']);
+ assert.match(gap.manifest.uncoveredIntervals[0].reason,/erroneous zeros/);
+ for(const day of ['2003-09-29','2003-10-30','2005-07-31','2012-12-20'])assert.ok(plan(day).errors.length,day);
+ assert.deepEqual(plan('2003-09-30').errors,[]);
+ assert.ok(plan('2024-04-01','2024-04-01',{...point,lat:61,lon:-150}).errors.length);
 });
 test('Three existing station routes are retained and have no new automatic discovery mode',()=>{
  for(const id of ['ghcn_daily','noaa_coops_water_level','usgs_streamflow'])assert.equal(access.describe(id).kind,'station');

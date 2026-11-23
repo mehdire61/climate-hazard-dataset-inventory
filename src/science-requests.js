@@ -9,6 +9,13 @@
     const requests=[];
     for(let d=Date.parse(config.start+'T00:00:00Z'),end=Date.parse(config.end+'T00:00:00Z');d<=end;d+=DAY){
       const date=new Date(d),iso=date.toISOString().slice(0,10),year=iso.slice(0,4),doy=String(Math.floor((d-Date.parse(year+'-01-01T00:00:00Z'))/DAY)+1).padStart(3,'0');
+      if(config.productId==='nohrsc_snodas_daily_swe'){
+        if(config.missingSWEDates[iso])continue;
+        const name='SNODAS_'+iso.replaceAll('-','')+'.tar';
+        const month=iso.slice(5,7)+'_'+config.monthNames[date.getUTCMonth()];
+        requests.push({method:'GET',url:config.archiveRoot+year+'/'+month+'/'+name,name,date:iso,operation:'Original masked CONUS daily archive containing the SWE raster and header; availability requires retrieval.'});
+        continue;
+      }
       const name=config.productId==='esa_cci_sm_combined_v09_2'?'ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-'+iso.replaceAll('-','')+'000000-fv09.2.nc':'ims'+year+doy+'_00UTC_'+config.grid+'_v'+config.minorVersion+'.asc.gz';
       const base=config.productId==='esa_cci_sm_combined_v09_2'?'https://dap.ceda.ac.uk/neodc/esacci/soil_moisture/data/daily_files/COMBINED/v09.2/':'https://noaadata.apps.nsidc.org/NOAA/G02156/'+config.grid+'/';
       requests.push({method:'GET',url:base+year+'/'+name,name,date:iso,operation:'Prepared whole-domain daily file; existence unverified until retrieval.'});
@@ -17,7 +24,7 @@
   }
   function dailyPython(config){return `#!/usr/bin/env python3
 """Prepared whole-domain files. Dry-run by default; unknown-size retrieval requires --download --confirm-transfer."""
-import argparse, gzip, hashlib, json
+import argparse, gzip, hashlib, json, tarfile
 from datetime import date, timedelta, datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -29,6 +36,13 @@ def build_requests():
     day, end = date.fromisoformat(CONFIG["start"]), date.fromisoformat(CONFIG["end"])
     requests = []
     while day <= end:
+        if CONFIG["productId"] == "nohrsc_snodas_daily_swe":
+            if day.isoformat() not in CONFIG["missingSWEDates"]:
+                name = "SNODAS_" + day.strftime("%Y%m%d") + ".tar"
+                folder = day.strftime("%Y/%m_") + CONFIG["monthNames"][day.month - 1]
+                requests.append({"url":CONFIG["archiveRoot"] + folder + "/" + name, "name":name, "date":day.isoformat()})
+            day += timedelta(days=1)
+            continue
         if CONFIG["productId"] == "esa_cci_sm_combined_v09_2":
             name = "ESACCI-SOILMOISTURE-L3S-SSMV-COMBINED-" + day.strftime("%Y%m%d") + "000000-fv09.2.nc"
             base = "https://dap.ceda.ac.uk/neodc/esacci/soil_moisture/data/daily_files/COMBINED/v09.2/"
@@ -55,6 +69,8 @@ def download(requests, folder, opener=urlopen, selection=None):
                 if not first or "text/html" in response.headers.get("Content-Type", "").lower() or first.lstrip().lower().startswith((b"<!doctype html", b"<html")): raise ValueError("Empty or HTML response is not scientific data")
                 if item["name"].endswith(".gz"):
                     if not first.startswith(b"\\x1f\\x8b"): raise ValueError("Expected gzip signature")
+                elif item["name"].endswith(".tar"):
+                    tarfile.TarInfo.frombuf(first[:512], "utf-8", "surrogateescape")
                 elif not first.startswith((b"\\x89HDF\\r\\n\\x1a\\n", b"CDF\\x01", b"CDF\\x02", b"CDF\\x05")): raise ValueError("Expected NetCDF/HDF5 signature")
                 with partial.open("xb") as stream:
                     chunk = first
@@ -66,6 +82,10 @@ def download(requests, folder, opener=urlopen, selection=None):
             if item["name"].endswith(".gz"):
                 with gzip.open(partial, "rb") as stream:
                     while stream.read(1048576): pass
+            elif item["name"].endswith(".tar"):
+                with tarfile.open(partial, "r:") as archive:
+                    if not any("ssmv11034" in m.name and m.isfile() for m in archive.getmembers()):
+                        raise ValueError("Daily archive lacks the expected SNODAS SWE member")
             partial.rename(target)
             record.update(status="downloaded", bytes=size, sha256=digest.hexdigest(), payloadMeaning="Original whole-domain file; no scientific QA, clipping or unit conversion")
         except HTTPError as error:
@@ -86,6 +106,8 @@ def main(argv=None):
     parser.add_argument("--output", default=CONFIG["productId"] + "_provider_files")
     args = parser.parse_args(argv)
     requests = build_requests()
+    for day, reason in CONFIG.get("missingSWEDates", {}).items():
+        print("Excluded SWE day", day, reason)
     if args.file and any(i < 1 or i > len(requests) for i in args.file): parser.error("File number is outside the prepared list")
     selected_numbers = sorted(set(args.file)) if args.file else None
     selected = [item for i,item in enumerate(requests,1) if selected_numbers is None or i in selected_numbers]
@@ -190,11 +212,20 @@ if __name__ == "__main__": raise SystemExit(main())
   function prepare(profile,query,options={}){
     const result={requests:[],artifacts:[],notes:[],errors:[]};
     const errors=moduleFor('SiteScreening','screening.js').validate(query);if(errors.length){result.errors.push(...errors);return result;}
-    const id=profile?.productId,known={esa_cci_sm_combined_v09_2:'daily-template',ims_snow_ice:'ims-daily-template',nasa_coolr:'coolr-arcgis'};
+    const id=profile?.productId,known={esa_cci_sm_combined_v09_2:'daily-template',nohrsc_snodas_daily_swe:'daily-template',ims_snow_ice:'ims-daily-template',nasa_coolr:'coolr-arcgis'};
     if(!known[id]||known[id]!==profile.strategy){result.errors.push('No reviewed prepared-request route matches this product.');return result;}
     const config={productId:id,start:query.start,end:query.end};let script;
     if(id==='esa_cci_sm_combined_v09_2'){
       if(query.start<'1978-11-01'||query.end>'2024-12-31')result.errors.push('ESA CCI COMBINED v09.2 files cover 1978-11-01 through 2024-12-31. Choose a period within this release; dates were not trimmed.');
+    }else if(id==='nohrsc_snodas_daily_swe'){
+      if(query.start<'2003-09-30')result.errors.push('The masked SNODAS archive begins 2003-09-30. Choose a period within its coverage.');
+      config.archiveRoot=profile.providerUrl;
+      config.monthNames='Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ');
+      const gaps=Object.entries(profile.missingSWEDates).filter(([day])=>day>=query.start&&day<=query.end);
+      config.missingSWEDates=Object.fromEntries(gaps);
+      result.uncoveredIntervals=gaps.map(([day,reason])=>({start:day,end:day,reason}));
+      for(const [day,reason] of gaps)result.notes.push(day+' excluded. '+reason);
+      if(gaps.length===(Date.parse(query.end)-Date.parse(query.start))/DAY+1)result.errors.push('NSIDC lists no usable masked SWE for the selected dates.');
     }else if(id==='ims_snow_ice'){
       config.grid=options.grid??'4km';config.minorVersion=options.minorVersion;
       if(!['24km','4km','1km'].includes(config.grid))result.errors.push('Choose an IMS grid: 24km, 4km or 1km.');
