@@ -9,6 +9,21 @@
     if(saved)return {areaName:saved.name,areaSource:JSON.parse(JSON.stringify(saved.source))};
     const countries=data.countryBoundaries,known=(countries?.features||[]).find(f=>f.properties.id===query.areaSource?.id&&same(f.geometry));
     if(known)return {areaName:known.properties.name+' (generalized country boundary)',areaSource:{...countries.source,id:known.properties.id,kind:'country',generalized:true,processing:'Geometry matches this build’s bundled country boundary; source attribution restored from the bundle.'}};
+    const source = query.areaSource || {};
+    const hucKind = source.kind === 'project-link' ? source.hucKind : source.kind;
+    if (['huc12','huc10','huc8'].includes(hucKind) && typeof source.id === 'string' &&
+        /^\d+$/.test(source.id) && source.id.length === Number(hucKind.slice(3))) {
+      const hash = source.reportedGeometrySha256 || source.geometrySha256;
+      const responseHash = source.reportedResponseSha256 || source.request?.rawSha256;
+      const retrieved = source.reportedRetrievedAt || source.retrievedAt;
+      const date = /^\d{4}-\d{2}-\d{2}$/.test(source.featureLoadDate) ? source.featureLoadDate : null;
+      const offset = [0,0.00001].includes(source.maxAllowableOffsetDegrees) ? source.maxAllowableOffsetDegrees : null;
+      return {areaName:query.areaName, areaSource:{kind:'project-link', hucKind, id:source.id, level:Number(hucKind.slice(3)),
+        featureLoadDate:date, maxAllowableOffsetDegrees:offset, reportedGeometrySha256:/^[a-f0-9]{64}$/.test(hash) ? hash : null,
+        reportedDataset:'USGS Watershed Boundary Dataset (WBD)', reportedResponseSha256:/^[a-f0-9]{64}$/.test(responseHash) ? responseHash : null,
+        reportedRetrievedAt:typeof retrieved === 'string' && retrieved.length <= 32 && Number.isFinite(Date.parse(retrieved)) ? retrieved : null,
+        note:'Saved project reports '+hucKind.toUpperCase()+' '+source.id+(offset === 0.00001 ? ' at 0.00001° screening tolerance' : '')+'. The saved polygon is used exactly as supplied. Re-select the unit from USGS to verify its attribution.'}};
+    }
     return {areaName:query.areaName,areaSource:{kind:'project-link',note:'Boundary attribution supplied by a shared project; not verified by this build. The area name is user supplied. Re-select a named boundary to obtain source attribution.'}};
   }
   function validate(value,products,hazards=[]){

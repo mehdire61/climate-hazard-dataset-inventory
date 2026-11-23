@@ -132,6 +132,7 @@
   const pointHelp = node('div', {class: 'sc-point-help'}, node('h2', {}, 'Confirm the location'), p('The radius is measured along Earth’s surface.', ''), button('Pick a point on the map', () => mapApi?.beginPoint(), 'btn small'));
   const areaControls = node('div', {class: 'sc-area-controls', hidden: ''});
   const areaMethod = node('select', {id: 'sc-area-method', class: 'sc-select', 'aria-label': 'Choose area source'},
+    node('option', {value:'huc'}, 'U.S. hydrologic unit (HUC)'),
     node('option', {value: 'saved'}, 'Saved boundaries'), node('option', {value: 'named'}, 'Find a named boundary'), node('option', {value: 'rectangle'}, 'Draw / enter rectangle'), node('option', {value: 'upload'}, 'Upload GeoJSON'));
   const savedArea = node('select', {id: 'sc-saved-area', class: 'sc-select', 'aria-label': 'Saved project boundary'}, node('option', {value: ''}, 'Choose a saved boundary…'));
   for (const area of geography.examples || []) savedArea.append(node('option', {value: area.id}, area.name));
@@ -140,10 +141,17 @@
   const areaState = node('select', {id: 'sc-area-state', class: 'sc-select', 'aria-label': 'State for boundary search'}, node('option', {value: ''}, 'Any US state'));
   for (const state of geography.states || []) areaState.append(node('option', {value: state.id}, state.name));
   const areaText = node('input', {id: 'sc-area-text', class: 'sc-search', type: 'search', placeholder: 'Boundary name…', 'aria-label': 'Boundary name'});
-  const areaSearchButton = button('Find boundaries', searchAreas, 'btn small');
+  const hucLevel = node('select', {class:'sc-select', 'aria-label':'Hydrologic unit level'},
+    node('option',{value:'huc12'},'HUC12 · subwatershed'), node('option',{value:'huc10'},'HUC10 · watershed'), node('option',{value:'huc8'},'HUC8 · subbasin'));
+  const hucDetail = node('select', {class:'sc-select', 'aria-label':'WBD boundary detail'},
+    node('option',{value:'screening'},'USGS screening · 0.00001° tolerance'), node('option',{value:'full'},'Full USGS geometry'));
+  const hucPointButton = button('Find units at the project point', () => searchAreas(true), 'btn small');
+  const hucHelp = p('HUC12 is the primary U.S. assessment unit. Choose a unit to screen its mapped area. A custom upstream drainage area requires outlet delineation. Full detail may exceed the browser geometry limit.', 'sc-area-help');
+  const areaSearchButton = button('Find boundaries', () => searchAreas(), 'btn small');
   const areaMatches = node('div', {class: 'sc-area-matches'});
   const areaStatus = p('', 'sc-area-help'); areaStatus.setAttribute('role', 'status');
-  const namedAreaBox = node('div', {'data-area-method': 'named', hidden: ''}, node('div', {class: 'sc-area-row'}, areaKind, areaState), node('div', {class: 'sc-area-row'}, areaText, areaSearchButton), areaStatus, areaMatches);
+  const namedAreaBox = node('div', {'data-area-method': 'named'}, node('div', {class: 'sc-area-row'}, areaKind, areaState),
+    hucLevel, hucDetail, hucHelp, node('div', {class: 'sc-area-row'}, areaText, areaSearchButton), hucPointButton, areaStatus, areaMatches);
   const rectangleBox = node('div', {'data-area-method': 'rectangle', hidden: ''},
     node('div', {class: 'sc-rectangle-fields'}, field('sc-west', 'West', 'number', -77.3, {step: 'any'}), field('sc-south', 'South', 'number', 38.8, {step: 'any'}), field('sc-east', 'East', 'number', -76.9, {step: 'any'}), field('sc-north', 'North', 'number', 39.1, {step: 'any'})),
     node('div', {class: 'sc-area-row'}, button('Use rectangle', useRectangle, 'btn small'), button('Draw two corners', () => mapApi?.beginRectangle(), 'btn small')),
@@ -251,7 +259,7 @@
     checkOnHazardChoice=!hazardFilter;
     if(hazardFilter) checkSubmittedAvailability();
     showProjectMap();
-    if (next.mode === 'area' && areaMethod.value === 'named') areaStatus.textContent = 'Boundary applied to this site check.';
+    if (next.mode === 'area' && ['named','huc'].includes(areaMethod.value)) areaStatus.textContent = 'Boundary applied to this site check.';
     announce.textContent = hazardFilter === null ? 'Project applied. Choose a hazard group to see its datasets.' : 'Screened ' + scopedResults().length + ' datasets in your selection for ' + siteLabel(query) + ', ' + dateRange(query) + '.';
     if (!mapTools.open && hazardFilter === null && hazardTiles.getBoundingClientRect().top >= window.innerHeight) reveal(hazardChoice);
   });
@@ -262,10 +270,28 @@
   liveFilter.addEventListener('change', () => { liveOnly = liveFilter.checked; renderList(); });
   accessFilter.addEventListener('change', () => {accessFilterValue = accessFilter.value; renderList();});
   modeSelect.addEventListener('change', () => {cancelAreaLookup(); draftMode = modeSelect.value;if(draftMode==='area')mapTools.open=true; renderGeometryControls(); markDirty(); updateDraftMap(true);});
-  areaMethod.addEventListener('change', () => {cancelAreaLookup(); for (const section of areaControls.querySelectorAll('[data-area-method]')) section.hidden = section.dataset.areaMethod !== areaMethod.value; mapApi?.cancelDrawing();});
+  function showAreaMethod() {
+    const huc = areaMethod.value === 'huc';
+    for (const section of areaControls.querySelectorAll('[data-area-method]')) section.hidden = section.dataset.areaMethod !== (huc ? 'named' : areaMethod.value);
+    for (const control of [hucLevel,hucDetail,hucHelp,hucPointButton]) control.hidden = !huc;
+    areaKind.hidden = huc;
+    areaState.hidden = huc || ['country','state'].includes(areaKind.value);
+    areaText.placeholder = huc ? 'Name or HUC code' : 'Boundary name…';
+    areaText.setAttribute('aria-label',huc ? 'Hydrologic unit name or code' : 'Boundary name');
+  }
+  function resetAreaSearch() {
+    cancelAreaLookup(); areaLookup = null; areaMatches.replaceChildren(); areaStatus.textContent = '';
+  }
+  areaMethod.addEventListener('change', () => {resetAreaSearch(); showAreaMethod(); mapApi?.cancelDrawing();});
+  showAreaMethod();
   savedArea.addEventListener('change', () => {const area = geography.examples.find(a => a.id === savedArea.value); if (area) acceptArea(area);});
-  areaKind.addEventListener('change', () => {areaState.hidden = areaKind.value === 'country' || areaKind.value === 'state'; cancelAreaLookup(); areaMatches.replaceChildren();});
-  areaText.addEventListener('input', cancelAreaLookup); areaState.addEventListener('change', cancelAreaLookup);
+  areaKind.addEventListener('change', () => {resetAreaSearch(); showAreaMethod();});
+  hucLevel.addEventListener('change', resetAreaSearch);
+  hucDetail.addEventListener('change', () => {
+    const selected = areaMatches.querySelector('select')?.value;
+    if (selected && areaLookup?.items[Number(selected)]) loadNamedArea(areaLookup.items[Number(selected)]);
+  });
+  areaText.addEventListener('input', resetAreaSearch); areaState.addEventListener('change', resetAreaSearch);
   areaText.addEventListener('keydown', event => {if (event.key === 'Enter') {event.preventDefault(); searchAreas();}});
   uploadInput.addEventListener('change', uploadArea);
   try {
@@ -627,6 +653,9 @@
     cancelPending(); cancelAccessPending(); mapApi?.cancelDrawing(); mapApi?.setStations([], ''); renderPanel();
   }
   function renderGeometryControls() {
+    if (Number.isFinite(draftPoint.lat) && Number.isFinite(draftPoint.lon)) {
+      hucPointButton.textContent = 'Find units at project point ('+draftPoint.lat+', '+draftPoint.lon+')';
+    }
     modeSelect.value = draftMode; pointHelp.hidden = draftMode === 'area'; areaControls.hidden = draftMode !== 'area';
     if (draftMode === 'point') {
       locationFields.replaceChildren(field('sc-lat', 'Latitude', 'number', Number.isFinite(draftPoint.lat) ? draftPoint.lat : '', {min: -90, max: 90, step: 'any', inputmode: 'decimal'}), field('sc-lon', 'Longitude', 'number', Number.isFinite(draftPoint.lon) ? draftPoint.lon : '', {min: -180, max: 180, step: 'any', inputmode: 'decimal'}));
@@ -640,8 +669,11 @@
     }
     areaSelection.replaceChildren();
     if (draftArea) {
-      areaSelection.append(node('strong', {}, draftArea.name), p('Accepted ' + draftArea.geometry.type + ' · no silent simplification', 'sc-area-help'));
       const source = draftArea.source || {};
+      areaSelection.append(node('strong', {}, draftArea.name), p('Accepted ' + draftArea.geometry.type + (source.generalized && /^huc(8|10|12)$/.test(source.kind) ? ' · provider-generalized boundary' : ' · no silent simplification'), 'sc-area-help'));
+      if (/^huc(8|10|12)$/.test(source.kind)) {
+        areaSelection.append(p(source.processing,'sc-area-help'),link(source.fullGeometryUrl,'Full USGS boundary (GeoJSON) ↗'));
+      }
       if (source.kind==='user-upload' && /altitude/i.test(source.processing||'')) areaSelection.append(p(source.processing,'sc-area-help'));
       if (source.note) areaSelection.append(p(source.note,'sc-callout'));
       if (source.url) areaSelection.append(link(source.url, 'Boundary source ↗'));
@@ -690,29 +722,39 @@
     } catch (error) {if (token === areaGeneration) geometryError('GeoJSON could not be accepted: ' + userError(error));}
   }
   function cancelAreaLookup() {areaGeneration++; areaController?.abort(); areaController = null; areaSearchButton.disabled = false;}
-  async function searchAreas() {
-    const text = areaText.value.trim(); if (!text) {areaStatus.textContent = 'Enter a boundary name.'; return;}
+  async function searchAreas(atPoint = false) {
+    const huc = areaMethod.value === 'huc', text = areaText.value.trim();
+    if (!text && !atPoint) {areaStatus.textContent = huc ? 'Enter a unit name or HUC code, or use the project point.' : 'Enter a boundary name.'; return;}
     cancelAreaLookup(); areaController = new AbortController(); const token = areaGeneration;
     areaSearchButton.disabled = true; areaStatus.textContent = 'Finding named boundaries…'; areaMatches.replaceChildren();
     try {
-      const result = await window.SiteAreas.search({kind: areaKind.value, text, state: areaState.value || undefined}, {signal: areaController.signal});
+      const result = await window.SiteAreas.search({kind:huc ? hucLevel.value : areaKind.value, text,
+        state:areaState.value || undefined, point:atPoint ? draftPoint : undefined}, {signal: areaController.signal});
       if (token !== areaGeneration) return;
-      areaLookup = result; areaStatus.textContent = result.items.length + ' matches' + (result.complete === false ? ' · partial name search; refine the name/state or inspect scope.' : '.') + ' Select one to load its actual polygon.';
+      areaLookup = result;
+      areaStatus.textContent = result.items.length + (result.items.length === 1 ? ' match' : ' matches') + (result.complete === false ? ' · partial search; refine the name or inspect scope.' : '.') + (result.items.length ? ' Select one to load its polygon.' : '');
       const matches = node('select', {id: 'sc-area-match', class: 'sc-select', 'aria-label': 'Boundary search results'}, node('option', {value: ''}, 'Select the exact boundary…'));
       result.items.forEach((item, i) => matches.append(node('option', {value: i}, item.name)));
       matches.addEventListener('change', () => {if (matches.value !== '') loadNamedArea(result.items[Number(matches.value)]);});
       areaMatches.replaceChildren(matches);
       if (result.notes?.length) areaMatches.append(node('details', {class: 'sc-disclosure'}, node('summary', {}, 'Boundary search scope'), node('ul', {}, result.notes.map(note => node('li', {}, note)))));
-    } catch (error) {if (token === areaGeneration) areaStatus.textContent = error.name === 'AbortError' ? 'Boundary search cancelled.' : userError(error);}
+    } catch (error) {if (token === areaGeneration) {
+      const retry = huc && !atPoint && !/^\d+$/.test(text) && /timed out|HTTP 5\d\d/i.test(error.message)
+        ? ' Try the complete HUC code or find units at the project point.' : '';
+      areaStatus.textContent = error.name === 'AbortError' ? 'Boundary search cancelled.' : userError(error) + retry;
+    }}
     finally {if (token === areaGeneration) {areaSearchButton.disabled = false; areaController = null;}}
   }
   async function loadNamedArea(item) {
     cancelAreaLookup(); draftArea=null;markDirty();renderGeometryControls();updateDraftMap();areaController = new AbortController(); const token = areaGeneration; areaStatus.textContent = 'Loading and validating the selected boundary…';
     try {
-      const area = await window.SiteAreas.load(item, {signal: areaController.signal});
+      const area = await window.SiteAreas.load(item, {signal: areaController.signal, wbdDetail:hucDetail.value});
       if (token !== areaGeneration) return;
       acceptArea({...area, source: {...area.source, searchRequests: areaLookup?.requests || []}}); areaStatus.textContent = 'Boundary accepted. Check site to apply it.';
-    } catch (error) {if (token === areaGeneration) areaStatus.textContent = error.name === 'AbortError' ? 'Boundary loading cancelled. No project area is selected.' : 'Boundary not loaded. No project area is selected. '+userError(error);}
+    } catch (error) {if (token === areaGeneration) {
+      const retry = /^huc(8|10|12)$/.test(item.kind) && hucDetail.value === 'full' && /limit|vertices|validation budget|too complex|timed out/i.test(error.message) ? ' Select USGS screening geometry to request a generalized boundary.' : '';
+      areaStatus.textContent = error.name === 'AbortError' ? 'Boundary loading cancelled. No project area is selected.' : 'Boundary not loaded. No project area is selected. '+userError(error)+retry;
+    }}
     finally {if (token === areaGeneration) areaController = null;}
   }
 
@@ -2252,12 +2294,17 @@
     const rows = [['Project','Location and footprint','Requested start','Requested end','Hazard group','Product ID','Dataset','Provider','Screening outcome','Spatial relation','Temporal finding','Time-scale check','Spatial-scale check',
       'Variable','Units','Spatial support','Time support','First screening reason','First documented limitation','Documentation','Provider access','Inventory build','Shortlist rank','Availability evidence','Evidence scope','Evidence checked','Evidence source']];
     const ranked=[...shortlistIds(scopedResults())];
+    const boundary = query.areaSource;
+    const isHuc = /^huc(8|10|12)$/.test(boundary?.hucKind || boundary?.kind);
+    if (isHuc) rows[0].push('HUC level','HUC code','WBD feature load date','Boundary tolerance (degrees)','Boundary geometry SHA-256','Boundary attribution');
     for (const r of scopedResults()) {
       const v = byId.get(r.productId);
       const scale = dimension=>(r.resolutionChecks||[]).filter(c=>c.dimension===dimension).map(c=>c.label+'. '+c.detail).join(' ');
       rows.push([siteLabel(query),footprint,query.start,query.end,group,r.productId,v.product_name,v.provider,r.label,r.spatialRelation,r.temporal,scale('time'),scale('space'),
         v.variable,v.units,v.spatial_support,v.temporal_support,r.reasons?.[0],v.limitations?.[0],v.documentation_url,v.access_url,buildIdentity.id,
         ranked.indexOf(r.productId)+1||'',evidenceFor(r.productId)?.label||'Catalog screening',evidenceFor(r.productId)?.detail||'',evidenceFor(r.productId)?.checkedAt||'',evidenceFor(r.productId)?.source||'']);
+      if (isHuc) rows.at(-1).push(boundary.level,boundary.id,boundary.featureLoadDate,boundary.maxAllowableOffsetDegrees,
+        boundary.geometrySha256 || boundary.reportedGeometrySha256,boundary.kind === 'project-link' ? 'User-supplied; attribution unverified' : 'Retrieved from USGS WBD');
     }
     download(app.makeCSV(rows),'text/csv;charset=utf-8','site-screen_'+query.start+'_'+query.end+'.csv');
   }
@@ -2315,6 +2362,9 @@
       const attribution = source?.provider ? [source.provider,source.dataset,source.id,source.vintage].filter(Boolean).join(' · ') :
         source?.kind==='project-link' ? 'User-supplied boundary and name. Attribution is unverified.' : 'Project-supplied geometry';
       doc.body.append(node('p',{},source?.url&&source.kind!=='project-link'?link(source.url,attribution):attribution));
+      if (/^huc(8|10|12)$/.test(source?.kind || '')) doc.body.append(node('p',{},source.processing),
+        node('p',{},'WBD geometry SHA-256 · '+(source.geometrySha256 || 'Unavailable')));
+      if (source?.hucKind) doc.body.append(node('p',{},source.note));
     }
     const observation=briefStation();
     if (observation) doc.body.append(observation);

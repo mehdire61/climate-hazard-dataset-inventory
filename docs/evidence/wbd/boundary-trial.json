@@ -1,0 +1,248 @@
+{
+  "checkedUtc": "2026-11-23",
+  "wbdService": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer",
+  "screeningOffsetDegrees": 1e-05,
+  "comparison": "Local Lambert azimuthal equal-area projection centered on each test point. At 100 locations on the exterior of the largest full polygon, two test points straddle the boundary at each indicated offset. These synthetic probe counts are scoped to the six units. The DC station check uses reported USGS monitoring locations in the recorded query bounding box.",
+  "cases": [
+    {
+      "case": "dc",
+      "level": 12,
+      "testPointLonLat": [
+        -77.04,
+        38.9
+      ],
+      "code": "020700100103",
+      "name": "Pimmit Run-Potomac River",
+      "states": "DC,MD,VA",
+      "featureLoadDate": 1723704945000,
+      "full": {
+        "bytes": 7663902,
+        "sha256": "06c741108165b7eb4795ba74d3e462c091e497d8752d72e3d93305eb668ab801",
+        "valid": true,
+        "vertices": 187937,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 377459,
+        "sha256": "460a5af87a62dcb9728a9de07e9d4f2cbdabd92b73f2d3ed4779a08f9b0303dc",
+        "valid": true,
+        "vertices": 16555,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": -0.000124,
+      "symmetricDifferencePercent": 0.028322,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 48
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      },
+      "monitoringLocations": {
+        "count": 191,
+        "changedInclusion": 0,
+        "closestToBoundaryMetres": 17.91,
+        "nearestId": "USGS-385349076592801",
+        "source": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items?f=json&bbox=-77.22771%2C38.84383%2C-76.97351%2C38.95423&limit=1000"
+      }
+    },
+    {
+      "case": "colorado",
+      "level": 12,
+      "testPointLonLat": [
+        -105.27,
+        40.015
+      ],
+      "code": "101900050406",
+      "name": "Bear Canyon Creek-Boulder Creek",
+      "states": "CO",
+      "featureLoadDate": 1723704945000,
+      "full": {
+        "bytes": 40688,
+        "sha256": "ec743dbd8f6f2fd63dcdc2741a5ad8e6dba4750f1c113d901f631403f68dc8f6",
+        "valid": true,
+        "vertices": 990,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 15537,
+        "sha256": "7744e62b94f3f0dddaf2f128c1a8d9c03846aeb8ea28143c13fbb5f0ad60a6ae",
+        "valid": true,
+        "vertices": 640,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": -0.000158,
+      "symmetricDifferencePercent": 0.005695,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 12
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      }
+    },
+    {
+      "case": "alaska",
+      "level": 12,
+      "testPointLonLat": [
+        -149.91,
+        61.21
+      ],
+      "code": "190204010806",
+      "name": "Chester Creek",
+      "states": "AK",
+      "featureLoadDate": 1723704945000,
+      "full": {
+        "bytes": 80424,
+        "sha256": "5710c044ad4eb643f67a1eb17fbece3336a51032f231dc1429187b44f61fc897",
+        "valid": true,
+        "vertices": 1965,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 40919,
+        "sha256": "6df025ff523b548714bb9da5ada7eeee78c2a4ee87ce9f3dfa8e6c3c2b03d4d0",
+        "valid": true,
+        "vertices": 1710,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": 0.000286,
+      "symmetricDifferencePercent": 0.003089,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 5
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      }
+    },
+    {
+      "case": "hawaii",
+      "level": 12,
+      "testPointLonLat": [
+        -157.855,
+        21.31
+      ],
+      "code": "200600000304",
+      "name": "Waolani Stream-Frontal Pacific Ocean",
+      "states": "HI",
+      "featureLoadDate": 1723704945000,
+      "full": {
+        "bytes": 39482,
+        "sha256": "389868b6c4b023341dff4b5316b8bc05b63101eb9e589369c0c0ea3a07ed0897",
+        "valid": true,
+        "vertices": 960,
+        "polygonParts": 2,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 18049,
+        "sha256": "9fafc4a0db5c3c2000a4010dc0ec18358e53ff2cb347d3f039957b8238bf707b",
+        "valid": true,
+        "vertices": 746,
+        "polygonParts": 2,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": 5.9e-05,
+      "symmetricDifferencePercent": 0.007806,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 14
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      }
+    },
+    {
+      "case": "potomac8",
+      "level": 8,
+      "testPointLonLat": [
+        -77.04,
+        38.9
+      ],
+      "code": "02070010",
+      "name": "Middle Potomac-Anacostia-Occoquan",
+      "states": "DC,MD,VA",
+      "featureLoadDate": 1723803860000,
+      "full": {
+        "bytes": 6363754,
+        "sha256": "47c75f731746e4421ed55d270d88863f29794d51862b2c54e90acbabd5b60d37",
+        "valid": true,
+        "vertices": 156049,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 409487,
+        "sha256": "4bb20b1ac23248a7de8188fc2f1096b24f2552d889b71ef9be46050d1c825ee7",
+        "valid": true,
+        "vertices": 17969,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": -1.9e-05,
+      "symmetricDifferencePercent": 0.001285,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 13
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      }
+    },
+    {
+      "case": "potomac10",
+      "level": 10,
+      "testPointLonLat": [
+        -77.04,
+        38.9
+      ],
+      "code": "0207001001",
+      "name": "Rock Creek-Potomac River",
+      "states": "DC,MD,VA",
+      "featureLoadDate": 1723726881000,
+      "full": {
+        "bytes": 10628204,
+        "sha256": "028756eae183647a485b778b1083f93ea44e7fb84e037d9beffc6bca9b10b408",
+        "valid": true,
+        "vertices": 260630,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "general": {
+        "bytes": 526500,
+        "sha256": "489c7bba4d66708ab4a37a1dcfcf20e85f3130e518d2249f2a63d5c9eb381f0c",
+        "valid": true,
+        "vertices": 23097,
+        "polygonParts": 1,
+        "holes": 0
+      },
+      "relativeAreaChangePercent": -5.9e-05,
+      "symmetricDifferencePercent": 0.01358,
+      "edgeProbes_0.25m": {
+        "tests": 200,
+        "changedInclusion": 43
+      },
+      "edgeProbes_2m": {
+        "tests": 200,
+        "changedInclusion": 0
+      }
+    }
+  ],
+  "queries": {
+    "pointSearch": "/{level/2}/query?f=json&geometryType=esriGeometryPoint&geometry={longitude},{latitude}&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=huc{level},name,states,areasqkm,loaddate,globalid&returnGeometry=false",
+    "polygon": "/{level/2}/query?f=geojson&where=huc{level}='{code}'&outFields=huc{level},name,states,areasqkm,loaddate,globalid&returnGeometry=true&outSR=4326",
+    "generalization": "Add maxAllowableOffset=0.00001 in the output coordinate system. The full request omits that parameter."
+  }
+}

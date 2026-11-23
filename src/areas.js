@@ -3,6 +3,9 @@
   'use strict';
   const CENSUS = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_ACS2026/MapServer';
   const LAYERS = Object.freeze({state: [80], county: [82], place: [28, 30]});
+  const WBD = 'https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer';
+  const HUC_LAYERS = Object.freeze({huc12: 6, huc10: 5, huc8: 4});
+  const WBD_OFFSET = 0.00001;
   const MAX_BYTES = 8 * 1024 * 1024;
   const geometry = () => root.SiteGeometry || (typeof require === 'function' ? require('./geometry.js') : null);
   let configured = null;
@@ -63,8 +66,72 @@
       processing: 'Provider geometry returned with outSR=4326; no simplification or coordinate rounding applied by this tool.',
       terms: 'https://www.census.gov/about/policies/copyright.html'};
   }
+  function wbdUrl(kind, params) {
+    return WBD + '/' + HUC_LAYERS[kind] + '/query?' + new URLSearchParams(params);
+  }
+  function wbdMetadata(attributes, kind) {
+    const id = attributes?.[kind], name = attributes?.name, states = attributes?.states;
+    const level = HUC_LAYERS[kind] * 2;
+    if (typeof id !== 'string' || !/^\d+$/.test(id) || id.length !== level ||
+        typeof name !== 'string' || !name.trim() || typeof states !== 'string') {
+      throw new Error('USGS returned an incomplete hydrologic-unit identity.');
+    }
+    return {id, kind, name:'HUC' + level + ' ' + id + ' · ' + name + (states ? ' (' + states + ')' : ''), states};
+  }
+  async function searchWbd(input, options) {
+    const {kind, point} = input;
+    const term = String(input.text || '').trim();
+    const params = {f:'json', outFields:kind + ',name,states', returnGeometry:'false',
+      orderByFields:'name,' + kind, resultRecordCount:'100'};
+    if (point) {
+      if (!Number.isFinite(point.lon) || Math.abs(point.lon) > 180 ||
+          !Number.isFinite(point.lat) || Math.abs(point.lat) > 90) throw new Error('Enter a valid project point first.');
+      Object.assign(params, {geometryType:'esriGeometryPoint', geometry:[point.lon,point.lat].join(','),
+        inSR:'4326', spatialRel:'esriSpatialRelIntersects'});
+    } else if (/^\d+$/.test(term)) {
+      if (term.length !== HUC_LAYERS[kind] * 2) throw new Error('Enter the complete ' + kind.slice(3) + '-digit HUC, including leading zeros.');
+      params.where = kind + "='" + term + "'";
+    } else {
+      if (term.length < 2 || term.length > 80 || /[\x00-\x1f%_]/.test(term)) throw new Error('Enter a complete HUC code or 2–80 name characters without wildcards.');
+      params.where = "UPPER(name) LIKE '%" + term.toUpperCase().replace(/'/g, "''") + "%'";
+    }
+    const answer = await request(wbdUrl(kind, params), options);
+    if (!Array.isArray(answer.data.features)) throw new Error('USGS returned no list of hydrologic units.');
+    const items = answer.data.features.map(feature => wbdMetadata(feature.attributes, kind));
+    if (params.where && /^\d+$/.test(term) && items.some(item => item.id !== term)) throw new Error('USGS returned a different hydrologic-unit code.');
+    const complete = !answer.data.exceededTransferLimit && items.length < 100;
+    return {items, requests:[answer.receipt], complete, notes:complete ? [] : ['Only the first 100 matches were requested. Refine the name or enter the exact HUC.']};
+  }
+  async function loadWbd(item, options) {
+    const {kind, id} = item, level = HUC_LAYERS[kind] * 2;
+    if (!/^\d+$/.test(id) || id.length !== level) throw new Error('Invalid hydrologic-unit code.');
+    const detail = options.wbdDetail || 'screening';
+    if (!['screening','full'].includes(detail)) throw new Error('Choose a supported WBD boundary detail.');
+    const params = {f:'geojson', where:kind + "='" + id + "'", outFields:kind + ',name,states,areasqkm,loaddate,globalid', returnGeometry:'true', outSR:'4326'};
+    const fullGeometryUrl = wbdUrl(kind, params);
+    const generalized = detail === 'screening';
+    if (generalized) params.maxAllowableOffset = String(WBD_OFFSET);
+    const answer = await request(wbdUrl(kind, params), options);
+    if (answer.data.type !== 'FeatureCollection' || answer.data.exceededTransferLimit || answer.data.properties?.exceededTransferLimit ||
+        !Array.isArray(answer.data.features) || answer.data.features.length !== 1) throw new Error('USGS returned an incomplete hydrologic-unit boundary.');
+    const a = answer.data.features[0].properties, metadata = wbdMetadata(a, kind);
+    if (metadata.id !== id) throw new Error('Returned boundary does not match the selected HUC.');
+    const shape = geometry().normalize(answer.data);
+    const date = a.loaddate == null ? null : new Date(a.loaddate);
+    const loaded = date && Number.isFinite(+date) ? date.toISOString().slice(0,10) : null;
+    const source = {provider:'U.S. Geological Survey', dataset:'Watershed Boundary Dataset (WBD)', kind, id,
+      level, states:metadata.states, url:WBD + '/' + HUC_LAYERS[kind], fullGeometryUrl, generalized,
+      maxAllowableOffsetDegrees:generalized ? WBD_OFFSET : 0, featureLoadDate:loaded,
+      vintage:loaded ? 'USGS feature load ' + loaded : 'Live WBD service; see retrieval date',
+      coordinateReferenceSystem:'WGS84 longitude/latitude (EPSG:4326)', providerAreaKm2:a.areasqkm ?? null,
+      processing:generalized ? 'USGS generalized the screening boundary with a 0.00001° output tolerance. Near-edge station selections may differ at full detail.' : 'Full USGS service geometry in WGS84. No generalization was requested.',
+      terms:'https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits',
+      request:answer.receipt, retrievedAt:answer.receipt.retrievedAt, geometrySha256:await sha256(JSON.stringify(shape))};
+    return {name:metadata.name, geometry:shape, source};
+  }
   async function search(input, options = {}) {
     const data = catalog(options), kind = input?.kind, term = String(input?.text || '').trim();
+    if (Object.hasOwn(HUC_LAYERS,kind)) return searchWbd(input,options);
     if (kind !== 'country' && !LAYERS[kind]) throw new Error('Select a supported boundary type.');
     if (term.length < 2 || term.length > 80 || /[\x00-\x1f%_]/.test(term)) throw new Error('Enter 2–80 characters without SQL wildcard or control characters.');
     if (kind === 'country') {
@@ -105,6 +172,7 @@
   }
   async function load(item, options = {}) {
     if (!item || typeof item.id !== 'string') throw new Error('Choose a boundary result first.');
+    if (Object.hasOwn(HUC_LAYERS,item.kind)) return loadWbd(item,options);
     let target, source, name = item.name;
     if (item.kind === 'country') {
       options.signal?.throwIfAborted();

@@ -8,6 +8,10 @@ In **Inventory**, filter by commercial-use status, then narrow by hazard or prov
 
 ## Using the inventory
 
+For a U.S. assessment, choose **Project area → U.S. hydrologic unit (HUC)**. HUC12 is the default level. Search the USGS Watershed Boundary Dataset by code or name, or find the units containing the project point. Select a result and click **Check site** to apply its mapped footprint. HUC10 and HUC8 are also available. A unit containing a point can have contributing drainage upstream of its boundary.
+
+The default geometry is explicitly generalized by USGS at 0.00001° in WGS84. Choose **Full USGS geometry** when boundary detail matters and the polygon fits the browser limits. Near-edge station inclusion can change. Project files preserve the exact polygon used, code and precision. Reopened files label source attribution as unverified until the unit is selected again from USGS. [Six-unit boundary comparison](docs/evidence/wbd/boundary-trial.json)
+
 1. Open **Site check** and choose a point with a search radius, a named boundary or your own area. Set the project dates.
 2. Choose a hazard group to see the shortlist. Each record explains what the product measures, its spatial and temporal resolution, and how to get it. Screening uses documented coverage. Actual availability can vary by station, grid cell, event and date.
 3. For supported stations, preview observations and inspect units, gaps, flags and the reporting period. For gridded products, follow the access route to the provider or prepare a file request. Some providers require an account.

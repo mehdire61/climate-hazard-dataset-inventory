@@ -1,6 +1,9 @@
 // Usage: node tests/inventory-browser.cjs <running inventory URL> [chromium|chrome|msedge|firefox]
 const assert = require('node:assert/strict');
 const {execFileSync} = require('node:child_process');
+const {readFileSync} = require('node:fs');
+const {join} = require('node:path');
+const {gunzipSync} = require('node:zlib');
 const {chromium, firefox} = require('playwright-core');
 const {products} = require('../data/catalog.json');
 const groups = require('../data/hazard_groups.json');
@@ -186,6 +189,53 @@ async function checkObservationGap(page) {
   assert.deepEqual(bytes, Buffer.from(raw));
 }
 
+async function checkHydrologicUnit(context) {
+  const raw = gunzipSync(readFileSync(join(__dirname,'fixtures/wbd/pimmit-huc12-screening.geojson.gz')));
+  const attrs = JSON.parse(raw).features[0].properties;
+  const page = await context.newPage();
+  try {
+    await page.route('https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/6/query?*', route => {
+      const params = new URL(route.request().url()).searchParams;
+      if (params.get('where')?.startsWith('UPPER(name)')) return route.fulfill({status:503,body:'Service unavailable'});
+      const body = params.get('f') === 'geojson' ? raw : JSON.stringify({features:[{attributes:attrs}]});
+      return route.fulfill({contentType:'application/json',body});
+    });
+    await page.goto(new URL('#site-check',address).href);
+    await page.locator('#sc-mode').selectOption('area');
+    assert.equal(await page.getByLabel('Choose area source').inputValue(),'huc');
+    assert.equal(await page.getByLabel('Hydrologic unit level').inputValue(),'huc12');
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);
+    await page.getByLabel('Hydrologic unit name or code').fill('Pimmit Run');
+    await page.getByRole('button',{name:'Find boundaries',exact:true}).click();
+    await page.getByText(/Try the complete HUC code or find units at the project point/).waitFor();
+    await page.getByLabel('Hydrologic unit name or code').fill(attrs.huc12);
+    await page.getByRole('button',{name:'Find boundaries',exact:true}).click();
+    await page.getByLabel('Boundary search results').selectOption({label:'HUC12 020700100103 · Pimmit Run-Potomac River (DC,MD,VA)'});
+    await page.getByText('Boundary accepted. Check site to apply it.',{exact:true}).waitFor();
+    await page.locator('#sc-run').click();
+    await page.getByText('Boundary applied to this site check.',{exact:true}).waitFor();
+    await page.getByRole('button',{name:'All datasets',exact:true}).click();
+    await page.locator('.sc-project-tools summary').click();
+    await page.getByRole('button',{name:'Create project link'}).click();
+    await page.locator('.sc-project-message').filter({hasText:/project file/i}).waitFor();
+    const projectBytes = await downloadBytes(page,page.getByRole('button',{name:'Download project file'}));
+    const project = JSON.parse(projectBytes);
+    assert.equal(project.query.areaSource.id,attrs.huc12);
+    assert.equal(project.query.areaSource.maxAllowableOffsetDegrees,0.00001);
+    const csvButton = page.getByRole('button',{name:'Download screening results (CSV)'});
+    const csv = (await downloadBytes(page,csvButton)).toString('utf8');
+    assert.ok(csv.includes('HUC code') && csv.includes(attrs.huc12) && csv.includes(project.query.areaSource.geometrySha256));
+    await page.locator('#sc-project-file').setInputFiles({name:'reopen.json',mimeType:'application/json',buffer:projectBytes});
+    await page.locator('.sc-area-selection').getByText(/saved polygon is used exactly as supplied/i).waitFor();
+    const reopened = JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
+    assert.deepEqual(reopened.query.geometry,project.query.geometry);
+    assert.equal(reopened.query.areaSource.hucKind,'huc12');
+    assert.equal(reopened.query.areaSource.kind,'project-link');
+  } finally {
+    await page.close();
+  }
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -200,10 +250,11 @@ async function main() {
     await page.setViewportSize({width:1280,height:850});
     await checkProjectReturn(page);
     await checkObservationGap(page);
+    await checkHydrologicUnit(context);
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed record navigation, project return, observation gap and raw download, mobile layout, CSV/filter and offline checks.');
+    console.log(browserName, browser.version(), 'passed record navigation, project return, chart and raw download, HUC12 selection/export/reopen, mobile layout, CSV/filter and offline checks.');
   } finally {
     await browser.close();
   }
