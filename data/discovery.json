@@ -1036,7 +1036,7 @@
         "satellite"
       ],
       "lifecycle": [
-        "unconfirmed"
+        "maintained"
       ],
       "spatial": [
         "lake"
@@ -1135,6 +1135,7 @@
     "grace_jpl_mascon_cri_rl063_v04": "The 0.5° reporting grid is much finer than the native 3° mascons. The provider lists irregular monthly solutions.",
     "era5_t2m_interval_extrema": "The HRES and EDA streams summarize different forecast intervals.",
     "cems_rapid_mapping": "Activation products vary. A modeled depth extension is one possible product type.",
-    "nohrsc_snodas_daily_swe": "The model assimilates snow observations. Its masked CONUS grid is distributed daily, with provider-documented exceptions."
+    "nohrsc_snodas_daily_swe": "The model assimilates snow observations. Its masked CONUS grid is distributed daily, with provider-documented exceptions.",
+    "c3s_lake_water_level": "Copernicus documents annual updates for v5.0. Observations and the latest usable date vary by lake."
   }
 }

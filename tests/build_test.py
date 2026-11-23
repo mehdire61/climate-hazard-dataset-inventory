@@ -72,6 +72,13 @@ class BuildChecks(unittest.TestCase):
         self.edit_json("screening.json", lambda data: data["rules"].pop("ghcn_daily"))
         self.assert_rejected_unchanged()
 
+    def test_vertical_reference_requires_record_evidence(self):
+        def change(catalog):
+            p = next(p for p in catalog["products"] if p["product_id"] == "psmsl_rlr")
+            p["vertical_reference_sources"] = ["UNLINKED_DATUM"]
+        self.edit_json("catalog.json", change)
+        self.assert_rejected_unchanged()
+
     def test_unclassified_and_invalid_discovery_filters_rejected(self):
         self.edit_json("discovery.json", lambda data: data["records"]["ghcn_daily"].pop("origin"))
         self.edit_json("discovery.json", lambda data: data["records"]["isd_global_hourly"].update(lifecycle=["not-a-status"]))

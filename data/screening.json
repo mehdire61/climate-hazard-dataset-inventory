@@ -1425,8 +1425,8 @@
         "R26_USGS",
         "R26_USGS_OKINAWA"
       ],
-      "curation_reviewed_on": "2026-11-15",
-      "catalog_documentation_checked_on": "2026-11-01",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "A nearby gauge may drain a different catchment. Daily mean discharge is not an instantaneous flood peak."
     },
@@ -1467,8 +1467,8 @@
         "REVF04",
         "REVF07"
       ],
-      "curation_reviewed_on": "2026-11-13",
-      "catalog_documentation_checked_on": "2026-11-02",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Event maxima cannot establish a water-level time series or flood depth at an arbitrary site.",
       "shortlist_event": {
@@ -3014,8 +3014,8 @@
         "V024_COOPS_URL_BUILDER",
         "R26_COOPS"
       ],
-      "curation_reviewed_on": "2026-11-15",
-      "catalog_documentation_checked_on": "2026-11-01",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Total water level is not storm-surge residual or overland flood depth. Match vertical datum and time zone."
     },
@@ -3045,8 +3045,8 @@
         "F13",
         "F14"
       ],
-      "curation_reviewed_on": "2026-11-13",
-      "catalog_documentation_checked_on": "2026-11-01",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Quality flags, station datum and record-specific provider terms remain essential."
     },
@@ -3075,8 +3075,8 @@
         "F12",
         "F15"
       ],
-      "curation_reviewed_on": "2026-11-13",
-      "catalog_documentation_checked_on": "2026-11-03",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Pin release and record provenance; do not merge gauge series without datum checks."
     },
@@ -3104,8 +3104,8 @@
         "F17",
         "F18"
       ],
-      "curation_reviewed_on": "2026-11-13",
-      "catalog_documentation_checked_on": "2026-11-01",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Monthly and annual mean sea levels do not resolve storm-surge peaks."
     },
@@ -3209,10 +3209,11 @@
         "F25",
         "REVF03",
         "REVF05",
-        "REVF06"
+        "REVF06",
+        "FATHOM_STATIC_LAYERS"
       ],
-      "curation_reviewed_on": "2026-11-13",
-      "catalog_documentation_checked_on": "2026-11-02",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Select baseline, scenario, climate horizon and layer metric with the provider. A licence is required; this screen does not authorize reuse."
     },
@@ -12438,8 +12439,8 @@
         "OBS04",
         "R26_CEMS"
       ],
-      "curation_reviewed_on": "2026-11-15",
-      "catalog_documentation_checked_on": "2026-11-02",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "No activation does not mean no flood. Confirm the selected product and evidence supporting modeled versus observed layers."
     },
@@ -12525,10 +12526,11 @@
         "OBS14",
         "OBS15",
         "R26_SWOT_L2_HR_Raster_D",
-        "SWOT_HANDBOOK"
+        "SWOT_HANDBOOK",
+        "SWOT_RASTER_D_WSE_PDD"
       ],
-      "curation_reviewed_on": "2026-11-15",
-      "catalog_documentation_checked_on": "2026-11-02",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "Inspect swath, pixel quality and water-body support; granule discovery does not establish a valid water elevation. A 21-day orbit repeat is not a guaranteed local observation cadence.",
       "web_recheck": {
@@ -12583,10 +12585,11 @@
         "OBS14",
         "OBS15",
         "R26_SWOT_L2_HR_RiverSP_D",
-        "SWOT_HANDBOOK"
+        "SWOT_HANDBOOK",
+        "SWOT_RIVER_D_WSE_PDD"
       ],
-      "curation_reviewed_on": "2026-11-15",
-      "catalog_documentation_checked_on": "2026-11-02",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Dates and extent come from the provider sources cited for this dataset. File and observation checks are separate.",
       "note": "The river must be represented in the prior river database; swath discovery alone does not establish a valid node/reach value. A 21-day orbit repeat is not a guaranteed local observation cadence.",
       "web_recheck": {
@@ -13215,8 +13218,8 @@
       "evidence_ids": [
         "C3S_LAKE_ALTIMETRY"
       ],
-      "curation_reviewed_on": "2026-11-18",
-      "catalog_documentation_checked_on": "2026-11-18",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Provider catalog and public CDS request constraints.",
       "note": "Compare vertical references before combining lake heights with gauges. Check per-observation uncertainty and gaps."
     },

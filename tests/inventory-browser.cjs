@@ -419,6 +419,19 @@ async function checkStationSnow(context) {
   } finally { await page.close(); }
 }
 
+async function checkVerticalReference(context) {
+  const page=await context.newPage();
+  try {
+    for(const [id,expected] of [['usgs_hwm_harvey_2017','NAVD 88'],['psmsl_rlr','Revised Local Reference'],
+      ['swot_raster_d','EGM2008'],['jrc_glofas_rp100_depth','modeled ground']]){
+      await page.goto(new URL('#inventory?record='+id,address).href);
+      const section=page.getByRole('dialog').locator('section').filter({has:page.getByRole('heading',{name:'Vertical reference',exact:true})});
+      assert.ok((await section.innerText()).includes(expected));
+      assert.ok(await section.getByRole('link').count());
+    }
+  } finally {await page.close();}
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -437,6 +450,7 @@ async function main() {
     await checkFloodDepth(context);
     await checkGriddedSnow(context);
     await checkStationSnow(context);
+    await checkVerticalReference(context);
     await checkSharedInventory(browser);
     await checkDiscoveryFilters(browser);
     assert.deepEqual(errors, []);

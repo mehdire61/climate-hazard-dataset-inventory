@@ -27,13 +27,14 @@ PRODUCT_FIELDS = [
     "documentation_url", "access_url", "access_example_url", "access_method", "license_id",
     "license_url", "license_url_label", "license_notes", "commercial_use_status",
     "redistribution_status", "formats", "unresolved_questions", "last_checked_date",
+    "vertical_reference", "vertical_reference_sources",
 ]
 SOURCE_FIELDS = [
     "evidence_id", "title", "url", "doi", "claims", "checked_date", "verification",
     "link_status", "alternate_url", "alternate_label", "link_history",
 ]
-LIST_FIELDS = {"hazard_family", "supported_use_cases", "non_uses", "limitations", "evidence_ids", "formats", "unresolved_questions"}
-OPTIONAL_PRODUCT_FIELDS = {"access_example_url", "license_url", "license_url_label"}
+LIST_FIELDS = {"hazard_family", "supported_use_cases", "non_uses", "limitations", "evidence_ids", "formats", "unresolved_questions", "vertical_reference_sources"}
+OPTIONAL_PRODUCT_FIELDS = {"access_example_url", "license_url", "license_url_label", "vertical_reference", "vertical_reference_sources"}
 RIGHTS_VALUES = {
     "commercial_use_status": {
         "PERMITTED_WITH_CONDITIONS", "PROHIBITED_WITHOUT_PERMISSION", "LICENSE_REQUIRED",
@@ -382,6 +383,11 @@ def product_problems(product, label):
     for field in PRODUCT_URL_FIELDS:
         if product.get(field) is not None and not is_web_url(product[field]):
             problems.append(f"{label}: {field} is not a web address")
+    vertical_sources = product.get("vertical_reference_sources")
+    if bool(product.get("vertical_reference")) != bool(vertical_sources) or (
+        isinstance(vertical_sources, list) and any(source not in (product.get("evidence_ids") or []) for source in vertical_sources)
+    ):
+        problems.append(f"{label}: vertical reference must cite supporting evidence in this record")
     if product.get("last_checked_date") is not None and not is_iso_date(product["last_checked_date"]):
         problems.append(f"{label}: last_checked_date is not a valid YYYY-MM-DD date")
     return problems

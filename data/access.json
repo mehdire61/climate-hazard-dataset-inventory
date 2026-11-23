@@ -6432,7 +6432,8 @@
         "F25",
         "REVF03",
         "REVF05",
-        "REVF06"
+        "REVF06",
+        "FATHOM_STATIC_LAYERS"
       ]
     },
     "usgs_hwm_harvey_2017": {
@@ -9960,7 +9961,8 @@
       "catalogEvidenceIds": [
         "OBS11",
         "OBS14",
-        "OBS15"
+        "OBS15",
+        "SWOT_RASTER_D_WSE_PDD"
       ],
       "preserveCatalogCaveats": true,
       "notes": [
@@ -10005,7 +10007,8 @@
         "OBS12",
         "OBS13",
         "OBS14",
-        "OBS15"
+        "OBS15",
+        "SWOT_RIVER_D_WSE_PDD"
       ],
       "preserveCatalogCaveats": true,
       "notes": [

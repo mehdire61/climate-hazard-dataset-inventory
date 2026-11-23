@@ -59,7 +59,12 @@
       "unresolved_questions": [
         "Availability and quality at the selected site and dates"
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "The cataloged daily discharge has no elevation datum. For a separate gage-height series, identify the gauge datum and any documented changes.",
+      "vertical_reference_sources": [
+        "F04",
+        "F05"
+      ]
     },
     {
       "product_id": "usgs_hwm_harvey_2017",
@@ -114,7 +119,13 @@
         "Quality and selection of raw marks",
         "Independence from a model's development data"
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "The Harvey report expresses surveyed water-surface elevations in feet above NAVD 88. Check the vertical datum, survey method and uncertainty on each mark. A height measured above the local ground needs its surveyed ground elevation for comparison.",
+      "vertical_reference_sources": [
+        "F28",
+        "F29",
+        "F31"
+      ]
     },
     {
       "product_id": "grdc_discharge",
@@ -274,7 +285,12 @@
         "Definition of the output of a model being evaluated",
         "Actual sample response and quality flags"
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Relative to the datum selected for the station request, such as MLLW or MSL. NAVD 88 is available at some stations. Match the station, tidal epoch, units and benchmark relationship before combining series.",
+      "vertical_reference_sources": [
+        "F07",
+        "F08"
+      ]
     },
     {
       "product_id": "gesla3",
@@ -327,7 +343,12 @@
       "unresolved_questions": [
         "Datum and license of each selected record"
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Sea level in metres relative to the datum of each contributor’s record. Read the file header and datum history. Some headers give the datum as unspecified.",
+      "vertical_reference_sources": [
+        "F11",
+        "F14"
+      ]
     },
     {
       "product_id": "gesla41",
@@ -379,7 +400,12 @@
         "Current terms for each provider",
         "Record-specific datum"
       ],
-      "last_checked_date": "2026-11-03"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Sea level relative to the individual station record’s datum. Resolve the reference and possible changes from that record. The aggregate ERDDAP metadata cannot establish a datum for every station.",
+      "vertical_reference_sources": [
+        "F11",
+        "F15"
+      ]
     },
     {
       "product_id": "psmsl_rlr",
@@ -428,7 +454,12 @@
       "unresolved_questions": [
         "Explicit data-reuse and commercial-use terms"
       ],
-      "last_checked_date": "2026-11-01"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Millimetres above the station-specific Revised Local Reference, conventionally about 7,000 mm below local mean sea level. A cross-station elevation comparison requires each station’s benchmark connection.",
+      "vertical_reference_sources": [
+        "F16",
+        "F17"
+      ]
     },
     {
       "product_id": "gfd_modis_v1",
@@ -571,7 +602,8 @@
         "F25",
         "REVF03",
         "REVF05",
-        "REVF06"
+        "REVF06",
+        "FATHOM_STATIC_LAYERS"
       ],
       "documentation_url": "https://doi.org/10.1029/2023WR036460",
       "access_url": "https://api-docs.fathom.global/data/static_layers.html",
@@ -589,7 +621,11 @@
         "Shared provenance with any model being evaluated",
         "Units, vertical reference and event/return-period meaning of the v3.1 ELEVATION layers"
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "DEPTH is relative to the modeled ground. For a v3.1 ELEVATION layer, confirm its units and vertical datum with Fathom before comparing it with a surveyed high-water mark.",
+      "vertical_reference_sources": [
+        "FATHOM_STATIC_LAYERS"
+      ]
     },
     {
       "product_id": "spei_gd_v1",
@@ -2217,7 +2253,11 @@
         "Actual source files, dates, flags and units not inspected",
         "For model evaluation, independence from shared observations or training data has not been assessed."
       ],
-      "last_checked_date": "2026-11-02"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "The extent polygons carry no elevation. Where an activation includes a modeled depth layer, use its terrain model, units and activation-specific metadata.",
+      "vertical_reference_sources": [
+        "OBS03"
+      ]
     },
     {
       "product_id": "cems_gfm",
@@ -2310,7 +2350,8 @@
         "OBS14",
         "OBS15",
         "R26_SWOT_L2_HR_Raster_D",
-        "SWOT_HANDBOOK"
+        "SWOT_HANDBOOK",
+        "SWOT_RASTER_D_WSE_PDD"
       ],
       "documentation_url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_Raster_D",
       "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3233944993-POCLOUD",
@@ -2328,8 +2369,12 @@
         "For model evaluation, independence from shared observations or training data has not been assessed.",
         "Full selected PDD field definitions and correction/vertical-reference conventions; collection version D was confirmed as available but may not be the latest"
       ],
-      "last_checked_date": "2026-11-02",
-      "license_url_label": "Creative Commons Attribution 4.0"
+      "last_checked_date": "2026-11-23",
+      "license_url_label": "Creative Commons Attribution 4.0",
+      "vertical_reference": "For Raster D wse, pixel water-surface elevation is in metres relative to the supplied EGM2008 geoid in the mean-tide system. Solid Earth, ocean-load and pole tide corrections are applied. Verify the file’s wse and geoid attributes.",
+      "vertical_reference_sources": [
+        "SWOT_RASTER_D_WSE_PDD"
+      ]
     },
     {
       "product_id": "swot_riversp_d",
@@ -2368,7 +2413,8 @@
         "OBS14",
         "OBS15",
         "R26_SWOT_L2_HR_RiverSP_D",
-        "SWOT_HANDBOOK"
+        "SWOT_HANDBOOK",
+        "SWOT_RIVER_D_WSE_PDD"
       ],
       "documentation_url": "https://podaac.jpl.nasa.gov/dataset/SWOT_L2_HR_RiverSP_D",
       "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3233944997-POCLOUD",
@@ -2386,8 +2432,12 @@
         "For model evaluation, independence from shared observations or training data has not been assessed.",
         "Full selected PDD field definitions and correction/vertical-reference conventions; collection version D was confirmed as available but may not be the latest"
       ],
-      "last_checked_date": "2026-11-02",
-      "license_url_label": "Creative Commons Attribution 4.0"
+      "last_checked_date": "2026-11-23",
+      "license_url_label": "Creative Commons Attribution 4.0",
+      "vertical_reference": "For RiverSP D wse, node and fitted-reach water-surface elevations are in metres relative to the supplied EGM2008 geoid in the mean-tide system. Check the selected field, geoid height and applied corrections. Discharge and slope have different units.",
+      "vertical_reference_sources": [
+        "SWOT_RIVER_D_WSE_PDD"
+      ]
     },
     {
       "product_id": "mrms_radaronly_qpe",
@@ -2886,7 +2936,11 @@
       "unresolved_questions": [
         "Check the selected lake file for its actual date range, reference and uncertainty."
       ],
-      "last_checked_date": "2026-11-18"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Metres above the product geoid. Confirm the geoid realization and any reference offsets for the selected lake and version before pairing it with a gauge.",
+      "vertical_reference_sources": [
+        "C3S_LAKE_ALTIMETRY"
+      ]
     },
     {
       "product_id": "nrcs_snotel_daily_swe",
@@ -3053,7 +3107,11 @@
         "JRC_FLOODMAP_NOTICE",
         "JRC_FLOODMAP_ODBL"
       ],
-      "last_checked_date": "2026-11-23"
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Water depth in metres above the modeled ground surface. Converting depth to a water-surface elevation requires compatible terrain elevations and their vertical reference.",
+      "vertical_reference_sources": [
+        "JRC_FLOODMAP_README"
+      ]
     },
     {
       "product_id": "nohrsc_snodas_daily_swe",

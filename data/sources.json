@@ -1999,5 +1999,29 @@
     "claims": "NOAA/NWS data reuse, credit, no implied endorsement and identification of changes.",
     "checked_date": "2026-11-23",
     "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SWOT_RASTER_D_WSE_PDD",
+    "title": "SWOT L2 HR Raster product description, D-56416 revision C",
+    "url": "https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/pdd/D-56416_SWOT_Product_Description_L2_HR_Raster_20250224a_RevC_clean_sig_final.pdf",
+    "claims": "The Raster D collection links this description. Section on geophysical references and the wse field specify EGM2008 with a mean-tide adjustment and the applied tide corrections.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "SWOT_RIVER_D_WSE_PDD",
+    "title": "SWOT L2 HR RiverSP product description, D-56413 revision C",
+    "url": "https://archive.podaac.earthdata.nasa.gov/podaac-ops-cumulus-docs/web-misc/swot_mission_docs/pdd/D-56413_SWOT_Product_Description_L2_HR_RiverSP_20250224a_RevC_clean_sig_final.pdf",
+    "claims": "The RiverSP D collection links this description. Reach and node WSE are relative to the supplied geoid. The geoid uses EGM2008 adjusted to the mean-tide system.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "FATHOM_STATIC_LAYERS",
+    "title": "Fathom API static flood-map layers",
+    "url": "https://api-docs.fathom.global/data/static_layers.html",
+    "claims": "Layer identifiers distinguish depth from v3.1 elevation products. Verify the exact elevation layer, unit and datum with Fathom.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
   }
 ]

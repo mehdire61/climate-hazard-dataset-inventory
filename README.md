@@ -1,6 +1,6 @@
 # Climate-Hazard Dataset Inventory v0.3
 
-Find climate and water datasets for a project location and period. This v0.3 development build contains **57 records in nine overlapping hazard groups** and links to 239 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
+Find climate and water datasets for a project location and period. This v0.3 development build contains **57 records in nine overlapping hazard groups** and links to 242 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
 In **Inventory**, choose a hazard, provider or commercial-use status. Open **More filters** for data origin, product lifecycle, spatial scale, temporal scale and geographic scope. Products can have several origins or scales. Each option counts the matching records when the other filters are applied. **Copy filtered view** preserves your filters, search text and sort order. The metadata CSV follows the visible rows and includes their classifications. Use **Copy record link** to cite an individual dataset. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
 
