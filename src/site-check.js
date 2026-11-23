@@ -15,6 +15,7 @@
   const geography = data.geography || {examples: [], states: []};
   let query = {mode: 'point', lat: 38.9, lon: -77.04, radiusKm: 100, start: '2020-07-01', end: '2020-07-03'};
   let draftMode = 'point', draftPoint = {...query}, draftArea = null, draftBufferKm = 0;
+  let pointChosen = false;
   let mapApi = null, areaController = null, areaGeneration = 0, areaLookup = null;
   const grdc = {catalogue:null,query:null,stations:[],selected:'',page:0,generation:0,busy:false,error:''};
   const grdcPageSize=8;
@@ -152,8 +153,9 @@
   const hucCoordinates = node('div', {class:'sc-huc-coordinates'},
     field('sc-huc-lat','Latitude','number','',{min:-90,max:90,step:'any',required:null}),
     field('sc-huc-lon','Longitude','number','',{min:-180,max:180,step:'any',required:null}));
+  const hucFromSite = node('p',{class:'sc-area-help',hidden:''},'Coordinates from your selected site point.');
   const hucLocation = node('details', {class:'sc-disclosure',id:'sc-huc-location'},
-    node('summary',{},'Find a unit by location'), hucPick, hucCoordinates,
+    node('summary',{},'Find a unit by location'), hucPick, hucFromSite, hucCoordinates,
     button('Find unit at coordinates', findHucAtCoordinates, 'btn small', {id:'sc-huc-find'}));
   const hucHelp = p('HUC12 is the primary U.S. assessment unit. Choose a unit to screen its mapped area. A custom upstream drainage area requires outlet delineation. Full detail may exceed the browser geometry limit.', 'sc-area-help');
   const areaSearchButton = button('Find boundaries', () => searchAreas(), 'btn small');
@@ -185,7 +187,7 @@
   geographyPanel.append(geometryControls, mapFrame);
   const mapTools=node('details',{class:'sc-map-tools'},node('summary',{},'Map and boundary tools'),geographyPanel);form.append(mapTools);
   function showProjectMap() {if (!mapUserCollapsed && !mapTools.open) mapTools.open=true;}
-  mapTools.addEventListener('toggle',()=>{mapUserCollapsed=!mapTools.open;mapApi?.setVisible(mapTools.open && !host.hidden);if(mapTools.open)requestAnimationFrame(()=>{mapApi?.invalidate();if(discovery?.stations?.length)mapApi?.fitCandidates();else mapApi?.fit();});});
+  mapTools.addEventListener('toggle',()=>{mapUserCollapsed=!mapTools.open;mapApi?.setVisible(mapTools.open && !host.hidden);if(mapTools.open)requestAnimationFrame(()=>{mapApi?.invalidate();if(discovery?.stations?.length)mapApi?.fitCandidates();else mapApi?.fit();});else mapApi?.cancelDrawing();});
   const exampleBar = node('div', {class: 'sc-examples'}, node('span', {}, 'Try a saved, real-data example:'));
   for (const ex of examples) exampleBar.append(button(shortNames[ex.productId] || ex.label, () => loadExample(ex), 'sc-example', {title: ex.label}));
   if (!examples.length) exampleBar.hidden = true;
@@ -251,6 +253,7 @@
     if (['sc-start', 'sc-end'].includes(event.target.id)) resetPeriod();
     if (draftMode === 'point') {
       draftPoint.lat = numberInput('sc-lat'); draftPoint.lon = numberInput('sc-lon'); draftPoint.radiusKm = numberInput('sc-radius');
+      if (['sc-lat','sc-lon'].includes(event.target.id)) pointChosen = true;
     } else draftBufferKm = numberInput('sc-buffer');
     markDirty(); updateDraftMap();
   });
@@ -264,7 +267,7 @@
       announce.textContent = 'The site check needs corrected inputs.';
       return;
     }
-    setQuery(next, true);
+    setQuery(next, 'submit');
     checkOnHazardChoice=!hazardFilter;
     if(hazardFilter) checkSubmittedAvailability();
     showProjectMap();
@@ -278,7 +281,17 @@
   document.addEventListener('inventory-hazard-change', event => chooseHazard(event.detail.hazard, false));
   liveFilter.addEventListener('change', () => { liveOnly = liveFilter.checked; renderList(); });
   accessFilter.addEventListener('change', () => {accessFilterValue = accessFilter.value; renderList();});
-  modeSelect.addEventListener('change', () => {clearAreaSearch(); draftMode = modeSelect.value;if(draftMode==='area')mapTools.open=true; renderGeometryControls(); markDirty(); updateDraftMap(true);});
+  modeSelect.addEventListener('change', () => {
+    clearAreaSearch(); draftMode = modeSelect.value;
+    if (draftMode==='area') {
+      mapTools.open = true;
+      if (areaMethod.value==='huc' && pointChosen && Number.isFinite(draftPoint.lat) && Math.abs(draftPoint.lat)<=90
+          && Number.isFinite(draftPoint.lon) && Math.abs(draftPoint.lon)<=180) {
+        setHucCoordinates(draftPoint); hucFromSite.hidden=false; hucLocation.open=true;
+      }
+    }
+    pointChosen=false; renderGeometryControls(); markDirty(); updateDraftMap(true);
+  });
   function showAreaMethod() {
     const huc = areaMethod.value === 'huc';
     for (const section of areaControls.querySelectorAll('[data-area-method]')) section.hidden = section.dataset.areaMethod !== (huc ? 'named' : areaMethod.value);
@@ -292,8 +305,12 @@
     cancelAreaLookup(); mapApi?.cancelDrawing(); areaLookup = null; areaMatches.replaceChildren(); areaStatus.textContent = '';
   }
   function clearAreaSearch() {
-    resetAreaSearch(); hucLocation.open = false;
+    resetAreaSearch(); hucLocation.open = false; hucFromSite.hidden=true;
     for (const input of hucCoordinates.querySelectorAll('input')) input.value = '';
+  }
+  function setHucCoordinates(point) {
+    document.getElementById('sc-huc-lat').value = point.lat;
+    document.getElementById('sc-huc-lon').value = point.lon;
   }
   function findHucAtCoordinates() {
     const lat = numberInput('sc-huc-lat'), lon = numberInput('sc-huc-lon');
@@ -303,7 +320,7 @@
     }
     searchAreas({lat,lon});
   }
-  hucCoordinates.addEventListener('input', resetAreaSearch);
+  hucCoordinates.addEventListener('input', () => {hucFromSite.hidden=true; resetAreaSearch();});
   hucCoordinates.addEventListener('keydown', event => {if (event.key === 'Enter') {event.preventDefault(); findHucAtCoordinates();}});
   hucLocation.addEventListener('toggle', () => {if (!hucLocation.open && hucPick.getAttribute('aria-pressed')==='true') mapApi?.cancelDrawing();});
   areaMethod.addEventListener('change', () => {clearAreaSearch(); showAreaMethod();});
@@ -326,11 +343,10 @@
         onlineMap.disabled=polar;
         onlineMap.setAttribute('aria-pressed',String(enabled && !failed && !polar));
       },
-      onPoint(point) {cancelAreaLookup(); draftMode = 'point'; draftPoint = {...draftPoint, ...point}; modeSelect.value = 'point'; renderGeometryControls(); markDirty(); updateDraftMap();},
+      onPoint(point) {cancelAreaLookup(); pointChosen=true; draftMode = 'point'; draftPoint = {...draftPoint, ...point}; modeSelect.value = 'point'; renderGeometryControls(); markDirty(); updateDraftMap();},
       onHucPick(active) {hucPick.textContent=active?'Cancel map pick':'Pick location on map'; hucPick.setAttribute('aria-pressed',String(active));},
       onHucPoint(point) {
-        document.getElementById('sc-huc-lat').value = point.lat;
-        document.getElementById('sc-huc-lon').value = point.lon;
+        hucFromSite.hidden=true; setHucCoordinates(point);
         searchAreas(point);
       },
       onRectangle(bounds) {for (const key of ['west','south','east','north']) document.getElementById('sc-' + key).value = bounds[key]; useRectangle('drawn');},
@@ -766,7 +782,10 @@
       if (!result.items.length) return;
       const matches = node('select', {id: 'sc-area-match', class: 'sc-select', 'aria-label': 'Boundary search results'}, node('option', {value: ''}, 'Select the exact boundary…'));
       result.items.forEach((item, i) => matches.append(node('option', {value: i}, item.name)));
-      matches.addEventListener('change', () => {if (matches.value !== '') loadNamedArea(result.items[Number(matches.value)]);});
+      matches.addEventListener('change', () => {
+        if (matches.value !== '') loadNamedArea(result.items[Number(matches.value)]);
+        else {cancelAreaLookup(); areaStatus.textContent='Select a result to load its polygon.';}
+      });
       areaMatches.replaceChildren(matches);
       if (result.notes?.length) areaMatches.append(node('details', {class: 'sc-disclosure'}, node('summary', {}, 'Boundary search scope'), node('ul', {}, result.notes.map(note => node('li', {}, note)))));
     } catch (error) {if (token === areaGeneration) {
@@ -802,10 +821,13 @@
     clearAccessState();
     mapApi?.setStations([], '');
   }
-  function setQuery(next, submitted = false) {
+  function setQuery(next, source = 'load') {
+    const submitted = source === 'submit';
+    pointChosen = next.mode !== 'area' && source !== 'initial';
     projectImportGeneration++;invalidateShare();
     clearAreaSearch();
-    if (results.length && ['mode','lat','lon','radiusKm','bufferKm','start','end','areaName'].every(key=>(next[key]??null)===(query[key]??null)) && JSON.stringify(next.geometry||null)===JSON.stringify(query.geometry||null) && JSON.stringify(next.areaSource||null)===JSON.stringify(query.areaSource||null)) {dirty=false;dirtyNotice.hidden=true;inputError.hidden=true;renderHazardChoice();renderOverview();renderPanel();updateDraftMap();return;}
+    const applyCurrent = submitted || (!dirty && draftMode===next.mode);
+    if (applyCurrent && results.length && ['mode','lat','lon','radiusKm','bufferKm','start','end','areaName'].every(key=>(next[key]??null)===(query[key]??null)) && JSON.stringify(next.geometry||null)===JSON.stringify(query.geometry||null) && JSON.stringify(next.areaSource||null)===JSON.stringify(query.areaSource||null)) {dirty=false;dirtyNotice.hidden=true;inputError.hidden=true;renderHazardChoice();renderOverview();renderPanel();updateDraftMap();return;}
     cancelAvailability();projectEvidence.clear();
     if (submitted) explicitSelection = false;
     cancelAreaLookup(); clearProviderState(); query = next.mode === 'area' ? {...next, geometry: window.SiteGeometry.normalize(next.geometry), mode: 'area', bufferKm: next.bufferKm ?? 0} : {...next, mode: 'point', radiusKm: next.radiusKm ?? 100};
@@ -2439,6 +2461,6 @@
     hide() {host.hidden = true; mapApi?.setVisible(false); if (['discovery', 'coops-preflight'].includes(loadingKind)) controller?.abort(); else cancelPending(); accessController?.abort(); cancelAreaLookup(); mapApi?.cancelDrawing();},
     selectProduct(id) {if (!byId.has(id)) return; includeProduct(id); clearFilters(); selectProduct(id); host.hidden = false; mapApi?.setVisible(mapTools.open); requestAnimationFrame(() => {mapApi?.invalidate(); mapApi?.fit();});}
   };
-  restoringProject=true;setQuery(query);restoringProject=false;loadRecent();
+  restoringProject=true;setQuery(query,'initial');restoringProject=false;loadRecent();
   window.addEventListener('hashchange',restoreHash);restoreHash();
 })();

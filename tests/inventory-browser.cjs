@@ -162,6 +162,9 @@ async function checkPublishedWorkflows(context) {
     await page.locator('.sc-project-tools summary').click();
     await page.locator('#sc-project-file').setInputFiles({name:'published-v02.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(baseline.project))});
     await page.locator('.sc-project-message').filter({hasText:/Project opened/}).waitFor();
+    await page.locator('#sc-lat').fill('37');
+    await page.locator('#sc-project-file').setInputFiles({name:'published-v02.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(baseline.project))});
+    await page.waitForFunction(lat=>Number(document.querySelector('#sc-lat').value)===lat,baseline.project.query.lat);
     const saved=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
     for (const key of ['schema','query','selectedId','hazard']) assert.deepEqual(saved[key],baseline.project[key],key);
     assert.equal(saved.inventoryBuild.version,'v0.3');
@@ -419,6 +422,18 @@ async function checkHydrologicUnit(context) {
     assert.deepEqual(reopened.query.geometry,project.query.geometry);
     assert.equal(reopened.query.areaSource.hucKind,'huc12');
     assert.equal(reopened.query.areaSource.kind,'project-link');
+    assert.equal(await page.locator('#sc-huc-lat').inputValue(),'');
+    await page.locator('#sc-mode').selectOption('point');
+    await page.locator('#sc-lat').fill('45.04315');
+    await page.locator('#sc-lon').fill('-116.13253');
+    await page.locator('#sc-mode').selectOption('area');
+    assert.equal(await page.locator('#sc-huc-location').evaluate(el=>el.open),true);
+    assert.equal(await coordinate('lat'),45.04315);
+    assert.equal(await coordinate('lon'),-116.13253);
+    assert.equal(points.at(-1),'0,0');
+    await page.locator('#sc-huc-find').click();
+    await page.getByText(/2 matches at 45.04315°, -116.13253°/).waitFor();
+    assert.equal(points.at(-1),'-116.13253,45.04315');
   } finally {
     await page.close();
   }
