@@ -51,6 +51,8 @@ The site is static. GitHub Pages can serve it from the repository root. The page
 
 After editing the data or application source, rebuild with Python 3.10 or later and run the tests. The build uses the Python standard library. The JavaScript tests use Node.js 22 or later and Python on the command path.
 
+For each enhancement, exercise the affected workflow and its existing entry and exit points. Browser regressions replay searches, sorts and CSV downloads captured from the published v0.2 application, check the relative order of its 53 records as new ones are added, and reopen a project file exported by that release. The suite also checks shared links, map selection, observation gaps and offline record navigation. [Published v0.2 regression fixture](tests/fixtures/inventory-v02.json)
+
 The GitHub Actions workflow rebuilds the committed page, runs both suites and checks record navigation, filters and CSV downloads in Chromium on pushes and pull requests. The build validates commercial-use, redistribution and license codes. v0.3 uses `PERMITTED_WITH_CONDITIONS` for the five records previously exported as `ALLOWED_WITH_CONDITIONS`. The Copernicus lake record uses `CC-BY-4.0`. CHIRPS retains its version-specific provider terms.
 
 ```sh

@@ -138,6 +138,36 @@ async function checkSharedInventory(browser) {
   }
 }
 
+async function checkPublishedWorkflows(context) {
+  const baseline = require('./fixtures/inventory-v02.json');
+  const priorIds = new Set(baseline.productIds);
+  const page = await context.newPage();
+  try {
+    await page.goto(new URL('#inventory',address).href);
+    const originalRows = ids => ids.filter(id=>priorIds.has(id));
+    assert.deepEqual(originalRows(await cards(page)),baseline.productIds);
+    for (const sample of baseline.cases) {
+      await page.locator('#clear').click();
+      await page.locator('#group').selectOption(sample.group);
+      if (sample.provider) await page.locator('#provider').selectOption(sample.provider);
+      await page.locator('#search').fill(sample.query);
+      await page.locator('#sort').selectOption(sample.sort);
+      const visible = await cards(page);
+      assert.deepEqual(originalRows(visible),sample.ids,sample.group+' legacy results');
+      assert.deepEqual((await exportedRows(page)).map(r=>r.product_id),visible,sample.group+' CSV');
+      await page.reload();
+      assert.deepEqual(await cards(page),visible,sample.group+' reopened view');
+    }
+    await page.goto(new URL('#site-check',address).href);
+    await page.locator('.sc-project-tools summary').click();
+    await page.locator('#sc-project-file').setInputFiles({name:'published-v02.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(baseline.project))});
+    await page.locator('.sc-project-message').filter({hasText:/Project opened/}).waitFor();
+    const saved=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
+    for (const key of ['schema','query','selectedId','hazard']) assert.deepEqual(saved[key],baseline.project[key],key);
+    assert.equal(saved.inventoryBuild.version,'v0.3');
+  } finally {await page.close();}
+}
+
 async function checkDiscoveryFilters(browser) {
   const page = await browser.newPage({viewport:{width:375,height:812}});
   const fresh = await browser.newPage();
@@ -573,6 +603,7 @@ async function main() {
     await checkStationSnow(context);
     await checkVerticalReference(context);
     await checkSharedInventory(browser);
+    await checkPublishedWorkflows(context);
     await checkDiscoveryFilters(browser);
     await checkComparison(browser);
     assert.deepEqual(errors, []);

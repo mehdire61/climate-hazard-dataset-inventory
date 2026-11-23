@@ -1,0 +1,121 @@
+{
+  "commit": "32d9395ca1216f2302c1b320df55b77d4cb9f8bf",
+  "pageBlob": "f1e1c73173266fbd2b1df743f559f652a2a5e611",
+  "productIds": [
+    "cems_gfm",
+    "cems_rapid_mapping",
+    "chirps_v2_daily",
+    "chirps_v3_daily_rnl",
+    "chirps_v3_daily_sat",
+    "nasa_coolr",
+    "c3s_lake_water_level",
+    "dfo_event_archive",
+    "era5_wind10",
+    "era5_t2m",
+    "era5_gust10",
+    "era5_t2m_interval_extrema",
+    "esa_cci_sm_combined_v09_2",
+    "fathom_gfm3",
+    "gesla3",
+    "gesla41",
+    "gfed4_1s_legacy",
+    "ghcn_daily",
+    "gfed_5_1",
+    "gfd_modis_v1",
+    "ghcnh_hourly",
+    "grdc_discharge",
+    "gsim_indices",
+    "gpcc_monthly_v2025",
+    "gpm_imerg_final_v07b",
+    "hadex3",
+    "ibtracs_v04r01",
+    "ims_snow_ice",
+    "isd_global_hourly",
+    "grace_jpl_mascon_cri_rl063_v04",
+    "lhasa_model",
+    "merra2_wind10",
+    "modis_active_fire_standard",
+    "modis_snow_mod10a1",
+    "mcd64a1",
+    "mtbs",
+    "mrms_mesh",
+    "mrms_multisensor_qpe",
+    "mrms_radaronly_qpe",
+    "stage_iv",
+    "hurdat2",
+    "noaa_coops_water_level",
+    "ncei_storm_events_hail",
+    "ncei_storm_events_thunderstorm_wind",
+    "ncei_storm_events_tornado",
+    "psmsl_rlr",
+    "spei_gd_v1",
+    "swot_raster_d",
+    "swot_riversp_d",
+    "trmm_3b42_v7",
+    "usgs_hwm_harvey_2017",
+    "usgs_streamflow",
+    "viirs_375_active_fire"
+  ],
+  "cases": [
+    {
+      "group": "snow",
+      "query": "",
+      "sort": "product:-1",
+      "ids": [
+        "modis_snow_mod10a1",
+        "ims_snow_ice"
+      ]
+    },
+    {
+      "group": "precipitation",
+      "query": "CHIRPS",
+      "sort": "provider:1",
+      "ids": [
+        "chirps_v2_daily",
+        "chirps_v3_daily_rnl",
+        "chirps_v3_daily_sat"
+      ]
+    },
+    {
+      "group": "flood",
+      "query": "",
+      "provider": "USGS",
+      "sort": "product:1",
+      "ids": [
+        "usgs_hwm_harvey_2017",
+        "usgs_streamflow"
+      ]
+    },
+    {
+      "group": "temperature",
+      "query": "",
+      "sort": "provider:-1",
+      "ids": [
+        "ghcnh_hourly",
+        "ghcn_daily",
+        "isd_global_hourly",
+        "hadex3",
+        "era5_t2m",
+        "era5_t2m_interval_extrema"
+      ]
+    }
+  ],
+  "project": {
+    "schema": "climate-inventory-project/1",
+    "query": {
+      "lat": 38.9,
+      "lon": -77.04,
+      "start": "2020-07-01",
+      "end": "2020-07-03",
+      "mode": "point",
+      "radiusKm": 100
+    },
+    "selectedId": "usgs_streamflow",
+    "hazard": "flood",
+    "inventoryBuild": {
+      "id": "v0.2-9cfff3405dbc1da2",
+      "version": "v0.2",
+      "catalogSnapshotDate": "2026-11-18"
+    }
+  }
+}
