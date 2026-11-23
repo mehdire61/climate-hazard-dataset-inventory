@@ -69,7 +69,8 @@
       const label=time.solution_calendar?'Nominal monthly solution periods':scenario?'Scenario / climate-state information':track?'Documented track period':event?'Documented event period':acquisition?'Documented acquisition period':time.kind==='station'?'Archive date limits':'Documented period';
       const note=time.solution_calendar?'Each interval groups nominal monthly solutions. JPL sampling bounds may cross month boundaries.':scenario?'Calendar-date overlap is not an observation-availability test for this information.':track?'A track archive does not imply continuous observations or a hazard occurrence at the project.':event?'An archive/event envelope is not a continuous time series or evidence that an event occurred at the project.':acquisition?'Dates do not establish an acquisition or valid pixels at the project.':time.kind==='station'?'Any limits shown are for the archive. Check the selected station and variable for local dates.':'Nominal metadata only; internal gaps, valid pixels and scientific suitability are untested.';
       const periods=time.solution_calendar?time.intervals.map(r=>({...r,end:r.end||time.known_through})):time.intervals;
-      row('catalog',label,note,scenario?[]:periods,'nominal');
+      row('catalog',time.return_period_years ? time.return_period_years+'-year flood scenario' : label,
+        time.return_period_years ? time.note : note,scenario?[]:periods,'nominal');
       if(typeof rule.time_step==='string')output.notes.push('Catalog time support: '+rule.time_step.replaceAll('_',' ')+'. The timeline does not convert it into daily observations.');
       if(typeof time.note==='string'&&time.note)output.notes.push(time.note);
       if(Array.isArray(time.uncertain_windows)&&time.uncertain_windows.length)row('uncertainty','Uncertain start or end','Retained uncertain periods; not an additional record of observations.',time.uncertain_windows,'uncertain');

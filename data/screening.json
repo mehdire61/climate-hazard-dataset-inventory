@@ -13406,6 +13406,40 @@
       "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Provider release documentation and a bounded inspection of the daily and annual 1980 files.",
       "note": "Grid-cell estimates of actual evapotranspiration. The project footprint does not produce a HUC12 average in this inventory."
+    },
+    "jrc_glofas_rp100_depth": {
+      "support_type": "grid",
+      "time_step": "return_period_scenario",
+      "domain": {
+        "kind": "global",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Whole tiles can contain missing cells, permanent water or areas outside modeled river coverage."
+      },
+      "time": {
+        "kind": "scenario",
+        "return_period_years": 100,
+        "intervals": [],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "The selected scenario is RP100; calendar dates are project context."
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Anonymous downloads from the JRC directory. Check both reuse notices.",
+      "basis": "The archive README identifies v2.1.2. The official tile index was matched to the RP100 directory.",
+      "note": "Use the continuous depth layer and inspect the auxiliary masks.",
+      "evidence_ids": [
+        "JRC_FLOODMAP_DATA",
+        "JRC_FLOODMAP_README",
+        "JRC_FLOODMAP_TILES",
+        "JRC_FLOODMAP_RP100",
+        "JRC_FLOODMAP_SAMPLE",
+        "JRC_FLOODMAP_NOTICE",
+        "JRC_FLOODMAP_ODBL"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23"
     }
   },
   "storm_reporting_zones": {

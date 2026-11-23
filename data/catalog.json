@@ -2998,6 +2998,62 @@
         "How much of the project area has valid grid-cell coverage in the selected period?"
       ],
       "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "jrc_glofas_rp100_depth",
+      "product_name": "JRC global river flood depth · 100-year return period",
+      "provider": "European Commission JRC / Copernicus EMS",
+      "version": "Global river flood hazard maps v2.1.2, raw RP100 depth",
+      "hazard_family": [
+        "riverine_flood"
+      ],
+      "variable": "Modeled river inundation depth for the 100-year flow scenario (1% annual exceedance probability under the return-period assumptions).",
+      "units": "Metres of water depth above the modeled ground surface. The checked raw tile uses −9999 for NoData.",
+      "data_nature": "Hydrological and hydrodynamic model simulation",
+      "spatial_support": "WGS84 land grid at 3 arcseconds, roughly 90 m at the equator. Project access selects intersecting whole tiles.",
+      "temporal_support": "Static return-period scenario. A 100-year return period is a probability, not a map of a specific historical flood.",
+      "temporal_coverage": "The map has no observation dates. The project dates do not change the RP100 layer.",
+      "geographic_coverage": "Global river network, excluding Greenland, Antarctica and small islands with contributing basins below 500 km². Valid cells and model coverage vary within tiles.",
+      "supported_use_cases": [
+        "Screen fluvial flood exposure at a specified return period.",
+        "Compare river inundation depth after matching the return period, flood mechanism, terrain reference and modeled defenses."
+      ],
+      "non_uses": [
+        "Regulatory mapping, survey-grade building depths, observed flood events, or coastal and pluvial flooding.",
+        "Inferring zero depth from a missing pixel or treating a depth category as a continuous value."
+      ],
+      "limitations": [
+        "Depth artifacts can occur along tile seams, at DEM sinks or in small channels. Check the permanent-water and spurious-depth layers.",
+        "Grid spacing differs from effective resolution. Local hydraulic structures and flood defenses require independent review."
+      ],
+      "dependence_notes": "River flows come from LISFLOOD and inundation from LISFLOOD-FP. Shared GloFAS v4.0, MERIT-Hydro or MERIT DEM inputs can limit independence in a comparison.",
+      "documentation_url": "https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp50y-tif",
+      "access_url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/",
+      "access_example_url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/ID55_N40_W80_RP100_depth.tif",
+      "access_method": "Use Site check to select raw RP100 depth tiles intersecting the project point or footprint. The station radius and outside buffer do not expand the tile selection.",
+      "license_id": "PROVIDER_LICENSE_TEXT_CONFLICT",
+      "license_url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/README.txt",
+      "license_url_label": "JRC versioned distribution README",
+      "license_notes": "The JRC catalogue and v2.1.2 README identify ODbL 1.0. The same download folder carries a CC BY 4.0 notice. Both permit reuse with conditions. Credit the European Union and authors, indicate changes, and confirm which database-sharing conditions apply to derived distributions.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "GeoTIFF"
+      ],
+      "unresolved_questions": [
+        "Applicability of database share-alike terms to a proposed derived distribution.",
+        "Coverage, defense representation and model artifacts at the chosen site."
+      ],
+      "evidence_ids": [
+        "JRC_FLOODMAP_DATA",
+        "JRC_FLOODMAP_README",
+        "JRC_FLOODMAP_TILES",
+        "JRC_FLOODMAP_RP100",
+        "JRC_FLOODMAP_SAMPLE",
+        "JRC_FLOODMAP_NOTICE",
+        "JRC_FLOODMAP_ODBL"
+      ],
+      "last_checked_date": "2026-11-23"
     }
   ]
 }

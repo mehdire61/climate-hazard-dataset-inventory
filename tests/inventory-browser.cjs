@@ -306,6 +306,21 @@ async function checkHydrologicUnit(context) {
   }
 }
 
+async function checkFloodDepth(context) {
+  const page = await context.newPage();
+  try {
+    await page.goto(new URL('#inventory?record=jrc_glofas_rp100_depth',address).href);
+    await page.getByRole('dialog').getByRole('button',{name:'Check this record at a site'}).click();
+    await page.getByRole('button',{name:'Show download files'}).click();
+    const row = page.locator('.sc-file-row');
+    await row.getByRole('heading',{name:'ID55_N40_W80_RP100_depth.tif'}).waitFor();
+    const url = await row.getByRole('link',{name:/Download \/ open data/}).getAttribute('href');
+    assert.match(url,/\/RP100\/ID55_N40_W80_RP100_depth\.tif$/);
+    const manifest = JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Save all 1 file links + manifest'})));
+    assert.deepEqual(manifest.files.map(f=>f.url),[url]);
+  } finally { await page.close(); }
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -321,6 +336,7 @@ async function main() {
     await checkProjectReturn(page);
     await checkObservationGap(page);
     await checkHydrologicUnit(context);
+    await checkFloodDepth(context);
     await checkSharedInventory(browser);
     assert.deepEqual(errors, []);
     await context.close();

@@ -1879,5 +1879,61 @@
     "claims": "The GLEAM team asks for internal approval for commercial use and identifies scientific publications to cite.",
     "checked_date": "2026-11-23",
     "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_DATA",
+    "title": "JRC · global river flood hazard maps",
+    "url": "https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp50y-tif",
+    "claims": "Global modeled fluvial inundation, documented exclusions and ODbL distribution terms.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_README",
+    "title": "CEMS-GloFAS global flood maps v2.1.2 · archive README",
+    "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/README.txt",
+    "claims": "Three-arcsecond raw depths in metres, categorized layers, permanent-water and spurious-depth masks, model inputs and ODbL notice.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_TILES",
+    "title": "CEMS · geographic tile extent index",
+    "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/tile_extents.geojson",
+    "claims": "The 271 tile IDs and WGS84 extents were cross-checked against the raw RP100 directory.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_RP100",
+    "title": "CEMS RP100 raw depth tiles",
+    "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/",
+    "claims": "The public directory lists 271 continuous depth rasters and their separate reclassified counterparts.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_SAMPLE",
+    "title": "CEMS raw RP100 depth · tile 55",
+    "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/ID55_N40_W80_RP100_depth.tif",
+    "claims": "The 11,999 by 11,999 Float32 raster was decoded at three coordinates. Archive documentation supplies metres.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_RESPONSE_INSPECTED"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_NOTICE",
+    "title": "JRC download directory copyright notice",
+    "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/copyright.txt",
+    "claims": "The distribution directory identifies CC BY 4.0 and calls for credit and indication of changes.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "JRC_FLOODMAP_ODBL",
+    "title": "Open Data Commons Open Database License 1.0",
+    "url": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "claims": "License identified in the JRC catalogue and versioned README. Includes attribution and share-alike conditions for applicable uses.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION"
   }
 ]

@@ -160,6 +160,8 @@ def rule_is_valid(rule):
                 return False
     if "access_route_start" in period and not is_iso_date(period["access_route_start"]):
         return False
+    if "return_period_years" in period and (period["kind"] != "scenario" or type(period["return_period_years"]) is not int or period["return_period_years"] <= 0):
+        return False
     for key in ("intervals", "uncertain_windows"):
         if not isinstance(period.get(key), list):
             return False
@@ -474,6 +476,11 @@ def access_problems(access, grid, products):
         for file in files:
             if not https(file.get("url")) or not file.get("name"):
                 problems.append(f"{label}: unsafe or unnamed file")
+            if "bounds" in file:
+                box = file["bounds"]
+                if not (isinstance(box, list) and len(box) == 4 and all(type(n) in (int, float) and math.isfinite(n) for n in box)
+                        and abs(box[0]) <= 180 and abs(box[2]) <= 180 and -90 <= box[1] < box[3] <= 90 and box[0] != box[2]):
+                    problems.append(f"{label}: invalid file bounds")
             if file.get("checksum") and not re.fullmatch(r"md5:[a-fA-F0-9]{32}", str(file["checksum"])):
                 problems.append(f"{label}: invalid provider checksum")
         if profile.get("strategy") == "cmr" and (not profile.get("collections") or any(not re.fullmatch(r"C\d+-[A-Za-z0-9_]+", c.get("id", "")) or not c.get("shortName") or not c.get("version") for c in profile["collections"])):

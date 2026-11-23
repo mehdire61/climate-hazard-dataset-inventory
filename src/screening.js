@@ -79,6 +79,7 @@
     if (rule.domain.kind === 'envelope' && !bounds) return false;
     if (rule.domain.regions !== undefined && (!Array.isArray(rule.domain.regions) || !rule.domain.regions.length || !rule.domain.regions.every(r=>r && Array.isArray(r.bounds) && r.bounds.length===4 && r.bounds.every(Number.isFinite) && Math.abs(r.bounds[0])<=180 && Math.abs(r.bounds[2])<=180 && r.bounds[1]>=-90 && r.bounds[3]<=90 && r.bounds[1]<=r.bounds[3] && (!r.start || validDate(r.start)) && (!r.end || validDate(r.end))))) return false;
     if (rule.time.solution_calendar !== undefined && (!Array.isArray(rule.time.solution_calendar) || !rule.time.solution_calendar.length)) return false;
+    if (rule.time.return_period_years !== undefined && (rule.time.kind !== 'scenario' || !Number.isSafeInteger(rule.time.return_period_years) || rule.time.return_period_years <= 0)) return false;
     if (rule.time.access_route_start !== undefined && !validDate(rule.time.access_route_start)) return false;
     if (rule.time.index_reference !== undefined && !indexedProducts.has(rule.time.index_reference)) return false;
     if (rule.time.index_snapshot !== undefined && (!rule.time.index_reference || !validSnapshot(rule.time.index_snapshot) || rule.time.known_through !== rule.time.index_snapshot.last_file_end)) return false;
@@ -316,7 +317,7 @@
       const a=points[i],b=points[i+1],hasNominal=nominal.some(r=>contains(r,a,b)),hasUncertainty=uncertain.some(r=>contains(r,a,b));
       const regionalCount=regional.filter(r=>contains(r,a,b)).length;
       let kind='outside',reason='Outside documented dates or in a documented gap.';
-      if(period.kind==='scenario'||!nominal.length){kind='unresolved';reason='Calendar support requires the selected scenario, station, event or source record.';}
+      if(period.kind==='scenario'||!nominal.length){kind='unresolved';reason=period.return_period_years ? 'A fixed return-period layer has no observation dates.' : 'Calendar support requires the selected scenario, station, event or source record.';}
       else if(hasNominal){
         if(regional.length&&!regionalCount)reason='Outside the documented dates of all intersecting regional screening boxes.';
         else if(regional.length&&regionalCount<regional.length){kind='uncertain';reason='Documented date support differs between intersecting regional screening boxes.';}
@@ -408,7 +409,7 @@
       } else if(!areaPartial) reasons.push(land.nearCoast ? `Land is within the ${land.marginKm} km coastal screening margin. Check whether the product masks the exact location.` : 'Land intersects the generalized country layer. Product masks and valid cells still need checking.');
     }
     if (domain.note) reasons.push(domain.note);
-    if (period.kind==='scenario') temporal='Choose a scenario instead of calendar dates';
+    if (period.kind==='scenario') temporal=period.return_period_years ? period.return_period_years+'-year scenario independent of project dates' : 'Choose a scenario instead of calendar dates';
     else if (period.intervals.length) {
       const matches=period.intervals.filter(interval=>overlaps(query,interval));
       if (!matches.length && uncertainPeriods.length) {
@@ -482,7 +483,7 @@
     if (rule.note) reasons.push(rule.note);
     let status='possible', label='Dates and area fit';
     if (spatialExcluded || timeExcluded) {status='excluded';label=spatialExcluded&&timeExcluded?'Outside area and dates':spatialExcluded?'Outside documented area':'Outside documented dates';}
-    else if (period.kind==='scenario') {status='special';label='Choose a scenario';}
+    else if (period.kind==='scenario') {status='special';label=period.return_period_years ? period.return_period_years+'-year scenario' : 'Choose a scenario';}
     else if (uncertainOnly) {status='unresolved';label='Check documented dates';}
     else if (rule.support_type==='station') {status='unresolved';label='Find a station';temporal='Check each station and variable period';}
     else if (product.product_id==='c3s_lake_water_level') {status='unresolved';label='Choose a monitored lake';}

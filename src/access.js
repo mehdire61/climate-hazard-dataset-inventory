@@ -263,10 +263,13 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
       files=plan.files;notes.push(...plan.notes);routeEvidence=plan.verification;
       base.uncoveredIntervals=plan.uncoveredIntervals;
     } else if(profile.strategy==='snapshot') {
-      files=(profile.files||[]).filter(f=>Object.entries(f.selection||{}).every(([k,v])=>String(chosen[k])===String(v)))
-        .filter(f=>(!f.start||f.start<=query.end)&&(!f.end||f.end>=query.start));
+      const indexed=profile.files||[],tileIndex=indexed.some(f=>f.bounds);
+      const geometry=tileIndex && moduleFor('SiteGeometry','geometry.js');
+      files=indexed.filter(f=>Object.entries(f.selection||{}).every(([k,v])=>String(chosen[k])===String(v)))
+        .filter(f=>(!f.start||f.start<=query.end)&&(!f.end||f.end>=query.start))
+        .filter(f=>!f.bounds||['within','partial'].includes(geometry.domainRelation(query,f.bounds)));
       notes.push('These are observed provider file links from a dated metadata snapshot. Files can change after review; no live availability check is performed by preparing this plan.');
-      if(!files.length)notes.push('No file in this reviewed index overlaps the selected dates/options. This does not prove that the provider has no data; inspect its current archive.');
+      if(!files.length)notes.push(tileIndex?'No tile in the reviewed directory intersects the project footprint.':'No file in this reviewed index overlaps the selected dates/options. This does not prove that the provider has no data; inspect its current archive.');
     } else if(profile.strategy==='erddap') {
       requests=erddapRequests(profile,query);
       artifacts.push({name:id+'_download_request.py',mime:'text/x-python',text:rawDownloadScript(id,requests),role:'request'});

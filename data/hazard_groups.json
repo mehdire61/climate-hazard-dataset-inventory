@@ -20,7 +20,8 @@
       "cems_gfm",
       "swot_raster_d",
       "swot_riversp_d",
-      "c3s_lake_water_level"
+      "c3s_lake_water_level",
+      "jrc_glofas_rp100_depth"
     ]
   },
   {

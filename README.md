@@ -1,12 +1,14 @@
 # Climate-Hazard Dataset Inventory v0.3
 
-Find climate and water datasets for a project location and period. This v0.3 development build contains **55 records in nine overlapping hazard groups** and links to 224 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
+Find climate and water datasets for a project location and period. This v0.3 development build contains **56 records in nine overlapping hazard groups** and links to 231 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
 In **Inventory**, choose a hazard, provider, commercial-use status, search text and sort order. **Copy filtered view** shares those selections. A fresh tab opens the same rows in the same order for this catalog version, and the metadata CSV follows that order. Use **Copy record link** to cite an individual dataset. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
 
 **SNOTEL daily snow water equivalent** adds snowpack water storage measured at individual western U.S. and Alaska stations. The checked example covers Brundage Reservoir, Idaho, on April 1–3, 2024. Use the NRCS station report to check your own project dates. [Open the record](index.html#inventory?record=nrcs_snotel_daily_swe) · [Provider responses and retrieval details](docs/evidence/snotel/receipts.json)
 
 ## Using the inventory
+
+**JRC global river flood depth** gives continuous depth in metres for the fixed 100-year scenario. Site check matches the project footprint to the public raw GeoTIFF tiles. The file directory also supplies permanent-water and spurious-depth masks. [Open the record](index.html#inventory?record=jrc_glofas_rp100_depth) · [Checked tile and sample cells](docs/evidence/jrc-flood/receipt.json)
 
 **GLEAM v4.2a actual evapotranspiration** covers 1980–2023 on a 0.1° land grid. The annual 1980 file reports 762.392 mm for the cell at 38.95°N, 77.05°W. Calculating a HUC12 mean requires intersecting its boundary with the valid cells. The record flags the different reuse terms on Zenodo and the GLEAM website. [Open the record](index.html#inventory?record=gleam_v4_2a_actual_evaporation) · [File inspection](docs/evidence/gleam/receipt.json)
 

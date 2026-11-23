@@ -8,13 +8,28 @@ const area={mode:'area',areaName:'County test',areaSource:{kind:'test',vintage:'
  geometry:{type:'Polygon',coordinates:[[[-78,38],[-76,38],[-76,40],[-78,40],[-78,38]],[[-77.5,38.5],[-77.5,39],[-77,39],[-77,38.5],[-77.5,38.5]]]},start:point.start,end:point.end};
 
 test('Every original record has an explicit reviewed access route',()=>{
- assert.equal(catalog.length,55);
+ assert.equal(catalog.length,56);
  for(const product of catalog){const p=access.describe(product.product_id);assert.ok(['station','files','request','external'].includes(p.kind));
   for(const key of ['summary','auth','spatialDelivery','temporalDelivery','providerUrl','docsUrl'])assert.ok(p[key],product.product_id+' '+key);
   assert.ok(p.verification.label);assert.ok(p.verification.checkedAt);}
 });
 test('Three existing station routes are retained and have no new automatic discovery mode',()=>{
  for(const id of ['ghcn_daily','noaa_coops_water_level','usgs_streamflow'])assert.equal(access.describe(id).kind,'station');
+});
+test('JRC selects raw RP100 footprint tiles independently of dates and station buffers',()=>{
+ const id='jrc_glofas_rp100_depth',receipt=require('../docs/evidence/jrc-flood/receipt.json');
+ const p=access.prepare(id,point),polygon=access.prepare(id,{...area,start:'1980-01-01',end:'1980-01-31',bufferKm:500});
+ assert.deepEqual(p.errors,[]);assert.deepEqual(polygon.errors,[]);
+ assert.deepEqual(p.files.map(f=>f.url),[receipt.layers.depth.url]);
+ assert.deepEqual(polygon.files.map(f=>f.url),p.files.map(f=>f.url));
+ assert.equal(p.manifest.screening.status,'special');assert.equal(p.manifest.screening.label,'100-year scenario');
+ assert.equal(p.files[0].sizeBytes,receipt.layers.depth.bytes);
+ assert.equal(p.manifest.accessProfile.files.length,271);assert.equal(receipt.returnPeriodYears,100);
+ assert.ok(p.manifest.accessProfile.files.every(f=>/_RP100_depth\.tif$/.test(f.name)));
+ assert.ok(Math.abs(receipt.cells[0].depth-9.747)<0.001);
+ assert.equal(receipt.cells[1].depth,receipt.layers.depth.nodata);
+ const offshore=access.prepare(id,{...point,lat:0,lon:-150,radiusKm:1000});
+ assert.deepEqual(offshore.files,[]);assert.ok(offshore.notes.some(n=>n.includes('No tile')));
 });
 test('GLEAM screens the frozen archive and separates grid-cell values, time units and reuse terms',()=>{
  const id='gleam_v4_2a_actual_evaporation';

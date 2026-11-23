@@ -1,0 +1,115 @@
+{
+  "checkedAt": "2026-11-23T19:37:11Z",
+  "productVersion": "2.1.2",
+  "returnPeriodYears": 100,
+  "annualExceedanceProbability": 0.01,
+  "rawDepthTileCount": 271,
+  "tileIndexUrl": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/tile_extents.geojson",
+  "tileIndexSha256": "24509d4fee4623b3c3b78030bdf6c3b75352cd2a3feb559492a12c45648946de",
+  "rawDepthDirectory": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/",
+  "layers": {
+    "depth": {
+      "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/RP100/ID55_N40_W80_RP100_depth.tif",
+      "bytes": 6933414,
+      "sha256": "f57c0c7fcda54f32e5277a614442bfde9ba0e1a2cc52894f8fc8a0d6a5ac9882",
+      "crs": "EPSG:4326",
+      "width": 11999,
+      "height": 11999,
+      "gdalTransform": [
+        -80.0087489555787,
+        0.0008333333356347339,
+        0.0,
+        40.00456666666666,
+        0.0,
+        -0.0008333333333325754
+      ],
+      "dtype": "float32",
+      "nodata": -9999.0
+    },
+    "permanentWater": {
+      "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/Permanent_WaterBodies/ID55_N40_W80_permanent_water.tif",
+      "bytes": 582225,
+      "sha256": "d68d41aba070b6446bfbcd32af1b4e247694e6bb34e3b565ea3ab4701cb9eab8",
+      "crs": "EPSG:4326",
+      "width": 11999,
+      "height": 11999,
+      "gdalTransform": [
+        -80.0087489555787,
+        0.0008333333356347339,
+        0.0,
+        40.00456666666666,
+        0.0,
+        -0.0008333333333325754
+      ],
+      "dtype": "uint8",
+      "nodata": 255.0
+    },
+    "spuriousDepth": {
+      "url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/CEMS-GLOFAS/flood_hazard/Spurious_Depths/ID55_N40_W80_spurious_depth_areas.tif",
+      "bytes": 88289,
+      "sha256": "29a458f3b36976ba47055c8efb2e771eb7f26517eb6effbe852d53d5f06a12ad",
+      "crs": "EPSG:4326",
+      "width": 11999,
+      "height": 11999,
+      "gdalTransform": [
+        -80.0087489555787,
+        0.0008333333356347339,
+        0.0,
+        40.00456666666666,
+        0.0,
+        -0.0008333333333325754
+      ],
+      "dtype": "uint8",
+      "nodata": 255.0
+    }
+  },
+  "cells": [
+    {
+      "requestedLonLat": [
+        -77.05,
+        38.87
+      ],
+      "row": 1361,
+      "column": 3550,
+      "cellCenterLonLat": [
+        -77.04999894740757,
+        38.86998333333436
+      ],
+      "depth": 9.746999740600586,
+      "permanentWater": 255.0,
+      "spuriousDepth": 255.0
+    },
+    {
+      "requestedLonLat": [
+        -77.04,
+        38.91
+      ],
+      "row": 1313,
+      "column": 3562,
+      "cellCenterLonLat": [
+        -77.03999894737996,
+        38.909983333334324
+      ],
+      "depth": -9999.0,
+      "permanentWater": 255.0,
+      "spuriousDepth": 255.0
+    },
+    {
+      "requestedLonLat": [
+        -77.083,
+        38.918
+      ],
+      "row": 1303,
+      "column": 3510,
+      "cellCenterLonLat": [
+        -77.08333228083296,
+        38.91831666666765
+      ],
+      "depth": -9999.0,
+      "permanentWater": 255.0,
+      "spuriousDepth": 255.0
+    }
+  ],
+  "interpretation": "Raw RP100 depth in metres. Preserve −9999 as missing. A mask value of 255 is that mask’s NoData code. These spot checks verify decoding and do not validate flood physics.",
+  "footprintProcessing": "For WGS84 lookup, wrap longitude at 180° and clip the four polar tile envelopes whose north edge is 90.0004° to 90°. GeoTIFF files are served unchanged."
+}
