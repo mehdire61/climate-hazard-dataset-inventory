@@ -267,6 +267,7 @@ async function checkOffline(browser) {
     await page.goto(new URL(snowFragment,entry).href);
     const dialog = page.getByRole('dialog');
     await dialog.getByRole('heading', {name:snowName, exact:true}).waitFor();
+    assert.equal(await dialog.locator('.swe-inspected strong').innerText(),'609 mm');
     await dialog.getByRole('button', {name:'Close record details'}).click();
     await page.getByLabel('Hazard group', {exact:true}).selectOption('snow');
     await page.getByRole('link', {name:'View details for ' + snowName}).click();
@@ -408,6 +409,34 @@ async function checkFloodDepth(context) {
   } finally { await page.close(); }
 }
 
+async function checkSnowMap(context) {
+  const example = require('../data/brundage-swe.json');
+  const page = await context.newPage();
+  try {
+    await page.goto(new URL('#inventory?record=nohrsc_snodas_daily_swe',address).href);
+    const chart = page.locator('dialog .swe-example'), svg = chart.locator('svg');
+    const reading = chart.locator('.swe-inspected strong');
+    assert.equal(await reading.innerText(),'609 mm');
+    assert.match(await chart.locator('.swe-position').innerText(),/row 939, col 1032/);
+    assert.ok((await chart.innerText()).includes('24.0 in (609.6 mm)'));
+    await chart.locator('[aria-label="Inspect cell east"]').press('Enter');
+    assert.match(await chart.locator('.swe-position').innerText(),/row 939, col 1033/);
+    const cells = example.grid.values;
+    for (const [wanted,label] of [[0,'0 mm'],[null,'No data']]) {
+      const row = cells.findIndex(values=>values.includes(wanted)), col=cells[row].indexOf(wanted);
+      const size = await svg.boundingBox();
+      await svg.click({position:{x:(col+.5)*size.width/cells[row].length,y:(row+.5)*size.height/cells.length}});
+      assert.equal(await reading.innerText(),label);
+    }
+    await chart.getByRole('button',{name:'Station cell',exact:true}).click();
+    assert.equal(await reading.innerText(),'609 mm');
+    assert.equal(await chart.evaluate(el=>el.scrollWidth<=el.clientWidth),true);
+    await page.locator('dialog').getByRole('button',{name:'Check this record at a site'}).click();
+    await page.getByText('Explore the Brundage snow map example',{exact:true}).click();
+    assert.equal(await page.locator('#sc-detail .swe-inspected strong').innerText(),'609 mm');
+  } finally {await page.close();}
+}
+
 async function checkGriddedSnow(context) {
   const page = await context.newPage();
   try {
@@ -529,6 +558,7 @@ async function main() {
     await checkProjectReturn(page);
     await checkObservationGap(page);
     await checkHydrologicUnit(context);
+    await checkSnowMap(context);
     await checkFloodDepth(context);
     await checkGriddedSnow(context);
     await checkStationSnow(context);

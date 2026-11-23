@@ -984,6 +984,11 @@
       renderAccess(body, product, screening);
     }
     const timeline = renderCoverageTimeline(rule);
+    if (window.SnowMap.supports(selectedId)) {
+      const example = node('details',{class:'sc-disclosure'},node('summary',{},'Explore the Brundage snow map example'));
+      example.addEventListener('toggle',()=>{if (example.open && !example.querySelector('figure')) example.append(window.SnowMap.render(data.snowExample,node));});
+      body.append(example);
+    }
     if (timeline) body.append(timeline);
     if (sample || discovery) body.append(why);
     const terms = node('div', {class: 'sc-terms'},

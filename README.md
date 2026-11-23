@@ -25,6 +25,8 @@ The default geometry is explicitly generalized by USGS at 0.00001° in WGS84. Ch
 3. For supported stations, preview observations and inspect units, gaps, flags and the reporting period. For gridded products, follow the access route to the provider or prepare a file request. Some providers require an account.
 4. Export the project brief or screening CSV to share your findings. The **Inventory** tab also lets you browse, filter and export catalog metadata across all hazard groups.
 
+The SNOTEL and SNODAS records include an offline April 1, 2024 map of Brundage Reservoir, Idaho. Select a native grid cell to inspect SWE alongside the station reading and HUC12 boundary. The source links identify the station reporting day, 06:00 UTC grid and USGS geometry. [Map data and source URLs](data/brundage-swe.json) · [Rebuild the subset](scripts/build_snow_example.py)
+
 ## Running locally
 
 Open [index.html](index.html) in a browser. Keep the directory structure intact so the map can load its regional tiles. The catalog, screening, saved examples and overview map work offline. Live station searches, provider downloads and optional online map detail need internet access.
