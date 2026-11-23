@@ -432,6 +432,53 @@ async function checkVerticalReference(context) {
   } finally {await page.close();}
 }
 
+async function checkComparison(browser) {
+  const page=await browser.newPage({viewport:{width:375,height:812}});
+  const fresh=await browser.newPage();
+  try {
+    const ids=['chirps_v3_daily_rnl','gpm_imerg_final_v07b','gpcc_monthly_v2025'];
+    const selected=ids.map(id=>products.find(p=>p.product_id===id));
+    await page.goto(new URL('#inventory?group=precipitation',address).href);
+    await page.locator('#results [data-id="'+ids[0]+'"] .compare-check').check();
+    await page.locator('#comparison summary').click();
+    assert.equal(await page.locator('#copy-comparison').isDisabled(),true);
+    for(const id of ids.slice(1))await page.getByLabel('Add a dataset').selectOption(id);
+    const table=page.locator('#compare-table');
+    assert.equal(await table.getAttribute('aria-label'),'Dataset comparison');
+    const readRow=label=>table.locator('tbody tr').evaluateAll((rows,key)=>{
+      const match=rows.find(row=>row.querySelector('th[scope="row"]')?.textContent===key);
+      return Array.from(match?.querySelectorAll('td')||[],cell=>cell.textContent);
+    },label);
+    assert.deepEqual(await readRow('Temporal scale'),selected.map(p=>p.temporal_support));
+    assert.deepEqual(await readRow('Shared inputs and dependence'),selected.map(p=>p.dependence_notes));
+    assert.ok((await readRow('Terms of use')).every((text,i)=>text.includes(selected[i].license_notes)));
+    assert.equal(await table.evaluate(el=>el.scrollWidth>el.clientWidth),true);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    await page.locator('#group').selectOption('snow');
+    assert.equal(await table.locator('thead th[scope="col"]').count(),4);
+    await page.getByLabel('Add a dataset').selectOption('nohrsc_snodas_daily_swe');
+    assert.equal(await page.getByLabel('Add a dataset').isDisabled(),true);
+    assert.equal(await page.locator('#results [data-id="nrcs_snotel_daily_swe"] .compare-check').isDisabled(),true);
+    await page.getByRole('button',{name:/Remove SNODAS daily gridded/}).click();
+    assert.equal(await page.getByLabel('Add a dataset').isDisabled(),false);
+    await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true}));
+    await page.getByRole('button',{name:'Copy comparison link'}).click();
+    const url=await page.getByRole('textbox',{name:'Filtered view URL to copy'}).inputValue();
+    await fresh.goto(url);
+    assert.deepEqual(await fresh.locator('#compare-table thead a').allTextContents(),selected.map(p=>p.product_name));
+    await fresh.locator('#compare-table thead a').first().click();
+    await fresh.getByRole('dialog').getByRole('button',{name:'Close record details'}).click();
+    await fresh.waitForURL(url);
+    assert.equal(await fresh.locator('#compare-table tbody tr').count()>0,true);
+    await fresh.goto(new URL('#inventory?compare=psmsl_rlr,jrc_glofas_rp100_depth,psmsl_rlr,unlisted',address).href);
+    assert.equal(await fresh.locator('#compare-table thead a').count(),2);
+    await fresh.locator('#view-status').filter({hasText:/Unavailable selections.*compare/}).waitFor();
+    assert.ok((await fresh.locator('#compare-table').innerText()).includes('Revised Local Reference'));
+    await fresh.getByRole('button',{name:/Remove JRC global river flood depth/}).click();
+    assert.equal(await fresh.locator('#compare-table').isVisible(),false);
+  } finally {await fresh.close();await page.close();}
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -453,10 +500,11 @@ async function main() {
     await checkVerticalReference(context);
     await checkSharedInventory(browser);
     await checkDiscoveryFilters(browser);
+    await checkComparison(browser);
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed discovery filters, record and filtered-view sharing, HUC12 selection/export/reopen, flood tiles, snow requests, project return, charts, mobile layout, CSV and offline checks.');
+    console.log(browserName, browser.version(), 'passed discovery filters, comparison and sharing, HUC12 selection/export/reopen, flood tiles, station and gridded snow, vertical references, project return, charts, mobile layout, CSV and offline checks.');
   } finally {
     await browser.close();
   }

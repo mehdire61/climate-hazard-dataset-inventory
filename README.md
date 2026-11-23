@@ -10,6 +10,8 @@ In **Inventory**, choose a hazard, provider or commercial-use status. Open **Mor
 
 ## Using the inventory
 
+Use **Compare** on a record or open **Compare datasets** to line up two to four editions. The table includes time support, spatial scale, shared inputs, reuse terms and any documented vertical reference. Selections persist when the filters change. **Copy comparison link** opens the same records in order. [Compare CHIRPS, IMERG and GPCC](index.html#inventory?compare=chirps_v3_daily_rnl,gpm_imerg_final_v07b,gpcc_monthly_v2025)
+
 **JRC global river flood depth** gives continuous depth in metres for the fixed 100-year scenario. Site check matches the project footprint to the public raw GeoTIFF tiles. The file directory also supplies permanent-water and spurious-depth masks. [Open the record](index.html#inventory?record=jrc_glofas_rp100_depth) · [Checked tile and sample cells](docs/evidence/jrc-flood/receipt.json)
 
 **GLEAM v4.2a actual evapotranspiration** covers 1980–2023 on a 0.1° land grid. The annual 1980 file reports 762.392 mm for the cell at 38.95°N, 77.05°W. Calculating a HUC12 mean requires intersecting its boundary with the valid cells. The record flags the different reuse terms on Zenodo and the GLEAM website. [Open the record](index.html#inventory?record=gleam_v4_2a_actual_evaporation) · [File inspection](docs/evidence/gleam/receipt.json)
