@@ -1,0 +1,1140 @@
+{
+  "facets": {
+    "origin": {
+      "label": "Data origin",
+      "all": "All origins",
+      "description": "Methods and principal inputs used to produce the published values. A blended product can appear under several origins.",
+      "options": {
+        "ground": "Ground observations or surveys",
+        "satellite": "Satellite observations",
+        "radar": "Ground-based radar",
+        "model": "Model estimates",
+        "reanalysis": "Reanalysis",
+        "reports": "Reports or analyst interpretation",
+        "index": "Derived indices"
+      }
+    },
+    "lifecycle": {
+      "label": "Product lifecycle",
+      "all": "All lifecycle statuses",
+      "description": "Status of the cataloged edition. A closed access route or platform stream is labeled separately and can coexist with the edition status.",
+      "options": {
+        "maintained": "Updates documented",
+        "fixed": "Fixed edition or snapshot",
+        "ended": "Edition updates ended",
+        "transition": "Announced transition",
+        "unconfirmed": "Current edition status unconfirmed",
+        "stream-ended": "A route or platform stream ended"
+      }
+    },
+    "spatial": {
+      "label": "Spatial scale",
+      "all": "All spatial scales",
+      "description": "Nominal delivered grid spacing or feature type. Degree grids are grouped by approximate spacing at the equator. See the record for effective resolution.",
+      "options": {
+        "point": "Station, node or point",
+        "line": "Track, reach or segment",
+        "polygon": "Area or event footprint",
+        "lake": "Individual lake",
+        "grid-subkm": "Pixel or grid under 1 km",
+        "grid-1-10km": "Pixel or grid 1 to under 10 km",
+        "grid-10-100km": "Grid 10 to under 100 km",
+        "grid-100km-plus": "Grid 100 km or coarser",
+        "variable-grid": "Asset-specific grid spacing"
+      }
+    },
+    "frequency": {
+      "label": "Temporal scale",
+      "all": "All temporal scales",
+      "description": "Reporting interval or event support of the selected variables. A daily grid can still contain missing cells.",
+      "options": {
+        "subhourly": "Subhourly",
+        "hourly": "Hourly",
+        "multi-hour": "Multi-hour",
+        "daily": "Daily",
+        "monthly": "Monthly",
+        "seasonal": "Seasonal",
+        "annual": "Annual",
+        "overpass": "Overpass or acquisition",
+        "event": "Event or irregular report",
+        "return-period": "Return-period scenario"
+      }
+    },
+    "geography": {
+      "label": "Geographic scope",
+      "all": "All geographic scopes",
+      "description": "Documented footprint of the cataloged product. U.S.-focused records can also have a more specific scope. For a location or HUC, use Site check.",
+      "options": {
+        "world": "Worldwide",
+        "latitude-belt": "Global latitude belt",
+        "northern": "Northern Hemisphere",
+        "us": "U.S.-focused",
+        "conus": "Conterminous United States",
+        "us-region": "Specific U.S. region or event",
+        "ocean-basins": "Selected ocean basins"
+      }
+    }
+  },
+  "records": {
+    "usgs_streamflow": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "usgs_hwm_harvey_2017": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us",
+        "us-region"
+      ]
+    },
+    "grdc_discharge": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "daily",
+        "monthly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gsim_indices": {
+      "origin": [
+        "ground",
+        "index"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "monthly",
+        "seasonal",
+        "annual"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "noaa_coops_water_level": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "subhourly",
+        "hourly"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "gesla3": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "subhourly",
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gesla41": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "subhourly",
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "psmsl_rlr": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "monthly",
+        "annual"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gfd_modis_v1": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "dfo_event_archive": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "polygon"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "fathom_gfm3": {
+      "origin": [
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "return-period"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "spei_gd_v1": {
+      "origin": [
+        "model",
+        "reanalysis",
+        "index"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "esa_cci_sm_combined_v09_2": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gpcc_monthly_v2025": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km",
+        "grid-100km-plus"
+      ],
+      "frequency": [
+        "monthly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "grace_jpl_mascon_cri_rl063_v04": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "monthly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "modis_active_fire_standard": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "unconfirmed"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "viirs_375_active_fire": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "unconfirmed",
+        "stream-ended"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "mcd64a1": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "monthly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "mtbs": {
+      "origin": [
+        "satellite",
+        "reports"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-subkm",
+        "polygon"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "gfed_5_1": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-10-100km",
+        "grid-100km-plus"
+      ],
+      "frequency": [
+        "daily",
+        "monthly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gpm_imerg_final_v07b": {
+      "origin": [
+        "satellite",
+        "ground"
+      ],
+      "lifecycle": [
+        "ended"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "subhourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "trmm_3b42_v7": {
+      "origin": [
+        "satellite",
+        "ground"
+      ],
+      "lifecycle": [
+        "ended"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "multi-hour"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "chirps_v2_daily": {
+      "origin": [
+        "satellite",
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained",
+        "transition"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "chirps_v3_daily_rnl": {
+      "origin": [
+        "satellite",
+        "ground",
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "chirps_v3_daily_sat": {
+      "origin": [
+        "satellite",
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "era5_t2m": {
+      "origin": [
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "era5_t2m_interval_extrema": {
+      "origin": [
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly",
+        "multi-hour"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "era5_wind10": {
+      "origin": [
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "era5_gust10": {
+      "origin": [
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "ghcn_daily": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "isd_global_hourly": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "ended"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "hourly",
+        "subhourly",
+        "multi-hour"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "hadex3": {
+      "origin": [
+        "ground",
+        "index"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-100km-plus"
+      ],
+      "frequency": [
+        "monthly",
+        "seasonal",
+        "annual"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "ibtracs_v04r01": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "line",
+        "point"
+      ],
+      "frequency": [
+        "multi-hour",
+        "event"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "hurdat2": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "line",
+        "point"
+      ],
+      "frequency": [
+        "multi-hour",
+        "event"
+      ],
+      "geography": [
+        "ocean-basins"
+      ]
+    },
+    "merra2_wind10": {
+      "origin": [
+        "reanalysis",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "gfed4_1s_legacy": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed",
+        "stream-ended"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "monthly",
+        "daily",
+        "multi-hour"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "modis_snow_mod10a1": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "ims_snow_ice": {
+      "origin": [
+        "satellite",
+        "ground",
+        "reports"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km",
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "northern"
+      ]
+    },
+    "nasa_coolr": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "unconfirmed"
+      ],
+      "spatial": [
+        "point",
+        "polygon"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "lhasa_model": {
+      "origin": [
+        "model",
+        "satellite"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "cems_rapid_mapping": {
+      "origin": [
+        "satellite",
+        "reports",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "polygon",
+        "variable-grid"
+      ],
+      "frequency": [
+        "event",
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "cems_gfm": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "swot_raster_d": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "unconfirmed"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "swot_riversp_d": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "unconfirmed"
+      ],
+      "spatial": [
+        "line",
+        "point"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "latitude-belt"
+      ]
+    },
+    "mrms_radaronly_qpe": {
+      "origin": [
+        "radar"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "subhourly",
+        "hourly",
+        "multi-hour",
+        "daily"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "mrms_multisensor_qpe": {
+      "origin": [
+        "radar",
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "hourly",
+        "multi-hour",
+        "daily"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "stage_iv": {
+      "origin": [
+        "radar",
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "hourly",
+        "multi-hour",
+        "daily"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "ghcnh_hourly": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "hourly",
+        "multi-hour"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "ncei_storm_events_hail": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "ncei_storm_events_tornado": {
+      "origin": [
+        "reports"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "line",
+        "point"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "ncei_storm_events_thunderstorm_wind": {
+      "origin": [
+        "reports",
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us"
+      ]
+    },
+    "mrms_mesh": {
+      "origin": [
+        "radar",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "subhourly"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    },
+    "c3s_lake_water_level": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "unconfirmed"
+      ],
+      "spatial": [
+        "lake"
+      ],
+      "frequency": [
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "nrcs_snotel_daily_swe": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "us",
+        "us-region"
+      ]
+    },
+    "gleam_v4_2a_actual_evaporation": {
+      "origin": [
+        "model",
+        "satellite",
+        "reanalysis"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "daily",
+        "monthly",
+        "annual"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "jrc_glofas_rp100_depth": {
+      "origin": [
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "return-period"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "nohrsc_snodas_daily_swe": {
+      "origin": [
+        "model",
+        "ground",
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    }
+  },
+  "notes": {
+    "viirs_375_active_fire": "NOAA ended S-NPP distribution on November 2, 2026. Final NASA/FIRMS holdings and the status of each platform must be checked separately.",
+    "gfed4_1s_legacy": "The selected ORNL archive ends in 2016. Producer GFED4s extensions reach 2025 with a changed emissions method.",
+    "chirps_v2_daily": "UCSB schedules the end of v2 production after December 2026.",
+    "gpm_imerg_final_v07b": "NASA documents the V07 Final endpoint in September 2025. Early and Late runs have separate schedules.",
+    "isd_global_hourly": "NOAA ended legacy ISD updates in August 2025 and directs users to GHCN-hourly.",
+    "ims_snow_ice": "The NSIDC 4 km archive listed the November 23, 2026 daily file. Grid and version start dates vary.",
+    "grace_jpl_mascon_cri_rl063_v04": "The 0.5° reporting grid is much finer than the native 3° mascons. The provider lists irregular monthly solutions.",
+    "era5_t2m_interval_extrema": "The HRES and EDA streams summarize different forecast intervals.",
+    "cems_rapid_mapping": "Activation products vary. A modeled depth extension is one possible product type.",
+    "nohrsc_snodas_daily_swe": "The model assimilates snow observations. Its masked CONUS grid is distributed daily, with provider-documented exceptions."
+  }
+}

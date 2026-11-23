@@ -438,6 +438,33 @@ def find_problems(products, sources_by_id, groups):
     return problems
 
 
+def discovery_problems(discovery, products):
+    keys = {"origin", "lifecycle", "spatial", "frequency", "geography"}
+    ids = {product["product_id"] for product in products}
+    facets = discovery.get("facets", {})
+    records = discovery.get("records", {})
+    notes = discovery.get("notes", {})
+    if set(facets) != keys or set(records) != ids:
+        return ["discovery.json must classify every catalog product with the five discovery filters"]
+    problems = []
+    for key, facet in facets.items():
+        options = facet.get("options")
+        if not isinstance(options, dict) or not options or not all(isinstance(facet.get(f), str) and facet[f].strip() for f in ("label", "all", "description")):
+            problems.append(f"discovery.{key}: missing filter definition")
+            continue
+        if not all(re.fullmatch(r"[a-z0-9-]+", code) and isinstance(label, str) and label.strip() for code, label in options.items()):
+            problems.append(f"discovery.{key}: invalid option")
+        for pid, record in records.items():
+            values = record.get(key) if isinstance(record, dict) else None
+            if not isinstance(values, list) or not values or not all(isinstance(v, str) and v in options for v in values) or len(set(values)) != len(values):
+                problems.append(f"{pid}: missing, duplicate or unknown discovery.{key} value")
+    if any(not isinstance(r, dict) or set(r) != keys for r in records.values()):
+        problems.append("discovery.json has an unexpected record field")
+    if not isinstance(notes, dict) or any(pid not in ids or not isinstance(note, str) or not note.strip() for pid, note in notes.items()):
+        problems.append("discovery.json has an invalid qualification")
+    return problems
+
+
 def access_problems(access, grid, products):
     problems = []
     ids = {p["product_id"] for p in products}
@@ -508,11 +535,13 @@ def main():
     country_boundaries = load("country-boundaries.json")
     station_reference = load("station-reference.json")
     access = load("access.json")
+    discovery = load("discovery.json")
     grid_access = load("grid-access-index.json")
     sources_by_id = {source["evidence_id"]: source for source in source_list}
     products = catalog["products"]
 
     problems = find_problems(products, sources_by_id, groups)
+    problems += discovery_problems(discovery, products)
     if len(sources_by_id) != len(source_list):
         problems.append("sources.json contains a duplicate evidence_id")
 
@@ -555,6 +584,7 @@ def main():
             "build_id": "__INVENTORY_BUILD_ID__",
         },
         "hazard_groups": groups,
+        "discovery": discovery,
         "products": public_products,
         "sources": public_sources,
         "screening": screening,

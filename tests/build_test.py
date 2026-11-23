@@ -72,6 +72,16 @@ class BuildChecks(unittest.TestCase):
         self.edit_json("screening.json", lambda data: data["rules"].pop("ghcn_daily"))
         self.assert_rejected_unchanged()
 
+    def test_unclassified_and_invalid_discovery_filters_rejected(self):
+        self.edit_json("discovery.json", lambda data: data["records"]["ghcn_daily"].pop("origin"))
+        self.edit_json("discovery.json", lambda data: data["records"]["isd_global_hourly"].update(lifecycle=["not-a-status"]))
+        before = (self.folder / "index.html").read_bytes()
+        result = self.run_build()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("ghcn_daily: missing, duplicate or unknown discovery.origin", result.stderr)
+        self.assertIn("isd_global_hourly: missing, duplicate or unknown discovery.lifecycle", result.stderr)
+        self.assertEqual((self.folder / "index.html").read_bytes(), before)
+
     def test_unrecognized_rights_codes_rejected_before_page_is_changed(self):
         def introduce_invalid_codes(data):
             data["products"][0]["commercial_use_status"] = "ALLOWED_WITH_CONDITIONS"

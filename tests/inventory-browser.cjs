@@ -7,6 +7,7 @@ const {gunzipSync} = require('node:zlib');
 const {chromium, firefox} = require('playwright-core');
 const {products} = require('../data/catalog.json');
 const groups = require('../data/hazard_groups.json');
+const discovery = require('../data/discovery.json');
 const {examples} = require('../data/examples.json');
 
 const address = new URL(process.argv[2]);
@@ -135,6 +136,57 @@ async function checkSharedInventory(browser) {
     await fresh.close();
     await page.close();
   }
+}
+
+async function checkDiscoveryFilters(browser) {
+  const page = await browser.newPage({viewport:{width:375,height:812}});
+  const fresh = await browser.newPage();
+  try {
+    await page.goto(new URL('#inventory',address).href);
+    await page.getByText('More filters',{exact:true}).click();
+    for (const [key,facet] of Object.entries(discovery.facets)) {
+      const select = page.getByLabel(facet.label,{exact:true});
+      for (const code of Object.keys(facet.options)) {
+        await select.selectOption(code);
+        const expected = products.filter(p=>discovery.records[p.product_id][key].includes(code)).map(p=>p.product_id);
+        assert.deepEqual((await cards(page)).sort(),expected.sort(),key+'='+code);
+        assert.ok((await select.locator('option:checked').innerText()).endsWith('('+expected.length+')'));
+        assert.ok((await select.locator('option').first().innerText()).endsWith('('+products.length+')'));
+      }
+      await select.selectOption('');
+    }
+    const choices={origin:'model',lifecycle:'maintained',spatial:'grid-1-10km',frequency:'daily',geography:'conus'};
+    for(const [key,code] of Object.entries(choices)) await page.locator('#'+key).selectOption(code);
+    assert.deepEqual(await cards(page),['nohrsc_snodas_daily_swe']);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true}));
+    await page.getByRole('button',{name:'Copy filtered view'}).click();
+    const shared=await page.getByRole('textbox',{name:'Filtered view URL to copy'}).inputValue();
+    await fresh.goto(shared);
+    assert.deepEqual(await cards(fresh),['nohrsc_snodas_daily_swe']);
+    assert.equal(await fresh.locator('#more-filters').evaluate(el=>el.open),true);
+    const [row]=await exportedRows(fresh);
+    for(const [key,code] of Object.entries(choices)) {
+      assert.equal(await fresh.locator('#'+key).inputValue(),code);
+      assert.ok(row['filter_'+key].split(' | ').includes(discovery.facets[key].options[code]));
+    }
+    await fresh.locator('#results .card-open').click();
+    await fresh.getByText('Version, access and data dependencies',{exact:true}).click();
+    await fresh.getByRole('heading',{name:'Inventory classifications'}).waitFor();
+    await fresh.getByRole('button',{name:'Close record details'}).click();
+    await fresh.waitForURL(shared);
+    assert.deepEqual(await cards(fresh),['nohrsc_snodas_daily_swe']);
+    await fresh.goto(new URL('#inventory?lifecycle=stream-ended',address).href);
+    assert.deepEqual((await cards(fresh)).sort(),['gfed4_1s_legacy','viirs_375_active_fire']);
+    await fresh.goto(new URL('#inventory?origin=model&frequency=return-period&geography=conus',address).href);
+    await fresh.locator('#no-results').waitFor();
+    assert.equal(await fresh.locator('#download').isDisabled(),true);
+    await fresh.locator('#clear-empty').click();
+    assert.equal((await cards(fresh)).length,products.length);
+    await fresh.goto(new URL('#inventory?lifecycle=ended&origin=obsolete',address).href);
+    await fresh.locator('#view-status').filter({hasText:/Unavailable selections.*origin/}).waitFor();
+    assert.deepEqual((await cards(fresh)).sort(),['gpm_imerg_final_v07b','isd_global_hourly','trmm_3b42_v7']);
+  } finally { await fresh.close(); await page.close(); }
 }
 
 async function checkRecord(page, context) {
@@ -354,10 +406,11 @@ async function main() {
     await checkFloodDepth(context);
     await checkGriddedSnow(context);
     await checkSharedInventory(browser);
+    await checkDiscoveryFilters(browser);
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed record and filtered-view sharing, project return, chart and raw download, HUC12 selection/export/reopen, mobile layout, CSV and offline checks.');
+    console.log(browserName, browser.version(), 'passed discovery filters, record and filtered-view sharing, HUC12 selection/export/reopen, flood tiles, snow requests, project return, charts, mobile layout, CSV and offline checks.');
   } finally {
     await browser.close();
   }
