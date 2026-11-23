@@ -314,11 +314,18 @@ async function checkObservationGap(page) {
 async function checkHydrologicUnit(context) {
   const raw = gunzipSync(readFileSync(join(__dirname,'fixtures/wbd/pimmit-huc12-screening.geojson.gz')));
   const attrs = JSON.parse(raw).features[0].properties;
+  const points = [];
   const page = await context.newPage();
   try {
     await page.route('https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/6/query?*', route => {
       const params = new URL(route.request().url()).searchParams;
+      if (params.has('geometry')) {
+        points.push(params.get('geometry'));
+        const features = points.at(-1)==='0,0' ? [] : [{attributes:attrs},{attributes:{...attrs,huc12:'020700100104',name:'Adjacent unit'}}];
+        return route.fulfill({json:{features}});
+      }
       if (params.get('where')?.startsWith('UPPER(name)')) return route.fulfill({status:503,body:'Service unavailable'});
+      if (params.get('f')==='geojson' && params.get('where')?.includes('020700100104')) return route.fulfill({status:503,body:'Service unavailable'});
       const body = params.get('f') === 'geojson' ? raw : JSON.stringify({features:[{attributes:attrs}]});
       return route.fulfill({contentType:'application/json',body});
     });
@@ -329,13 +336,41 @@ async function checkHydrologicUnit(context) {
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);
     await page.getByLabel('Hydrologic unit name or code').fill('Pimmit Run');
     await page.getByRole('button',{name:'Find boundaries',exact:true}).click();
-    await page.getByText(/Try the complete HUC code or find units at the project point/).waitFor();
+    await page.getByText(/Try the complete HUC code or choose a location on the map/).waitFor();
     await page.getByLabel('Hydrologic unit name or code').fill(attrs.huc12);
     await page.getByRole('button',{name:'Find boundaries',exact:true}).click();
     await page.getByLabel('Boundary search results').selectOption({label:'HUC12 020700100103 · Pimmit Run-Potomac River (DC,MD,VA)'});
     await page.getByText('Boundary accepted. Check site to apply it.',{exact:true}).waitFor();
     await page.locator('#sc-run').click();
     await page.getByText('Boundary applied to this site check.',{exact:true}).waitFor();
+    await page.locator('#sc-huc-location summary').click();
+    assert.equal(await page.locator('#sc-huc-lat').inputValue(),'');
+    await page.locator('#sc-huc-find').click();
+    await page.getByText(/Enter latitude from/).waitFor();
+    assert.deepEqual(points,[]);
+    await page.locator('#sc-huc-pick').click();
+    await page.locator('#sc-project-map').press('Escape');
+    assert.equal(await page.locator('#sc-huc-pick').getAttribute('aria-pressed'),'false');
+    await page.locator('#sc-huc-pick').click();
+    await page.locator('#sc-project-map').click({position:{x:130,y:106}});
+    await page.getByText(/2 matches at/).waitFor();
+    const coordinate = async axis => Number(await page.locator('#sc-huc-'+axis).inputValue());
+    assert.equal(points.at(-1),[await coordinate('lon'),await coordinate('lat')].join(','));
+    assert.notEqual(points.at(-1),'-77.04,38.9');
+    assert.equal(await page.locator('#sc-area-match').inputValue(),'');
+    assert.equal(await page.locator('#sc-mode').inputValue(),'area');
+    assert.equal(await page.locator('.sc-huc-pin').count(),1);
+    await page.locator('#sc-area-match').selectOption('1');
+    await page.getByText(/Boundary not loaded/).waitFor();
+    assert.match(await page.locator('.sc-area-name').innerText(),/Pimmit/);
+    await page.locator('#sc-huc-lat').fill('0');
+    await page.locator('#sc-huc-lon').fill('0');
+    await page.locator('#sc-huc-lon').press('Enter');
+    await page.getByText(/0 matches at 0°, 0°/).waitFor();
+    assert.equal(points.at(-1),'0,0');
+    assert.equal(await page.locator('#sc-area-match').count(),0);
+    assert.match(await page.locator('.sc-area-name').innerText(),/Pimmit/);
+    assert.equal(await page.locator('.sc-input-change').isVisible(),false);
     await page.getByRole('button',{name:'All datasets',exact:true}).click();
     await page.locator('.sc-project-tools summary').click();
     await page.getByRole('button',{name:'Create project link'}).click();

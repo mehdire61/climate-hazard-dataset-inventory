@@ -85,7 +85,7 @@
       orderByFields:'name,' + kind, resultRecordCount:'100'};
     if (point) {
       if (!Number.isFinite(point.lon) || Math.abs(point.lon) > 180 ||
-          !Number.isFinite(point.lat) || Math.abs(point.lat) > 90) throw new Error('Enter a valid project point first.');
+          !Number.isFinite(point.lat) || Math.abs(point.lat) > 90) throw new Error('Enter a valid latitude and longitude for the hydrologic unit lookup.');
       Object.assign(params, {geometryType:'esriGeometryPoint', geometry:[point.lon,point.lat].join(','),
         inSR:'4326', spatialRel:'esriSpatialRelIntersects'});
     } else if (/^\d+$/.test(term)) {

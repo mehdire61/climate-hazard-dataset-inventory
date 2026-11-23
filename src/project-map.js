@@ -344,15 +344,17 @@
       if(bounds.isValid())map.fitBounds(bounds,{padding:[35,35],maxZoom:12,animate:false});
     }
     function cancelDrawing() {
+      if (interaction === 'huc') options.onHucPick?.(false);
       interaction = null; firstCorner = null; drawingLayer.clearLayers(); container.classList.remove('sc-map-picking');
       options.onNotice?.('');
     }
     map.on('click', event => {
       if (interaction && event.latlng.outsideProjection) {options.onNotice?.('Choose a point within the projected Earth, or use Fit project.'); return;}
       if (interaction && Math.abs(event.latlng.lat) > 90) {options.onNotice?.('Choose a location between 90°S and 90°N.'); return;}
-      if (interaction === 'point') {
+      if (interaction === 'point' || interaction === 'huc') {
+        const picked = interaction === 'huc' ? options.onHucPoint : options.onPoint;
         const point = {lat: Number(event.latlng.lat.toFixed(6)), lon: Number(wrap(event.latlng.lng).toFixed(6))};
-        cancelDrawing(); options.onPoint?.(point);
+        cancelDrawing(); picked?.(point);
       } else if (interaction === 'rectangle') {
         if (!firstCorner) {firstCorner = event.latlng; L.circleMarker(firstCorner, {radius: 4, color: '#a87536'}).addTo(drawingLayer); options.onNotice?.('Click the opposite corner to finish the rectangle.');}
         else {
@@ -375,6 +377,16 @@
       fit, fitCandidates, setOnline:reference.setOnline, setVisible:reference.setVisible,
       invalidate() {map.invalidateSize({pan: false}); renderStations();},
       beginPoint() {cancelDrawing(); interaction = 'point'; container.classList.add('sc-map-picking'); options.onNotice?.('Click the map to set a draft point, then Check site.');},
+      beginHucPick() {
+        cancelDrawing(); interaction = 'huc'; options.onHucPick?.(true); container.classList.add('sc-map-picking');
+        options.onNotice?.('Click a location to find its hydrologic unit. Press Escape to cancel.');
+      },
+      showHucPoint(point) {
+        const location = [point.lat,shift(point.lon)];
+        L.circleMarker(location,{className:'sc-huc-pin',radius:6,color:'#fff',weight:2,fillColor:'#8e3f19',fillOpacity:1,interactive:false}).addTo(drawingLayer);
+        if (!map.getBounds().contains(location)) map.panTo(location,{animate:false});
+        options.onNotice?.('Lookup location · '+point.lat+'°, '+point.lon+'°');
+      },
       beginRectangle() {cancelDrawing(); interaction = 'rectangle'; container.classList.add('sc-map-picking'); options.onNotice?.('Click two opposite corners. This defines a rectangle, not an administrative boundary.');},
       cancelDrawing,
       getDisplayState() {return {geometry: projectLayer.toGeoJSON(), stationCoordinates: stations.map(station => ({id: station.id, lat: station.lat, lon: shift(station.lon)})), referenceLongitude,zoom:map.getZoom(),bounds:map.getBounds(),online:reference.online,selected};},
