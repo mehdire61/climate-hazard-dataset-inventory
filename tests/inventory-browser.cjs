@@ -74,6 +74,69 @@ async function checkFilters(page) {
   assert.equal((await cards(page)).length, products.length);
 }
 
+async function checkSharedInventory(browser) {
+  const page = await browser.newPage({viewport:{width:375,height:812}});
+  const fresh = await browser.newPage();
+  try {
+    await page.goto(new URL('#inventory?group=temperature',address).href);
+    const temperature = groups.find(g => g.id === 'temperature').products;
+    assert.deepEqual((await cards(page)).sort(),[...temperature].sort());
+    await page.getByLabel('Sort records').selectOption('product:-1');
+    const order = await cards(page);
+    assert.ok(order.length > 1);
+    if (browserName !== 'firefox') {
+      await page.context().grantPermissions(['clipboard-read','clipboard-write'],{origin:address.origin});
+      await page.getByRole('button',{name:'Copy filtered view'}).click();
+      await page.locator('#view-status').filter({hasText:/view link copied/i}).waitFor();
+      assert.equal(await page.evaluate(() => navigator.clipboard.readText()),page.url());
+    }
+    // An independent browser context also exercises the manual-copy fallback.
+    await page.evaluate(() => Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true}));
+    const manual = page.getByRole('textbox',{name:'Filtered view URL to copy'});
+    await page.getByRole('button',{name:'Copy filtered view'}).click();
+    await fresh.goto(await manual.inputValue());
+    assert.deepEqual(await cards(fresh),order);
+    assert.deepEqual((await exportedRows(fresh)).map(r => r.product_id),order);
+    const shared = fresh.url();
+    await fresh.locator('#results .card-open').first().click();
+    await fresh.getByRole('dialog').getByRole('button',{name:'Close record details'}).click();
+    await fresh.waitForURL(shared);
+    assert.deepEqual(await cards(fresh),order);
+    await fresh.goForward();
+    await fresh.getByRole('dialog').waitFor();
+    await fresh.goBack();
+    await fresh.waitForURL(shared);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);
+
+    await page.locator('#group').selectOption('drought');
+    await page.locator('#provider').selectOption('Ghent University / GLEAM');
+    await page.locator('#commercial').selectOption('UNKNOWN');
+    await page.locator('#search').fill('actual evapotranspiration');
+    await page.getByRole('button',{name:'Copy filtered view'}).click();
+    await fresh.goto(await manual.inputValue());
+    await fresh.reload();
+    assert.deepEqual(await cards(fresh),['gleam_v4_2a_actual_evaporation']);
+    for (const id of ['group','provider','commercial','search','sort']) {
+      assert.equal(await fresh.locator('#'+id).inputValue(),await page.locator('#'+id).inputValue());
+    }
+    const emptySearch = 'snow + heat? & 50%';
+    await page.locator('#search').fill(emptySearch);
+    await page.waitForURL(url => new URLSearchParams(url.hash.slice('#inventory?'.length)).get('q') === emptySearch);
+    await fresh.goto(page.url());
+    await fresh.locator('#no-results').waitFor();
+    assert.equal(await fresh.locator('#search').inputValue(),emptySearch);
+    assert.deepEqual(await cards(fresh),[]);
+    assert.equal(await fresh.locator('#download').isDisabled(),true);
+    await fresh.goto(new URL('#inventory?group=retired&sort=missing',address).href);
+    await fresh.locator('#view-status').filter({hasText:/Unavailable selections/}).waitFor();
+    assert.equal((await cards(fresh)).length,products.length);
+    assert.equal(await fresh.locator('#sort').inputValue(),'product:1');
+  } finally {
+    await fresh.close();
+    await page.close();
+  }
+}
+
 async function checkRecord(page, context) {
   const dialog = page.getByRole('dialog');
   const snowLink = page.getByRole('link', {name: 'View details for ' + snowName});
@@ -157,6 +220,9 @@ async function checkOffline(browser) {
     await page.getByRole('link', {name:'View details for ' + snowName}).click();
     await dialog.waitFor();
     assert.equal(page.url(), new URL(snowFragment,entry).href);
+    const filtered = await context.newPage();
+    await filtered.goto(new URL('#inventory?group=snow',entry).href);
+    assert.deepEqual((await cards(filtered)).sort(),[...groups.find(g => g.id === 'snow').products].sort());
   } finally {
     await context.close();
   }
@@ -255,10 +321,11 @@ async function main() {
     await checkProjectReturn(page);
     await checkObservationGap(page);
     await checkHydrologicUnit(context);
+    await checkSharedInventory(browser);
     assert.deepEqual(errors, []);
     await context.close();
     await checkOffline(browser);
-    console.log(browserName, browser.version(), 'passed record navigation, project return, chart and raw download, HUC12 selection/export/reopen, mobile layout, CSV/filter and offline checks.');
+    console.log(browserName, browser.version(), 'passed record and filtered-view sharing, project return, chart and raw download, HUC12 selection/export/reopen, mobile layout, CSV and offline checks.');
   } finally {
     await browser.close();
   }

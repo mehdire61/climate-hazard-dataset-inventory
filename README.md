@@ -2,7 +2,7 @@
 
 Find climate and water datasets for a project location and period. This v0.3 development build contains **55 records in nine overlapping hazard groups** and links to 224 sources. The inventory focuses on historical observations and reference products. [Open this inventory](index.html#inventory) · [Public site](https://mehdire61.github.io/climate-hazard-dataset-inventory/)
 
-In **Inventory**, filter by commercial-use status, then narrow by hazard or provider. The result count and metadata CSV follow the selections. Open a record and choose **Copy record link** to cite it. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
+In **Inventory**, choose a hazard, provider, commercial-use status, search text and sort order. **Copy filtered view** shares those selections. A fresh tab opens the same rows in the same order for this catalog version, and the metadata CSV follows that order. Use **Copy record link** to cite an individual dataset. Links copied from a local preview open on the same computer. The CSV includes a portable `record_fragment` that can be appended to another copy of the same catalog.
 
 **SNOTEL daily snow water equivalent** adds snowpack water storage measured at individual western U.S. and Alaska stations. The checked example covers Brundage Reservoir, Idaho, on April 1–3, 2024. Use the NRCS station report to check your own project dates. [Open the record](index.html#inventory?record=nrcs_snotel_daily_swe) · [Provider responses and retrieval details](docs/evidence/snotel/receipts.json)
 
