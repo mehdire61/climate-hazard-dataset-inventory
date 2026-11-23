@@ -76,3 +76,48 @@ test('all catalog rules produce deterministic input-preserving browser and Node 
   for(const [id,r]of Object.entries(rules)){const result=T.model(q,r);assert.deepEqual(T.model(q,r),result,id);assert.deepEqual(JSON.parse(JSON.stringify(context.SiteCoverageTimeline.model(q,r))),result,id);assert.equal(result.rows[0].id,'project');}
   assert.equal(JSON.stringify(rules),before);
 });
+
+test('comparison aligns matching dates and keeps open ends, uncertainty and file horizons distinct',()=>{
+  const {deriveIndexSnapshot}=require('../src/screening.js');
+  const index=require('../data/grid-access-index.json');
+  const inputs=['chirps_v3_daily_rnl','gpm_imerg_final_v07b','spei_gd_v1','era5_t2m'].map(id=>({
+    id,rule:rules[id],index:deriveIndexSnapshot(index,id)}));
+  const {axis,rows}=T.comparison(inputs,'2026-11-23');
+  const [chirps,imerg,spei,era]=rows;
+  assert.equal(chirps.bands[0].end,inputs[0].index.last_file_end);
+  assert.equal(chirps.horizon.date,inputs[0].index.last_file_end);
+  assert.match(chirps.caption,/end open.*Last listed file/);
+  assert.equal(imerg.bands[0].end,'2025-09-30');
+  assert.equal(imerg.horizon,null);
+  assert.equal(era.bands[0].style,'open');
+  assert.equal(era.bands[0].end,'2026-11-23');
+  assert.equal(spei.bands.filter(b=>b.style==='uncertain').length,2);
+  assert.match(spei.periods.join(' '),/file time coordinates/);
+  for(const row of rows) for(const b of row.bands) {
+    const begin=axis.startMs+b.left*(axis.endMs-axis.startMs);
+    assert.equal(new Date(Math.round(begin)).toISOString().slice(0,10),b.start);
+  }
+});
+
+test('comparison preserves missing SWE and GRACE intervals, and gives static and station rows no invented range',()=>{
+  const forIds=(...ids)=>T.comparison(ids.map(id=>({id,rule:rules[id]})),'2026-11-23');
+  const {rows,axis}=forIds('nohrsc_snodas_daily_swe','grace_jpl_mascon_cri_rl063_v04','jrc_glofas_rp100_depth','nrcs_snotel_daily_swe');
+  assert.ok(axis);
+  assert.equal(rows[0].bands.length,rules[rows[0].id].time.intervals.length);
+  assert.ok(rows[0].bands.every(b=>b.end<'2005-07-31'||b.start>'2005-07-31'));
+  assert.ok(rows[1].bands.every(b=>b.end<'2018-01-01'||b.start>'2018-01-01'));
+  assert.match(rows[2].caption,/100-year flood scenario/);
+  assert.match(rows[3].caption,/Choose a station/);
+  assert.equal(rows[2].bands.length+rows[3].bands.length,0);
+  assert.equal(forIds('jrc_glofas_rp100_depth','nrcs_snotel_daily_swe').axis,null);
+});
+
+test('shared dates exclude uncertain edges, internal gap days and unverified open spans',()=>{
+  const compare=(...rs)=>T.comparison(rs.map((rule,i)=>({id:String(i),rule})),'2026-11-23').shared;
+  const spei=rules.spei_gd_v1;
+  const split=rule([{start:'1980-01-01',end:'2001-05-02'},{start:'2001-05-04',end:'2022-01-01'}]);
+  assert.deepEqual(compare(spei,split).map(({start,end})=>[start,end]),[
+    ['1983-01-01','2001-05-02'],['2001-05-04','2020-12-31']]);
+  assert.deepEqual(compare(spei,rule([{start:'1940-01-01',end:'1970-12-31'}])),[]);
+  assert.equal(compare(spei,rules.era5_t2m),null);
+});

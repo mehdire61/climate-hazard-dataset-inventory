@@ -508,6 +508,12 @@ async function checkComparison(browser) {
     assert.equal(await page.locator('#copy-comparison').isDisabled(),true);
     for(const id of ids.slice(1))await page.getByLabel('Add a dataset').selectOption(id);
     const table=page.locator('#compare-table');
+    const periods=page.locator('#compare-periods');
+    assert.deepEqual(await periods.locator('[data-product] h4').allTextContents(),selected.map(p=>p.product_name));
+    assert.match(await periods.locator('.period-shared').innerText(),/1998-01-01 → 2025-09-30/);
+    assert.ok((await periods.locator('[data-product="chirps_v3_daily_rnl"]').innerText()).includes('Last listed file'));
+    assert.ok((await periods.locator('[data-product="gpm_imerg_final_v07b"]').innerText()).includes('2025-09-30'));
+    assert.equal(await periods.evaluate(el=>el.scrollWidth<=el.clientWidth),true);
     assert.equal(await table.getAttribute('aria-label'),'Dataset comparison');
     const readRow=label=>table.locator('tbody tr').evaluateAll((rows,key)=>{
       const match=rows.find(row=>row.querySelector('th[scope="row"]')?.textContent===key);
@@ -535,11 +541,14 @@ async function checkComparison(browser) {
     await fresh.waitForURL(url);
     assert.equal(await fresh.locator('#compare-table tbody tr').count()>0,true);
     await fresh.goto(new URL('#inventory?compare=psmsl_rlr,jrc_glofas_rp100_depth,psmsl_rlr,unlisted',address).href);
+    assert.equal(await fresh.locator('#compare-periods .period-track').count(),0);
+    assert.match(await fresh.locator('#compare-periods').innerText(),/100-year flood scenario/);
     assert.equal(await fresh.locator('#compare-table thead a').count(),2);
     await fresh.locator('#view-status').filter({hasText:/Unavailable selections.*compare/}).waitFor();
     assert.ok((await fresh.locator('#compare-table').innerText()).includes('Revised Local Reference'));
     await fresh.getByRole('button',{name:/Remove JRC global river flood depth/}).click();
     assert.equal(await fresh.locator('#compare-table').isVisible(),false);
+    assert.equal(await fresh.locator('#compare-periods').isVisible(),false);
   } finally {await fresh.close();await page.close();}
 }
 

@@ -118,5 +118,78 @@
     output.notes=[...new Set(output.notes)];
     return output;
   }
-  const api={model};root.SiteCoverageTimeline=api;if(typeof module==='object'&&module.exports)module.exports=api;
+  function comparison(entries, snapshotDate) {
+    const dates = [];
+    const rows = entries.map(({id,name,rule,index}) => {
+      const time = rule?.time || {}, periods = [], bands = [];
+      let caption = '', horizon = null;
+      if (time.kind === 'scenario') {
+        caption = time.return_period_years ? time.return_period_years+'-year flood scenario' : 'Climate-state and return-period scenarios';
+        return {id,name,caption:caption+' · calendar dates do not apply',bands,periods};
+      }
+      const checked = index?.last_file_end || time.known_through || time.access_route_end;
+      if (validDay(checked)) {
+        const label = index ? 'Last listed file' : time.known_through ? 'Documented through' : 'Selected archive route ends';
+        horizon = {date:checked,label}; dates.push(checked);
+      }
+      for (const [intervals,uncertain] of [[time.intervals,false],[time.uncertain_windows,true]]) {
+        for (const {start,end,reason} of intervals || []) {
+          if ((!start && !end) || (start && !validDay(start)) || (end && !validDay(end)) || (start && end && start>end)) continue;
+          if (start) dates.push(start);
+          if (end) dates.push(end);
+          const label = (start || 'Start unknown')+' → '+(end || 'End open');
+          periods.push((uncertain?'Uncertain · ':'')+label+(reason?' · '+reason:''));
+          const endpoint = end || (validDay(checked) && (!start || checked>=start) ? checked : null);
+          const style = uncertain ? 'uncertain' : (!start || !endpoint || time.kind==='unknown') ? 'open' : 'nominal';
+          const displayEnd = endpoint || (validDay(snapshotDate) && snapshotDate>=start ? snapshotDate : null);
+          if (displayEnd) dates.push(displayEnd);
+          bands.push({start,end:displayEnd,style,label});
+        }
+      }
+      const nominal = (time.intervals||[]).filter(p=>validDay(p.start)||validDay(p.end));
+      if (nominal.length) {
+        const starts = nominal.map(p=>p.start).filter(validDay).sort(), ends = nominal.map(p=>p.end).filter(validDay).sort();
+        caption = (nominal.every(p=>validDay(p.start))?starts[0]:'Start unknown')+' → '+
+          (nominal.every(p=>validDay(p.end))?ends.at(-1):'end open');
+        if (nominal.length>1) caption+=' · '+nominal.length+' documented intervals';
+      } else caption = time.kind==='station' ? 'Choose a station for its period' : time.kind==='event' ? 'Event dates vary by report' : 'Record dates unresolved';
+      if (horizon) caption+=' · '+horizon.label+' '+horizon.date;
+      if (time.kind==='station' && nominal.length) caption+=' · station dates vary';
+      if (time.kind==='event' && nominal.length) caption+=' · event archive';
+      if (rule?.support_type==='acquisition') caption+=' · passes vary by location';
+      return {id,name,caption,horizon,bands,periods};
+    });
+    if (!dates.length) return {axis:null,rows};
+    dates.sort();
+    const axis = model({start:dates[0],end:dates.at(-1)},null,null,{fullRecord:true}).axis;
+    const fraction = ms => Math.max(0,Math.min(1,(ms-axis.startMs)/(axis.endMs-axis.startMs)));
+    for (const row of rows) {
+      for (const band of row.bands) {
+        band.left = band.start ? fraction(boundary(band.start,false,false).ms) : 0;
+        band.right = band.end ? fraction(boundary(band.end,true,false).ms) : 1;
+      }
+      if (row.horizon) row.horizon.position = fraction(boundary(row.horizon.date,true,false).ms);
+    }
+    let shared = null;
+    if (entries.length>1 && entries.every(({rule},i)=>rule?.time?.kind==='range' && rows[i].bands.some(b=>b.style==='nominal'))) {
+      // Between consecutive boundaries membership is constant, including on one-day gaps.
+      const windows = rows.map(row=>row.bands.map(b=>({style:b.style,
+        start:b.start?boundary(b.start,false,false).ms:-Infinity, end:b.end?boundary(b.end,true,false).ms:Infinity})));
+      const edges = [...new Set(windows.flat().flatMap(b=>[b.start,b.end]).filter(Number.isFinite))].sort((a,b)=>a-b);
+      shared = [];
+      for (let i=0;i+1<edges.length;i++) {
+        const start=edges[i], end=edges[i+1];
+        if (!windows.every(periods=>{
+          const active=periods.filter(b=>b.start<=start && start<b.end);
+          return active.length && active.every(b=>b.style==='nominal');
+        })) continue;
+        const last=shared.at(-1);
+        if (last?.endMs===start) last.endMs=end;
+        else shared.push({startMs:start,endMs:end});
+      }
+      shared=shared.map(b=>({start:day(b.startMs),end:day(b.endMs-1),left:fraction(b.startMs),right:fraction(b.endMs)}));
+    }
+    return {axis,rows,shared};
+  }
+  const api={model,comparison};root.SiteCoverageTimeline=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
