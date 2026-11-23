@@ -11,6 +11,14 @@
     const guide={title:external?'Continue with the provider':direct?'Download the provider files':profile.strategy==='mrms'?'Find files, then download':'Get data with Python',
       direct,external,scriptName:script?.name||null,providerUrl:profile.providerUrl,docsUrl:profile.docsUrl,
       steps:[],requirements:[],commands:[],links:[],result:'',remainingChoices:external?(profile.requiredSelections||[]):[]};
+    if(profile.strategy==='awdb-daily'){
+      guide.direct=true;
+      guide.title='Get daily snow water equivalent from NRCS';
+      guide.steps=['Open the dated JSON link for '+plan.manifest.station.name+' ('+plan.manifest.station.id+').','Save the original response and read its WTEQ element, units, reporting dates and flags. A missing value denotes an unknown observation.'];
+      guide.links=plan.manifest.requests.map(r=>({label:'Open daily SWE · '+r.start+' to '+r.end,url:r.url}));
+      guide.result='Each link carries the chosen station and dates. NRCS returns the available observations.';
+      return guide;
+    }
     if(external){
       guide.steps=[...(profile.steps||[])];
       if(id==='fathom_gfm3')guide.steps[2]='Use your licensed provider account or contact to request the chosen layer and project area. The saved JSON is for your records; it is not a provider submission format.';

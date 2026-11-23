@@ -26531,34 +26531,30 @@
     },
     "nrcs_snotel_daily_swe": {
       "productId": "nrcs_snotel_daily_swe",
-      "kind": "external",
-      "strategy": "portal",
-      "summary": "Select a SNOTEL station and retrieve daily snow water equivalent from NRCS.",
+      "kind": "request",
+      "strategy": "awdb-daily",
+      "summary": "Select a station from the checked NRCS WTEQ directory and open its daily values for your project dates.",
       "auth": "Public reports and AWDB REST requests are available without an account.",
       "providerUrl": "https://wcc.sc.egov.usda.gov/reportGenerator/",
       "docsUrl": "https://wcc.sc.egov.usda.gov/awdbRestApi/v3/api-docs",
-      "spatialDelivery": "One point series per station. Select a station by triplet and check its coordinates and elevation.",
-      "temporalDelivery": "Daily WTEQ for the dates available at the selected station. Inspect gaps and quality flags.",
+      "spatialDelivery": "Choose one station inside the project geometry, point radius or explicit outside buffer. Each request returns a station series.",
+      "temporalDelivery": "Inclusive project dates in the NRCS station’s reporting calendar, split by calendar year. Returned rows and flags establish the actual available coverage.",
       "verification": {
         "status": "sample-payload-checked",
         "label": "Inspected the NRCS station directory and three daily SWE values for Brundage Reservoir, Idaho, April 1–3, 2024.",
         "checkedAt": "2026-11-19T14:26:10.036006+00:00"
       },
       "notes": [
-        "The sample response reports inches. Save the returned units and flags with project data."
+        "The reviewed station directory includes inactive sites. The listed station operation period can be longer than its WTEQ record.",
+        "NRCS returns the station reporting date and element units. Missing or flagged rows require review."
       ],
       "steps": [
-        "Open the NRCS Report Generator and select the SNOTEL station for your project.",
-        "Select Snow Water Equivalent (WTEQ), daily duration and the project dates.",
-        "Download the station report. For machine-readable flags, request the AWDB data endpoint with returnFlags=true."
+        "Select a station in the project search area.",
+        "Open the NRCS daily WTEQ JSON for the project dates. Retain the returned station triplet, units and flags."
       ],
       "files": [],
       "options": [],
-      "requiredSelections": [
-        "SNOTEL station triplet",
-        "Project dates",
-        "Daily WTEQ"
-      ],
+      "requiredSelections": [],
       "catalogEvidenceIds": [
         "NRCS_SNOTEL_SENSOR",
         "NRCS_SNOTEL_NETWORK",

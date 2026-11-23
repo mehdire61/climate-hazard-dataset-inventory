@@ -93,9 +93,9 @@
   const field = (id, label, type, value, extra = {}) => node('div', {class: 'sc-field'}, node('label', {for: id}, label), node('input', {id, name: id, type, value, required: '', ...extra}));
   const fact = (label, value) => node('div', {}, node('dt', {}, label), node('dd', {}, value || 'Not established'));
   const accessLabels = {station: 'Station preview & data', files: 'Provider files', request: 'Prepare a download request', external: 'Get data from the provider site'};
-  function accessProfile(id) {
+  function accessProfile(id, project) {
     if (supported.has(id)) return {kind: 'station', label: accessLabels.station};
-    if (window.SiteAccess) return window.SiteAccess.describe(id);
+    if (window.SiteAccess) return window.SiteAccess.describe(id,project);
     const product = byId.get(id);
     return {kind: 'external', label: accessLabels.external, summary: 'Access-route configuration is unavailable in this build.', auth: 'See provider terms', spatialDelivery: 'Provider-specific', temporalDelivery: 'Provider-specific', verification: {label: 'Route not configured'}, docsUrl: product.documentation_url, providerUrl: product.access_url};
   }
@@ -1088,7 +1088,7 @@
     return [node('div',{class:'sc-field'},node('label',{for:searchId},'Find a lake'),search),selectedField];
   }
   function renderAccess(body, product, screening) {
-    const profile = accessProfile(selectedId), blocked = accessBlocked();
+    const profile = accessProfile(selectedId,query), blocked = accessBlocked();
     const card = node('section', {class: 'sc-access-route', 'aria-label': 'Dataset access route'},
       node('div', {class: 'sc-access-route-heading'}, node('h3', {}, 'Access this dataset'), node('span', {class: 'sc-access-chip ' + profile.kind}, accessLabels[profile.kind] || profile.label)),
       p(profile.auth, 'sc-access-summary'));
@@ -1121,11 +1121,12 @@
         }
       }
       card.append(choices);
+      if(profile.strategy==='awdb-daily')card.append(p('Station choices use the NRCS directory checked '+data.snotelStations.directoryCheckedAt.slice(0,10)+', project search bounds and station operating dates. Daily SWE availability must be checked in the response.','sc-access-output-note'));
     }
     const actions = node('div', {class: 'sc-access-actions'});
     const primaryLabel = profile.canDiscover ? 'Find matching provider files' : profile.kind === 'files' ? 'Show download files' : profile.kind === 'external' ? 'Show provider steps' : 'Show download steps';
     const primary = button(accessFileResult?.origin === 'discovered' && profile.canDiscover ? 'Start a new file search' : primaryLabel, () => profile.canDiscover ? discoverAccessFiles(false) : prepareAccess(false), 'btn primary small', {id: 'sc-prepare-access'});
-    primary.disabled = blocked || accessLoading || !window.SiteAccess;
+    primary.disabled = blocked || accessLoading || !window.SiteAccess || (profile.strategy==='awdb-daily' && !accessOptions.stationTriplet);
     actions.append(primary, link(profile.docsUrl || product.documentation_url, 'Access documentation ↗', 'btn small'));
     card.append(actions, delivery);
     if (accessLoading) card.append(node('div', {class: 'sc-loading', role: 'status'}, 'Searching provider file metadata…', button('Cancel', () => {accessController?.abort();}, 'btn small')));
@@ -1137,7 +1138,7 @@
         const unit=['daily-template','ims-daily-template','erddap'].includes(profile.strategy)?'prepared file request(s)':profile.strategy==='mrms'?'initial daily archive listing(s); pagination may add requests':'prepared provider request(s)';
         card.append(node('div',{class:'sc-transfer-summary'},node('strong',{},'Total transfer size: unknown'),
           p(count+' '+unit+'. '+(profile.strategy==='mrms'?'The listing will report observed file counts and sizes before file download.':'The provider has not supplied a total size for this selection.'),'sc-access-output-note'),
-          p('Your project dates are retained. Review the prepared selection; the script offers explicit transfer choices where supported. Preparing this request does not download data.','sc-access-output-note')));
+          p(profile.strategy==='awdb-daily'?'The dated links below use your selected station and project period.':'Your project dates are retained. Review the prepared selection; the script offers explicit transfer choices where supported. Preparing this request does not download data.','sc-access-output-note')));
       }
       card.append(renderAccessGuide(profile, blocked));
       if (accessFileResult && (profile.kind === 'files' || profile.canDiscover || accessFileResult.files.length)) card.append(renderAccessFiles(profile, blocked));
@@ -1204,8 +1205,11 @@
       section.append(p(guide.result));
     }else if(guide.direct){
       section.append(node('ol',{},guide.steps.map(s=>node('li',{},s))),p(guide.result,'sc-access-output-note'));
-      if(!accessLoading&&!accessFileResult?.files?.length)section.append(link(guide.providerUrl,'Check the provider archive ↗','btn small'));
-      for(const l of guide.links.filter(l=>!l.url.includes('python.org')))section.append(link(l.url,l.label+' ↗','btn small'));
+      if(!accessLoading&&!accessFileResult?.files?.length&&profile.strategy!=='awdb-daily')section.append(link(guide.providerUrl,'Check the provider archive ↗','btn small'));
+      for(const l of guide.links.filter(l=>!l.url.includes('python.org'))){
+        const action=blocked&&profile.strategy==='awdb-daily'?button(l.label,()=>{},'btn small',{disabled:''}):link(l.url,l.label+' ↗','btn small');
+        section.append(action);
+      }
     }else if(guide.scriptName){
       if(profile.strategy==='mrms')section.append(p('Without Python: open the bucket browser, then choose CONUS, the selected field/pass and each date folder (YYYYMMDD). The link is not prefilled.'),link(guide.providerUrl,'Browse MRMS files ↗','btn primary small'));
       section.append(renderScriptGuide(guide,blocked),node('details',{class:'sc-disclosure'},node('summary',{},'Prefer the provider website?'),

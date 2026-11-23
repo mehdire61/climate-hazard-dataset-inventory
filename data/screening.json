@@ -13357,7 +13357,7 @@
         "note": "Operating periods and available daily WTEQ values vary by station. Request the selected dates and inspect gaps."
       },
       "access_requirement": "public_api",
-      "access_note": "Public NRCS Report Generator and AWDB REST API. Supply a station triplet and dates.",
+      "access_note": "Select an in-scope station in Site check to prepare NRCS daily WTEQ requests for your project dates.",
       "evidence_ids": [
         "NRCS_SNOTEL_SENSOR",
         "NRCS_SNOTEL_NETWORK",
@@ -13366,8 +13366,8 @@
         "NRCS_SNOTEL_WTEQ_SAMPLE",
         "USDA_DIGITAL_RIGHTS"
       ],
-      "curation_reviewed_on": "2026-11-19",
-      "catalog_documentation_checked_on": "2026-11-19",
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Coarse regions enclose coordinates in the cited provider directory, including inactive stations. The cited WTEQ sample verifies three daily values at one site.",
       "note": "Choose a SNOTEL station whose location and elevation represent the project. Verify its daily observations and flags at NRCS."
     },

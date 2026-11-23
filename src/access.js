@@ -5,7 +5,7 @@
   const moduleFor=(globalName,file)=>root[globalName]||(typeof require==='function'?require('./'+file):null);
   function data() {
     if(root.InventoryApp?.data)return root.InventoryApp.data;
-    if(typeof require==='function')return {products:require('../data/catalog.json').products,access:require('../data/access.json'),screening:require('../data/screening.json'),sources:require('../data/sources.json')};
+    if(typeof require==='function')return {products:require('../data/catalog.json').products,access:require('../data/access.json'),screening:require('../data/screening.json'),sources:require('../data/sources.json'),snotelStations:require('../data/snotel-stations.json')};
     throw new Error('The access catalog is unavailable. Reload the inventory.');
   }
   const labels={station:'Station preview & data',files:'Provider files',request:'Prepared request',external:'External workflow'};
@@ -14,13 +14,28 @@
     if(!profile||!labels[profile.kind])throw new Error('This record has no reviewed access profile.');
     return profile;
   }
-  function describe(id) {
+  function snotelOptions(query) {
+    const geo=moduleFor('SiteGeometry','geometry.js'), boxes=geo.searchBoxes(query);
+    const choices=[];
+    for(const s of data().snotelStations.stations) {
+      if((s.end&&s.end<query.start)||(s.start&&s.start>query.end))continue;
+      if(!boxes.some(([w,south,e,n])=>s.lon>=w&&s.lon<=e&&s.lat>=south&&s.lat<=n)||!geo.includesStation(query,s))continue;
+      const {distanceKm,relation}=geo.classify(query,s);
+      const where=query.mode==='area'&&relation==='inside'?'inside project':distanceKm.toFixed(1)+' km '+(query.mode==='area'?'outside project':'from point');
+      choices.push({value:s.id,label:s.name+' ('+s.id+') · '+where,distanceKm});
+    }
+    choices.sort((a,b)=>a.distanceKm-b.distanceKm||a.label.localeCompare(b.label));
+    choices.unshift({value:'',label:choices.length?'Choose a station…':'No matching station in the reviewed directory'});
+    return [{key:'stationTriplet',label:'SNOTEL station',value:'',required:true,choices}];
+  }
+  function describe(id,query) {
     const profile=profileFor(id),{files,...description}=profile;
     if(profile.strategy==='grid') {
       const grid=moduleFor('SiteGridAccess','grid-access.js').describe(id);
       description.options=grid.resolutions.length>1?[{key:'resolution',label:'Grid resolution',value:grid.defaultResolution,choices:grid.resolutions.map(r=>({value:r.value,label:r.label}))}]:[];
     }
     if(['cds','mrms'].includes(profile.strategy)&&id!=='c3s_lake_water_level')description.options=moduleFor('SiteProviderRequests','provider-requests.js').describeOptions(id);
+    if(profile.strategy==='awdb-daily'&&query)description.options=snotelOptions(query);
     return {...copy(description),label:profile.label||labels[profile.kind],canDiscover:['cmr','stac'].includes(profile.strategy)};
   }
   function validate(id,query) {
@@ -31,9 +46,9 @@
     if(result.status==='excluded')errors.push('This project is outside the documented scope. Change the location or period before preparing access.');
     return {errors,product,result};
   }
-  function choicesFor(profile,options) {
+  function choicesFor(profile,options,query) {
     const chosen={},errors=[];
-    for(const option of describe(profile.productId).options||[]) {
+    for(const option of describe(profile.productId,query).options||[]) {
       const value=options[option.key]===undefined?option.value:String(options[option.key]);
       if(!option.choices.some(c=>String(c.value)===String(value))||(option.required&&!value))errors.push('Choose '+option.label.toLowerCase()+'.');
       chosen[option.key]=value;
@@ -251,7 +266,8 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
       '','This handoff is not a retrieved dataset or evidence of scientific suitability. No request has been sent by preparing these files.'].join('\n')+'\n';
   }
   function prepare(id,query,options={}) {
-    const profile=profileFor(id),checked=validate(id,query),selection=choicesFor(profile,options),errors=[...checked.errors,...selection.errors];
+    const profile=profileFor(id),checked=validate(id,query);
+    const selection=checked.errors.length?{errors:[]}:choicesFor(profile,options,query),errors=[...checked.errors,...selection.errors];
     const base={manifestName:id+'_request_manifest.json',manifest:null,files:[],artifacts:[],notes:[],errors};
     if(errors.length)return base;
     const chosen=selection.chosen,product=checked.product;
@@ -270,6 +286,18 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
         .filter(f=>!f.bounds||['within','partial'].includes(geometry.domainRelation(query,f.bounds)));
       notes.push('These are observed provider file links from a dated metadata snapshot. Files can change after review; no live availability check is performed by preparing this plan.');
       if(!files.length)notes.push(tileIndex?'No tile in the reviewed directory intersects the project footprint.':'No file in this reviewed index overlaps the selected dates/options. This does not prove that the provider has no data; inspect its current archive.');
+    } else if(profile.strategy==='awdb-daily') {
+      const station=data().snotelStations.stations.find(s=>s.id===chosen.stationTriplet);
+      if(station.start&&query.start<station.start||station.end&&query.end>station.end)notes.push('Part of the requested period is outside this station’s listed operating dates. The full project period is retained in the requests.');
+      const firstYear=Number(query.start.slice(0,4)),lastYear=Number(query.end.slice(0,4));
+      for(let year=firstYear;year<=lastYear;year++) {
+        const start=year===firstYear?query.start:year+'-01-01';
+        const end=year===lastYear?query.end:year+'-12-31';
+        const params=new URLSearchParams({stationTriplets:station.id,elements:'WTEQ',duration:'DAILY',beginDate:start,endDate:end,returnFlags:'true'});
+        requests.push({method:'GET',url:'https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?'+params,start,end,
+          name:station.id.replaceAll(':','-')+'_WTEQ_'+start+'_'+end+'.json',operation:'Original NRCS daily snow water equivalent with returned units and quality flags.'});
+      }
+      base.station={...station,directoryCheckedAt:data().snotelStations.directoryCheckedAt,directorySource:data().snotelStations.sourceUrl};
     } else if(profile.strategy==='erddap') {
       requests=erddapRequests(profile,query);
       artifacts.push({name:id+'_download_request.py',mime:'text/x-python',text:rawDownloadScript(id,requests),role:'request'});
@@ -295,12 +323,12 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
     artifacts.push({name:id+'_project.geojson',mime:'application/geo+json',text:jsonText({type:'Feature',properties:{name:query.areaName||'Project point',source:query.areaSource||null,requestedStart:query.start,requestedEnd:query.end},geometry}),role:'geometry'});
     artifacts.push({name:id+'_access_instructions.txt',mime:'text/plain',text:instructions(profile,query,chosen,notes),role:'instructions'});
     const d=data(),sources=Array.isArray(d.sources)?Object.fromEntries(d.sources.map(s=>[s.evidence_id,s])):d.sources;
-    const payloadRequestSummary=['daily-template','ims-daily-template','erddap'].includes(profile.strategy)
+    const payloadRequestSummary=['daily-template','ims-daily-template','erddap','awdb-daily'].includes(profile.strategy)
       ? {...transferSummary(requests),unit:'prepared file requests'} : null;
     const manifest={schemaVersion:1,preparedAt:new Date().toISOString(),productId:id,productName:product.product_name,query:copy(query),selection:chosen,
       accessCapability:profile.kind,accessProfile:copy(profile),screening:checked.result,sourceRecord:copy(product),
       referencedSources:Object.fromEntries(product.evidence_ids.filter(k=>sources[k]).map(k=>[k,sources[k]])),
-      requests,files,transferSummary:base.requestTransferSummary||payloadRequestSummary||transferSummary(files),verification:routeEvidence,notes,requiredSelections:profile.requiredSelections||[],uncoveredIntervals:base.uncoveredIntervals||[],
+      requests,files,...(base.station?{station:base.station}:{}),transferSummary:base.requestTransferSummary||payloadRequestSummary||transferSummary(files),verification:routeEvidence,notes,requiredSelections:profile.requiredSelections||[],uncoveredIntervals:base.uncoveredIntervals||[],
       qualification:'Prepared access, not retrieval evidence. Files retain their documented spatial/temporal support. No clipping, averaging, interpolation, quality filtering or suitability assessment.'};
     return {...base,manifest,files,artifacts,notes,errors};
   }

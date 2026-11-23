@@ -472,7 +472,7 @@ def access_problems(access, grid, products):
     if access.get("schemaVersion") != 1 or set(profiles) != ids:
         problems.append("access.json must contain exactly one reviewed profile for every catalog record")
     strategies = {"station", "grid", "snapshot", "cmr", "stac", "cds", "mrms", "erddap",
-                  "daily-template", "ims-daily-template", "coolr-arcgis", "portal", "versioned-model-handoff"}
+                  "daily-template", "ims-daily-template", "awdb-daily", "coolr-arcgis", "portal", "versioned-model-handoff"}
     def https(value):
         try:
             url = urlsplit(value)
@@ -536,12 +536,20 @@ def main():
     station_reference = load("station-reference.json")
     access = load("access.json")
     discovery = load("discovery.json")
+    snotel = load("snotel-stations.json")
     grid_access = load("grid-access-index.json")
     sources_by_id = {source["evidence_id"]: source for source in source_list}
     products = catalog["products"]
 
     problems = find_problems(products, sources_by_id, groups)
     problems += discovery_problems(discovery, products)
+    stations = snotel.get("stations", [])
+    if not stations or len({s.get("id") for s in stations}) != len(stations) or any(
+        not re.fullmatch(r"\d+:[A-Z]{2}:SNTL", str(s.get("id"))) or not s.get("name")
+        or not all(type(s.get(key)) in (float, int) and abs(s[key]) <= limit for key, limit in (("lat", 90), ("lon", 180)))
+        or any(s.get(key) is not None and not is_iso_date(s[key]) for key in ("start", "end")) for s in stations
+    ):
+        problems.append("snotel-stations.json contains an invalid station directory")
     if len(sources_by_id) != len(source_list):
         problems.append("sources.json contains a duplicate evidence_id")
 
@@ -585,6 +593,7 @@ def main():
         },
         "hazard_groups": groups,
         "discovery": discovery,
+        "snotelStations": snotel,
         "products": public_products,
         "sources": public_sources,
         "screening": screening,

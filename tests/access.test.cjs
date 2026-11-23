@@ -64,20 +64,42 @@ test('GLEAM screens the frozen archive and separates grid-cell values, time unit
  assert.ok(manifest.verification.label.includes(receipt.annual.cells[0].value.toFixed(3)));
  assert.equal(receipt.annual.cells[1].value,null);
 });
-test('SNOTEL handoff retains station and unit evidence without claiming a project download',()=>{
+test('SNOTEL links use the selected station, original project dates, daily WTEQ and provider flags',()=>{
  const id='nrcs_snotel_daily_swe',q={...point,lat:45.04315,lon:-116.13253,start:'2024-04-01',end:'2024-04-03'};
- const {errors,files,manifest}=access.prepare(id,q);
+ const choice={stationTriplet:'370:ID:SNTL'};
+ assert.ok(access.prepare(id,q).errors.length);
+ const {errors,files,manifest}=access.prepare(id,q,choice);
  assert.deepEqual(errors,[]);assert.deepEqual(files,[]);
- assert.equal(manifest.accessCapability,'external');assert.deepEqual(manifest.query,q);
+ assert.equal(manifest.accessCapability,'request');assert.deepEqual(manifest.query,q);
  assert.equal(manifest.verification.status,'sample-payload-checked');
- const url=new URL(manifest.referencedSources.NRCS_SNOTEL_WTEQ_SAMPLE.url);
+ assert.equal(manifest.requests[0].url,manifest.referencedSources.NRCS_SNOTEL_WTEQ_SAMPLE.url);
+ const url=new URL(manifest.requests[0].url);
  assert.equal(url.searchParams.get('stationTriplets'),'370:ID:SNTL');
+ assert.deepEqual(manifest.station.name,'Brundage Reservoir');
+ const crossing=access.prepare(id,{...q,start:'2023-12-31',end:'2024-01-02'},choice);
+ assert.deepEqual(crossing.manifest.requests.map(r=>[r.start,r.end]),[['2023-12-31','2023-12-31'],['2024-01-01','2024-01-02']]);
+ assert.ok(access.prepare(id,{...q,lat:44,lon:-110,radiusKm:1},choice).errors.length);
+ assert.ok(access.prepare(id,q,{stationTriplet:'*:*:SNTL'}).errors.length);
+ const geometry=require('../src/geometry.js');
+ const polygon={...q,mode:'area',geometry:geometry.rectangle(-116.2,45,-116.1,45.1),bufferKm:0};
+ assert.deepEqual(access.prepare(id,polygon,choice).errors,[]);
+ const hole=[...geometry.rectangle(-116.15,45.02,-116.12,45.06).coordinates[0]].reverse();
+ const withHole={...polygon,geometry:{type:'Polygon',coordinates:[...polygon.geometry.coordinates,hole]}};
+ assert.ok(access.prepare(id,withHole,choice).errors.length);
  const folder=require('node:path').join(__dirname,'../docs/evidence/snotel');
  const receipts=JSON.parse(fs.readFileSync(folder+'/receipts.json'));
  for(const receipt of receipts){
    const raw=fs.readFileSync(folder+'/'+receipt.file);
    const response=receipt.file.endsWith('.gz')?require('node:zlib').gunzipSync(raw):raw;
    assert.equal(require('node:crypto').createHash('sha256').update(response).digest('hex'),receipt.responseSha256);
+   if(receipt.file.endsWith('.gz')){
+     const directory=require('../data/snotel-stations.json');
+     assert.equal(directory.sourceSha256,receipt.responseSha256);
+     assert.deepEqual(directory.stations,JSON.parse(response).map(s=>({
+       id:s.stationTriplet,name:s.name,lat:s.latitude,lon:s.longitude,start:s.beginDate?.slice(0,10)||null,
+       end:s.endDate?.startsWith('2100-01-01')?null:s.endDate?.slice(0,10)||null
+     })));
+   }
  }
  const {stationElement,values}=JSON.parse(fs.readFileSync(folder+'/brundage-daily-wteq.json'))[0].data[0];
  assert.equal(stationElement.elementCode,'WTEQ');assert.equal(stationElement.storedUnitCode,'in');

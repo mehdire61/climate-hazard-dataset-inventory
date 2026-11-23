@@ -388,6 +388,37 @@ async function checkGriddedSnow(context) {
   } finally { await page.close(); }
 }
 
+async function checkStationSnow(context) {
+  const page=await context.newPage();
+  try {
+    await page.goto(new URL(snowFragment,address).href);
+    await page.getByRole('dialog').getByRole('button',{name:'Check this record at a site'}).click();
+    for(const [key,value] of Object.entries({lat:'45.04315',lon:'-116.13253',radius:'0',start:'2024-04-01',end:'2024-04-03'})) {
+      await page.locator('#sc-'+key).fill(value);
+    }
+    await page.locator('#sc-run').click();
+    await page.getByText(/^Browse or filter \d+ sources$/).click();
+    await page.locator('[data-product="nrcs_snotel_daily_swe"]').click();
+    const select=page.locator('#sc-access-option-stationTriplet');
+    assert.equal(await select.evaluate(el=>el.labels[0].textContent),'SNOTEL station');
+    assert.deepEqual(await select.locator('option').evaluateAll(opts=>opts.map(o=>o.value)),['','370:ID:SNTL']);
+    await select.focus();
+    await select.press('ArrowDown');
+    await page.keyboard.press('Tab');
+    assert.equal(await select.inputValue(),'370:ID:SNTL');
+    await page.getByRole('button',{name:'Show download steps'}).click();
+    const link=page.getByRole('link',{name:/Open daily SWE/});
+    const href=await link.getAttribute('href');
+    const expected=require('../docs/evidence/snotel/receipts.json').find(r=>r.file==='brundage-daily-wteq.json');
+    assert.equal(href,expected.url);
+    await page.getByText('Optional project records and request details',{exact:true}).click();
+    const manifest=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Save access manifest'})));
+    assert.equal(manifest.station.id,'370:ID:SNTL');assert.equal(manifest.requests[0].url,href);
+    await page.locator('#sc-end').fill('2024-04-04');
+    assert.equal(await link.isVisible(),false);
+  } finally { await page.close(); }
+}
+
 async function main() {
   const browser = browserName === 'firefox' ? await firefox.launch() :
     await chromium.launch(browserName === 'chromium' ? {} : {channel:browserName});
@@ -405,6 +436,7 @@ async function main() {
     await checkHydrologicUnit(context);
     await checkFloodDepth(context);
     await checkGriddedSnow(context);
+    await checkStationSnow(context);
     await checkSharedInventory(browser);
     await checkDiscoveryFilters(browser);
     assert.deepEqual(errors, []);

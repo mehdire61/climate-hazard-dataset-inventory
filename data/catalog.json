@@ -2928,7 +2928,7 @@
       "documentation_url": "https://www.nrcs.usda.gov/resources/education-and-teaching-materials/water-and-climate-data-collection-and-stewardship",
       "access_url": "https://wcc.sc.egov.usda.gov/reportGenerator/",
       "access_example_url": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data?stationTriplets=370%3AID%3ASNTL&elements=WTEQ&duration=DAILY&beginDate=2024-04-01&endDate=2024-04-03&returnFlags=true",
-      "access_method": "Use the NRCS Report Generator or AWDB REST v1. Select a SNTL station triplet, WTEQ, DAILY and the project dates. Request flags and inspect the returned units.",
+      "access_method": "In Site check choose a station in the project search area and prepare NRCS daily WTEQ links for the project dates. Each original JSON response includes provider units and flags.",
       "license_id": "US_GOVERNMENT_DATA_TERMS",
       "license_url": "https://www.usda.gov/about-usda/policies-and-links",
       "license_url_label": "USDA digital rights and copyright",
@@ -2942,7 +2942,7 @@
       "unresolved_questions": [
         "Station and date availability, flags, local representativeness and independence for the proposed comparison."
       ],
-      "last_checked_date": "2026-11-19"
+      "last_checked_date": "2026-11-23"
     },
     {
       "product_id": "gleam_v4_2a_actual_evaporation",
