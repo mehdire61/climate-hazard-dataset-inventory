@@ -15,8 +15,8 @@ const item = {kind:'huc12', id:'020700100103'};
 const json = body => new Response(JSON.stringify(body));
 const noNetwork = () => assert.fail('Invalid input must be rejected before requesting data');
 
-test('HUC12, HUC10 and HUC8 query the correct WBD layer and preserve leading zeros', async () => {
-  for (const [kind, id, layer] of [['huc12',item.id,6], ['huc10','0207001001',5], ['huc8','02070010',4]]) {
+test('All six HUC levels query the correct WBD layer and preserve leading zeros', async () => {
+  for (const [kind, id, layer] of [['huc12',item.id,6], ['huc10','0207001001',5], ['huc8','02070010',4], ['huc6','020700',3], ['huc4','0207',2], ['huc2','02',1]]) {
     const result = await areas.search({kind, text:id}, {fetchImpl:async target => {
       const url = new URL(target);
       assert.ok(url.pathname.endsWith('/' + layer + '/query'));
@@ -45,6 +45,16 @@ test('name and point searches present ambiguous or truncated matches for explici
   }
   const empty = await areas.search({kind:'huc12',point:{lon:0,lat:0}},{fetchImpl:async()=>json({features:[]})});
   assert.deepEqual(empty.items,[]);
+});
+
+test('a missing state label preserves mixed search results and a selectable polygon', async () => {
+  const island={huc12:'220201030000',name:'Aguijan Island',states:null};
+  const result=await areas.search({kind:'huc12',text:'Island'},{fetchImpl:async()=>json({features:[{attributes:island},{attributes:feature.properties}]})});
+  assert.equal(result.items.length,2);
+  assert.equal(result.items[0].name,'HUC12 220201030000 · Aguijan Island');
+  const selected=await areas.load(result.items[0],{fetchImpl:async()=>json({type:'FeatureCollection',features:[{...feature,properties:{...feature.properties,...island}}]})});
+  assert.equal(selected.source.id,island.huc12);
+  await assert.rejects(areas.search({kind:'huc12',text:'Island'},{fetchImpl:async()=>json({features:[{attributes:{...island,name:''}}]})}),/identity/);
 });
 
 test('invalid codes, wildcard searches and invalid coordinates are rejected', async () => {
@@ -108,4 +118,23 @@ test('full detail omits the generalization parameter and enforces the same geome
   assert.equal(area.source.generalized,false);
   assert.equal(area.source.maxAllowableOffsetDegrees,0);
   await assert.rejects(areas.load(item,{wbdDetail:'full',fetchImpl:async()=>new Response('',{headers:{'content-length':9000000}})}),/8 MB/);
+});
+
+test('regional screening discloses dissolved seams and restores the exact saved polygon', async () => {
+  const regional={kind:'huc2',id:'02'};
+  const withSpur={type:'Feature',properties:{huc2:'02',name:'Regional fixture',states:null},
+    geometry:{type:'Polygon',coordinates:[[[0,0],[2,0],[2,2],[1,2],[1,3],[1,2],[0,2],[0,0]]]}};
+  const fetchImpl=async()=>json({type:'FeatureCollection',features:[withSpur]});
+  const area=await areas.load(regional,{fetchImpl});
+  assert.equal(area.source.touchingRingsDissolved,true);
+  assert.equal(area.source.maxAllowableOffsetDegrees,0.01);
+  assert.match(area.source.processing,/union resolved touching rings/);
+  assert.throws(()=>geometry.normalize(withSpur),/repeats a vertex/);
+  await assert.rejects(areas.load(regional,{fetchImpl,wbdDetail:'full'}),/repeats a vertex/);
+  const project={schema:'climate-inventory-project/1',hazard:'flood',selectedId:'usgs_streamflow',
+    query:{mode:'area',geometry:area.geometry,areaName:area.name,areaSource:area.source,bufferKm:0,start:'2020-01-01',end:'2020-01-02'}};
+  const restored=projects.parse(JSON.stringify(project),['usgs_streamflow'],['flood']);
+  assert.deepEqual(restored.query.geometry,area.geometry);
+  assert.match(restored.query.areaSource.note,/touching rings dissolved/);
+  assert.equal(restored.query.areaSource.reportedGeometrySha256,area.source.geometrySha256);
 });

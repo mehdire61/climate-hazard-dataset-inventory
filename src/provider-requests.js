@@ -19,9 +19,17 @@
     if (typeof value !== 'string' || !/^(?!0000)\d{4}-\d{2}-\d{2}$/.test(value)) return false;
     const date = new Date(value + 'T00:00:00Z'); return Number.isFinite(+date) && date.toISOString().slice(0, 10) === value;
   }
-  function describeOptions(id) {
+  function describeOptions(id,query) {
     if (!MRMS[id]) return [];
-    return [{key: 'mrmsField', label: 'CONUS field / pass', value: MRMS[id][0], choices: MRMS[id].map(value => ({value, label: value.split('/')[1]}))}];
+    const rules=root.InventoryApp?.data?.screening?.rules || (typeof require==='function' ? require('../data/screening.json').rules : {});
+    const domains=query ? rules[id].domain.regions.filter(region=>['within','partial'].includes(geometry().domainRelation(query,region.bounds))).map(region=>region.name) : ['CONUS'];
+    const choices=domains.flatMap(domain=>MRMS[id].map(field=>{
+      const name=field.split('/')[1];
+      return {value:domain+'/'+name+'/',label:domain+' · '+name};
+    }));
+    const value=domains.length===1?choices[0].value:'';
+    if (!value) choices.unshift({value:'',label:domains.length?'Choose one intersecting domain and field…':'Outside the reviewed MRMS domains'});
+    return [{key:'mrmsField',label:'MRMS domain and field / pass',value,required:true,choices}];
   }
   function requestBoxes(query) {
     let boxes;
@@ -179,7 +187,7 @@ def file_links_html(manifest, manifest_path):
     return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>MRMS provider file links</title><style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:0 20px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:10px;border-bottom:1px solid #ccc}a{overflow-wrap:anywhere}td:last-child{white-space:nowrap}</style>'
             '<h1>' + escape(CONFIG['productId']) + ': provider files</h1><h2>' + status + '</h2><p>' + escape(CONFIG['start']) + ' through ' + escape(CONFIG['end']) + ': ' + str(len(manifest['files'])) + ' observed file links.</p>'
-            '<p>Select a link to retrieve that provider file. Nothing is downloaded automatically by this page. These are whole CONUS grids, without project clipping or averaging. Listing metadata do not verify scientific payloads.</p>'
+            '<p>Select a link to retrieve that provider file. Nothing is downloaded automatically by this page. These are whole native domain grids, without project clipping or averaging. Listing metadata do not verify scientific payloads.</p>'
             '<p>' + escape(manifest['qualification']) + '</p>' + warnings + error + transfer_note + '<p><a href="' + escape(urllib.parse.quote(manifest_path.name)) + '">Open the accompanying provenance JSON</a></p>'
             '<table><thead><tr><th>File number</th><th>Provider file</th><th>Bytes</th></tr></thead><tbody>' + rows + '</tbody></table>'
             + ('<p>No links were returned. This is not evidence that no observations exist.</p>' if not rows else '') + '</html>')
@@ -347,7 +355,7 @@ def main():
                         page_files.append({'key': key, 'url': CONFIG['endpoint'] + urllib.parse.quote(key, safe='/'),
                                            'bytes': int(size), 'lastModified': item.findtext('{*}LastModified'),
                                            'providerETag': item.findtext('{*}ETag'), 'payloadVerified': False,
-                                           'spatialDelivery': 'Full CONUS grid; no clipping or averaging.'})
+                                           'spatialDelivery': 'Full '+CONFIG['prefix'].split('/')[0]+' grid; no clipping or averaging.'})
                     manifest['files'].extend(page_files)
                     seen_keys.update(page_keys)
                     manifest['requests'].append({'url': url, 'retrievedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'objects': len(page_files), 'isTruncated': truncated == 'true', 'nextContinuationToken': next_token})
@@ -436,17 +444,18 @@ if __name__ == '__main__':
       transferSummary = {fileCount:requests.length,requestCount:requests.length,knownBytes:0,unknownCount:requests.length,approximateCount:0,requiresConfirmation:requests.length>0,byteThreshold:1000000000,fileThreshold:100,unit:'monthly/spatial requests'};
       instructions = 'Run python ' + id + '_request.py to inspect the dry-run request count, numbered monthly/spatial requests and unknown total size. No network request or credential access occurs in dry-run. Repeat --request N to select individual requests; omitting it selects all prepared requests.\nTo retrieve: accept the dataset terms on CDS, configure your own local personal access token as documented at https://cds.climate.copernicus.eu/how-to-api, and install cdsapi>=0.7.7. --execute alone stops before client/network access because size is unknown. Only after reviewing and accepting the transfer, run python ' + id + '_request.py --execute --confirm-transfer --output chosen-folder, adding --request N if selecting a subset. There is no size cap after explicit confirmation.\nAuthenticated retrieval was not tested. GRIB files and a transfer manifest with SHA-256 hashes will be written only on execution. Provider failures are reported with bounded, redacted diagnostics. The manifest does not replace scientific metadata checks.\n';
     } else {
-      const prefix = options.mrmsField === undefined ? MRMS[id][0] : options.mrmsField;
-      if (!MRMS[id].includes(prefix) || JSON.stringify(mapping.verifiedCONUSPrefixes) !== JSON.stringify(MRMS[id])) errors.push('Select a verified CONUS field/pass from this product profile.');
+      const choice=describeOptions(id,query)[0];
+      const prefix=options.mrmsField ?? choice.value;
+      if (!prefix || !choice.choices.some(c=>c.value===prefix) || JSON.stringify(mapping.verifiedCONUSPrefixes)!==JSON.stringify(MRMS[id])) errors.push('Choose a verified field/pass in a domain intersecting this project.');
       if (errors.length) return {requests, artifacts, notes, errors};
       const endpoint = 'https://noaa-mrms-pds.s3.amazonaws.com/', days = Math.round((Date.parse(query.end + 'T00:00:00Z') - Date.parse(query.start + 'T00:00:00Z')) / 86400000) + 1;
-      const archiveReview = {firstObservedDate:'2020-10-14', checkedAt:'2026-11-14',
+      const archiveReview = {firstObservedDate:'2020-10-14', checkedAt:'2026-11-24',
         listingUrl:endpoint+'?'+new URLSearchParams({'list-type':'2',prefix,delimiter:'/', 'max-keys':'1'}),
         documentationUrl:'https://registry.opendata.aws/noaa-mrms-pds/', qualification:'Earliest current date prefix observed for this field in a dated S3 directory lookup; not a guarantee of complete holdings or absence in other archives.'};
       const archiveWarnings = query.start < archiveReview.firstObservedDate ? ['The requested period includes dates before '+archiveReview.firstObservedDate+', the earliest date prefix observed for this field in the NOAA AWS archive on '+archiveReview.checkedAt+'. Earlier date listings may be empty; this does not establish absence of MRMS observations elsewhere. Original request dates are unchanged. Source: '+archiveReview.listingUrl] : [];
       notes.push(...archiveWarnings,
         '--execute performs unsigned S3 discovery and saves file links only. Optional --download additionally transfers selected original gzip GRIB2 files with byte counts, SHA-256 and failure receipts.',
-        'Only the explicitly selected, verified CONUS product prefix is prepared. Project geometry is retained as context; full domain files are not clipped or area averaged.',
+        'This request lists the '+prefix.split('/')[0]+' grid. Repeat for any other intersecting domain. Files retain their full native grid.',
         'The script iterates every requested UTC date and all returned continuation tokens. Date URLs are listing requests, not guessed file URLs. Empty or failed listings do not establish absence of observations in other archives.',
         'Payload selections of at least 1 GB or more than 100 files require explicit --confirm-transfer after reviewing the totals. --file N can restrict the transfer to individual listed files; listing JSON/HTML alone never starts a payload download.',
         'Pin field, pass, accumulation window and algorithm/date. An MRMS field timestamp or refresh interval does not redefine its accumulation period.');

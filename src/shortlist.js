@@ -49,8 +49,17 @@
       return {level:2,label:'Multi-day precipitation reported',detail};
     return null;
   }
-  function rank(scoped,{byId,rules,evidence,hazard,offshore,regionalRain,limit}) {
+  function rank(scoped,{byId,rules,evidence,hazard,offshore,regionalRain,limit,query}) {
     const landNetworks=['ghcn_daily','ghcnh_hourly','isd_global_hourly','grdc_discharge','gsim_indices','usgs_streamflow','nrcs_snotel_daily_swe'];
+    const terrestrial=['cems_gfm','cems_rapid_mapping','gesla3','gesla41','psmsl_rlr','c3s_lake_water_level','nasa_coolr'];
+    const geo=root.SiteGeometry || (typeof require==='function' && require('./geometry.js'));
+    function lakeInProject() {
+      const profiles=root.InventoryApp?.data?.access.profiles || require('../data/access.json').profiles;
+      const boxes=geo.searchBoxes(query);
+      return profiles.c3s_lake_water_level.options[0].choices.some(lake=>lake.bounds &&
+        boxes.some(([w,s,e,n])=>w<=lake.bounds[2] && e>=lake.bounds[0] && s<=lake.bounds[3] && n>=lake.bounds[1]) &&
+        (query.mode==='area' && !query.bufferKm ? geo.domainRelation(query,lake.bounds)!=='outside' : true));
+    }
     const state=r=>evidence.get(key(r.productId,hazard))?.level ?? 0;
     const kind=r=>rules[r.productId].support_type==='grid' && rules[r.productId].domain.kind==='regional'?'regional grid':rules[r.productId].support_type;
     const nationalRiver=r=>['flood','drought'].includes(hazard) && !offshore && r.productId==='usgs_streamflow' && r.networkInScope;
@@ -58,15 +67,20 @@
     const regionalStorm=r=>regionalRain && r.status==='possible' ? (r.productId==='stage_iv'?2:r.productId==='gpm_imerg_final_v07b'?1:0) : 0;
     const fit=r=>r.status==='possible'?2:/^Find /.test(r.label)?1:0;
     const documented=r=>r.temporalSegments?.some(s=>s.kind==='documented');
-    const localOperator=r=>nationalRiver(r) || (r.productId==='noaa_coops_water_level' && r.networkInScope) ||
+    const snowWater=r=>['snow','drought'].includes(hazard) && ((r.productId==='nrcs_snotel_daily_swe' && r.networkInScope) ||
+      (r.productId==='nohrsc_snodas_daily_swe' && r.status==='possible' && r.spatialRelation==='within'));
+    const localOperator=r=>snowWater(r) || nationalRiver(r) || (r.productId==='noaa_coops_water_level' && r.networkInScope) ||
       (r.status==='possible' && r.spatialRelation==='within' && rules[r.productId].domain.kind==='regional' && /^NOAA/.test(byId.get(r.productId).provider));
     const catalogue=byId, authority=r=>publisher(catalogue.get(r.productId).provider).publicService;
+    const contextual=r=>rules[r.productId].context_for?.includes(hazard) || false;
     const candidates=scoped.filter(r=>r.status!=='excluded' && state(r)>=0 &&
-      (state(r)>0 || (r.networkInScope!==false && !(offshore&&(landNetworks.includes(r.productId)||rules[r.productId].domain.mask)))))
+      (state(r)>0 || (r.networkInScope!==false && !(offshore&&(landNetworks.includes(r.productId)||terrestrial.includes(r.productId)||rules[r.productId].domain.mask)) &&
+        !(query && rules[r.productId].time?.access_route_end && query.start>rules[r.productId].time.access_route_end) &&
+        !(query && r.productId==='c3s_lake_water_level' && !lakeInProject()))))
       .sort((a,b)=>Number(regionalConcern(a))-Number(regionalConcern(b)) ||
         Number(!!a.resolutionChecks?.length)-Number(!!b.resolutionChecks?.length) ||
         Number(!!b.eventStudyMatch)-Number(!!a.eventStudyMatch) || state(b)-state(a) ||
-        regionalStorm(b)-regionalStorm(a) || Number(!!a.partial)-Number(!!b.partial) || Number(!!localOperator(b))-Number(!!localOperator(a)) ||
+        Number(contextual(a))-Number(contextual(b)) || regionalStorm(b)-regionalStorm(a) || Number(!!a.partial)-Number(!!b.partial) || Number(!!localOperator(b))-Number(!!localOperator(a)) ||
         fit(b)-fit(a) || Number(!!documented(b))-Number(!!documented(a)) ||
         Number(authority(b))-Number(authority(a)) ||
         Number(landNetworks.includes(b.productId)&&hazard==='flood')-Number(landNetworks.includes(a.productId)&&hazard==='flood') ||

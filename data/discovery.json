@@ -57,7 +57,9 @@
         "annual": "Annual",
         "overpass": "Overpass or acquisition",
         "event": "Event or irregular report",
-        "return-period": "Return-period scenario"
+        "return-period": "Return-period scenario",
+        "weekly": "Weekly",
+        "eight-day": "8-day composite"
       }
     },
     "geography": {
@@ -71,7 +73,8 @@
         "us": "U.S.-focused",
         "conus": "Conterminous United States",
         "us-region": "Specific U.S. region or event",
-        "ocean-basins": "Selected ocean basins"
+        "ocean-basins": "Selected ocean basins",
+        "north-america": "North America"
       }
     }
   },
@@ -1027,8 +1030,7 @@
         "subhourly"
       ],
       "geography": [
-        "us",
-        "conus"
+        "us"
       ]
     },
     "c3s_lake_water_level": {
@@ -1122,6 +1124,269 @@
       "geography": [
         "us",
         "conus"
+      ]
+    },
+    "noaa_atlas14_precip_frequency": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point",
+        "variable-grid"
+      ],
+      "frequency": [
+        "return-period"
+      ],
+      "geography": [
+        "us",
+        "us-region"
+      ]
+    },
+    "noaa_atlas15_montana_v1_pilot": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "point",
+        "variable-grid"
+      ],
+      "frequency": [
+        "return-period"
+      ],
+      "geography": [
+        "us",
+        "us-region"
+      ]
+    },
+    "era5_single_level_water_balance": {
+      "origin": [
+        "model",
+        "reanalysis"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "era5_land_water_balance": {
+      "origin": [
+        "model",
+        "reanalysis"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "prism_conus_daily_ppt": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    },
+    "daymet_v4r1_daily_prcp": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "north-america",
+        "us-region"
+      ]
+    },
+    "gridmet_daily_precipitation": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    },
+    "nldas2_hourly_forcing_precip": {
+      "origin": [
+        "ground",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-10-100km"
+      ],
+      "frequency": [
+        "hourly"
+      ],
+      "geography": [
+        "north-america",
+        "conus"
+      ]
+    },
+    "usdm_weekly_drought": {
+      "origin": [
+        "ground",
+        "model",
+        "reports",
+        "index"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "polygon"
+      ],
+      "frequency": [
+        "weekly"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    },
+    "smap_l3_enhanced_surface_moisture": {
+      "origin": [
+        "satellite"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "daily",
+        "overpass"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "smap_l4_surface_rootzone_moisture": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-1-10km"
+      ],
+      "frequency": [
+        "multi-hour"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "openet_ensemble_monthly_v2": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "fixed"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "monthly"
+      ],
+      "geography": [
+        "us",
+        "conus"
+      ]
+    },
+    "modis_mod16a2gf_actual_et": {
+      "origin": [
+        "satellite",
+        "model"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "grid-subkm"
+      ],
+      "frequency": [
+        "eight-day"
+      ],
+      "geography": [
+        "world"
+      ]
+    },
+    "usgs_groundwater_discrete_levels": {
+      "origin": [
+        "ground"
+      ],
+      "lifecycle": [
+        "maintained"
+      ],
+      "spatial": [
+        "point"
+      ],
+      "frequency": [
+        "event"
+      ],
+      "geography": [
+        "us"
       ]
     }
   },

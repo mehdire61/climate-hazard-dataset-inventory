@@ -21,7 +21,19 @@
       "swot_raster_d",
       "swot_riversp_d",
       "c3s_lake_water_level",
-      "jrc_glofas_rp100_depth"
+      "jrc_glofas_rp100_depth",
+      "nrcs_snotel_daily_swe",
+      "nohrsc_snodas_daily_swe",
+      "noaa_atlas14_precip_frequency",
+      "noaa_atlas15_montana_v1_pilot",
+      "era5_single_level_water_balance",
+      "era5_land_water_balance",
+      "prism_conus_daily_ppt",
+      "daymet_v4r1_daily_prcp",
+      "gridmet_daily_precipitation",
+      "nldas2_hourly_forcing_precip",
+      "smap_l3_enhanced_surface_moisture",
+      "smap_l4_surface_rootzone_moisture"
     ]
   },
   {
@@ -43,7 +55,19 @@
       "c3s_lake_water_level",
       "nrcs_snotel_daily_swe",
       "gleam_v4_2a_actual_evaporation",
-      "nohrsc_snodas_daily_swe"
+      "nohrsc_snodas_daily_swe",
+      "era5_single_level_water_balance",
+      "era5_land_water_balance",
+      "prism_conus_daily_ppt",
+      "daymet_v4r1_daily_prcp",
+      "gridmet_daily_precipitation",
+      "nldas2_hourly_forcing_precip",
+      "usdm_weekly_drought",
+      "smap_l3_enhanced_surface_moisture",
+      "smap_l4_surface_rootzone_moisture",
+      "openet_ensemble_monthly_v2",
+      "modis_mod16a2gf_actual_et",
+      "usgs_groundwater_discrete_levels"
     ]
   },
   {
@@ -64,7 +88,15 @@
       "mrms_radaronly_qpe",
       "mrms_multisensor_qpe",
       "stage_iv",
-      "ghcnh_hourly"
+      "ghcnh_hourly",
+      "noaa_atlas14_precip_frequency",
+      "noaa_atlas15_montana_v1_pilot",
+      "era5_single_level_water_balance",
+      "era5_land_water_balance",
+      "prism_conus_daily_ppt",
+      "daymet_v4r1_daily_prcp",
+      "gridmet_daily_precipitation",
+      "nldas2_hourly_forcing_precip"
     ]
   },
   {
@@ -120,7 +152,9 @@
       "modis_snow_mod10a1",
       "ims_snow_ice",
       "nrcs_snotel_daily_swe",
-      "nohrsc_snodas_daily_swe"
+      "nohrsc_snodas_daily_swe",
+      "era5_single_level_water_balance",
+      "era5_land_water_balance"
     ]
   },
   {

@@ -8,7 +8,7 @@
   "rules": {
     "usgs_streamflow": {
       "support_type": "station",
-      "time_step": "mixed",
+      "time_step": "daily",
       "domain": {
         "kind": "station",
         "bounds": null,
@@ -12609,7 +12609,7 @@
         "hard_bounds": true,
         "mask": null,
         "radar_range_check": true,
-        "note": "Conservative whole-degree boxes enclosing grid coordinates read from NOAA MRMS GRIB2 headers. Field availability differs by domain; the built-in request currently prepares CONUS files only.",
+        "note": "Whole-degree envelopes surround the NOAA domain grids. Check native grid cells and radar coverage. Requests select an intersecting archive domain.",
         "regions": [
           {
             "name": "CONUS",
@@ -12691,7 +12691,8 @@
         "OBS23",
         "OBS24",
         "R26_MRMS",
-        "R2_MRMS_NOAA"
+        "R2_MRMS_NOAA",
+        "SCS_MRMS_04"
       ],
       "curation_reviewed_on": "2026-11-15",
       "catalog_documentation_checked_on": "2026-11-02",
@@ -12707,7 +12708,7 @@
         "hard_bounds": true,
         "mask": null,
         "radar_range_check": true,
-        "note": "Conservative whole-degree boxes enclosing grid coordinates read from NOAA MRMS GRIB2 headers. Field availability differs by domain; the built-in request currently prepares CONUS files only.",
+        "note": "Whole-degree envelopes surround the NOAA domain grids. Check native grid cells and radar coverage. Requests select an intersecting archive domain.",
         "regions": [
           {
             "name": "CONUS",
@@ -12789,7 +12790,8 @@
         "OBS19",
         "OBS23",
         "R26_MRMS",
-        "R2_MRMS_NOAA"
+        "R2_MRMS_NOAA",
+        "SCS_MRMS_04"
       ],
       "curation_reviewed_on": "2026-11-15",
       "catalog_documentation_checked_on": "2026-11-02",
@@ -13098,7 +13100,7 @@
         "hard_bounds": true,
         "mask": null,
         "radar_range_check": true,
-        "note": "Conservative whole-degree boxes enclosing grid coordinates read from NOAA MRMS GRIB2 headers. Field availability differs by domain; the built-in request currently prepares CONUS files only.",
+        "note": "Whole-degree envelopes surround the NOAA domain grids. Check native grid cells and radar coverage. Requests select an intersecting archive domain.",
         "regions": [
           {
             "name": "CONUS",
@@ -13372,7 +13374,10 @@
       "curation_reviewed_on": "2026-11-23",
       "catalog_documentation_checked_on": "2026-11-23",
       "basis": "Coarse regions enclose coordinates in the cited provider directory, including inactive stations. The cited WTEQ sample verifies three daily values at one site.",
-      "note": "Choose a SNOTEL station whose location and elevation represent the project. Verify its daily observations and flags at NRCS."
+      "note": "Choose a SNOTEL station whose location and elevation represent the project. Verify its daily observations and flags at NRCS.",
+      "context_for": [
+        "flood"
+      ]
     },
     "gleam_v4_2a_actual_evaporation": {
       "support_type": "grid",
@@ -13550,7 +13555,770 @@
         "SNODAS_NWS_TERMS"
       ],
       "curation_reviewed_on": "2026-11-23",
-      "catalog_documentation_checked_on": "2026-11-23"
+      "catalog_documentation_checked_on": "2026-11-23",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "noaa_atlas14_precip_frequency": {
+      "support_type": "grid",
+      "time_step": "return_period_scenario",
+      "domain": {
+        "kind": "regional",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Published U.S. volumes and island areas shown on PFDS. Some regions use older references. Confirm that the result identifies NOAA Atlas 14 and a volume.",
+        "regions": [
+          {
+            "name": "Contiguous United States",
+            "bounds": [
+              -125,
+              24,
+              -66,
+              50
+            ]
+          },
+          {
+            "name": "Alaska",
+            "bounds": [
+              170,
+              50,
+              -129,
+              72
+            ]
+          },
+          {
+            "name": "Hawaii",
+            "bounds": [
+              -161,
+              18,
+              -154,
+              23
+            ]
+          },
+          {
+            "name": "Puerto Rico and USVI",
+            "bounds": [
+              -68,
+              17,
+              -64,
+              19
+            ]
+          },
+          {
+            "name": "Pacific islands, where published",
+            "bounds": [
+              130,
+              -16,
+              -168,
+              23
+            ]
+          }
+        ]
+      },
+      "time": {
+        "kind": "scenario",
+        "intervals": [],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "Fixed frequency estimates by volume and version. Source record lengths and release dates vary.",
+        "frequency_estimate": true
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Select a point in PFDS, confirm its volume, then choose depth, units, duration and series. Download the estimate and confidence tables.",
+      "evidence_ids": [
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_DOC",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_REF1",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Point-to-area conversion and temporal storm distribution are separate design choices.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "noaa_atlas15_montana_v1_pilot": {
+      "support_type": "grid",
+      "time_step": "return_period_scenario",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -116.1,
+          44.3,
+          -104,
+          49.1
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Montana pilot study only. The bounding box includes neighboring land outside the study. See the report for study limits."
+      },
+      "time": {
+        "kind": "scenario",
+        "intervals": [],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "Pilot issued September 2024. Volume 1 is a historical reference state independent of the dates entered in Site check.",
+        "frequency_estimate": true
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Read Volume 1 results in the NOAA pilot technical report. Use PFDS for the published Atlas 14 volume.",
+      "evidence_ids": [
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_DOC",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_ACCESS",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_REF1",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "NOAA limits the pilot to comparison and feedback. The public review closed. Published Atlas 14 remains the design reference where applicable.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "era5_single_level_water_balance": {
+      "support_type": "grid",
+      "time_step": "hourly",
+      "domain": {
+        "kind": "global",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": null,
+        "note": "Global atmospheric grid. Land runoff and SWE require suitable land/surface coverage."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1940-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "1940 onward, with a provisional recent tail. Verify actual file dates and production status in CDS.",
+        "publication_policy": {
+          "kind": "era5_cds",
+          "checked_on": "2026-11-14",
+          "source_urls": [
+            "https://confluence.ecmwf.int/spaces/CKB/pages/76414402/ERA5+data+documentation"
+          ]
+        }
+      },
+      "access_requirement": "cds_account_and_terms",
+      "access_note": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "evidence_ids": [
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_DOC",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_ACCESS",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF1",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF2",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Precipitation and runoff are modeled grid amounts; distinguish hourly high-resolution fields from ensemble or monthly statistics.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "era5_land_water_balance": {
+      "support_type": "grid",
+      "time_step": "hourly",
+      "domain": {
+        "kind": "global",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Global land grid. Check the land mask and snow/ice handling in each cell."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1950-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "1950 onward, with a provisional recent tail. Verify actual file dates and production status in CDS.",
+        "latest_availability": "unchecked",
+        "recent_window_days": 90
+      },
+      "access_requirement": "cds_account_and_terms",
+      "access_note": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "evidence_ids": [
+        "ERA5_LAND_WATER_BALANCE_DOC",
+        "ERA5_LAND_WATER_BALANCE_ACCESS",
+        "ERA5_LAND_WATER_BALANCE_REF1",
+        "ERA5_LAND_WATER_BALANCE_REF2",
+        "ERA5_LAND_WATER_BALANCE_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "The forecast reset changes the differencing rule at midnight; retain the forecast steps.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "prism_conus_daily_ppt": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -125.1,
+          24,
+          -66,
+          50
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Conterminous U.S. raster. Check edge and coastal cells against the data mask."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1981-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "January 1981 onward for daily CONUS fields. Recent grids can be revised.",
+        "latest_availability": "unchecked",
+        "recent_window_days": 90
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Choose U.S., 4 km, daily precipitation and a date in the PRISM download service. Retain the supplied raster metadata.",
+      "evidence_ids": [
+        "PRISM_CONUS_DAILY_PPT_DOC",
+        "PRISM_CONUS_DAILY_PPT_ACCESS",
+        "PRISM_CONUS_DAILY_PPT_REF1",
+        "PRISM_CONUS_DAILY_PPT_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Station density, terrain and changing input networks affect local estimates and trends.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "daymet_v4r1_daily_prcp": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "regional",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Continental North America, Hawaii and Puerto Rico. Project envelopes can include ocean; region files and land masks determine valid cells.",
+        "regions": [
+          {
+            "name": "Continental North America",
+            "bounds": [
+              -178,
+              14,
+              -52,
+              83
+            ],
+            "start": "1980-01-01"
+          },
+          {
+            "name": "Hawaii",
+            "bounds": [
+              -161,
+              18,
+              -154,
+              23
+            ],
+            "start": "1980-01-01"
+          },
+          {
+            "name": "Puerto Rico",
+            "bounds": [
+              -67.5,
+              17.8,
+              -65,
+              18.6
+            ],
+            "start": "1950-01-01"
+          }
+        ]
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1950-01-01",
+            "end": "1952-12-30"
+          },
+          {
+            "start": "1953-01-01",
+            "end": "1956-12-30"
+          },
+          {
+            "start": "1957-01-01",
+            "end": "1960-12-30"
+          },
+          {
+            "start": "1961-01-01",
+            "end": "1964-12-30"
+          },
+          {
+            "start": "1965-01-01",
+            "end": "1968-12-30"
+          },
+          {
+            "start": "1969-01-01",
+            "end": "1972-12-30"
+          },
+          {
+            "start": "1973-01-01",
+            "end": "1976-12-30"
+          },
+          {
+            "start": "1977-01-01",
+            "end": "1980-12-30"
+          },
+          {
+            "start": "1981-01-01",
+            "end": "1984-12-30"
+          },
+          {
+            "start": "1985-01-01",
+            "end": "1988-12-30"
+          },
+          {
+            "start": "1989-01-01",
+            "end": "1992-12-30"
+          },
+          {
+            "start": "1993-01-01",
+            "end": "1996-12-30"
+          },
+          {
+            "start": "1997-01-01",
+            "end": "2000-12-30"
+          },
+          {
+            "start": "2001-01-01",
+            "end": "2004-12-30"
+          },
+          {
+            "start": "2005-01-01",
+            "end": "2008-12-30"
+          },
+          {
+            "start": "2009-01-01",
+            "end": "2012-12-30"
+          },
+          {
+            "start": "2013-01-01",
+            "end": "2016-12-30"
+          },
+          {
+            "start": "2017-01-01",
+            "end": "2020-12-30"
+          },
+          {
+            "start": "2021-01-01",
+            "end": "2024-12-30"
+          },
+          {
+            "start": "2025-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2025-12-31",
+        "note": "Continental North America and Hawaii begin 1980. Puerto Rico begins 1950. Annual file releases; the checked catalog includes 2025."
+      },
+      "access_requirement": "earthdata_account",
+      "access_note": "Find yearly precipitation granules for the regional grid. Extract prcp and preserve the Daymet calendar.",
+      "evidence_ids": [
+        "DAYMET_V4R1_DAILY_PRCP_DOC",
+        "DAYMET_V4R1_DAILY_PRCP_ACCESS",
+        "DAYMET_V4R1_DAILY_PRCP_TERMS",
+        "DAYMET_V4R1_DAILY_PRCP_CMR"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Leap-year December 31 is absent. Align calendars before comparing annual totals or daily events.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "gridmet_daily_precipitation": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -125.1,
+          24,
+          -66,
+          50
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Contiguous United States. Use the original raster mask near coastlines and domain edges."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1979-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "1979 onward. The checked annual NetCDF distribution includes 2024.",
+        "latest_availability": "unchecked",
+        "recent_window_days": 90
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Choose the pr_YYYY.nc precipitation file for each requested year. Read its coordinates, units, time axis and fill value.",
+      "evidence_ids": [
+        "GRIDMET_DAILY_PRECIPITATION_DOC",
+        "GRIDMET_DAILY_PRECIPITATION_ACCESS",
+        "GRIDMET_DAILY_PRECIPITATION_REF1"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Terrain-scale precipitation gradients and extremes can be smoothed; verify time support and provisional updates.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "nldas2_hourly_forcing_precip": {
+      "support_type": "grid",
+      "time_step": "hourly_interval",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -125,
+          25,
+          -67,
+          53
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "25–53°N and 125–67°W. Portions of southern Canada and northern Mexico are included; source inputs differ by region."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1979-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2026-11-20",
+        "note": "January 1, 1979 onward. Public granules were listed through November 20, 2026."
+      },
+      "access_requirement": "earthdata_account",
+      "access_note": "Find hourly File A granules and select total precipitation. Read per-file field names, units and temporal bounds.",
+      "evidence_ids": [
+        "NLDAS2_HOURLY_FORCING_PRECIP_DOC",
+        "NLDAS2_HOURLY_FORCING_PRECIP_ACCESS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_TERMS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_CMR"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Temporal disaggregation depends on available radar, satellite and other inputs. Methods change across regions and eras.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "usdm_weekly_drought": {
+      "support_type": "area",
+      "time_step": "weekly",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -125,
+          24,
+          -66,
+          50
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "The selected archive use is the contiguous U.S. Other U.S. regions have separately documented coverage."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "2000-01-04",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2026-06-23",
+        "note": "The catalog selects the CONUS GIS archive from January 4, 2000 onward. Territorial extensions have other histories."
+      },
+      "access_requirement": "provider_terms",
+      "access_note": "Choose a Tuesday in the merged GIS archive. Intersect the CONUS polygons with the project in an equal-area projection, assigning the highest class at each location to calculate exclusive areas.",
+      "evidence_ids": [
+        "USDM_WEEKLY_DROUGHT_DOC",
+        "USDM_WEEKLY_DROUGHT_ACCESS",
+        "USDM_WEEKLY_DROUGHT_REF1",
+        "USDM_WEEKLY_DROUGHT_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Use mutually exclusive polygons for class areas. Overlapping threshold files must not be summed across classes."
+    },
+    "smap_l3_enhanced_surface_moisture": {
+      "support_type": "grid",
+      "time_step": "daily",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -180,
+          -85.044,
+          180,
+          90
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Global/polar land grids within collection coverage; retrieval eligibility varies with orbit, frozen soils and surface type."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "2015-03-31",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2026-11-22",
+        "note": "March 31, 2015 onward. The reviewed version had CMR granules through November 2026."
+      },
+      "access_requirement": "earthdata_account",
+      "access_note": "Find exact-version granules, then choose the appropriate orbit, grid, soil-moisture field and quality flags.",
+      "evidence_ids": [
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_DOC",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_ACCESS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_TERMS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_CMR"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Apply retrieval-quality, surface, frozen-ground and radio-frequency-interference flags before spatial averaging.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "smap_l4_surface_rootzone_moisture": {
+      "support_type": "grid",
+      "time_step": "three_hourly",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -180,
+          -85.044,
+          180,
+          85.044
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Global land grid between approximately 85°S and 85°N. Inspect the native land mask and quality fields."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "2015-03-31",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2026-11-21",
+        "note": "March 31, 2015 onward. The reviewed version had CMR granules through November 2026."
+      },
+      "access_requirement": "earthdata_account",
+      "access_note": "Find exact-version granules, then choose surface or root-zone soil moisture and the corresponding quality information.",
+      "evidence_ids": [
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_DOC",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_ACCESS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_TERMS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_CMR"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Modeled root-zone estimates depend on forcing, model dynamics and assimilation. Frozen, snow-covered and poorly observed areas require extra checks.",
+      "context_for": [
+        "flood"
+      ]
+    },
+    "openet_ensemble_monthly_v2": {
+      "support_type": "grid",
+      "time_step": "monthly",
+      "domain": {
+        "kind": "envelope",
+        "bounds": [
+          -125,
+          24,
+          -66,
+          50
+        ],
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "CONUS collection; usable footprint varies by pixel, month and model availability."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "1999-10-01",
+            "end": "2024-12-31"
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "October 1999 through December 2024 in the cited v2.0 catalog asset. Verify extensions in their own edition."
+      },
+      "access_requirement": "platform_account",
+      "access_note": "Open the published Earth Engine asset and select et_ensemble_mad, a month, and the valid project footprint. Review member-count bands.",
+      "evidence_ids": [
+        "OPENET_ENSEMBLE_MONTHLY_V2_DOC"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "DisALEXI is unavailable before 2001. Inspect ensemble count and model range, especially across changes in coverage."
+    },
+    "modis_mod16a2gf_actual_et": {
+      "support_type": "grid",
+      "time_step": "eight_day",
+      "domain": {
+        "kind": "global",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "Global vegetated land in the MODIS sinusoidal tiling system, subject to the product land-cover and fill codes."
+      },
+      "time": {
+        "kind": "range",
+        "intervals": [
+          {
+            "start": "2000-01-01",
+            "end": null
+          }
+        ],
+        "uncertain_windows": [],
+        "known_through": "2025-12-31",
+        "note": "Collection metadata begin in 2000. Year-end gap-filled retrievals were listed through December 31, 2025."
+      },
+      "access_requirement": "earthdata_account",
+      "access_note": "Find 061 granules intersecting the project dates and area. Select the ET field and QA, apply scale after masking, then sum valid composite depths.",
+      "evidence_ids": [
+        "MODIS_MOD16A2GF_ACTUAL_ET_DOC",
+        "MODIS_MOD16A2GF_ACTUAL_ET_ACCESS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_REF1",
+        "MODIS_MOD16A2GF_ACTUAL_ET_TERMS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_CMR"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "ET and PET have different meanings. Apply QA, scale and fill rules separately to ET; year-end gap filling introduces latency."
+    },
+    "usgs_groundwater_discrete_levels": {
+      "support_type": "station",
+      "time_step": "event",
+      "domain": {
+        "kind": "station",
+        "bounds": null,
+        "hard_bounds": true,
+        "mask": "land_or_valid_retrieval",
+        "note": "U.S. monitoring wells, including participating territories where records exist. Well and aquifer coverage is site-specific.",
+        "regions": [
+          {
+            "name": "Contiguous United States",
+            "bounds": [
+              -125,
+              24,
+              -66,
+              50
+            ]
+          },
+          {
+            "name": "Alaska",
+            "bounds": [
+              170,
+              50,
+              -129,
+              72
+            ]
+          },
+          {
+            "name": "Hawaii",
+            "bounds": [
+              -161,
+              18,
+              -154,
+              23
+            ]
+          },
+          {
+            "name": "Puerto Rico and USVI",
+            "bounds": [
+              -68,
+              17,
+              -64,
+              19
+            ]
+          },
+          {
+            "name": "Pacific islands, where published",
+            "bounds": [
+              130,
+              -16,
+              -168,
+              23
+            ]
+          }
+        ]
+      },
+      "time": {
+        "kind": "station",
+        "intervals": [],
+        "uncertain_windows": [],
+        "known_through": null,
+        "note": "Period of record varies by well. The checked example is a 1969 field measurement. There is no assumed shared start or sampling frequency."
+      },
+      "access_requirement": "public_api",
+      "access_note": "Filter field measurements to parameter 72019, a monitoring location or bounding box, and project dates. Follow pagination and retain depth reference, approval and qualifiers.",
+      "evidence_ids": [
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_DOC",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_ACCESS",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_REF1",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_TERMS"
+      ],
+      "curation_reviewed_on": "2026-11-23",
+      "catalog_documentation_checked_on": "2026-11-23",
+      "basis": "Provider documentation and access evidence are linked in the record.",
+      "note": "Depth below local land surface cannot be subtracted across wells to infer a hydraulic gradient without surveyed elevations and consistent datums."
     }
   },
   "storm_reporting_zones": {

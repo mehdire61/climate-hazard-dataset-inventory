@@ -22,7 +22,7 @@ test('regional station scope distinguishes domestic land, actual coastal locatio
   const kisumu=point(-.1,34.75,50),dates={start:'2020-04-01',end:'2020-05-31'};
   const group=require('../data/hazard_groups.json').find(g=>g.id==='flood');
   const actual=group.products.filter(id=>{const r=evaluate(id,kisumu,dates);return r.status!=='excluded'&&r.networkInScope!==false;});
-  assert.deepEqual(actual,['grdc_discharge','gsim_indices','gesla3','gesla41','psmsl_rlr','dfo_event_archive','fathom_gfm3','cems_rapid_mapping','cems_gfm','c3s_lake_water_level','jrc_glofas_rp100_depth']);
+  assert.deepEqual(actual,['grdc_discharge','gsim_indices','gesla3','gesla41','psmsl_rlr','dfo_event_archive','fathom_gfm3','cems_rapid_mapping','cems_gfm','c3s_lake_water_level','jrc_glofas_rp100_depth','era5_single_level_water_balance','era5_land_water_balance','smap_l3_enhanced_surface_moisture','smap_l4_surface_rootzone_moisture']);
   assert.equal(evaluate('noaa_coops_water_level',kisumu,dates).label,'Find a station');
 });
 

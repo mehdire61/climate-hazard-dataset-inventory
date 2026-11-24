@@ -5,10 +5,10 @@
 
   const domainKinds = new Set(['global', 'envelope', 'station', 'regional', 'unknown']);
   const timeKinds = new Set(['range', 'station', 'event', 'scenario', 'unknown']);
-  const supportTypes = new Set(['station', 'grid', 'event', 'track', 'climate_state', 'acquisition', 'model']);
+  const supportTypes = new Set(['station', 'grid', 'area', 'event', 'track', 'climate_state', 'acquisition', 'model']);
   const timeSteps = new Set(['accumulation_specific', 'acquisition', 'annual_monthly_seasonal', 'daily', 'daily_accumulations', 'daily_index',
     'daily_monthly', 'event', 'half_hourly', 'hourly', 'hourly_interval', 'hourly_or_finer', 'hourly_synoptic', 'irregular_track',
-    'mixed', 'monthly', 'monthly_annual', 'monthly_irregular', 'monthly_seasonal_annual', 'overpass', 'return_period_scenario',
+    'weekly', 'eight_day', 'mixed', 'monthly', 'monthly_annual', 'monthly_irregular', 'monthly_seasonal_annual', 'overpass', 'return_period_scenario',
     'six_minute_hourly', 'three_hourly', 'two_minute']);
   const accessRequirements = new Set(['cds_account_and_terms', 'commercial_licence', 'earthdata_account', 'platform_account',
     'provider_terms', 'public_api', 'registration_or_terms', 'request', 'route_dependent']);
@@ -409,7 +409,7 @@
       } else if(!areaPartial) reasons.push(land.nearCoast ? `Land is within the ${land.marginKm} km coastal screening margin. Check whether the product masks the exact location.` : 'Land intersects the generalized country layer. Product masks and valid cells still need checking.');
     }
     if (domain.note) reasons.push(domain.note);
-    if (period.kind==='scenario') temporal=period.return_period_years ? period.return_period_years+'-year scenario independent of project dates' : 'Choose a scenario instead of calendar dates';
+    if (period.kind==='scenario') temporal=period.return_period_years ? period.return_period_years+'-year scenario independent of project dates' : period.frequency_estimate ? 'Choose a duration and annual exceedance probability; project dates do not select an estimate' : 'Choose a scenario instead of calendar dates';
     else if (period.intervals.length) {
       const matches=period.intervals.filter(interval=>overlaps(query,interval));
       if (!matches.length && uncertainPeriods.length) {
@@ -483,7 +483,7 @@
     if (rule.note) reasons.push(rule.note);
     let status='possible', label='Dates and area fit';
     if (spatialExcluded || timeExcluded) {status='excluded';label=spatialExcluded&&timeExcluded?'Outside area and dates':spatialExcluded?'Outside documented area':'Outside documented dates';}
-    else if (period.kind==='scenario') {status='special';label=period.return_period_years ? period.return_period_years+'-year scenario' : 'Choose a scenario';}
+    else if (period.kind==='scenario') {status='special';label=period.return_period_years ? period.return_period_years+'-year scenario' : period.frequency_estimate ? 'Choose duration and probability' : 'Choose a scenario';}
     else if (uncertainOnly) {status='unresolved';label='Check documented dates';}
     else if (rule.support_type==='station') {status='unresolved';label='Find a station';temporal='Check each station and variable period';}
     else if (product.product_id==='c3s_lake_water_level') {status='unresolved';label='Choose a monitored lake';}

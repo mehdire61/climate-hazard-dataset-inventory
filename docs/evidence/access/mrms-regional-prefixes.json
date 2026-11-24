@@ -1,0 +1,106 @@
+{
+  "checkedAt": "2026-11-24T03:49:03.264797+00:00",
+  "qualification": "First listed UTC date directory for each exact field and domain. Holdings and usable cells vary.",
+  "checks": [
+    {
+      "prefix": "CONUS/RadarOnly_QPE_01H_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CONUS%2FRadarOnly_QPE_01H_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CONUS/MultiSensor_QPE_01H_Pass1_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CONUS%2FMultiSensor_QPE_01H_Pass1_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CONUS/MultiSensor_QPE_01H_Pass2_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CONUS%2FMultiSensor_QPE_01H_Pass2_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CONUS/MESH_00.50/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CONUS%2FMESH_00.50%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "ALASKA/RadarOnly_QPE_01H_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=ALASKA%2FRadarOnly_QPE_01H_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "ALASKA/MultiSensor_QPE_01H_Pass1_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=ALASKA%2FMultiSensor_QPE_01H_Pass1_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "ALASKA/MultiSensor_QPE_01H_Pass2_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=ALASKA%2FMultiSensor_QPE_01H_Pass2_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "ALASKA/MESH_00.50/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=ALASKA%2FMESH_00.50%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "HAWAII/RadarOnly_QPE_01H_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=HAWAII%2FRadarOnly_QPE_01H_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "HAWAII/MultiSensor_QPE_01H_Pass1_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=HAWAII%2FMultiSensor_QPE_01H_Pass1_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "HAWAII/MultiSensor_QPE_01H_Pass2_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=HAWAII%2FMultiSensor_QPE_01H_Pass2_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "HAWAII/MESH_00.50/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=HAWAII%2FMESH_00.50%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CARIB/RadarOnly_QPE_01H_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CARIB%2FRadarOnly_QPE_01H_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CARIB/MultiSensor_QPE_01H_Pass1_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CARIB%2FMultiSensor_QPE_01H_Pass1_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CARIB/MultiSensor_QPE_01H_Pass2_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CARIB%2FMultiSensor_QPE_01H_Pass2_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "CARIB/MESH_00.50/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=CARIB%2FMESH_00.50%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "GUAM/RadarOnly_QPE_01H_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=GUAM%2FRadarOnly_QPE_01H_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "GUAM/MultiSensor_QPE_01H_Pass1_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=GUAM%2FMultiSensor_QPE_01H_Pass1_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "GUAM/MultiSensor_QPE_01H_Pass2_00.00/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=GUAM%2FMultiSensor_QPE_01H_Pass2_00.00%2F&delimiter=%2F&max-keys=1"
+    },
+    {
+      "prefix": "GUAM/MESH_00.50/",
+      "firstDate": "20201014",
+      "url": "https://noaa-mrms-pds.s3.amazonaws.com/?list-type=2&prefix=GUAM%2FMESH_00.50%2F&delimiter=%2F&max-keys=1"
+    }
+  ]
+}

@@ -320,7 +320,7 @@
 #site-check-view{font-size:15px;line-height:1.6;--muted:#465d53;--ink:#183b30}
 #site-check-view p,#site-check-view li,#site-check-view dd{font-size:14px;line-height:1.65}
 #site-check-view .sc-kicker,#site-check-view .sc-label,#site-check-view dt,#site-check-view .sc-badge,#site-check-view .sc-provider-label{font-size:12px;line-height:1.5}
-#site-check-view input,#site-check-view select,#site-check-view .btn{font-size:14px;min-height:38px}
+#site-check-view input,#site-check-view select,#site-check-view .btn{font-size:14px;min-height:44px}
 #site-check-view .sc-intro p{font-size:15px;max-width:70ch}
 #site-check-view .sc-scope{font-size:14px;max-width:70ch;margin-top:8px}
 #site-check-view .sc-intro h1{font-size:36px}

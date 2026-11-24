@@ -66,7 +66,7 @@
     if(!time||typeof time!=='object')output.notes.push('No reviewed product-period metadata are available. The project period is still shown.');
     else{
       const scenario=time.kind==='scenario',event=time.kind==='event',track=rule.support_type==='track',acquisition=rule.support_type==='acquisition';
-      const label=time.solution_calendar?'Nominal monthly solution periods':scenario?'Scenario / climate-state information':track?'Documented track period':event?'Documented event period':acquisition?'Documented acquisition period':time.kind==='station'?'Archive date limits':'Documented period';
+      const label=time.solution_calendar?'Nominal monthly solution periods':time.frequency_estimate?'Precipitation-frequency estimates':scenario?'Scenario / climate-state information':track?'Documented track period':event?'Documented event period':acquisition?'Documented acquisition period':time.kind==='station'?'Archive date limits':'Documented period';
       const note=time.solution_calendar?'Each interval groups nominal monthly solutions. JPL sampling bounds may cross month boundaries.':scenario?'Calendar-date overlap is not an observation-availability test for this information.':track?'A track archive does not imply continuous observations or a hazard occurrence at the project.':event?'An archive/event envelope is not a continuous time series or evidence that an event occurred at the project.':acquisition?'Dates do not establish an acquisition or valid pixels at the project.':time.kind==='station'?'Any limits shown are for the archive. Check the selected station and variable for local dates.':'Nominal metadata only; internal gaps, valid pixels and scientific suitability are untested.';
       const periods=time.solution_calendar?time.intervals.map(r=>({...r,end:r.end||time.known_through})):time.intervals;
       row('catalog',time.return_period_years ? time.return_period_years+'-year flood scenario' : label,
@@ -124,7 +124,7 @@
       const time = rule?.time || {}, periods = [], bands = [];
       let caption = '', horizon = null;
       if (time.kind === 'scenario') {
-        caption = time.return_period_years ? time.return_period_years+'-year flood scenario' : 'Climate-state and return-period scenarios';
+        caption = time.return_period_years ? time.return_period_years+'-year flood scenario' : time.frequency_estimate ? 'Precipitation frequency by duration and probability' : 'Climate-state and return-period scenarios';
         return {id,name,caption:caption+' · calendar dates do not apply',bands,periods};
       }
       const checked = index?.last_file_end || time.known_through || time.access_route_end;
@@ -140,7 +140,8 @@
           const label = (start || 'Start unknown')+' → '+(end || 'End open');
           periods.push((uncertain?'Uncertain · ':'')+label+(reason?' · '+reason:''));
           const endpoint = end || (validDay(checked) && (!start || checked>=start) ? checked : null);
-          const style = uncertain ? 'uncertain' : (!start || !endpoint || time.kind==='unknown') ? 'open' : 'nominal';
+          const style = uncertain ? 'uncertain' : start && !endpoint && time.publication_policy ? 'policy' :
+            (!start || !endpoint || time.kind==='unknown') ? 'open' : 'nominal';
           const displayEnd = endpoint || (validDay(snapshotDate) && snapshotDate>=start ? snapshotDate : null);
           if (displayEnd) dates.push(displayEnd);
           bands.push({start,end:displayEnd,style,label});
@@ -154,6 +155,7 @@
         if (nominal.length>1) caption+=' · '+nominal.length+' documented intervals';
       } else caption = time.kind==='station' ? 'Choose a station for its period' : time.kind==='event' ? 'Event dates vary by report' : 'Record dates unresolved';
       if (horizon) caption+=' · '+horizon.label+' '+horizon.date;
+      if (bands.some(b=>b.style==='policy')) caption+=' · documented start, latest release follows the provider’s publication schedule';
       if (time.kind==='station' && nominal.length) caption+=' · station dates vary';
       if (time.kind==='event' && nominal.length) caption+=' · event archive';
       if (rule?.support_type==='acquisition') caption+=' · passes vary by location';

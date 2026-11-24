@@ -89,7 +89,7 @@ test('comparison aligns matching dates and keeps open ends, uncertainty and file
   assert.match(chirps.caption,/end open.*Last listed file/);
   assert.equal(imerg.bands[0].end,'2025-09-30');
   assert.equal(imerg.horizon,null);
-  assert.equal(era.bands[0].style,'open');
+  assert.equal(era.bands[0].style,'policy');
   assert.equal(era.bands[0].end,'2026-11-23');
   assert.equal(spei.bands.filter(b=>b.style==='uncertain').length,2);
   assert.match(spei.periods.join(' '),/file time coordinates/);

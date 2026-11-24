@@ -87,11 +87,11 @@ PAGE_ASSETS = {
     "grdc-catalogue-code": ("script", "src/grdc-catalogue.js"),
     "site-check-code": ("script", "src/site-check.js"),
 }
-SUPPORT_TYPES = {"station", "grid", "event", "track", "climate_state", "acquisition", "model"}
+SUPPORT_TYPES = {"station", "grid", "area", "event", "track", "climate_state", "acquisition", "model"}
 TIME_STEPS = {"accumulation_specific", "acquisition", "annual_monthly_seasonal", "daily", "daily_accumulations", "daily_index",
               "daily_monthly", "event", "half_hourly", "hourly", "hourly_interval", "hourly_or_finer",
               "hourly_synoptic", "irregular_track", "mixed", "monthly", "monthly_annual", "monthly_irregular",
-              "monthly_seasonal_annual", "overpass", "return_period_scenario", "six_minute_hourly", "three_hourly", "two_minute"}
+              "monthly_seasonal_annual", "weekly", "eight_day", "overpass", "return_period_scenario", "six_minute_hourly", "three_hourly", "two_minute"}
 ACCESS_REQUIREMENTS = {"cds_account_and_terms", "commercial_licence", "earthdata_account", "platform_account",
                        "provider_terms", "public_api", "registration_or_terms", "request", "route_dependent"}
 INDEXED_SCREENING_PRODUCTS = {"chirps_v2_daily", "chirps_v3_daily_rnl", "chirps_v3_daily_sat", "gpcc_monthly_v2025"}

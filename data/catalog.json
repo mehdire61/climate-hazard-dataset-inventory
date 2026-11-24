@@ -2473,22 +2473,23 @@
         "OBS23",
         "OBS24",
         "R26_MRMS",
-        "R2_MRMS_NOAA"
+        "R2_MRMS_NOAA",
+        "SCS_MRMS_04"
       ],
       "documentation_url": "https://www.nssl.noaa.gov/projects/mrms/operational/tables.php",
       "access_url": "https://www.nssl.noaa.gov/projects/mrms/MRMS_data.php",
       "access_method": "NCEP HTTP/LDM GRIB2; historical archive/availability must be selected separately",
-      "license_id": "PROVIDER_SPECIFIC_TERMS",
-      "license_notes": "NOAA describes product suite as publicly available for use. Detailed selected-stream redistribution/attribution terms not separately audited; do not confuse software commercial licensing with data rights.",
-      "commercial_use_status": "UNKNOWN",
-      "redistribution_status": "UNKNOWN",
+      "license_id": "NOAA_NODD_OPEN_DATA",
+      "license_notes": "For the NOAA NODD distribution, public use is permitted under the listed attribution, modification-labeling and non-endorsement conditions. MRMS software licensing is separate.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "GRIB2"
       ],
       "unresolved_questions": [
         "Actual source files, dates, flags and units not inspected",
         "For model evaluation, independence from shared observations or training data has not been assessed.",
-        "Detailed rights for selected stream/redistribution and actual operational algorithm version; inspected v12.2 field table is not a claim of latest operational version"
+        "The reviewed v12.2 field table does not establish the currently deployed algorithm version."
       ],
       "last_checked_date": "2026-11-02"
     },
@@ -2527,22 +2528,23 @@
         "OBS19",
         "OBS23",
         "R26_MRMS",
-        "R2_MRMS_NOAA"
+        "R2_MRMS_NOAA",
+        "SCS_MRMS_04"
       ],
       "documentation_url": "https://vlab.noaa.gov/web/wdtd/-/multi-sensor-qpe",
       "access_url": "https://www.nssl.noaa.gov/projects/mrms/MRMS_data.php",
       "access_method": "NCEP HTTP/LDM GRIB2; historical stream availability untested",
-      "license_id": "PROVIDER_SPECIFIC_TERMS",
-      "license_notes": "Public availability documented; detailed selected-stream terms not separately audited.",
-      "commercial_use_status": "UNKNOWN",
-      "redistribution_status": "UNKNOWN",
+      "license_id": "NOAA_NODD_OPEN_DATA",
+      "license_notes": "For the NOAA NODD distribution, public use is permitted under the listed attribution, modification-labeling and non-endorsement conditions. MRMS software licensing is separate.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
       "formats": [
         "GRIB2"
       ],
       "unresolved_questions": [
         "Actual source files, dates, flags and units not inspected",
         "For model evaluation, independence from shared observations or training data has not been assessed.",
-        "Detailed rights for selected stream/redistribution and actual operational algorithm version; inspected v12.2 field table is not a claim of latest operational version"
+        "The reviewed v12.2 field table does not establish the currently deployed algorithm version."
       ],
       "last_checked_date": "2026-11-02"
     },
@@ -2848,7 +2850,7 @@
       "spatial_support": "Documented 0.01-degree latitude by 0.01-degree longitude grid; effective support varies with radar geometry and processing.",
       "temporal_support": "Nominal two-minute updates for MESH. MESHMax window-maximum products are distinct fields with separate temporal support.",
       "temporal_coverage": "Operational snapshots and selected archives; the October 2020 onward cloud access method is documented, but actual MESH completeness was not tested.",
-      "geographic_coverage": "CONUS for this entry; verify the selected file's domain, radar coverage and missing-data mask. No global coverage is implied.",
+      "geographic_coverage": "NOAA MRMS CONUS, Alaska, Hawaii, Caribbean and Guam domains. Radar coverage, usable cells and archive holdings vary.",
       "supported_use_cases": [
         "Find a spatial radar-based hail-size estimate for a documented storm.",
         "Compare event structure with report evidence while accounting for different observation processes and support."
@@ -2949,7 +2951,8 @@
       "version": "Air and Water Database (AWDB) REST v1, daily WTEQ",
       "hazard_family": [
         "snowpack",
-        "snow_drought"
+        "snow_drought",
+        "flood"
       ],
       "variable": "Snow water equivalent (SWE), the liquid-water depth stored in the snowpack at the station. AWDB element WTEQ.",
       "units": "Water-equivalent depth. The checked AWDB response reports inches (1 in = 25.4 mm). Read the unit on each returned series.",
@@ -2960,7 +2963,8 @@
       "geographic_coverage": "SNOTEL sites in the western United States and Alaska, concentrated in mountain watersheds.",
       "supported_use_cases": [
         "Compare modeled and observed SWE at matched stations and elevations.",
-        "Examine seasonal snow storage, peak SWE and melt timing at a station after checking record completeness."
+        "Examine seasonal snow storage, peak SWE and melt timing at a station after checking record completeness.",
+        "Characterize antecedent snow-water storage for snowmelt and rain-on-snow flood studies. Streamflow response also depends on melt energy, rainfall, soil and routing."
       ],
       "non_uses": [
         "Basin-average water storage or basin runoff inferred from one station.",
@@ -3120,7 +3124,8 @@
       "version": "G02158 Version 1, masked CONUS analysis, variable 11034",
       "hazard_family": [
         "snow",
-        "drought"
+        "drought",
+        "flood"
       ],
       "variable": "Total snow water equivalent (SWE), the water stored in all snow layers.",
       "units": "Millimetres of water equivalent. The checked raw raster uses −9999 for missing cells and 0 for zero SWE.",
@@ -3131,7 +3136,8 @@
       "geographic_coverage": "Conterminous United States (masked grid). Cells can be missing inside the rectangular grid, including over water and across borders.",
       "supported_use_cases": [
         "Assess daily snow-water storage and seasonal snowpack patterns.",
-        "Summarize valid SWE cells over a project with overlap-area weighting and report the fraction covered."
+        "Summarize valid SWE cells over a project with overlap-area weighting and report the fraction covered.",
+        "Characterize antecedent snow-water storage for snowmelt and rain-on-snow flood studies. Streamflow response also depends on melt energy, rainfall, soil and routing."
       ],
       "non_uses": [
         "Point-scale snow-pillow measurements, snowfall, snow depth or a daily accumulation.",
@@ -3173,6 +3179,729 @@
         "SNODAS_NWS_TERMS"
       ],
       "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "noaa_atlas14_precip_frequency",
+      "product_name": "NOAA Atlas 14 · precipitation-frequency depths",
+      "provider": "NOAA National Weather Service",
+      "version": "Published regional volumes and revisions shown by PFDS",
+      "hazard_family": [
+        "precipitation",
+        "flood"
+      ],
+      "variable": "Point precipitation depth by storm duration and annual exceedance probability or average recurrence interval.",
+      "units": "Inches or millimetres, as selected in PFDS. Intensity requires the corresponding duration.",
+      "data_nature": "Frequency estimates fitted to gauge records and mapped across published regional volumes",
+      "spatial_support": "Point estimates and regional frequency grids. A point depth requires an areal adjustment when used for a basin design storm.",
+      "temporal_support": "Select a storm duration, frequency and series definition. The project dates do not select one observed storm.",
+      "temporal_coverage": "Fixed frequency estimates by volume and version. Source record lengths and release dates vary.",
+      "geographic_coverage": "Published U.S. volumes and island areas shown on PFDS. Some regions use older references. Confirm that the result identifies NOAA Atlas 14 and a volume.",
+      "supported_use_cases": [
+        "Select a duration, probability and confidence limits to characterize historical design rainfall at a site."
+      ],
+      "non_uses": [
+        "An observed hyetograph, a basin-average storm or a future-climate adjustment."
+      ],
+      "limitations": [
+        "Point-to-area conversion and temporal storm distribution are separate design choices.",
+        "Volume boundaries, uncertainty intervals and the annual-maxima versus partial-duration series matter."
+      ],
+      "dependence_notes": "Frequency estimates use historical gauges. A comparison with an input gauge is not independent validation.",
+      "evidence_ids": [
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_DOC",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_REF1",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_TERMS"
+      ],
+      "documentation_url": "https://hdsc.nws.noaa.gov/pfds/",
+      "access_url": "https://hdsc.nws.noaa.gov/pfds/",
+      "access_example_url": "https://hdsc.nws.noaa.gov/cgi-bin/new/fe_text.csv?lat=39.08&lon=-77.15&type=pf&data=depth&units=english&series=pds",
+      "access_method": "Select a point in PFDS, confirm its volume, then choose depth, units, duration and series. Download the estimate and confidence tables.",
+      "license_id": "NOAA_PROVIDER_TERMS",
+      "license_url": "https://www.weather.gov/disclaimer/",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Credit NOAA/NWS and the cited volume, identify modifications, and avoid implying NOAA endorsement.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "CSV",
+        "GIS frequency grids"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "noaa_atlas15_montana_v1_pilot",
+      "product_name": "NOAA Atlas 15 · Montana Volume 1 pilot",
+      "provider": "NOAA National Weather Service",
+      "version": "Montana pilot, Volume 1 · technical report v1.1.p, March 2025",
+      "hazard_family": [
+        "precipitation",
+        "flood"
+      ],
+      "variable": "Preliminary observation-based precipitation-frequency estimates accounting for historical trends.",
+      "units": "Precipitation depth in the units of the selected report figure or table. Check its duration and annual exceedance probability.",
+      "data_nature": "Preliminary nonstationary frequency analysis of historical precipitation observations",
+      "spatial_support": "Montana pilot study area. The technical report illustrates point and spatial estimates.",
+      "temporal_support": "Pilot durations span 1 hour to 10 days with annual exceedance probabilities from 50% to 1%.",
+      "temporal_coverage": "Pilot issued September 2024. Volume 1 is a historical reference state independent of the dates entered in Site check.",
+      "geographic_coverage": "Montana pilot study only. The bounding box includes neighboring land outside the study. See the report for study limits.",
+      "supported_use_cases": [
+        "Compare the pilot methodology with the published Atlas 14 estimates for Montana and inspect NOAA’s report figures."
+      ],
+      "non_uses": [
+        "Adopted design rainfall, nationwide coverage or Volume 2 future projections."
+      ],
+      "limitations": [
+        "NOAA limits the pilot to comparison and feedback. The public review closed. Published Atlas 14 remains the design reference where applicable.",
+        "This route supplies illustrated results and methods. A downloadable current pilot grid has not been verified."
+      ],
+      "dependence_notes": "Volume 1 uses historical gauge observations. Atlas 14 and 15 can share gauges.",
+      "evidence_ids": [
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_DOC",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_ACCESS",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_REF1",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_TERMS"
+      ],
+      "documentation_url": "https://water.noaa.gov/about/atlas15",
+      "access_url": "https://www.weather.gov/media/owp/precip-frequency/noaa_atlas15_pilot_technical_report.pdf",
+      "access_example_url": null,
+      "access_method": "Read Volume 1 results in the NOAA pilot technical report. Use PFDS for the published Atlas 14 volume.",
+      "license_id": "NOAA_PROVIDER_TERMS",
+      "license_url": "https://www.weather.gov/disclaimer/",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Credit NOAA/NWS and the cited volume, identify modifications, and avoid implying NOAA endorsement.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "PDF technical report and estimate figures"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "era5_single_level_water_balance",
+      "product_name": "ERA5 · precipitation, runoff and snow water equivalent",
+      "provider": "Copernicus Climate Change Service / ECMWF",
+      "version": "ERA5 hourly historical reanalysis, CDS regular grid",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "snow",
+        "flood"
+      ],
+      "variable": "Total precipitation (tp), total runoff (ro) and snow depth expressed as water equivalent (sd).",
+      "units": "Metres of water equivalent. Multiply by 1,000 for millimetres. Snow is stored water at the valid time.",
+      "data_nature": "Atmospheric reanalysis with model-generated precipitation and land-surface estimates",
+      "spatial_support": "Atmospheric model near 31 km, distributed on a regular 0.25° CDS grid.",
+      "temporal_support": "Hourly output. In the hourly high-resolution stream, precipitation and runoff accumulate over the preceding hour. SWE is an instantaneous state.",
+      "temporal_coverage": "1940 onward, with a provisional recent tail. Verify actual file dates and production status in CDS.",
+      "geographic_coverage": "Global atmospheric grid. Land runoff and SWE require suitable land/surface coverage.",
+      "supported_use_cases": [
+        "Examine historical water balance and seasonal snow storage after aligning grid cells, accumulation windows and units."
+      ],
+      "non_uses": [
+        "Station rainfall, river discharge, measured snow depth or interchangeable independent estimates of the same event."
+      ],
+      "limitations": [
+        "Precipitation and runoff are modeled grid amounts; distinguish hourly high-resolution fields from ensemble or monthly statistics.",
+        "Total runoff represents water generated over a grid cell. Routing is required to compare it with streamflow."
+      ],
+      "dependence_notes": "Assimilation and shared meteorological forcing can overlap with comparison products, especially ERA5-Land.",
+      "evidence_ids": [
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_DOC",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_ACCESS",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF1",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF2",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_TERMS"
+      ],
+      "documentation_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+      "access_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+      "access_example_url": null,
+      "access_method": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://cds.climate.copernicus.eu/licences/cc-by",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Attribute the Copernicus Climate Change Service and ECMWF, identify the version, cite the dataset DOI and indicate changes under CC BY 4.0.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "GRIB",
+        "NetCDF"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "era5_land_water_balance",
+      "product_name": "ERA5-Land · precipitation, runoff and snow water equivalent",
+      "provider": "Copernicus Climate Change Service / ECMWF",
+      "version": "ERA5-Land hourly historical reanalysis, CDS regular grid",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "snow",
+        "flood"
+      ],
+      "variable": "Total precipitation (tp), total runoff (ro) and snow depth expressed as water equivalent (sd).",
+      "units": "Metres of water equivalent. Multiply by 1,000 for millimetres. Snow is stored water at the valid time.",
+      "data_nature": "Land-surface model replay driven by ERA5 atmospheric forcing",
+      "spatial_support": "Native land model near 9 km, distributed on a 0.1° CDS grid.",
+      "temporal_support": "Hourly output. Precipitation and runoff in the hourly CDS archive accumulate from the start of the 00 UTC forecast. Difference successive steps within a forecast, preserving the midnight 24-hour total. SWE is an instantaneous state.",
+      "temporal_coverage": "1950 onward, with a provisional recent tail. Verify actual file dates and production status in CDS.",
+      "geographic_coverage": "Global land grid. Check the land mask and snow/ice handling in each cell.",
+      "supported_use_cases": [
+        "Examine historical water balance and seasonal snow storage after aligning grid cells, accumulation windows and units."
+      ],
+      "non_uses": [
+        "Station rainfall, river discharge, measured snow depth or interchangeable independent estimates of the same event."
+      ],
+      "limitations": [
+        "The forecast reset changes the differencing rule at midnight; retain the forecast steps.",
+        "Total runoff represents water generated over a grid cell. Routing is required to compare it with streamflow."
+      ],
+      "dependence_notes": "ERA5-Land uses ERA5 atmospheric forcing. Comparing the two products does not give an independent forcing check.",
+      "evidence_ids": [
+        "ERA5_LAND_WATER_BALANCE_DOC",
+        "ERA5_LAND_WATER_BALANCE_ACCESS",
+        "ERA5_LAND_WATER_BALANCE_REF1",
+        "ERA5_LAND_WATER_BALANCE_REF2",
+        "ERA5_LAND_WATER_BALANCE_TERMS"
+      ],
+      "documentation_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+      "access_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+      "access_example_url": null,
+      "access_method": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://cds.climate.copernicus.eu/licences/cc-by",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Attribute the Copernicus Climate Change Service and ECMWF, identify the version, cite the dataset DOI and indicate changes under CC BY 4.0.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "GRIB",
+        "NetCDF"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "prism_conus_daily_ppt",
+      "product_name": "PRISM · daily precipitation, CONUS 4 km",
+      "provider": "PRISM Group, Oregon State University",
+      "version": "Daily time series, 4 km AN product · ppt",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "flood"
+      ],
+      "variable": "Daily total precipitation, ppt.",
+      "units": "Millimetres per PRISM day.",
+      "data_nature": "Station precipitation interpolated using climate–terrain relationships",
+      "spatial_support": "4 km CONUS grid. Local terrain and station coverage affect representativeness.",
+      "temporal_support": "Daily total for the 24 hours ending at 12 UTC on the labeled day. Compare station observation-day boundaries.",
+      "temporal_coverage": "January 1981 onward for daily CONUS fields. Recent grids can be revised.",
+      "geographic_coverage": "Conterminous U.S. raster. Check edge and coastal cells against the data mask.",
+      "supported_use_cases": [
+        "Summarize observed-based daily rainfall over catchments or characterize antecedent precipitation."
+      ],
+      "non_uses": [
+        "Subdaily storm intensity or an independent comparison with the gauges used by PRISM."
+      ],
+      "limitations": [
+        "Station density, terrain and changing input networks affect local estimates and trends.",
+        "Recent estimates can be provisional. Record the downloaded grid edition and date.",
+        "Cache each downloaded grid. After two downloads of the same file in one Pacific day, the service can return a text limit notice with HTTP 200. Verify the ZIP before use."
+      ],
+      "dependence_notes": "Station data and PRISM climatologies also inform other regional forcings, including gridMET and NLDAS-2.",
+      "evidence_ids": [
+        "PRISM_CONUS_DAILY_PPT_DOC",
+        "PRISM_CONUS_DAILY_PPT_ACCESS",
+        "PRISM_CONUS_DAILY_PPT_REF1",
+        "PRISM_CONUS_DAILY_PPT_TERMS"
+      ],
+      "documentation_url": "https://prism.oregonstate.edu/data/",
+      "access_url": "https://prism.oregonstate.edu/downloads/",
+      "access_example_url": "https://services.nacse.org/prism/data/get/us/4km/ppt/20240401",
+      "access_method": "Choose U.S., 4 km, daily precipitation and a date in the PRISM download service. Retain the supplied raster metadata.",
+      "license_id": "PROVIDER_SPECIFIC_TERMS",
+      "license_url": "https://prism.oregonstate.edu/terms/",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "PRISM permits data reproduction and distribution. Credit the PRISM Group, Oregon State University, include the provider URL and access date, and preserve the required copyright notice on map graphics.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "GeoTIFF",
+        "ZIP"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "daymet_v4r1_daily_prcp",
+      "product_name": "Daymet V4 R1 · daily precipitation",
+      "provider": "Oak Ridge National Laboratory DAAC / NASA",
+      "version": "Daymet V4 R1, ORNL DAAC 2129 · prcp",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "flood"
+      ],
+      "variable": "Daily total precipitation as water equivalent, prcp.",
+      "units": "Millimetres per day.",
+      "data_nature": "Station-derived daily surface weather estimates interpolated on a terrain-aware grid",
+      "spatial_support": "1 km Lambert conformal conic grids for continental North America, Hawaii and Puerto Rico. The regional files are distinct.",
+      "temporal_support": "365 daily values per year. Leap years include February 29 and omit December 31.",
+      "temporal_coverage": "Continental North America and Hawaii begin 1980. Puerto Rico begins 1950. Annual file releases; the checked catalog includes 2025.",
+      "geographic_coverage": "Continental North America, Hawaii and Puerto Rico. Project envelopes can include ocean; region files and land masks determine valid cells.",
+      "supported_use_cases": [
+        "Estimate daily precipitation for a project area with the appropriate regional grid, projected coordinates and calendar."
+      ],
+      "non_uses": [
+        "Subdaily rainfall rates or a Gregorian December 31 observation in a leap year."
+      ],
+      "limitations": [
+        "Leap-year December 31 is absent. Align calendars before comparing annual totals or daily events.",
+        "A file can cover a large region. Check the precipitation variable, grid mask and station availability."
+      ],
+      "dependence_notes": "Daymet interpolates station observations that may also enter PRISM, gridded gauges or station-based validation.",
+      "evidence_ids": [
+        "DAYMET_V4R1_DAILY_PRCP_DOC",
+        "DAYMET_V4R1_DAILY_PRCP_ACCESS",
+        "DAYMET_V4R1_DAILY_PRCP_TERMS",
+        "DAYMET_V4R1_DAILY_PRCP_CMR"
+      ],
+      "documentation_url": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "access_url": "https://doi.org/10.3334/ORNLDAAC/2129",
+      "access_example_url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532426483-ORNL_CLOUD&page_size=1&sort_key=-start_date",
+      "access_method": "Find yearly precipitation granules for the regional grid. Extract prcp and preserve the Daymet calendar.",
+      "license_id": "NASA_MISSION_DATA_POLICY",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "NetCDF"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "gridmet_daily_precipitation",
+      "product_name": "gridMET · daily precipitation",
+      "provider": "Climatology Lab / University of California, Merced",
+      "version": "gridMET (METDATA), daily pr",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "flood"
+      ],
+      "variable": "Daily precipitation amount (pr).",
+      "units": "Millimetres of water per day.",
+      "data_nature": "Gridded meteorological forcing blending station-derived climatology and regional weather data",
+      "spatial_support": "1/24° CONUS grid, approximately 4 km. Effective spatial detail depends on the source fields.",
+      "temporal_support": "Daily accumulations. The precipitation day follows the source observing convention; align with gauge observation windows.",
+      "temporal_coverage": "1979 onward. The checked annual NetCDF distribution includes 2024.",
+      "geographic_coverage": "Contiguous United States. Use the original raster mask near coastlines and domain edges.",
+      "supported_use_cases": [
+        "Assess daily rainfall and antecedent moisture inputs alongside other gridMET meteorological variables."
+      ],
+      "non_uses": [
+        "Site-measured precipitation or independent validation against PRISM and NLDAS-2."
+      ],
+      "limitations": [
+        "Terrain-scale precipitation gradients and extremes can be smoothed; verify time support and provisional updates."
+      ],
+      "dependence_notes": "gridMET combines PRISM spatial information with NLDAS-2 and other meteorological inputs. These sources can share station signals.",
+      "evidence_ids": [
+        "GRIDMET_DAILY_PRECIPITATION_DOC",
+        "GRIDMET_DAILY_PRECIPITATION_ACCESS",
+        "GRIDMET_DAILY_PRECIPITATION_REF1"
+      ],
+      "documentation_url": "https://www.climatologylab.org/gridmet.html",
+      "access_url": "https://www.northwestknowledge.net/metdata/data/",
+      "access_example_url": "https://www.northwestknowledge.net/metdata/data/pr_2024.nc",
+      "access_method": "Choose the pr_YYYY.nc precipitation file for each requested year. Read its coordinates, units, time axis and fill value.",
+      "license_id": "CC0-1.0",
+      "license_url": "https://www.climatologylab.org/gridmet.html",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "The producer applies a CC0 dedication to gridMET. Cite John Abatzoglou and the gridMET publication for provenance.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "NetCDF"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "nldas2_hourly_forcing_precip",
+      "product_name": "NLDAS-2 · hourly precipitation forcing",
+      "provider": "NASA GES DISC / NLDAS team",
+      "version": "NLDAS_FORA0125_H V2.0, primary forcing File A",
+      "hazard_family": [
+        "precipitation",
+        "drought",
+        "flood"
+      ],
+      "variable": "Hourly total precipitation forcing (Rainf in NetCDF; APCP in GRIB).",
+      "units": "kg m⁻² for the hour, equivalent to millimetres of liquid water.",
+      "data_nature": "Gauge-based precipitation forcing with spatial adjustment and hourly disaggregation",
+      "spatial_support": "1/8° grid over central North America, approximately 12–14 km. This record selects precipitation in File A.",
+      "temporal_support": "One-hour precipitation accumulation. Read interval time coordinates before daily aggregation.",
+      "temporal_coverage": "January 1, 1979 onward. Public granules were listed through November 20, 2026.",
+      "geographic_coverage": "25–53°N and 125–67°W. Portions of southern Canada and northern Mexico are included; source inputs differ by region.",
+      "supported_use_cases": [
+        "Prepare historical hydrological model precipitation forcing with explicit hourly totals and grid support."
+      ],
+      "non_uses": [
+        "Runoff simulated by an NLDAS land-surface model or directly measured hourly gauge amounts everywhere."
+      ],
+      "limitations": [
+        "Temporal disaggregation depends on available radar, satellite and other inputs. Methods change across regions and eras."
+      ],
+      "dependence_notes": "The CONUS forcing uses CPC gauge analyses adjusted using PRISM climatology. Independent gauge validation requires tracing inputs.",
+      "evidence_ids": [
+        "NLDAS2_HOURLY_FORCING_PRECIP_DOC",
+        "NLDAS2_HOURLY_FORCING_PRECIP_ACCESS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_TERMS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_CMR"
+      ],
+      "documentation_url": "https://ldas.gsfc.nasa.gov/nldas/v2/forcing",
+      "access_url": "https://doi.org/10.5067/THUF4J1RLSYG",
+      "access_example_url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2033151148-GES_DISC&page_size=1&sort_key=-start_date",
+      "access_method": "Find hourly File A granules and select total precipitation. Read per-file field names, units and temporal bounds.",
+      "license_id": "NASA_MISSION_DATA_POLICY",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "NetCDF",
+        "GRIB"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "usdm_weekly_drought",
+      "product_name": "U.S. Drought Monitor · weekly drought categories",
+      "provider": "National Drought Mitigation Center / USDA / NOAA / NASA",
+      "version": "USDM weekly categorical analysis, archived GIS polygons",
+      "hazard_family": [
+        "drought"
+      ],
+      "variable": "D0 abnormally dry and D1–D4 drought severity classes.",
+      "units": "Ordered categories. D0 is abnormally dry; D1 through D4 range from moderate to exceptional drought.",
+      "data_nature": "Weekly expert synthesis of physical indicators, observations and local impact reports",
+      "spatial_support": "Regional drought-class polygons. A polygon can cross many watersheds and contains no within-class intensity measurement.",
+      "temporal_support": "Weekly map valid Tuesday and normally released Thursday. Compare editions by their valid date.",
+      "temporal_coverage": "The catalog selects the CONUS GIS archive from January 4, 2000 onward. Territorial extensions have other histories.",
+      "geographic_coverage": "The selected archive use is the contiguous U.S. Other U.S. regions have separately documented coverage.",
+      "supported_use_cases": [
+        "Report the fraction of a project area in each mutually exclusive weekly drought class."
+      ],
+      "non_uses": [
+        "A continuous moisture deficit, a daily onset timestamp or an exhaustive inventory of local impacts."
+      ],
+      "limitations": [
+        "Use mutually exclusive polygons for class areas. Overlapping threshold files must not be summed across classes."
+      ],
+      "dependence_notes": "USDM integrates gauges, modeled indicators and expert assessments. Agreement with an input indicator is not independent validation.",
+      "evidence_ids": [
+        "USDM_WEEKLY_DROUGHT_DOC",
+        "USDM_WEEKLY_DROUGHT_ACCESS",
+        "USDM_WEEKLY_DROUGHT_REF1",
+        "USDM_WEEKLY_DROUGHT_TERMS"
+      ],
+      "documentation_url": "https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx",
+      "access_url": "https://droughtmonitor.unl.edu/Data/shapefiles_m/",
+      "access_example_url": "https://droughtmonitor.unl.edu/Data/shapefiles_m/USDM_20240402_M.zip",
+      "access_method": "Choose a Tuesday in the merged GIS archive. Intersect the CONUS polygons with the project in an equal-area projection, assigning the highest class at each location to calculate exclusive areas.",
+      "license_id": "PROVIDER_SPECIFIC_TERMS",
+      "license_url": "https://droughtmonitor.unl.edu/About/Permission.aspx",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Commercial and non-commercial third-party use is authorized. Use the current producer credit and NDMC courtesy line exactly as given on the permission page.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "ESRI Shapefile",
+        "ZIP"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "smap_l3_enhanced_surface_moisture",
+      "product_name": "SMAP enhanced L3 · surface soil moisture",
+      "provider": "NASA / NSIDC DAAC",
+      "version": "SPL3SMP_E V006",
+      "hazard_family": [
+        "drought",
+        "flood"
+      ],
+      "variable": "Radiometer-retrieved near-surface soil moisture, approximately the top 5 cm; AM and PM overpasses.",
+      "units": "Volumetric soil water content, m³/m³.",
+      "data_nature": "Enhanced passive L-band satellite soil-moisture retrieval",
+      "spatial_support": "9 km EASE-Grid posting. The microwave footprint is coarser than the posting. Select the global or relevant polar grid.",
+      "temporal_support": "Daily granules contain separate AM/PM swath retrievals; dates can lack a valid pass.",
+      "temporal_coverage": "March 31, 2015 onward. The reviewed version had CMR granules through November 2026.",
+      "geographic_coverage": "Global/polar land grids within collection coverage; retrieval eligibility varies with orbit, frozen soils and surface type.",
+      "supported_use_cases": [
+        "Assess shallow wetness anomalies and antecedent surface conditions using quality-screened retrievals."
+      ],
+      "non_uses": [
+        "Root-zone storage, a daily spatially complete analysis or a point-probe measurement."
+      ],
+      "limitations": [
+        "Apply retrieval-quality, surface, frozen-ground and radio-frequency-interference flags before spatial averaging."
+      ],
+      "dependence_notes": "L3 and L4 use the SMAP radiometer. Shared sensor information limits their independence.",
+      "evidence_ids": [
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_DOC",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_ACCESS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_TERMS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_CMR"
+      ],
+      "documentation_url": "https://nsidc.org/data/spl3smp_e/versions/6",
+      "access_url": "https://doi.org/10.5067/M20OXIZHY3RJ",
+      "access_example_url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2938664763-NSIDC_CPRD&page_size=1&sort_key=-start_date",
+      "access_method": "Find exact-version granules, then choose the appropriate orbit, grid, soil-moisture field and quality flags.",
+      "license_id": "NASA_MISSION_DATA_POLICY",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "HDF5"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "smap_l4_surface_rootzone_moisture",
+      "product_name": "SMAP L4 · surface and root-zone soil moisture",
+      "provider": "NASA / NSIDC DAAC",
+      "version": "SPL4SMGP V008",
+      "hazard_family": [
+        "drought",
+        "flood"
+      ],
+      "variable": "Assimilated sm_surface (0–5 cm) and sm_rootzone (0–100 cm) soil moisture.",
+      "units": "Volumetric soil water content, m³/m³.",
+      "data_nature": "Land model analysis assimilating SMAP brightness temperatures",
+      "spatial_support": "9 km EASE-Grid 2.0 estimates over land. Root-zone water is a modeled state informed indirectly by the observations.",
+      "temporal_support": "Three-hourly geophysical fields. Inspect the model time bounds and analysis quality.",
+      "temporal_coverage": "March 31, 2015 onward. The reviewed version had CMR granules through November 2026.",
+      "geographic_coverage": "Global land grid between approximately 85°S and 85°N. Inspect the native land mask and quality fields.",
+      "supported_use_cases": [
+        "Assess root-zone moisture storage anomalies for drought studies, or antecedent surface wetness for flood studies."
+      ],
+      "non_uses": [
+        "An independently measured root-zone profile or a field-scale irrigation diagnosis."
+      ],
+      "limitations": [
+        "Modeled root-zone estimates depend on forcing, model dynamics and assimilation. Frozen, snow-covered and poorly observed areas require extra checks."
+      ],
+      "dependence_notes": "L4 uses SMAP brightness temperatures and meteorological forcing. L3 and L4 are scientifically dependent.",
+      "evidence_ids": [
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_DOC",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_ACCESS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_TERMS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_CMR"
+      ],
+      "documentation_url": "https://nsidc.org/data/spl4smgp/versions/8",
+      "access_url": "https://doi.org/10.5067/T5RUATAQREF8",
+      "access_example_url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C3480440870-NSIDC_CPRD&page_size=1&sort_key=-start_date",
+      "access_method": "Find exact-version granules, then choose surface or root-zone soil moisture and the corresponding quality information.",
+      "license_id": "NASA_MISSION_DATA_POLICY",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "HDF5"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "openet_ensemble_monthly_v2",
+      "product_name": "OpenET · monthly ensemble actual evapotranspiration",
+      "provider": "OpenET, Inc.",
+      "version": "CONUS gridMET monthly ensemble v2.0 · et_ensemble_mad",
+      "hazard_family": [
+        "drought"
+      ],
+      "variable": "Actual evapotranspiration depth, the mean of participating models after median-absolute-deviation outlier filtering.",
+      "units": "Millimetres per calendar month.",
+      "data_nature": "Landsat and meteorology-driven multi-model actual evapotranspiration ensemble",
+      "spatial_support": "30 m reported pixels. Field boundaries, mixed pixels and meteorological forcing affect interpretation.",
+      "temporal_support": "Monthly totals. Inspect the per-pixel model count and range before comparing fields.",
+      "temporal_coverage": "October 1999 through December 2024 in the cited v2.0 catalog asset. Verify extensions in their own edition.",
+      "geographic_coverage": "CONUS collection; usable footprint varies by pixel, month and model availability.",
+      "supported_use_cases": [
+        "Compare monthly actual ET among irrigated fields or estimate a catchment water-balance term with valid-area weighting."
+      ],
+      "non_uses": [
+        "Reference ET, direct consumptive irrigation withdrawals or a measured water right."
+      ],
+      "limitations": [
+        "DisALEXI is unavailable before 2001. Inspect ensemble count and model range, especially across changes in coverage."
+      ],
+      "dependence_notes": "The member models share Landsat and meteorological inputs, including gridMET. Their spread is not an independent error estimate.",
+      "evidence_ids": [
+        "OPENET_ENSEMBLE_MONTHLY_V2_DOC"
+      ],
+      "documentation_url": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "access_url": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "access_example_url": null,
+      "access_method": "Open the published Earth Engine asset and select et_ensemble_mad, a month, and the valid project footprint. Review member-count bands.",
+      "license_id": "CC-BY-4.0",
+      "license_url": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "OpenET publishes this collection under CC BY 4.0. Credit OpenET, cite the ensemble, name the version and identify changes.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "Earth Engine ImageCollection",
+        "raster"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "modis_mod16a2gf_actual_et",
+      "product_name": "MODIS MOD16A2GF · gap-filled actual evapotranspiration",
+      "provider": "NASA / LP DAAC",
+      "version": "MOD16A2GF Collection 6.1 (061), Terra",
+      "hazard_family": [
+        "drought"
+      ],
+      "variable": "Actual terrestrial evapotranspiration, ET_500m, with ET_QC_500m.",
+      "units": "Stored ET × 0.1 kg/m² per composite, equivalent to millimetres of water. Mask fill and non-vegetated codes before scaling.",
+      "data_nature": "Penman–Monteith model estimates using MODIS canopy properties and meteorological reanalysis",
+      "spatial_support": "500 m MODIS sinusoidal land tiles. Tile overlap does not establish a valid vegetated pixel.",
+      "temporal_support": "8-day ET sums. The final composite in a year covers 5 or 6 days; use its actual length when converting to a mean rate.",
+      "temporal_coverage": "Collection metadata begin in 2000. Year-end gap-filled retrievals were listed through December 31, 2025.",
+      "geographic_coverage": "Global vegetated land in the MODIS sinusoidal tiling system, subject to the product land-cover and fill codes.",
+      "supported_use_cases": [
+        "Estimate actual land ET totals over stated periods and compare spatial water-balance patterns."
+      ],
+      "non_uses": [
+        "Latent heat flux, potential ET, an instantaneous flux or an unweighted mean across unequal composite lengths."
+      ],
+      "limitations": [
+        "ET and PET have different meanings. Apply QA, scale and fill rules separately to ET; year-end gap filling introduces latency."
+      ],
+      "dependence_notes": "Satellite vegetation properties and reanalysis forcing enter the ET model; overlap with other modeled ET products affects validation.",
+      "evidence_ids": [
+        "MODIS_MOD16A2GF_ACTUAL_ET_DOC",
+        "MODIS_MOD16A2GF_ACTUAL_ET_ACCESS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_REF1",
+        "MODIS_MOD16A2GF_ACTUAL_ET_TERMS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_CMR"
+      ],
+      "documentation_url": "https://doi.org/10.5067/MODIS/MOD16A2GF.061",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C2565791021-LPCLOUD",
+      "access_example_url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565791021-LPCLOUD&page_size=1&sort_key=-start_date",
+      "access_method": "Find 061 granules intersecting the project dates and area. Select the ET field and QA, apply scale after masking, then sum valid composite depths.",
+      "license_id": "NASA_MISSION_DATA_POLICY",
+      "license_url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "HDF-EOS2"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23"
+    },
+    {
+      "product_id": "usgs_groundwater_discrete_levels",
+      "product_name": "USGS groundwater · discrete depth to water",
+      "provider": "U.S. Geological Survey",
+      "version": "Water Data OGC API · field measurements, parameter 72019",
+      "hazard_family": [
+        "drought"
+      ],
+      "variable": "Field-measured depth to water below land surface in a well, parameter 72019.",
+      "units": "Feet below local land-surface datum. Check parameter, reference, units and measuring-point adjustments for each well.",
+      "data_nature": "Discrete groundwater-level observations made during well visits",
+      "spatial_support": "Individual monitoring well and screened aquifer interval. Nearby wells may represent different aquifers.",
+      "temporal_support": "Irregular individual visits with time, quality/approval and well condition qualifiers.",
+      "temporal_coverage": "Period of record varies by well. The checked example is a 1969 field measurement. There is no assumed shared start or sampling frequency.",
+      "geographic_coverage": "U.S. monitoring wells, including participating territories where records exist. Well and aquifer coverage is site-specific.",
+      "supported_use_cases": [
+        "Assess groundwater-level anomalies or drawdown by well after checking depth reference, pumping conditions and measurement history."
+      ],
+      "non_uses": [
+        "Aquifer storage volume, river stage or hydraulic head above an absolute geodetic datum."
+      ],
+      "limitations": [
+        "Depth below local land surface cannot be subtracted across wells to infer a hydraulic gradient without surveyed elevations and consistent datums.",
+        "Sparse visits, pumping and changes to the measuring point can obscure seasonal trends."
+      ],
+      "dependence_notes": "Networks include USGS and partner agencies. Check agency and well identifiers before treating records from other portals as independent.",
+      "evidence_ids": [
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_DOC",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_ACCESS",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_REF1",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_TERMS"
+      ],
+      "documentation_url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements?f=html",
+      "access_url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?parameter_code=72019&limit=10&f=html",
+      "access_example_url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?f=json&parameter_code=72019&limit=1",
+      "access_method": "Filter field measurements to parameter 72019, a monitoring location or bounding box, and project dates. Follow pagination and retain depth reference, approval and qualifiers.",
+      "license_id": "US_GOVERNMENT_DATA_TERMS",
+      "license_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+      "license_url_label": "Provider reuse and attribution terms",
+      "license_notes": "Credit USGS and the measuring agency. Check third-party notices and preserve station, parameter, datum and qualifier information.",
+      "commercial_use_status": "PERMITTED_WITH_CONDITIONS",
+      "redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "formats": [
+        "GeoJSON",
+        "CSV"
+      ],
+      "unresolved_questions": [
+        "Project-specific sampling, quality flags and valid spatial coverage need checking in the selected provider files."
+      ],
+      "last_checked_date": "2026-11-23",
+      "vertical_reference": "Depth below local land-surface datum. A separate surveyed land elevation and its vertical datum are required to compute comparable groundwater elevations.",
+      "vertical_reference_sources": [
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_DOC",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_ACCESS"
+      ]
     }
   ]
 }

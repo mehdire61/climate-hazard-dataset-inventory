@@ -36,6 +36,7 @@
   let stationDownloadPlan = null;
   let loading = '', loadingKind = '', networkError = '', controller = null, generation = 0, dirty = false;
   let accessPlan = null, accessFileResult = null, accessOptions = {}, accessError = '', accessLoading = false, accessController = null, accessGeneration = 0, fileSearch = '', filePage = 0;
+  const projectFileSearches = new Map();
   let lakeFilter = '';
   let selectedFileKeys = new Set();
   let fileBatchSource = null, fileBatchPlan = null;
@@ -67,8 +68,8 @@
   };
   const badge = (label, status = '') => node('span', {class: 'sc-badge ' + status}, label);
   const human = text => ({ALLOWED:'Allowed',ALLOWED_WITH_CONDITIONS:'Allowed with conditions',PERMITTED_WITH_CONDITIONS:'Permitted with conditions',PROHIBITED_WITHOUT_PERMISSION:'Prohibited without permission',RECORD_SPECIFIC:'Record-specific terms; inspect the selected record',OPEN_WITH_CONDITIONS:'Allowed with conditions',PUBLIC_DOMAIN:'Public domain',UNKNOWN:'Not established',RESTRICTED:'Restricted',LICENSE_REQUIRED:'License required',PROVIDER_SPECIFIC:'Check provider terms'}[text] || String(text || 'Not established'));
-  const supportLabels={station:'Station data',grid:'Gridded data',event:'Event reports',track:'Storm tracks',climate_state:'Climate scenarios',acquisition:'Satellite passes',model:'Model output'};
-  const timeLabels={six_minute_hourly:'6-minute or hourly',daily:'Daily',daily_accumulations:'Daily totals',daily_index:'Daily index; selected accumulation window',daily_monthly:'Daily or monthly',monthly:'Monthly',monthly_annual:'Monthly or annual',monthly_seasonal_annual:'Monthly, seasonal or annual',annual_monthly_seasonal:'Annual, monthly or seasonal',hourly:'Hourly',hourly_interval:'Hourly intervals',hourly_or_finer:'Hourly or finer',hourly_synoptic:'Hourly or synoptic',half_hourly:'30-minute',three_hourly:'3-hourly',two_minute:'2-minute',accumulation_specific:'Accumulation depends on the field',mixed:'Timing depends on the variable',overpass:'Overpass times',irregular_track:'Track times',monthly_irregular:'Monthly with gaps',return_period_scenario:'Return-period scenarios'};
+  const supportLabels={area:'Mapped areas',station:'Station data',grid:'Gridded data',event:'Event reports',track:'Storm tracks',climate_state:'Climate scenarios',acquisition:'Satellite passes',model:'Model output'};
+  const timeLabels={six_minute_hourly:'6-minute or hourly',daily:'Daily',daily_accumulations:'Daily totals',weekly:'Weekly',eight_day:'8-day composite',daily_index:'Daily index; selected accumulation window',daily_monthly:'Daily or monthly',monthly:'Monthly',monthly_annual:'Monthly or annual',monthly_seasonal_annual:'Monthly, seasonal or annual',annual_monthly_seasonal:'Annual, monthly or seasonal',hourly:'Hourly',hourly_interval:'Hourly intervals',hourly_or_finer:'Hourly or finer',hourly_synoptic:'Hourly or synoptic',half_hourly:'30-minute',three_hourly:'3-hourly',two_minute:'2-minute',accumulation_specific:'Accumulation depends on the field',mixed:'Timing depends on the variable',overpass:'Overpass times',irregular_track:'Track times',monthly_irregular:'Monthly with gaps',return_period_scenario:'Return-period scenarios'};
   const dateRange = q => q.start === q.end ? q.start : q.start + ' → ' + q.end;
   const displayTimestamp = (value, zone = 'UTC') => String(value).replace(/\.000Z$/, 'Z').replace('T', ' ').replace(/Z$/, ' ' + zone);
   const previewPeriod = value => value.startTime && value.endTime ? displayTimestamp(value.startTime, 'UTC') + ' → ' + displayTimestamp(value.endTime, 'UTC') : dateRange(value);
@@ -103,6 +104,7 @@
 
   const intro = node('div', {class: 'sc-intro'},node('div', {},
     node('h1', {id: 'sc-heading'}, 'Check data for your project'),
+    p('Screen historical observations, reference datasets and selected modeled scenarios. Downscaled future climate projections are outside this inventory.','sc-intro-scope'),
     node('details', {class:'sc-scope'},node('summary',{},'Geographic scope'),p('Global and regional datasets. Integrated river and coastal station tools primarily serve U.S. locations and territories. GHCN-Daily weather stations are international. Coverage varies by variable and period.'))));
   host.setAttribute('aria-labelledby', 'sc-heading');
   const form = node('form', {class: 'sc-query', novalidate: ''});
@@ -143,7 +145,8 @@
   for (const state of geography.states || []) areaState.append(node('option', {value: state.id}, state.name));
   const areaText = node('input', {id: 'sc-area-text', class: 'sc-search', type: 'search', placeholder: 'Boundary name…', 'aria-label': 'Boundary name'});
   const hucLevel = node('select', {class:'sc-select', 'aria-label':'Hydrologic unit level'},
-    node('option',{value:'huc12'},'HUC12 · subwatershed'), node('option',{value:'huc10'},'HUC10 · watershed'), node('option',{value:'huc8'},'HUC8 · subbasin'));
+    node('option',{value:'huc12'},'HUC12 · subwatershed'), node('option',{value:'huc10'},'HUC10 · watershed'), node('option',{value:'huc8'},'HUC8 · subbasin'),
+    node('option',{value:'huc6'},'HUC6 · basin'), node('option',{value:'huc4'},'HUC4 · subregion'), node('option',{value:'huc2'},'HUC2 · region'));
   const hucDetail = node('select', {class:'sc-select', 'aria-label':'WBD boundary detail'},
     node('option',{value:'screening'},'USGS screening · 0.00001° tolerance'), node('option',{value:'full'},'Full USGS geometry'));
   const hucPick = button('Pick location on map', () => {
@@ -158,6 +161,7 @@
     node('summary',{},'Find a unit by location'), hucPick, hucFromSite, hucCoordinates,
     button('Find unit at coordinates', findHucAtCoordinates, 'btn small', {id:'sc-huc-find'}));
   const hucHelp = p('HUC12 is the primary U.S. assessment unit. Choose a unit to screen its mapped area. A custom upstream drainage area requires outlet delineation. Full detail may exceed the browser geometry limit.', 'sc-area-help');
+  hucHelp.append(' For an outlet, ',link('https://streamstats.usgs.gov/ss/','delineate a basin in StreamStats'),' or ',link('https://api.water.usgs.gov/docs/nldi/basin/','retrieve the upstream basin for an NLDI feature'),'. Import the resulting WGS84 polygon using Upload GeoJSON.');
   const areaSearchButton = button('Find boundaries', () => searchAreas(), 'btn small');
   const areaMatches = node('div', {class: 'sc-area-matches'});
   const areaStatus = p('', 'sc-area-help'); areaStatus.setAttribute('role', 'status');
@@ -327,7 +331,7 @@
   showAreaMethod();
   savedArea.addEventListener('change', () => {const area = geography.examples.find(a => a.id === savedArea.value); if (area) acceptArea(area);});
   areaKind.addEventListener('change', () => {resetAreaSearch(); showAreaMethod();});
-  hucLevel.addEventListener('change', resetAreaSearch);
+  hucLevel.addEventListener('change', () => {hucDetail.options[0].textContent='USGS screening · '+SiteAreas.screeningOffset(hucLevel.value)+'° tolerance'+(Number(hucLevel.value.slice(3))<=6?' · dissolve touching rings':''); resetAreaSearch();});
   hucDetail.addEventListener('change', () => {
     const selected = areaMatches.querySelector('select')?.value;
     if (selected && areaLookup?.items[Number(selected)]) loadNamedArea(areaLookup.items[Number(selected)]);
@@ -440,7 +444,7 @@
     return stage?.status==='possible'&&stage.spatialRelation==='within'&&stage.temporalSegments?.every(s=>s.kind==='documented');
   }
   function shortlistIds(scoped) {
-    return SiteShortlist.rank(scoped,{byId,rules,evidence:projectEvidence,hazard:hazardFilter,
+    return SiteShortlist.rank(scoped,{byId,rules,query,evidence:projectEvidence,hazard:hazardFilter,
       offshore:results.some(r=>r.landCheck?.land===false),regionalRain:shortRegionalRain(scoped),limit:shortlistLimit});
   }
   function evidenceFor(id) {return projectEvidence.get(SiteShortlist.key(id,hazardFilter));}
@@ -713,8 +717,8 @@
     areaSelection.replaceChildren();
     if (draftArea) {
       const source = draftArea.source || {};
-      areaSelection.append(node('strong', {}, draftArea.name), p('Accepted ' + draftArea.geometry.type + (source.generalized && /^huc(8|10|12)$/.test(source.kind) ? ' · provider-generalized boundary' : ' · no silent simplification'), 'sc-area-help'));
-      if (/^huc(8|10|12)$/.test(source.kind)) {
+      areaSelection.append(node('strong', {}, draftArea.name), p('Accepted ' + draftArea.geometry.type + (source.generalized && /^huc(2|4|6|8|10|12)$/.test(source.kind) ? ' · provider-generalized boundary' : ' · no silent simplification'), 'sc-area-help'));
+      if (/^huc(2|4|6|8|10|12)$/.test(source.kind)) {
         areaSelection.append(p(source.processing,'sc-area-help'),link(source.fullGeometryUrl,'Full USGS boundary (GeoJSON) ↗'));
       }
       if (source.kind==='user-upload' && /altitude/i.test(source.processing||'')) areaSelection.append(p(source.processing,'sc-area-help'));
@@ -802,7 +806,7 @@
       if (token !== areaGeneration) return;
       acceptArea({...area, source: {...area.source, searchRequests: areaLookup?.requests || []}}); areaStatus.textContent = 'Boundary accepted. Check site to apply it.';
     } catch (error) {if (token === areaGeneration) {
-      const retry = /^huc(8|10|12)$/.test(item.kind) && hucDetail.value === 'full' && /limit|vertices|validation budget|too complex|timed out/i.test(error.message) ? ' Select USGS screening geometry to request a generalized boundary.' : '';
+      const retry = /^huc(2|4|6|8|10|12)$/.test(item.kind) && hucDetail.value === 'full' && /limit|vertices|validation budget|too complex|timed out/i.test(error.message) ? ' Select USGS screening geometry to request a generalized boundary.' : '';
       areaStatus.textContent = error.name === 'AbortError' ? 'Boundary loading cancelled.' : 'Boundary not loaded. '+userError(error)+retry;
     }}
     finally {if (token === areaGeneration) areaController = null;}
@@ -828,7 +832,7 @@
     clearAreaSearch();
     const applyCurrent = submitted || (!dirty && draftMode===next.mode);
     if (applyCurrent && results.length && ['mode','lat','lon','radiusKm','bufferKm','start','end','areaName'].every(key=>(next[key]??null)===(query[key]??null)) && JSON.stringify(next.geometry||null)===JSON.stringify(query.geometry||null) && JSON.stringify(next.areaSource||null)===JSON.stringify(query.areaSource||null)) {dirty=false;dirtyNotice.hidden=true;inputError.hidden=true;renderHazardChoice();renderOverview();renderPanel();updateDraftMap();return;}
-    cancelAvailability();projectEvidence.clear();
+    cancelAvailability();projectEvidence.clear();projectFileSearches.clear();
     if (submitted) explicitSelection = false;
     cancelAreaLookup(); clearProviderState(); query = next.mode === 'area' ? {...next, geometry: window.SiteGeometry.normalize(next.geometry), mode: 'area', bufferKm: next.bufferKm ?? 0} : {...next, mode: 'point', radiusKm: next.radiusKm ?? 100};
     dirty = false; dirtyNotice.hidden = true; inputError.hidden = true;
@@ -1000,6 +1004,11 @@
         if (selected) renderStationDownload(body, selected, previewWindow(selected));
       }
       renderProvider(body, product, screening);
+      if (sample && selectedId === 'noaa_coops_water_level') {
+        const controls = node('div', {class:'sc-preview-controls',role:'group','aria-label':'Water-level preview settings'});
+        for (const control of body.querySelectorAll('.sc-coops-product, .sc-coops-datum')) controls.append(control);
+        body.querySelector('.sc-sample-heading').after(controls);
+      }
     }
     else {
       if(selectedId==='grdc_discharge') renderGrdcCatalogue(body);
@@ -1147,6 +1156,11 @@
     return [node('div',{class:'sc-field'},node('label',{for:searchId},'Find a lake'),search),selectedField];
   }
   function renderAccess(body, product, screening) {
+    const saved = projectFileSearches.get(selectedId);
+    if (!accessPlan && !accessError && saved) {
+      accessPlan = saved.plan; accessFileResult = saved.result;
+      accessOptions = {...saved.options}; accessError = saved.error;
+    }
     const profile = accessProfile(selectedId,query), blocked = accessBlocked();
     const card = node('section', {class: 'sc-access-route', 'aria-label': 'Dataset access route'},
       node('div', {class: 'sc-access-route-heading'}, node('h3', {}, 'Access this dataset'), node('span', {class: 'sc-access-chip ' + profile.kind}, accessLabels[profile.kind] || profile.label)),
@@ -1156,10 +1170,10 @@
       p(profile.summary || 'Follow the documented provider route.'), p((verification.label || 'Verification status not supplied') + (verification.checkedAt ? ' · reviewed ' + verificationDate(verification.checkedAt) : ''), 'sc-access-verification'),
       node('dl', {class: 'sc-facts sc-access-facts'}, fact('Spatial delivery', profile.spatialDelivery), fact('Temporal delivery', profile.temporalDelivery)));
     const scope = screening.status === 'excluded' ? 'This project falls outside the documented coverage. Check the extent with the provider.'
-      : screening.spatialRelation === 'partial' ? 'Partial overlap. The request retains your full footprint and dates.'
+      : screening.partial ? 'Partial overlap. '+screening.spatial+' · '+screening.temporal+'. Check the covered intervals and footprint.'
       : lookupStatus(screening.status) ? 'Check local coverage and valid values in the provider files.'
       : 'Metadata overlap is separate from data access. Provider files can cover a broader domain or period; no polygon clipping or silent date trimming is applied here.';
-    if (screening.status === 'excluded' || screening.spatialRelation === 'partial' || lookupStatus(screening.status)) card.append(p(scope, 'sc-access-scope'));
+    if (screening.status === 'excluded' || screening.partial || lookupStatus(screening.status)) card.append(p(scope, 'sc-access-scope'));
     else delivery.append(p(scope));
     if (Array.isArray(profile.options) && profile.options.length) {
       const choices = node('div', {class: 'sc-access-options'});
@@ -1167,7 +1181,7 @@
         const id = 'sc-access-option-' + option.key;
         if (accessOptions[option.key] === undefined) accessOptions[option.key] = option.value;
         const select = node('select', {id, class: 'sc-select'});
-        select.addEventListener('change', () => {accessOptions[option.key] = select.value; cancelAccessPending(); accessPlan = null; accessFileResult = null; accessError = ''; filePage = 0; fileSearch = ''; selectedFileKeys.clear(); renderPanel(); document.getElementById(id)?.focus({preventScroll: true});});
+        select.addEventListener('change', () => {accessOptions[option.key] = select.value; projectFileSearches.delete(selectedId); cancelAccessPending(); accessPlan = null; accessFileResult = null; accessError = ''; filePage = 0; fileSearch = ''; selectedFileKeys.clear(); renderPanel(); document.getElementById(id)?.focus({preventScroll: true});});
         if (option.key==='lakeTarget') {
           choices.append(...lakePicker(option,select));
           delivery.append(p('Suggestions use the project footprint, published lake centers and available lake bounding boxes. Confirm the lake and its observation dates before use.'),
@@ -1202,7 +1216,7 @@
       card.append(renderAccessGuide(profile, blocked));
       if (accessFileResult && (profile.kind === 'files' || profile.canDiscover || accessFileResult.files.length)) card.append(renderAccessFiles(profile, blocked));
       const guide = SiteAccessGuide.forPlan(profile, accessPlan, accessPlatform);
-      if (guide.direct && guide.scriptName) card.append(node('details', {class:'sc-disclosure sc-batch-guide'}, node('summary', {}, 'Optional: download these files with Python'), renderScriptGuide(guide, blocked)));
+      if (guide.direct && guide.scriptName) card.append(node('details', {class:'sc-disclosure sc-batch-guide'}, node('summary', {}, profile.strategy==='awdb-daily' ? 'Download multiple years with Python' : 'Optional: download these files with Python'), renderScriptGuide(guide, blocked)));
       const optional = node('details', {class:'sc-disclosure sc-optional-exports'}, node('summary', {}, 'Optional project records and request details'),
         p('These files document the request. They are not downloaded scientific data, are not required by the Python script, and are not a universal provider upload format.', 'sc-access-output-note'));
       for (const artifact of accessPlan.artifacts || []) {
@@ -1270,7 +1284,7 @@
         section.append(action);
       }
     }else if(guide.scriptName){
-      if(profile.strategy==='mrms')section.append(p('Without Python: open the bucket browser, then choose CONUS, the selected field/pass and each date folder (YYYYMMDD). The link is not prefilled.'),link(guide.providerUrl,'Browse MRMS files ↗','btn primary small'));
+      if(profile.strategy==='mrms')section.append(p('Without Python: open the bucket browser, then choose the selected domain, field/pass and each date folder (YYYYMMDD). The link is not prefilled.'),link(guide.providerUrl,'Browse MRMS files ↗','btn primary small'));
       section.append(renderScriptGuide(guide,blocked),node('details',{class:'sc-disclosure'},node('summary',{},'Prefer the provider website?'),
         p('Use the provider tools to choose this product, location and dates manually. Availability and required selections depend on the provider; this link is not prefilled.'),link(guide.providerUrl,'Open provider access ↗','btn small')));
     }
@@ -1405,7 +1419,10 @@
     if (accessBlocked() || accessLoading) return;
     const cursor = resume ? accessFileResult?.cursor : null;
     if (resume && !cursor) return;
-    if (!resume && !prepareAccess(true)) return;
+    if (!resume) {
+      projectFileSearches.delete(selectedId);
+      if (!prepareAccess(true)) return;
+    }
     if (resume) {cancelAccessPending(); accessError = '';}
     accessController = new AbortController(); const token = accessGeneration; accessLoading = true; renderPanel();
     try {
@@ -1420,6 +1437,7 @@
         historicalBatches: [...(previous.historicalBatches || []), {fileCount: (response.files || []).length, complete: response.complete === true, notes: response.notes || [], requests: response.requests || []}]};
       rememberEvidence(selectedId,hazardFilter,SiteShortlist.fileEvidence(accessProfile(selectedId),accessFileResult,query),accessFileResult.requests);
       renderOverview();accessError = response.error?.message || '';
+      if (accessFileResult.files.length || accessFileResult.complete || accessFileResult.cursor) projectFileSearches.set(selectedId,{plan:accessPlan,result:accessFileResult,options:{...accessOptions},error:accessError});
       announce.textContent = accessFileResult.files.length + ' provider files listed. ' + (accessFileResult.complete ? 'Metadata search complete for this request.' : 'Search incomplete; inspect its continuation and scope.');
     } catch (error) {
       if (token !== accessGeneration) return;
@@ -1519,7 +1537,7 @@
         });
         renderPanel(); document.getElementById('sc-coops-product')?.focus({preventScroll:true});
       });
-      body.append(node('label',{for:'sc-coops-product'},'Water-level product'),productSelect,p('Products remain separate. Hourly heights can miss short-lived peaks. Monthly means and daily means use NOAA provider access.','sc-station-note'));
+      body.append(node('div',{class:'sc-coops-product'},node('label',{for:'sc-coops-product'},'Water-level product'),productSelect,p('Hourly heights can miss short-lived peaks. NOAA also provides monthly and daily means.','sc-station-note')));
     }
     const discoverButton = button(discovery ? 'Start a fresh station lookup' : 'Find station candidates', () => runDiscovery(false), 'btn primary small');
     discoverButton.disabled = !!loading || dirty || screening.status === 'excluded';
@@ -2358,8 +2376,9 @@
       'Variable','Units','Spatial support','Time support','First screening reason','First documented limitation','Documentation','Provider access','Inventory build','Shortlist rank','Availability evidence','Evidence scope','Evidence checked','Evidence source']];
     const ranked=[...shortlistIds(scopedResults())];
     const boundary = query.areaSource;
-    const isHuc = /^huc(8|10|12)$/.test(boundary?.hucKind || boundary?.kind);
+    const isHuc = /^huc(2|4|6|8|10|12)$/.test(boundary?.hucKind || boundary?.kind);
     if (isHuc) rows[0].push('HUC level','HUC code','WBD feature load date','Boundary tolerance (degrees)','Boundary geometry SHA-256','Boundary attribution');
+    rows[0].push('vertical_reference','terms_id','commercial_use_status','redistribution_status');
     for (const r of scopedResults()) {
       const v = byId.get(r.productId);
       const scale = dimension=>(r.resolutionChecks||[]).filter(c=>c.dimension===dimension).map(c=>c.label+'. '+c.detail).join(' ');
@@ -2367,7 +2386,8 @@
         v.variable,v.units,v.spatial_support,v.temporal_support,r.reasons?.[0],v.limitations?.[0],v.documentation_url,v.access_url,buildIdentity.id,
         ranked.indexOf(r.productId)+1||'',evidenceFor(r.productId)?.label||'Catalog screening',evidenceFor(r.productId)?.detail||'',evidenceFor(r.productId)?.checkedAt||'',evidenceFor(r.productId)?.source||'']);
       if (isHuc) rows.at(-1).push(boundary.level,boundary.id,boundary.featureLoadDate,boundary.maxAllowableOffsetDegrees,
-        boundary.geometrySha256 || boundary.reportedGeometrySha256,boundary.kind === 'project-link' ? 'User-supplied; attribution unverified' : 'Retrieved from USGS WBD');
+        boundary.geometrySha256 || boundary.reportedGeometrySha256,(boundary.kind === 'project-link' ? 'User-supplied; attribution unverified' : 'Retrieved from USGS WBD')+(boundary.touchingRingsDissolved?' · touching rings dissolved':''));
+      rows.at(-1).push(v.vertical_reference||'',v.license_id,v.commercial_use_status,v.redistribution_status);
     }
     download(app.makeCSV(rows),'text/csv;charset=utf-8','site-screen_'+query.start+'_'+query.end+'.csv');
   }
@@ -2425,7 +2445,7 @@
       const attribution = source?.provider ? [source.provider,source.dataset,source.id,source.vintage].filter(Boolean).join(' · ') :
         source?.kind==='project-link' ? 'User-supplied boundary and name. Attribution is unverified.' : 'Project-supplied geometry';
       doc.body.append(node('p',{},source?.url&&source.kind!=='project-link'?link(source.url,attribution):attribution));
-      if (/^huc(8|10|12)$/.test(source?.kind || '')) doc.body.append(node('p',{},source.processing),
+      if (/^huc(2|4|6|8|10|12)$/.test(source?.kind || '')) doc.body.append(node('p',{},source.processing),
         node('p',{},'WBD geometry SHA-256 · '+(source.geometrySha256 || 'Unavailable')));
       if (source?.hucKind) doc.body.append(node('p',{},source.note));
     }
@@ -2433,7 +2453,7 @@
     if (observation) doc.body.append(observation);
     doc.body.append(node('h2',{},'Screening results'),node('p',{},scoped.length+' datasets screened. '+fits+' potential fits, '+(scoped.length-fits-outside)+' requiring follow-up, '+outside+' outside documented dates or area.'),
       node('table',{},node('thead',{},node('tr',{},node('th',{},'Dataset and provider documentation'),node('th',{},'Catalog finding'))),
-        node('tbody',{},ids.map(id=>{
+        node('tbody',{},!ids.length ? node('tr',{},node('td',{colspan:'2'},'No starting-point datasets identified for '+group+' at this location and period. See the full screening CSV for individual findings.')) : ids.map(id=>{
           const v=byId.get(id), r=resultFor(id);
           const findings=[r.label,...(r.resolutionChecks||[]).map(c=>c.label).filter(label=>label!==r.label),evidenceFor(id)?.label].filter(Boolean);
           return node('tr',{},node('td',{},link(v.documentation_url,v.product_name),node('br'),v.provider),node('td',{},findings.join(' · ')));
@@ -2459,7 +2479,7 @@
   window.SiteCheck = {
     show() {host.hidden = false; mapApi?.setVisible(mapTools.open); renderPanel(); requestAnimationFrame(() => {mapApi?.invalidate(); mapApi?.fit();});},
     hide() {host.hidden = true; mapApi?.setVisible(false); if (['discovery', 'coops-preflight'].includes(loadingKind)) controller?.abort(); else cancelPending(); accessController?.abort(); cancelAreaLookup(); mapApi?.cancelDrawing();},
-    selectProduct(id) {if (!byId.has(id)) return; includeProduct(id); clearFilters(); selectProduct(id); host.hidden = false; mapApi?.setVisible(mapTools.open); requestAnimationFrame(() => {mapApi?.invalidate(); mapApi?.fit();});}
+    selectProduct(id) {if (!byId.has(id)) return; includeProduct(id); clearFilters(); selectProduct(id); host.hidden = false; mapApi?.setVisible(mapTools.open); requestAnimationFrame(() => {mapApi?.invalidate(); mapApi?.fit(); reveal(panel);});}
   };
   restoringProject=true;setQuery(query,'initial');restoringProject=false;loadRecent();
   window.addEventListener('hashchange',restoreHash);restoreHash();

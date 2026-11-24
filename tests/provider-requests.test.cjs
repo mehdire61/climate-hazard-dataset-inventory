@@ -99,6 +99,18 @@ test('MRMS choices expose both multisensor passes and use the verified MESH 00.5
   assert.ok(plan('mrms_mesh',q,{mrmsField:'CONUS/MESH_00.00/'}).errors.length); assert.deepEqual(R.describeOptions('era5_t2m'),[]);
 });
 
+test('MRMS uses intersecting domains and requires an explicit choice for overlapping domains',()=>{
+  for (const [domain,lat,lon] of [['HAWAII',21.31,-157.86],['ALASKA',61.22,-149.9],['CARIB',18.47,-66.1],['GUAM',13.44,144.79]]) {
+    for (const id of Object.keys(prefixes)) {
+      const site={...q,lat,lon},selected=plan(id,site);
+      assert.deepEqual(selected.errors,[]);
+      assert.equal(config(selected).prefix.split('/')[0],domain);
+      assert.ok(plan(id,site,{mrmsField:prefixes[id][0]}).errors.length);
+    }
+  }
+  assert.ok(plan('mrms_mesh',{...q,lat:22,lon:-80}).errors.length);
+  assert.ok(plan('mrms_mesh',{...q,lat:0,lon:0}).errors.length);
+});
 test('MRMS long periods use lazy date-listing generation and never invent object filenames',()=>{
   const p=plan('mrms_mesh',{...q,start:'1900-01-01',end:'2020-12-31'}); assert.equal(p.requests.length,1);
   assert.equal(p.requests[0].initialDateListings,44195); assert.equal(p.requests[0].payloadDownload,false); assert.equal(new URL(p.requests[0].url).searchParams.get('prefix'),'CONUS/MESH_00.50/19000101/');
@@ -255,7 +267,7 @@ test('MRMS payload errors retain partials and do not prevent later valid files',
 
 test('MRMS archive warnings are tied to dated field-specific provider listings without trimming dates',()=>{
   const p=plan('mrms_mesh',q),c=config(p),dry=runDry(p);
-  assert.equal(c.start,q.start);assert.equal(c.end,q.end);assert.equal(c.archiveReview.firstObservedDate,'2020-10-14');assert.match(c.archiveReview.listingUrl,/noaa-mrms-pds/);assert.equal(new URL(c.archiveReview.listingUrl).searchParams.get('prefix'),prefixes.mrms_mesh[0]);assert.equal(c.archiveReview.checkedAt,'2026-11-14');assert.ok(dry.warnings.length);assert.match(p.notes.join(' '),/does not establish absence/);
+  assert.equal(c.start,q.start);assert.equal(c.end,q.end);assert.equal(c.archiveReview.firstObservedDate,'2020-10-14');assert.match(c.archiveReview.listingUrl,/noaa-mrms-pds/);assert.equal(new URL(c.archiveReview.listingUrl).searchParams.get('prefix'),prefixes.mrms_mesh[0]);assert.equal(c.archiveReview.checkedAt,require('../docs/evidence/access/mrms-regional-prefixes.json').checkedAt.slice(0,10));assert.ok(dry.warnings.length);assert.match(p.notes.join(' '),/does not establish absence/);
 });
 
 test('CDS unknown-size execution requires confirmation before client import or network access',()=>{

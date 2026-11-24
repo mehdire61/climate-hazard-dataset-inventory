@@ -9257,7 +9257,7 @@
       "endpoint": "https://noaa-mrms-pds.s3.amazonaws.com/",
       "auth": "Public NOAA NODD S3 objects; unsigned requests, no account required",
       "format": "gzip-compressed GRIB2",
-      "spatialDelivery": "Whole MRMS domain grid. CONUS prefixes verified; choose appropriate domain and do not infer polygon-clipped output.",
+      "spatialDelivery": "Whole intersecting MRMS domain grid. Choose a domain when more than one intersects the project.",
       "temporalDelivery": "Choose accumulation separately from refresh cadence; 01H is an hourly accumulation, not hourly sampling.",
       "parameterMapping": {
         "bucket": "noaa-mrms-pds",
@@ -9292,7 +9292,8 @@
         "level": "Official field table and exact public bucket product prefixes checked; no GRIB2 payload decoded",
         "evidenceFiles": [
           "docs/evidence/access/mrms-bucket.json",
-          "docs/evidence/access/mrms-conus-prefixes.json"
+          "docs/evidence/access/mrms-conus-prefixes.json",
+          "docs/evidence/access/mrms-regional-prefixes.json"
         ],
         "payloadRetrieved": false
       },
@@ -9300,7 +9301,8 @@
         "OBS19",
         "OBS20",
         "OBS23",
-        "OBS24"
+        "OBS24",
+        "SCS_MRMS_04"
       ],
       "preserveCatalogCaveats": true,
       "requiredChoices": [
@@ -9340,7 +9342,7 @@
       "endpoint": "https://noaa-mrms-pds.s3.amazonaws.com/",
       "auth": "Public NOAA NODD S3 objects; unsigned requests, no account required",
       "format": "gzip-compressed GRIB2",
-      "spatialDelivery": "Whole MRMS domain grid. CONUS prefixes verified; choose appropriate domain and do not infer polygon-clipped output.",
+      "spatialDelivery": "Whole intersecting MRMS domain grid. Choose a domain when more than one intersects the project.",
       "temporalDelivery": "Choose Pass1 or Pass2 and accumulation explicitly; do not use radar-only update cadence or silently merge passes.",
       "parameterMapping": {
         "bucket": "noaa-mrms-pds",
@@ -9380,7 +9382,8 @@
         "level": "Official field table and exact public bucket product prefixes checked; no GRIB2 payload decoded",
         "evidenceFiles": [
           "docs/evidence/access/mrms-bucket.json",
-          "docs/evidence/access/mrms-conus-prefixes.json"
+          "docs/evidence/access/mrms-conus-prefixes.json",
+          "docs/evidence/access/mrms-regional-prefixes.json"
         ],
         "payloadRetrieved": false
       },
@@ -9388,7 +9391,8 @@
         "OBS21",
         "OBS22",
         "OBS19",
-        "OBS23"
+        "OBS23",
+        "SCS_MRMS_04"
       ],
       "preserveCatalogCaveats": true,
       "requiredChoices": [
@@ -9428,7 +9432,7 @@
       "endpoint": "https://noaa-mrms-pds.s3.amazonaws.com/",
       "auth": "Public NOAA NODD S3 objects; unsigned requests, no account required",
       "format": "gzip-compressed GRIB2",
-      "spatialDelivery": "Whole MRMS domain grid. CONUS prefixes verified; choose appropriate domain and do not infer polygon-clipped output.",
+      "spatialDelivery": "Whole intersecting MRMS domain grid. Choose a domain when more than one intersects the project.",
       "temporalDelivery": "Instantaneous MESH field at the selected timestamp; MESH_Max windows are separate products and not substituted.",
       "parameterMapping": {
         "bucket": "noaa-mrms-pds",
@@ -9462,7 +9466,8 @@
         "level": "Official field table and exact public bucket product prefixes checked; no GRIB2 payload decoded",
         "evidenceFiles": [
           "docs/evidence/access/mrms-bucket.json",
-          "docs/evidence/access/mrms-conus-prefixes.json"
+          "docs/evidence/access/mrms-conus-prefixes.json",
+          "docs/evidence/access/mrms-regional-prefixes.json"
         ],
         "payloadRetrieved": false
       },
@@ -29463,6 +29468,526 @@
         "SNODAS_FILES",
         "SNODAS_SAMPLE",
         "SNODAS_NWS_TERMS"
+      ]
+    },
+    "noaa_atlas14_precip_frequency": {
+      "productId": "noaa_atlas14_precip_frequency",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Select a point in PFDS, confirm its volume, then choose depth, units, duration and series. Download the estimate and confidence tables.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://hdsc.nws.noaa.gov/pfds/",
+      "docsUrl": "https://hdsc.nws.noaa.gov/pfds/",
+      "spatialDelivery": "Point estimates and regional frequency grids. A point depth requires an areal adjustment when used for a basin design storm.",
+      "temporalDelivery": "Select a storm duration, frequency and series definition. The project dates do not select one observed storm.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Point-to-area conversion and temporal storm distribution are separate design choices."
+      ],
+      "steps": [
+        "Select a point in PFDS, confirm its volume, then choose depth, units, duration and series. Download the estimate and confidence tables.",
+        "Select a duration, probability and confidence limits to characterize historical design rainfall at a site."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_DOC",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_REF1",
+        "NOAA_ATLAS14_PRECIP_FREQUENCY_TERMS"
+      ],
+      "requiredSelections": [
+        "Regional volume",
+        "Duration and probability",
+        "Series and units"
+      ]
+    },
+    "noaa_atlas15_montana_v1_pilot": {
+      "productId": "noaa_atlas15_montana_v1_pilot",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Read Volume 1 results in the NOAA pilot technical report. Use PFDS for the published Atlas 14 volume.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://www.weather.gov/media/owp/precip-frequency/noaa_atlas15_pilot_technical_report.pdf",
+      "docsUrl": "https://water.noaa.gov/about/atlas15",
+      "spatialDelivery": "Montana pilot study area. The technical report illustrates point and spatial estimates.",
+      "temporalDelivery": "Pilot durations span 1 hour to 10 days with annual exceedance probabilities from 50% to 1%.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "NOAA’s Montana scope, pilot limitations and downloadable technical report were verified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "NOAA limits the pilot to comparison and feedback. The public review closed. Published Atlas 14 remains the design reference where applicable."
+      ],
+      "steps": [
+        "Read Volume 1 results in the NOAA pilot technical report. Use PFDS for the published Atlas 14 volume.",
+        "Compare the pilot methodology with the published Atlas 14 estimates for Montana and inspect NOAA’s report figures."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_DOC",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_ACCESS",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_REF1",
+        "NOAA_ATLAS15_MONTANA_V1_PILOT_TERMS"
+      ],
+      "requiredSelections": [
+        "Volume 1 figure or study location",
+        "Duration and annual exceedance probability"
+      ]
+    },
+    "era5_single_level_water_balance": {
+      "productId": "era5_single_level_water_balance",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "auth": "A CDS account and acceptance of the dataset terms are required for download.",
+      "providerUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+      "docsUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+      "spatialDelivery": "Atmospheric model near 31 km, distributed on a regular 0.25° CDS grid.",
+      "temporalDelivery": "Hourly output. In the hourly high-resolution stream, precipitation and runoff accumulate over the preceding hour. SWE is an instantaneous state.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Precipitation and runoff are modeled grid amounts; distinguish hourly high-resolution fields from ensemble or monthly statistics."
+      ],
+      "steps": [
+        "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+        "Examine historical water balance and seasonal snow storage after aligning grid cells, accumulation windows and units."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_DOC",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_ACCESS",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF1",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF2",
+        "ERA5_SINGLE_LEVEL_WATER_BALANCE_TERMS"
+      ],
+      "requiredSelections": [
+        "Variable",
+        "Date and hour",
+        "Area and format"
+      ]
+    },
+    "era5_land_water_balance": {
+      "productId": "era5_land_water_balance",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+      "auth": "A CDS account and acceptance of the dataset terms are required for download.",
+      "providerUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+      "docsUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+      "spatialDelivery": "Native land model near 9 km, distributed on a 0.1° CDS grid.",
+      "temporalDelivery": "Hourly output. Precipitation and runoff in the hourly CDS archive accumulate from the start of the 00 UTC forecast. Difference successive steps within a forecast, preserving the midnight 24-hour total. SWE is an instantaneous state.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "The forecast reset changes the differencing rule at midnight; retain the forecast steps."
+      ],
+      "steps": [
+        "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+        "Examine historical water balance and seasonal snow storage after aligning grid cells, accumulation windows and units."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "ERA5_LAND_WATER_BALANCE_DOC",
+        "ERA5_LAND_WATER_BALANCE_ACCESS",
+        "ERA5_LAND_WATER_BALANCE_REF1",
+        "ERA5_LAND_WATER_BALANCE_REF2",
+        "ERA5_LAND_WATER_BALANCE_TERMS"
+      ],
+      "requiredSelections": [
+        "Variable",
+        "Date and hour",
+        "Area and format"
+      ]
+    },
+    "prism_conus_daily_ppt": {
+      "productId": "prism_conus_daily_ppt",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Choose U.S., 4 km, daily precipitation and a date in the PRISM download service. Retain the supplied raster metadata.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://prism.oregonstate.edu/downloads/",
+      "docsUrl": "https://prism.oregonstate.edu/data/",
+      "spatialDelivery": "4 km CONUS grid. Local terrain and station coverage affect representativeness.",
+      "temporalDelivery": "Daily total for the 24 hours ending at 12 UTC on the labeled day. Compare station observation-day boundaries.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Station density, terrain and changing input networks affect local estimates and trends.",
+        "Cache each downloaded grid. After two downloads of the same file in one Pacific day, the service can return a text limit notice with HTTP 200. Verify the ZIP before use."
+      ],
+      "steps": [
+        "Choose U.S., 4 km, daily precipitation and a date in the PRISM download service. Retain the supplied raster metadata.",
+        "Summarize observed-based daily rainfall over catchments or characterize antecedent precipitation."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "PRISM_CONUS_DAILY_PPT_DOC",
+        "PRISM_CONUS_DAILY_PPT_ACCESS",
+        "PRISM_CONUS_DAILY_PPT_REF1",
+        "PRISM_CONUS_DAILY_PPT_TERMS"
+      ],
+      "requiredSelections": [
+        "Daily ppt, 4 km",
+        "Grid date and valid project cells"
+      ]
+    },
+    "daymet_v4r1_daily_prcp": {
+      "productId": "daymet_v4r1_daily_prcp",
+      "kind": "files",
+      "strategy": "cmr",
+      "summary": "Find yearly precipitation granules for the regional grid. Extract prcp and preserve the Daymet calendar.",
+      "auth": "Public metadata. Earthdata Login is required for protected files.",
+      "providerUrl": "https://doi.org/10.3334/ORNLDAAC/2129",
+      "docsUrl": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "spatialDelivery": "1 km Lambert conformal conic grids for continental North America, Hawaii and Puerto Rico. The regional files are distinct.",
+      "temporalDelivery": "365 daily values per year. Leap years include February 29 and omit December 31.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Exact collection and a provider granule link checked; protected data values unverified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Leap-year December 31 is absent. Align calendars before comparing annual totals or daily events."
+      ],
+      "steps": [
+        "Find yearly precipitation granules for the regional grid. Extract prcp and preserve the Daymet calendar.",
+        "Estimate daily precipitation for a project area with the appropriate regional grid, projected coordinates and calendar."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "DAYMET_V4R1_DAILY_PRCP_DOC",
+        "DAYMET_V4R1_DAILY_PRCP_ACCESS",
+        "DAYMET_V4R1_DAILY_PRCP_TERMS",
+        "DAYMET_V4R1_DAILY_PRCP_CMR"
+      ],
+      "collections": [
+        {
+          "id": "C2532426483-ORNL_CLOUD",
+          "shortName": "Daymet_Daily_V4R1_2129",
+          "version": "4.1",
+          "label": "Daymet_Daily_V4R1_2129",
+          "authRequired": true,
+          "granulePattern": "*prcp*"
+        }
+      ]
+    },
+    "gridmet_daily_precipitation": {
+      "productId": "gridmet_daily_precipitation",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Choose the pr_YYYY.nc precipitation file for each requested year. Read its coordinates, units, time axis and fill value.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://www.northwestknowledge.net/metdata/data/",
+      "docsUrl": "https://www.climatologylab.org/gridmet.html",
+      "spatialDelivery": "1/24° CONUS grid, approximately 4 km. Effective spatial detail depends on the source fields.",
+      "temporalDelivery": "Daily accumulations. The precipitation day follows the source observing convention; align with gauge observation windows.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Terrain-scale precipitation gradients and extremes can be smoothed; verify time support and provisional updates."
+      ],
+      "steps": [
+        "Choose the pr_YYYY.nc precipitation file for each requested year. Read its coordinates, units, time axis and fill value.",
+        "Assess daily rainfall and antecedent moisture inputs alongside other gridMET meteorological variables."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "GRIDMET_DAILY_PRECIPITATION_DOC",
+        "GRIDMET_DAILY_PRECIPITATION_ACCESS",
+        "GRIDMET_DAILY_PRECIPITATION_REF1"
+      ],
+      "requiredSelections": [
+        "Year and pr file",
+        "Project grid cells"
+      ]
+    },
+    "nldas2_hourly_forcing_precip": {
+      "productId": "nldas2_hourly_forcing_precip",
+      "kind": "files",
+      "strategy": "cmr",
+      "summary": "Find hourly File A granules and select total precipitation. Read per-file field names, units and temporal bounds.",
+      "auth": "Public metadata. Earthdata Login is required for protected files.",
+      "providerUrl": "https://doi.org/10.5067/THUF4J1RLSYG",
+      "docsUrl": "https://ldas.gsfc.nasa.gov/nldas/v2/forcing",
+      "spatialDelivery": "1/8° grid over central North America, approximately 12–14 km. This record selects precipitation in File A.",
+      "temporalDelivery": "One-hour precipitation accumulation. Read interval time coordinates before daily aggregation.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Exact collection and a provider granule link checked; protected data values unverified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Temporal disaggregation depends on available radar, satellite and other inputs. Methods change across regions and eras."
+      ],
+      "steps": [
+        "Find hourly File A granules and select total precipitation. Read per-file field names, units and temporal bounds.",
+        "Prepare historical hydrological model precipitation forcing with explicit hourly totals and grid support."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "NLDAS2_HOURLY_FORCING_PRECIP_DOC",
+        "NLDAS2_HOURLY_FORCING_PRECIP_ACCESS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_TERMS",
+        "NLDAS2_HOURLY_FORCING_PRECIP_CMR"
+      ],
+      "collections": [
+        {
+          "id": "C2033151148-GES_DISC",
+          "shortName": "NLDAS_FORA0125_H",
+          "version": "2.0",
+          "label": "NLDAS_FORA0125_H",
+          "authRequired": true
+        }
+      ]
+    },
+    "usdm_weekly_drought": {
+      "productId": "usdm_weekly_drought",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Choose a Tuesday in the merged GIS archive. Intersect the CONUS polygons with the project in an equal-area projection, assigning the highest class at each location to calculate exclusive areas.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://droughtmonitor.unl.edu/Data/shapefiles_m/",
+      "docsUrl": "https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx",
+      "spatialDelivery": "Regional drought-class polygons. A polygon can cross many watersheds and contains no within-class intensity measurement.",
+      "temporalDelivery": "Weekly map valid Tuesday and normally released Thursday. Compare editions by their valid date.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Use mutually exclusive polygons for class areas. Overlapping threshold files must not be summed across classes."
+      ],
+      "steps": [
+        "Choose a Tuesday in the merged GIS archive. Intersect the CONUS polygons with the project in an equal-area projection, assigning the highest class at each location to calculate exclusive areas.",
+        "Report the fraction of a project area in each mutually exclusive weekly drought class."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "USDM_WEEKLY_DROUGHT_DOC",
+        "USDM_WEEKLY_DROUGHT_ACCESS",
+        "USDM_WEEKLY_DROUGHT_REF1",
+        "USDM_WEEKLY_DROUGHT_TERMS"
+      ],
+      "requiredSelections": [
+        "Tuesday map date",
+        "Regional footprint and class convention"
+      ]
+    },
+    "smap_l3_enhanced_surface_moisture": {
+      "productId": "smap_l3_enhanced_surface_moisture",
+      "kind": "files",
+      "strategy": "cmr",
+      "summary": "Find exact-version granules, then choose the appropriate orbit, grid, soil-moisture field and quality flags.",
+      "auth": "Public metadata. Earthdata Login is required for protected files.",
+      "providerUrl": "https://doi.org/10.5067/M20OXIZHY3RJ",
+      "docsUrl": "https://nsidc.org/data/spl3smp_e/versions/6",
+      "spatialDelivery": "9 km EASE-Grid posting. The microwave footprint is coarser than the posting. Select the global or relevant polar grid.",
+      "temporalDelivery": "Daily granules contain separate AM/PM swath retrievals; dates can lack a valid pass.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Exact collection and a provider granule link checked; protected data values unverified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Apply retrieval-quality, surface, frozen-ground and radio-frequency-interference flags before spatial averaging."
+      ],
+      "steps": [
+        "Find exact-version granules, then choose the appropriate orbit, grid, soil-moisture field and quality flags.",
+        "Assess shallow wetness anomalies and antecedent surface conditions using quality-screened retrievals."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_DOC",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_ACCESS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_TERMS",
+        "SMAP_L3_ENHANCED_SURFACE_MOISTURE_CMR"
+      ],
+      "collections": [
+        {
+          "id": "C2938664763-NSIDC_CPRD",
+          "shortName": "SPL3SMP_E",
+          "version": "006",
+          "label": "SPL3SMP_E",
+          "authRequired": true
+        }
+      ]
+    },
+    "smap_l4_surface_rootzone_moisture": {
+      "productId": "smap_l4_surface_rootzone_moisture",
+      "kind": "files",
+      "strategy": "cmr",
+      "summary": "Find exact-version granules, then choose surface or root-zone soil moisture and the corresponding quality information.",
+      "auth": "Public metadata. Earthdata Login is required for protected files.",
+      "providerUrl": "https://doi.org/10.5067/T5RUATAQREF8",
+      "docsUrl": "https://nsidc.org/data/spl4smgp/versions/8",
+      "spatialDelivery": "9 km EASE-Grid 2.0 estimates over land. Root-zone water is a modeled state informed indirectly by the observations.",
+      "temporalDelivery": "Three-hourly geophysical fields. Inspect the model time bounds and analysis quality.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Exact collection and a provider granule link checked; protected data values unverified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Modeled root-zone estimates depend on forcing, model dynamics and assimilation. Frozen, snow-covered and poorly observed areas require extra checks."
+      ],
+      "steps": [
+        "Find exact-version granules, then choose surface or root-zone soil moisture and the corresponding quality information.",
+        "Assess root-zone moisture storage anomalies for drought studies, or antecedent surface wetness for flood studies."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_DOC",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_ACCESS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_TERMS",
+        "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_CMR"
+      ],
+      "collections": [
+        {
+          "id": "C3480440870-NSIDC_CPRD",
+          "shortName": "SPL4SMGP",
+          "version": "008",
+          "label": "SPL4SMGP",
+          "authRequired": true
+        }
+      ]
+    },
+    "openet_ensemble_monthly_v2": {
+      "productId": "openet_ensemble_monthly_v2",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Open the published Earth Engine asset and select et_ensemble_mad, a month, and the valid project footprint. Review member-count bands.",
+      "auth": "The catalog is public. Earth Engine analysis/export requires an eligible account and project; provider platform terms apply.",
+      "providerUrl": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "docsUrl": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "spatialDelivery": "30 m reported pixels. Field boundaries, mixed pixels and meteorological forcing affect interpretation.",
+      "temporalDelivery": "Monthly totals. Inspect the per-pixel model count and range before comparing fields.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "DisALEXI is unavailable before 2001. Inspect ensemble count and model range, especially across changes in coverage."
+      ],
+      "steps": [
+        "Open the published Earth Engine asset and select et_ensemble_mad, a month, and the valid project footprint. Review member-count bands.",
+        "Compare monthly actual ET among irrigated fields or estimate a catchment water-balance term with valid-area weighting."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "OPENET_ENSEMBLE_MONTHLY_V2_DOC"
+      ],
+      "requiredSelections": [
+        "Month",
+        "Project footprint and valid pixels",
+        "Ensemble ET and model count"
+      ]
+    },
+    "modis_mod16a2gf_actual_et": {
+      "productId": "modis_mod16a2gf_actual_et",
+      "kind": "files",
+      "strategy": "cmr",
+      "summary": "Find 061 granules intersecting the project dates and area. Select the ET field and QA, apply scale after masking, then sum valid composite depths.",
+      "auth": "Public metadata. Earthdata Login is required for protected files.",
+      "providerUrl": "https://search.earthdata.nasa.gov/search/granules?p=C2565791021-LPCLOUD",
+      "docsUrl": "https://doi.org/10.5067/MODIS/MOD16A2GF.061",
+      "spatialDelivery": "500 m MODIS sinusoidal land tiles. Tile overlap does not establish a valid vegetated pixel.",
+      "temporalDelivery": "8-day ET sums. The final composite in a year covers 5 or 6 days; use its actual length when converting to a mean rate.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Exact collection and a provider granule link checked; protected data values unverified.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "ET and PET have different meanings. Apply QA, scale and fill rules separately to ET; year-end gap filling introduces latency."
+      ],
+      "steps": [
+        "Find 061 granules intersecting the project dates and area. Select the ET field and QA, apply scale after masking, then sum valid composite depths.",
+        "Estimate actual land ET totals over stated periods and compare spatial water-balance patterns."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "MODIS_MOD16A2GF_ACTUAL_ET_DOC",
+        "MODIS_MOD16A2GF_ACTUAL_ET_ACCESS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_REF1",
+        "MODIS_MOD16A2GF_ACTUAL_ET_TERMS",
+        "MODIS_MOD16A2GF_ACTUAL_ET_CMR"
+      ],
+      "collections": [
+        {
+          "id": "C2565791021-LPCLOUD",
+          "shortName": "MOD16A2GF",
+          "version": "061",
+          "label": "MOD16A2GF",
+          "authRequired": true
+        }
+      ]
+    },
+    "usgs_groundwater_discrete_levels": {
+      "productId": "usgs_groundwater_discrete_levels",
+      "kind": "external",
+      "strategy": "portal",
+      "summary": "Filter field measurements to parameter 72019, a monitoring location or bounding box, and project dates. Follow pagination and retain depth reference, approval and qualifiers.",
+      "auth": "Public provider access.",
+      "providerUrl": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?parameter_code=72019&limit=10&f=html",
+      "docsUrl": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements?f=html",
+      "spatialDelivery": "Individual monitoring well and screened aquifer interval. Nearby wells may represent different aquifers.",
+      "temporalDelivery": "Irregular individual visits with time, quality/approval and well condition qualifiers.",
+      "verification": {
+        "status": "metadata-checked",
+        "label": "Provider documentation and access route reviewed.",
+        "checkedAt": "2026-11-23"
+      },
+      "notes": [
+        "Depth below local land surface cannot be subtracted across wells to infer a hydraulic gradient without surveyed elevations and consistent datums."
+      ],
+      "steps": [
+        "Filter field measurements to parameter 72019, a monitoring location or bounding box, and project dates. Follow pagination and retain depth reference, approval and qualifiers.",
+        "Assess groundwater-level anomalies or drawdown by well after checking depth reference, pumping conditions and measurement history."
+      ],
+      "options": [],
+      "files": [],
+      "catalogEvidenceIds": [
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_DOC",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_ACCESS",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_REF1",
+        "USGS_GROUNDWATER_DISCRETE_LEVELS_TERMS"
+      ],
+      "requiredSelections": [
+        "Monitoring location or bounding box",
+        "Visit dates and parameter 72019",
+        "Well datum and qualifiers"
       ]
     }
   },

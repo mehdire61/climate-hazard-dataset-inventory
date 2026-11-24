@@ -7,8 +7,16 @@ const point={mode:'point',lat:38.9,lon:-77.04,radiusKm:100,start:'2020-07-01',en
 const area={mode:'area',areaName:'County test',areaSource:{kind:'test',vintage:'2020'},bufferKm:50,
  geometry:{type:'Polygon',coordinates:[[[-78,38],[-76,38],[-76,40],[-78,40],[-78,38]],[[-77.5,38.5],[-77.5,39],[-77,39],[-77,38.5],[-77.5,38.5]]]},start:point.start,end:point.end};
 
+test('a date-only partial overlap qualifies the access manifest and preserves the requested period',()=>{
+ for(const [id,start,end] of [['gpm_imerg_final_v07b','2025-09-29','2025-10-02'],['nohrsc_snodas_daily_swe','2005-07-30','2005-08-01'],['gleam_v4_2a_actual_evaporation','2023-12-31','2024-01-02']]){
+  const query={...point,start,end}, plan=access.prepare(id,query);
+  assert.ok(plan.notes.some(note=>/partial nominal overlap/.test(note)),id);
+  assert.equal(plan.manifest.query.start,start);assert.equal(plan.manifest.query.end,end);
+ }
+});
 test('Every original record has an explicit reviewed access route',()=>{
- assert.equal(catalog.length,57);
+ const published=require('./fixtures/inventory-v02.json').productIds;
+ assert.ok(published.every(id=>catalog.some(product=>product.product_id===id)));
  for(const product of catalog){const p=access.describe(product.product_id);assert.ok(['station','files','request','external'].includes(p.kind));
   for(const key of ['summary','auth','spatialDelivery','temporalDelivery','providerUrl','docsUrl'])assert.ok(p[key],product.product_id+' '+key);
   assert.ok(p.verification.label);assert.ok(p.verification.checkedAt);}
@@ -96,7 +104,7 @@ test('SNOTEL links use the selected station, original project dates, daily WTEQ 
      const directory=require('../data/snotel-stations.json');
      assert.equal(directory.sourceSha256,receipt.responseSha256);
      assert.deepEqual(directory.stations,JSON.parse(response).map(s=>({
-       id:s.stationTriplet,name:s.name,lat:s.latitude,lon:s.longitude,start:s.beginDate?.slice(0,10)||null,
+       id:s.stationTriplet,name:s.name,lat:s.latitude,lon:s.longitude,elevationFt:s.elevation,start:s.beginDate?.slice(0,10)||null,
        end:s.endDate?.startsWith('2100-01-01')?null:s.endDate?.slice(0,10)||null
      })));
    }

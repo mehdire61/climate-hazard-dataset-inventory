@@ -4,8 +4,8 @@
   const CENSUS = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_ACS2026/MapServer';
   const LAYERS = Object.freeze({state: [80], county: [82], place: [28, 30]});
   const WBD = 'https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer';
-  const HUC_LAYERS = Object.freeze({huc12: 6, huc10: 5, huc8: 4});
-  const WBD_OFFSET = 0.00001;
+  const HUC_LAYERS = Object.freeze({huc12: 6, huc10: 5, huc8: 4, huc6: 3, huc4: 2, huc2: 1});
+  const screeningOffset = kind => ({huc2:0.01,huc4:0.003,huc6:0.001}[kind] || 0.00001);
   const MAX_BYTES = 8 * 1024 * 1024;
   const geometry = () => root.SiteGeometry || (typeof require === 'function' ? require('./geometry.js') : null);
   let configured = null;
@@ -70,7 +70,7 @@
     return WBD + '/' + HUC_LAYERS[kind] + '/query?' + new URLSearchParams(params);
   }
   function wbdMetadata(attributes, kind) {
-    const id = attributes?.[kind], name = attributes?.name, states = attributes?.states;
+    const id = attributes?.[kind], name = attributes?.name, states = attributes?.states ?? '';
     const level = HUC_LAYERS[kind] * 2;
     if (typeof id !== 'string' || !/^\d+$/.test(id) || id.length !== level ||
         typeof name !== 'string' || !name.trim() || typeof states !== 'string') {
@@ -107,24 +107,34 @@
     if (!/^\d+$/.test(id) || id.length !== level) throw new Error('Invalid hydrologic-unit code.');
     const detail = options.wbdDetail || 'screening';
     if (!['screening','full'].includes(detail)) throw new Error('Choose a supported WBD boundary detail.');
-    const params = {f:'geojson', where:kind + "='" + id + "'", outFields:kind + ',name,states,areasqkm,loaddate,globalid', returnGeometry:'true', outSR:'4326'};
+    const params = {f:'geojson', where:kind + "='" + id + "'", outFields:kind + ',name,states,areasqkm,loaddate' + (kind==='huc6' ? '' : ',globalid'), returnGeometry:'true', outSR:'4326'};
     const fullGeometryUrl = wbdUrl(kind, params);
     const generalized = detail === 'screening';
-    if (generalized) params.maxAllowableOffset = String(WBD_OFFSET);
+    if (generalized) params.maxAllowableOffset = String(screeningOffset(kind));
     const answer = await request(wbdUrl(kind, params), options);
     if (answer.data.type !== 'FeatureCollection' || answer.data.exceededTransferLimit || answer.data.properties?.exceededTransferLimit ||
         !Array.isArray(answer.data.features) || answer.data.features.length !== 1) throw new Error('USGS returned an incomplete hydrologic-unit boundary.');
     const a = answer.data.features[0].properties, metadata = wbdMetadata(a, kind);
     if (metadata.id !== id) throw new Error('Returned boundary does not match the selected HUC.');
-    const shape = geometry().normalize(answer.data);
+    let shape, overlayNote = '';
+    try { shape = geometry().normalize(answer.data); }
+    catch (error) {
+      if (level > 6 || !generalized || !/repeats a vertex|self-intersection|touching/i.test(error.message)) throw error;
+      const turf = root.turf || (typeof require === 'function' && require('../vendor/turf.min.js'));
+      const feature = answer.data.features[0];
+      if (!turf || turf.coordAll(feature).length > 100000) throw error;
+      // Union the footprint with itself to dissolve self-touching seams in the regional screening representation.
+      shape = geometry().normalize(turf.union(turf.featureCollection([feature,feature])));
+      overlayNote = ' A polygon union resolved touching rings in the generalized response. The screening geometry passed topology validation.';
+    }
     const date = a.loaddate == null ? null : new Date(a.loaddate);
     const loaded = date && Number.isFinite(+date) ? date.toISOString().slice(0,10) : null;
     const source = {provider:'U.S. Geological Survey', dataset:'Watershed Boundary Dataset (WBD)', kind, id,
       level, states:metadata.states, url:WBD + '/' + HUC_LAYERS[kind], fullGeometryUrl, generalized,
-      maxAllowableOffsetDegrees:generalized ? WBD_OFFSET : 0, featureLoadDate:loaded,
+      maxAllowableOffsetDegrees:generalized ? screeningOffset(kind) : 0, ...(overlayNote ? {touchingRingsDissolved:true} : {}), featureLoadDate:loaded,
       vintage:loaded ? 'USGS feature load ' + loaded : 'Live WBD service; see retrieval date',
       coordinateReferenceSystem:'WGS84 longitude/latitude (EPSG:4326)', providerAreaKm2:a.areasqkm ?? null,
-      processing:generalized ? 'USGS generalized the screening boundary with a 0.00001° output tolerance. Near-edge station selections may differ at full detail.' : 'Full USGS service geometry in WGS84. No generalization was requested.',
+      processing:generalized ? 'USGS generalized the screening boundary with a ' + screeningOffset(kind) + '° output tolerance. Near-edge station selections may differ at full detail.' + overlayNote : 'Full USGS service geometry in WGS84. No generalization was requested.',
       terms:'https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits',
       request:answer.receipt, retrievedAt:answer.receipt.retrievedAt, geometrySha256:await sha256(JSON.stringify(shape))};
     return {name:metadata.name, geometry:shape, source};
@@ -194,7 +204,7 @@
     const shape = geometry().normalize(answer.data);
     return {name, geometry:shape, source:{...source,...answer.receipt,geometrySha256:await sha256(JSON.stringify(shape)),featureIds:answer.data.features.map(feature => feature.properties?.GEOID || feature.properties?.shapeID || null),request:answer.receipt}};
   }
-  const api = {search,load,configure};
+  const api = {search,load,configure,screeningOffset};
   if (typeof module === 'object' && module.exports) module.exports = api;
   root.SiteAreas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

@@ -7,7 +7,7 @@ function ids(hazard,query,evidence=new Map()) {
   const all=screen.evaluateAll(products,rules,query,'2026-11-18'), group=groups.find(g=>g.id===hazard);
   const scoped=all.filter(r=>group.products.includes(r.productId));
   const regionalRain=hazard==='precipitation' && scoped.some(r=>r.productId==='stage_iv'&&r.status==='possible'&&r.spatialRelation==='within');
-  return [...S.rank(scoped,{byId,rules,evidence,hazard,offshore:all.some(r=>r.landCheck?.land===false),regionalRain,limit:3})];
+  return [...S.rank(scoped,{byId,rules,evidence,hazard,query,offshore:all.some(r=>r.landCheck?.land===false),regionalRain,limit:3})];
 }
 test('SNOTEL is a station search in its network and stays off distant snow shortlists',()=>{
   const id='nrcs_snotel_daily_swe';
@@ -23,6 +23,14 @@ test('SNOTEL is a station search in its network and stays off distant snow short
   assert.equal(remote.networkInScope,false);
   assert.notEqual(remote.status,'excluded');
   assert.ok(!ids('snow',maryland).includes(id));
+});
+test('local snow storage, monitored lakes, dated fire routes and offshore settings inform the top three',()=>{
+  const idaho=point(45.04315,-116.13253,'2024-04-01','2024-04-03'),snow=ids('snow',idaho);
+  assert.ok(snow.includes('nohrsc_snodas_daily_swe') && snow.includes('nrcs_snotel_daily_swe'),snow);
+  assert.ok(!ids('drought',idaho).includes('c3s_lake_water_level'));
+  assert.ok(!ids('fire',point(51.5,-0.12,'2024-07-01','2024-07-03')).includes('gfed4_1s_legacy'));
+  const sea=point(30,-45);
+  for(const id of [...ids('flood',sea),...ids('drought',sea)])assert.ok(!['c3s_lake_water_level','gesla3','gesla41','cems_rapid_mapping','cems_gfm','nasa_coolr'].includes(id),id);
 });
 test('regional jurisdiction, event match and radar reach take precedence over agency recognition',()=>{
   assert.deepEqual(ids('flood',point(29.76,-95.37)).slice(0,2),['usgs_hwm_harvey_2017','usgs_streamflow']);

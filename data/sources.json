@@ -2023,5 +2023,437 @@
     "claims": "Layer identifiers distinguish depth from v3.1 elevation products. Verify the exact elevation layer, unit and datum with Fathom.",
     "checked_date": "2026-11-23",
     "verification": "PROVIDER_DOCUMENTATION"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS14_PRECIP_FREQUENCY_DOC",
+    "title": "NOAA Atlas 14 · precipitation-frequency depths · provider documentation",
+    "url": "https://hdsc.nws.noaa.gov/pfds/",
+    "claims": "Point estimates and regional frequency grids. A point depth requires an areal adjustment when used for a basin design storm. Select a storm duration, frequency and series definition. The project dates do not select one observed storm.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS14_PRECIP_FREQUENCY_REF1",
+    "title": "PFDS · Maryland point example",
+    "url": "https://hdsc.nws.noaa.gov/cgi-bin/new/fe_text.csv?lat=39.08&lon=-77.15&type=pf&data=depth&units=english&series=pds",
+    "claims": "Volume 2, Version 3, partial-duration depth estimates in inches, including confidence limits.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS14_PRECIP_FREQUENCY_TERMS",
+    "title": "NOAA National Weather Service · data terms",
+    "url": "https://www.weather.gov/disclaimer/",
+    "claims": "Credit NOAA/NWS and the cited volume, identify modifications, and avoid implying NOAA endorsement.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS15_MONTANA_V1_PILOT_DOC",
+    "title": "NOAA Atlas 15 · Montana Volume 1 pilot · provider documentation",
+    "url": "https://water.noaa.gov/about/atlas15",
+    "claims": "Montana pilot study area. The technical report illustrates point and spatial estimates. Pilot durations span 1 hour to 10 days with annual exceedance probabilities from 50% to 1%.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS15_MONTANA_V1_PILOT_ACCESS",
+    "title": "NOAA Atlas 15 · Montana Volume 1 pilot · provider access",
+    "url": "https://www.weather.gov/media/owp/precip-frequency/noaa_atlas15_pilot_technical_report.pdf",
+    "claims": "Read Volume 1 results in the NOAA pilot technical report. Use PFDS for the published Atlas 14 volume.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS15_MONTANA_V1_PILOT_REF1",
+    "title": "Published precipitation-frequency estimates",
+    "url": "https://hdsc.nws.noaa.gov/pfds/",
+    "claims": "PFDS identifies the published volume for design reference.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NOAA_ATLAS15_MONTANA_V1_PILOT_TERMS",
+    "title": "NOAA National Weather Service · data terms",
+    "url": "https://www.weather.gov/disclaimer/",
+    "claims": "Credit NOAA/NWS and the cited volume, identify modifications, and avoid implying NOAA endorsement.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_SINGLE_LEVEL_WATER_BALANCE_DOC",
+    "title": "ERA5 · precipitation, runoff and snow water equivalent · provider documentation",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+    "claims": "Atmospheric model near 31 km, distributed on a regular 0.25° CDS grid. Hourly output. In the hourly high-resolution stream, precipitation and runoff accumulate over the preceding hour. SWE is an instantaneous state.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_SINGLE_LEVEL_WATER_BALANCE_ACCESS",
+    "title": "ERA5 · precipitation, runoff and snow water equivalent · provider access",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+    "claims": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF1",
+    "title": "ECMWF · accumulation conventions",
+    "url": "https://confluence.ecmwf.int/display/CKB/ERA5-Land%3A+data+documentation",
+    "claims": "Defines the ERA5-Land forecast accumulations and contrasts them with ERA5 hourly accumulations.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_SINGLE_LEVEL_WATER_BALANCE_REF2",
+    "title": "CDS machine-readable collection and licence",
+    "url": "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-single-levels",
+    "claims": "The collection identifies its licence as CC-BY-4.0.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_SINGLE_LEVEL_WATER_BALANCE_TERMS",
+    "title": "Copernicus Climate Change Service / ECMWF · data terms",
+    "url": "https://cds.climate.copernicus.eu/licences/cc-by",
+    "claims": "Attribute the Copernicus Climate Change Service and ECMWF, identify the version, cite the dataset DOI and indicate changes under CC BY 4.0.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_LAND_WATER_BALANCE_DOC",
+    "title": "ERA5-Land · precipitation, runoff and snow water equivalent · provider documentation",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+    "claims": "Native land model near 9 km, distributed on a 0.1° CDS grid. Hourly output. Precipitation and runoff in the hourly CDS archive accumulate from the start of the 00 UTC forecast. Difference successive steps within a forecast, preserving the midnight 24-hour total. SWE is an instantaneous state.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_LAND_WATER_BALANCE_ACCESS",
+    "title": "ERA5-Land · precipitation, runoff and snow water equivalent · provider access",
+    "url": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+    "claims": "Choose total precipitation, runoff and snow depth in the CDS hourly form. Set dates, area and output format.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_LAND_WATER_BALANCE_REF1",
+    "title": "ECMWF · accumulation conventions",
+    "url": "https://confluence.ecmwf.int/display/CKB/ERA5-Land%3A+data+documentation",
+    "claims": "Defines the ERA5-Land forecast accumulations and contrasts them with ERA5 hourly accumulations.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_LAND_WATER_BALANCE_REF2",
+    "title": "CDS machine-readable collection and licence",
+    "url": "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-land",
+    "claims": "The collection identifies its licence as CC-BY-4.0.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "ERA5_LAND_WATER_BALANCE_TERMS",
+    "title": "Copernicus Climate Change Service / ECMWF · data terms",
+    "url": "https://cds.climate.copernicus.eu/licences/cc-by",
+    "claims": "Attribute the Copernicus Climate Change Service and ECMWF, identify the version, cite the dataset DOI and indicate changes under CC BY 4.0.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRISM_CONUS_DAILY_PPT_DOC",
+    "title": "PRISM · daily precipitation, CONUS 4 km · provider documentation",
+    "url": "https://prism.oregonstate.edu/data/",
+    "claims": "4 km CONUS grid. Local terrain and station coverage affect representativeness. Daily total for the 24 hours ending at 12 UTC on the labeled day. Compare station observation-day boundaries.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRISM_CONUS_DAILY_PPT_ACCESS",
+    "title": "PRISM · daily precipitation, CONUS 4 km · provider access",
+    "url": "https://prism.oregonstate.edu/downloads/",
+    "claims": "Choose U.S., 4 km, daily precipitation and a date in the PRISM download service. Retain the supplied raster metadata.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRISM_CONUS_DAILY_PPT_REF1",
+    "title": "PRISM · public daily grid",
+    "url": "https://services.nacse.org/prism/data/get/us/4km/ppt/20240401",
+    "claims": "Confirmed a precipitation raster archive for April 1, 2024.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "PRISM_CONUS_DAILY_PPT_TERMS",
+    "title": "PRISM Group, Oregon State University · data terms",
+    "url": "https://prism.oregonstate.edu/terms/",
+    "claims": "PRISM permits data reproduction and distribution. Credit the PRISM Group, Oregon State University, include the provider URL and access date, and preserve the required copyright notice on map graphics.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "DAYMET_V4R1_DAILY_PRCP_DOC",
+    "title": "Daymet V4 R1 · daily precipitation · provider documentation",
+    "url": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+    "claims": "1 km Lambert conformal conic grids for continental North America, Hawaii and Puerto Rico. The regional files are distinct. 365 daily values per year. Leap years include February 29 and omit December 31.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "DAYMET_V4R1_DAILY_PRCP_ACCESS",
+    "title": "Daymet V4 R1 · daily precipitation · provider access",
+    "url": "https://doi.org/10.3334/ORNLDAAC/2129",
+    "claims": "Find yearly precipitation granules for the regional grid. Extract prcp and preserve the Daymet calendar.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "DAYMET_V4R1_DAILY_PRCP_TERMS",
+    "title": "Oak Ridge National Laboratory DAAC / NASA · data terms",
+    "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+    "claims": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "DAYMET_V4R1_DAILY_PRCP_CMR",
+    "title": "Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 R1 · CMR collection",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2532426483-ORNL_CLOUD.umm_json",
+    "claims": "Exact version, spatial and temporal metadata, and independently listed provider granule.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRIDMET_DAILY_PRECIPITATION_DOC",
+    "title": "gridMET · daily precipitation · provider documentation",
+    "url": "https://www.climatologylab.org/gridmet.html",
+    "claims": "1/24° CONUS grid, approximately 4 km. Effective spatial detail depends on the source fields. Daily accumulations. The precipitation day follows the source observing convention; align with gauge observation windows.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRIDMET_DAILY_PRECIPITATION_ACCESS",
+    "title": "gridMET · daily precipitation · provider access",
+    "url": "https://www.northwestknowledge.net/metdata/data/",
+    "claims": "Choose the pr_YYYY.nc precipitation file for each requested year. Read its coordinates, units, time axis and fill value.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "GRIDMET_DAILY_PRECIPITATION_REF1",
+    "title": "gridMET · annual precipitation NetCDF",
+    "url": "https://www.northwestknowledge.net/metdata/data/pr_2024.nc",
+    "claims": "The annual precipitation archive responds to a byte-range request with a NetCDF/HDF5 header.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NLDAS2_HOURLY_FORCING_PRECIP_DOC",
+    "title": "NLDAS-2 · hourly precipitation forcing · provider documentation",
+    "url": "https://ldas.gsfc.nasa.gov/nldas/v2/forcing",
+    "claims": "1/8° grid over central North America, approximately 12–14 km. This record selects precipitation in File A. One-hour precipitation accumulation. Read interval time coordinates before daily aggregation.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NLDAS2_HOURLY_FORCING_PRECIP_ACCESS",
+    "title": "NLDAS-2 · hourly precipitation forcing · provider access",
+    "url": "https://doi.org/10.5067/THUF4J1RLSYG",
+    "claims": "Find hourly File A granules and select total precipitation. Read per-file field names, units and temporal bounds.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NLDAS2_HOURLY_FORCING_PRECIP_TERMS",
+    "title": "NASA GES DISC / NLDAS team · data terms",
+    "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+    "claims": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "NLDAS2_HOURLY_FORCING_PRECIP_CMR",
+    "title": "NLDAS Primary Forcing Data L4 Hourly 0.125 x 0.125 degree V2.0 (NLDAS_FORA0125_H) · CMR collection",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2033151148-GES_DISC.umm_json",
+    "claims": "Exact version, spatial and temporal metadata, and independently listed provider granule.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USDM_WEEKLY_DROUGHT_DOC",
+    "title": "U.S. Drought Monitor · weekly drought categories · provider documentation",
+    "url": "https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx",
+    "claims": "Regional drought-class polygons. A polygon can cross many watersheds and contains no within-class intensity measurement. Weekly map valid Tuesday and normally released Thursday. Compare editions by their valid date.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USDM_WEEKLY_DROUGHT_ACCESS",
+    "title": "U.S. Drought Monitor · weekly drought categories · provider access",
+    "url": "https://droughtmonitor.unl.edu/Data/shapefiles_m/",
+    "claims": "Choose a Tuesday in the merged GIS archive. Intersect the CONUS polygons with the project in an equal-area projection, assigning the highest class at each location to calculate exclusive areas.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USDM_WEEKLY_DROUGHT_REF1",
+    "title": "USDM archive · GIS metadata",
+    "url": "https://droughtmonitor.unl.edu/DmData/Metadata.aspx",
+    "claims": "Defines the merged drought-class polygons and distinguishes cumulative statistics.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USDM_WEEKLY_DROUGHT_TERMS",
+    "title": "National Drought Mitigation Center / USDA / NOAA / NASA · data terms",
+    "url": "https://droughtmonitor.unl.edu/About/Permission.aspx",
+    "claims": "Commercial and non-commercial third-party use is authorized. Use the current producer credit and NDMC courtesy line exactly as given on the permission page.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L3_ENHANCED_SURFACE_MOISTURE_DOC",
+    "title": "SMAP enhanced L3 · surface soil moisture · provider documentation",
+    "url": "https://nsidc.org/data/spl3smp_e/versions/6",
+    "claims": "9 km EASE-Grid posting. The microwave footprint is coarser than the posting. Select the global or relevant polar grid. Daily granules contain separate AM/PM swath retrievals; dates can lack a valid pass.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L3_ENHANCED_SURFACE_MOISTURE_ACCESS",
+    "title": "SMAP enhanced L3 · surface soil moisture · provider access",
+    "url": "https://doi.org/10.5067/M20OXIZHY3RJ",
+    "claims": "Find exact-version granules, then choose the appropriate orbit, grid, soil-moisture field and quality flags.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L3_ENHANCED_SURFACE_MOISTURE_TERMS",
+    "title": "NASA / NSIDC DAAC · data terms",
+    "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+    "claims": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L3_ENHANCED_SURFACE_MOISTURE_CMR",
+    "title": "SMAP Enhanced L3 Radiometer Global and Polar Grid Daily 9 km EASE-Grid Soil Moisture V006 · CMR collection",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2938664763-NSIDC_CPRD.umm_json",
+    "claims": "Exact version, spatial and temporal metadata, and independently listed provider granule.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_DOC",
+    "title": "SMAP L4 · surface and root-zone soil moisture · provider documentation",
+    "url": "https://nsidc.org/data/spl4smgp/versions/8",
+    "claims": "9 km EASE-Grid 2.0 estimates over land. Root-zone water is a modeled state informed indirectly by the observations. Three-hourly geophysical fields. Inspect the model time bounds and analysis quality.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_ACCESS",
+    "title": "SMAP L4 · surface and root-zone soil moisture · provider access",
+    "url": "https://doi.org/10.5067/T5RUATAQREF8",
+    "claims": "Find exact-version granules, then choose surface or root-zone soil moisture and the corresponding quality information.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_TERMS",
+    "title": "NASA / NSIDC DAAC · data terms",
+    "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+    "claims": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "SMAP_L4_SURFACE_ROOTZONE_MOISTURE_CMR",
+    "title": "SMAP L4 Global 3-hourly 9 km EASE-Grid Surface and Root Zone Soil Moisture Geophysical Data V008 · CMR collection",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C3480440870-NSIDC_CPRD.umm_json",
+    "claims": "Exact version, spatial and temporal metadata, and independently listed provider granule.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "OPENET_ENSEMBLE_MONTHLY_V2_DOC",
+    "title": "OpenET · monthly ensemble actual evapotranspiration · provider documentation",
+    "url": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+    "claims": "30 m reported pixels. Field boundaries, mixed pixels and meteorological forcing affect interpretation. Monthly totals. Inspect the per-pixel model count and range before comparing fields.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "MODIS_MOD16A2GF_ACTUAL_ET_DOC",
+    "title": "MODIS MOD16A2GF · gap-filled actual evapotranspiration · provider documentation",
+    "url": "https://doi.org/10.5067/MODIS/MOD16A2GF.061",
+    "claims": "500 m MODIS sinusoidal land tiles. Tile overlap does not establish a valid vegetated pixel. 8-day ET sums. The final composite in a year covers 5 or 6 days; use its actual length when converting to a mean rate.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "MODIS_MOD16A2GF_ACTUAL_ET_ACCESS",
+    "title": "MODIS MOD16A2GF · gap-filled actual evapotranspiration · provider access",
+    "url": "https://search.earthdata.nasa.gov/search/granules?p=C2565791021-LPCLOUD",
+    "claims": "Find 061 granules intersecting the project dates and area. Select the ET field and QA, apply scale after masking, then sum valid composite depths.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "MODIS_MOD16A2GF_ACTUAL_ET_REF1",
+    "title": "MOD16 Collection 6.1 user guide",
+    "url": "https://lpdaac.usgs.gov/documents/931/MOD16_User_Guide_V61.pdf",
+    "claims": "Defines ET units, scale, compositing, QA and fill codes.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "MODIS_MOD16A2GF_ACTUAL_ET_TERMS",
+    "title": "NASA / LP DAAC · data terms",
+    "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+    "claims": "NASA Earth science data are openly available. Cite the selected product, DOI, subset and access date and retain product-specific notices.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "MODIS_MOD16A2GF_ACTUAL_ET_CMR",
+    "title": "MODIS/Terra Net Evapotranspiration Gap-Filled 8-Day L4 Global 500m SIN Grid V061 · CMR collection",
+    "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565791021-LPCLOUD.umm_json",
+    "claims": "Exact version, spatial and temporal metadata, and independently listed provider granule.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USGS_GROUNDWATER_DISCRETE_LEVELS_DOC",
+    "title": "USGS groundwater · discrete depth to water · provider documentation",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements?f=html",
+    "claims": "Individual monitoring well and screened aquifer interval. Nearby wells may represent different aquifers. Irregular individual visits with time, quality/approval and well condition qualifiers.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USGS_GROUNDWATER_DISCRETE_LEVELS_ACCESS",
+    "title": "USGS groundwater · discrete depth to water · provider access",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?parameter_code=72019&limit=10&f=html",
+    "claims": "Filter field measurements to parameter 72019, a monitoring location or bounding box, and project dates. Follow pagination and retain depth reference, approval and qualifiers.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USGS_GROUNDWATER_DISCRETE_LEVELS_REF1",
+    "title": "USGS · discrete level sample (72019)",
+    "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?f=json&parameter_code=72019&limit=1",
+    "claims": "A public response carried the depth, unit, local datum, static qualifier, date and monitoring location.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
+  },
+  {
+    "evidence_id": "USGS_GROUNDWATER_DISCRETE_LEVELS_TERMS",
+    "title": "U.S. Geological Survey · data terms",
+    "url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+    "claims": "Credit USGS and the measuring agency. Check third-party notices and preserve station, parameter, datum and qualifier information.",
+    "checked_date": "2026-11-23",
+    "verification": "PROVIDER_DOCUMENTATION_REVIEWED"
   }
 ]

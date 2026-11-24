@@ -1,0 +1,458 @@
+{
+  "reviewedAtUTC": "2026-11-24T04:33:28.920249+00:00",
+  "scope": "Public product documentation, access routes and small public samples. Metadata file listings describe candidate files. Protected files were not downloaded. Raster headers and ZIP member names do not establish cell validity.",
+  "liveApplicationChecks": {
+    "checkedAt": "2026-11-24T04:33:44.014Z",
+    "project": {
+      "mode": "point",
+      "lat": 39.08,
+      "lon": -77.15,
+      "radiusKm": 0,
+      "start": "2024-04-01",
+      "end": "2024-04-01"
+    },
+    "granules": [
+      {
+        "productId": "daymet_v4r1_daily_prcp",
+        "matchingFiles": 1,
+        "search": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532426483-ORNL_CLOUD&readable_granule_name=*prcp*&options%5Breadable_granule_name%5D%5Bpattern%5D=true&temporal=2024-04-01T00%3A00%3A00Z%2C2024-04-01T23%3A59%3A59.999Z&point=-77.15%2C39.08&page_size=1000&sort_key=start_date",
+        "firstFile": "daymet_v4_daily_na_prcp_2024.nc",
+        "url": "https://data.ornldaac.earthdata.nasa.gov/protected/daymet/Daymet_Daily_V4R1/data/daymet_v4_daily_na_prcp_2024.nc",
+        "start": "2024-01-01T00:00:00.000Z",
+        "end": "2024-12-30T23:59:59.000Z"
+      },
+      {
+        "productId": "modis_mod16a2gf_actual_et",
+        "matchingFiles": 2,
+        "search": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565791021-LPCLOUD&temporal=2024-04-01T00%3A00%3A00Z%2C2024-04-01T23%3A59%3A59.999Z&point=-77.15%2C39.08&page_size=1000&sort_key=start_date",
+        "firstFile": "MOD16A2GF.A2024089.h11v05.061.2025015093653.hdf",
+        "url": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MOD16A2GF.061/MOD16A2GF.A2024089.h11v05.061.2025015093653/MOD16A2GF.A2024089.h11v05.061.2025015093653.hdf",
+        "start": "2024-03-29T00:00:00.000Z",
+        "end": "2024-04-05T23:59:59.000Z"
+      },
+      {
+        "productId": "nldas2_hourly_forcing_precip",
+        "matchingFiles": 24,
+        "search": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2033151148-GES_DISC&temporal=2024-04-01T00%3A00%3A00Z%2C2024-04-01T23%3A59%3A59.999Z&point=-77.15%2C39.08&page_size=1000&sort_key=start_date",
+        "firstFile": "NLDAS_FORA0125_H.A20240401.0000.020.nc",
+        "url": "https://data.gesdisc.earthdata.nasa.gov/data/NLDAS/NLDAS_FORA0125_H.2.0/2024/092/NLDAS_FORA0125_H.A20240401.0000.020.nc",
+        "start": "2024-04-01T00:00:00.000Z",
+        "end": "2024-04-01T00:00:00.000Z"
+      },
+      {
+        "productId": "smap_l3_enhanced_surface_moisture",
+        "matchingFiles": 1,
+        "search": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2938664763-NSIDC_CPRD&temporal=2024-04-01T00%3A00%3A00Z%2C2024-04-01T23%3A59%3A59.999Z&point=-77.15%2C39.08&page_size=1000&sort_key=start_date",
+        "firstFile": "SMAP_L3_SM_P_E_20240401_R19240_001.h5",
+        "url": "https://data.nsidc.earthdatacloud.nasa.gov/nsidc-cumulus-prod-protected/SMAP/SPL3SMP_E/006/2024/04/01/SMAP_L3_SM_P_E_20240401_R19240_001.h5",
+        "start": "2024-04-01T00:00:00.000Z",
+        "end": "2024-04-01T23:59:59.999Z"
+      },
+      {
+        "productId": "smap_l4_surface_rootzone_moisture",
+        "matchingFiles": 27,
+        "search": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C3480440870-NSIDC_CPRD&temporal=2024-04-01T00%3A00%3A00Z%2C2024-04-01T23%3A59%3A59.999Z&point=-77.15%2C39.08&page_size=1000&sort_key=start_date",
+        "firstFile": "SMAP_L4_SM_gph_20240331T223000_Vv8012_001.h5",
+        "url": "https://data.nsidc.earthdatacloud.nasa.gov/nsidc-cumulus-prod-protected/SMAP/SPL4SMGP/008/2024/03/31/SMAP_L4_SM_gph_20240331T223000_Vv8012_001.h5",
+        "start": "2024-03-31T21:00:00.000Z",
+        "end": "2024-04-01T00:00:00.000Z"
+      }
+    ],
+    "hydrologicUnits": [
+      {
+        "id": "02",
+        "kind": "huc2",
+        "name": "HUC2 02 · Mid Atlantic Region (CT,DC,DE,MA,MD,NJ,NY,PA,RI,VA,VT,WV)",
+        "geometryHash": "16c4f87526af71073b13f7b71a3fed441161105503ac3b492724d1db83864daf",
+        "responseHash": "8c80dedfc11db5e80cc1dab8b3de24f1f2077b88b46b99ad53a7c142bc8971f7",
+        "toleranceDegrees": 0.01,
+        "processing": "USGS generalized the screening boundary with a 0.01° output tolerance. Near-edge station selections may differ at full detail. A polygon union resolved touching rings in the generalized response. The screening geometry passed topology validation.",
+        "request": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/1/query?f=geojson&where=huc2%3D%2702%27&outFields=huc2%2Cname%2Cstates%2Careasqkm%2Cloaddate%2Cglobalid&returnGeometry=true&outSR=4326&maxAllowableOffset=0.01"
+      },
+      {
+        "id": "0207",
+        "kind": "huc4",
+        "name": "HUC4 0207 · Potomac (DC,MD,PA,VA,WV)",
+        "geometryHash": "65ea5b449042d1bfb6896983558d3ce46e90982b2ffc5439f9355b5e8abf203f",
+        "responseHash": "78a6130be1a760b5c89f1aa6906a23c7db3da0c076d592c0c3d266484080df8e",
+        "toleranceDegrees": 0.003,
+        "processing": "USGS generalized the screening boundary with a 0.003° output tolerance. Near-edge station selections may differ at full detail.",
+        "request": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/2/query?f=geojson&where=huc4%3D%270207%27&outFields=huc4%2Cname%2Cstates%2Careasqkm%2Cloaddate%2Cglobalid&returnGeometry=true&outSR=4326&maxAllowableOffset=0.003"
+      },
+      {
+        "id": "020700",
+        "kind": "huc6",
+        "name": "HUC6 020700 · Potomac (DC,MD,PA,VA,WV)",
+        "geometryHash": "c3cda6e2553aec1a9ca10a78a621f3f4b055fd6e380533b4c91fcf1950913f61",
+        "responseHash": "ec6920936ad1c2929d3406fbb045680efa630666a06ef4d967c2f65dd0907e98",
+        "toleranceDegrees": 0.001,
+        "processing": "USGS generalized the screening boundary with a 0.001° output tolerance. Near-edge station selections may differ at full detail.",
+        "request": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/3/query?f=geojson&where=huc6%3D%27020700%27&outFields=huc6%2Cname%2Cstates%2Careasqkm%2Cloaddate&returnGeometry=true&outSR=4326&maxAllowableOffset=0.001"
+      },
+      {
+        "id": "220201030000",
+        "kind": "huc12",
+        "name": "HUC12 220201030000 · Aguijan Island",
+        "geometryHash": "9f132df4d1663441de7652e4f581345156b15acf375f8e02df072c19c2ef292b",
+        "responseHash": "abbd5e97a908d4122ad4b3a5305de51c65918225a77531489785d05e479dddc7",
+        "toleranceDegrees": 1e-05,
+        "processing": "USGS generalized the screening boundary with a 0.00001° output tolerance. Near-edge station selections may differ at full detail.",
+        "request": "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/6/query?f=geojson&where=huc12%3D%27220201030000%27&outFields=huc12%2Cname%2Cstates%2Careasqkm%2Cloaddate%2Cglobalid&returnGeometry=true&outSR=4326&maxAllowableOffset=0.00001"
+      }
+    ]
+  },
+  "publicSamples": {
+    "noaa_atlas14_precip_frequency": {
+      "url": "https://hdsc.nws.noaa.gov/cgi-bin/new/fe_text.csv?lat=39.08&lon=-77.15&type=pf&data=depth&units=english&series=pds",
+      "responseBytes": 4136,
+      "sha256": "de9e4058b18899907e085e5fc8a1278cb05a108429aca97c0b9db510b7045c5c",
+      "volume": "NOAA Atlas 14 Volume 2 Version 3",
+      "variable": "Data type: Precipitation depth",
+      "series": "Time series type: Partial duration",
+      "header": "by duration for ARI (years):, 1,2,5,10,25,50,100,200,500,1000",
+      "depths": "24-hr:, 2.59,3.13,4.02,4.80,6.00,7.08,8.28,9.66,11.8,13.6"
+    },
+    "prism_conus_daily_ppt": {
+      "url": "https://services.nacse.org/prism/data/get/us/4km/ppt/20240401",
+      "firstResponseStatus": 200,
+      "firstResponseType": "application/zip",
+      "firstBytesHex": "504b0304",
+      "scope": "ZIP signature only. A repeat later returned an HTTP 200 text message explaining the limit of two downloads of the same grid per Pacific day. No further request for this grid was made after the limit was identified."
+    },
+    "usdm_weekly_drought": {
+      "url": "https://droughtmonitor.unl.edu/Data/shapefiles_m/USDM_20240402_M.zip",
+      "responseBytes": 878185,
+      "sha256": "f5e6d806eefe66547ee2ada3dcd5e0c41519c3c93b369f8018158d2486254ea1",
+      "members": [
+        "USDM_20240402.cpg",
+        "USDM_20240402.dbf",
+        "USDM_20240402.prj",
+        "USDM_20240402.sbn",
+        "USDM_20240402.sbx",
+        "USDM_20240402.shp",
+        "USDM_20240402.shp.xml",
+        "USDM_20240402.shx"
+      ]
+    },
+    "usgs_groundwater_discrete_levels": {
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?f=json&parameter_code=72019&limit=1",
+      "responseBytes": 2123,
+      "sha256": "6e70a673a459341dc027436dcc739c8a78260026af4d98c429dfbdc03a5d9988",
+      "featureId": "00000095-1d39-4fe8-8d28-02c40029b1bd",
+      "observation": {
+        "monitoring_location_id": "USGS-380743102240300",
+        "parameter_code": "72019",
+        "time": "1969-03-27T12:00:00+00:00",
+        "value": "58.61",
+        "unit_of_measure": "ft",
+        "vertical_datum": "Local Assumed Datum",
+        "qualifier": [
+          "Static"
+        ],
+        "approval_status": "Approved"
+      }
+    },
+    "nldi_documentation_example": {
+      "url": "https://api.water.usgs.gov/nldi/linked-data/nwissite/USGS-05428500/basin?f=json",
+      "responseBytes": 8701,
+      "sha256": "8f2e383890ec718d77fb4ca2a5166099ce8a47edbb1b1de3ee8470759671c3b7",
+      "type": "Polygon"
+    }
+  },
+  "endpointChecks": {
+    "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?f=json&parameter_code=72019&limit=1": {
+      "status": 200,
+      "finalUrl": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?f=json&parameter_code=72019&limit=1",
+      "mime": "application/json",
+      "sampleBytes": 2123,
+      "prefixSha256": "abff9366c756c6a902ba88c84f2a8590b70cbd9e98e703c7ef2b2255626bc68b"
+    },
+    "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?parameter_code=72019&limit=10&f=html": {
+      "status": 200,
+      "finalUrl": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items?parameter_code=72019&limit=10&f=html",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "23bdfedd587ea67aecac87e37c81c6c01ab6f450ef580f92a87bb3ba42402e09"
+    },
+    "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements?f=html": {
+      "status": 200,
+      "finalUrl": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements?f=html",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "8fbfe74fad4d830f065191694d246ea98876ee07dcee77773f153c6f5878ce46"
+    },
+    "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-land": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-land",
+      "mime": "application/json",
+      "sampleBytes": 4096,
+      "prefixSha256": "a7f0c18a28dd8b7c0ac45d7ae2032fd3f0cd3a8a9b5113dd45d1dde80580ca99"
+    },
+    "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-single-levels": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/api/catalogue/v1/collections/reanalysis-era5-single-levels",
+      "mime": "application/json",
+      "sampleBytes": 4096,
+      "prefixSha256": "1a8a3a0f3c1481cd12e56dbbddc598280b32b0bb60d45baeea10594d8e6ad1f7"
+    },
+    "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=download",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "ca386d478f647ef2e84134c10965653c372864d691ace07ed08856b92a08a348"
+    },
+    "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-land?tab=overview",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "ca386d478f647ef2e84134c10965653c372864d691ace07ed08856b92a08a348"
+    },
+    "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "782fcda1fe71b46fe62eb387d0aa01a231af2f8f98b9a53d10b9f316ffcefd2b"
+    },
+    "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "782fcda1fe71b46fe62eb387d0aa01a231af2f8f98b9a53d10b9f316ffcefd2b"
+    },
+    "https://cds.climate.copernicus.eu/licences/cc-by": {
+      "status": 200,
+      "finalUrl": "https://cds.climate.copernicus.eu/licences/cc-by",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "fcc7e47705c317d0a694a82b100ff1cb511eb649e884031ef2f88deeeba0df25"
+    },
+    "https://confluence.ecmwf.int/display/CKB/ERA5-Land%3A+data+documentation": {
+      "status": 200,
+      "finalUrl": "https://confluence.ecmwf.int/spaces/CKB/pages/140385202/ERA5-Land+data+documentation",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "5c6aff661ef25a9c000e09ba1a009445eaa11bdadb15bd59a265dd2af34d09c8"
+    },
+    "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0": {
+      "status": 200,
+      "finalUrl": "https://developers.google.com/earth-engine/datasets/catalog/projects_openet_assets_ensemble_conus_gridmet_monthly_v2_0",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "f9aaeac65d99b3b4155d92cd0558334e53863d078df8bc81791cb3caaf11f69b"
+    },
+    "https://doi.org/10.3334/ORNLDAAC/2129": {
+      "status": 200,
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "98d652700662b31a7d5088eea0e2eb3a7b38db18fc6b99dcd34bd40f6c3bbf89"
+    },
+    "https://doi.org/10.5067/M20OXIZHY3RJ": {
+      "status": 200,
+      "finalUrl": "https://nsidc.org/data/spl3smp_e/versions/6",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "db060d2edb858986382f4fcdff73bd8148cbfc8150870c2ebeff73ca1c2c4e6e"
+    },
+    "https://doi.org/10.5067/MODIS/MOD16A2GF.061": {
+      "status": 200,
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod16a2gf-061",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "e17c91db284682327e6c4e1faa57c8aedf112956c9bf5fc95946763ff5caf1de"
+    },
+    "https://doi.org/10.5067/T5RUATAQREF8": {
+      "status": 200,
+      "finalUrl": "https://nsidc.org/data/spl4smgp/versions/8",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "c6027dc243392f480044f822d3f60554f8ab18fed9d398a24438b355aeefd514"
+    },
+    "https://doi.org/10.5067/THUF4J1RLSYG": {
+      "status": 200,
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/ges-disc-nldas-fora0125-h-2.0",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "95bc3a95d7b8adf3980cdc26ec10c0dd94171630c231d78aad6d368acf7aea13"
+    },
+    "https://droughtmonitor.unl.edu/About/Permission.aspx": {
+      "status": 200,
+      "finalUrl": "https://droughtmonitor.unl.edu/About/Permission.aspx",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "80b4eb04c1a2f547f0e0ecf21a89abc9efbf15782302fdc9bdc6a23238fc0baa"
+    },
+    "https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx": {
+      "status": 200,
+      "finalUrl": "https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "d7822449d66e6a5ea1dd3b2b4c320732a1153e9bef2fbf333b284f50d303be0d"
+    },
+    "https://droughtmonitor.unl.edu/Data/shapefiles_m/": {
+      "status": 200,
+      "finalUrl": "https://droughtmonitor.unl.edu/Data/shapefiles_m/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "24f336449c29ef239642ade637b2bff94371bee7fbd5e8a893b6ee3feeb647e9"
+    },
+    "https://droughtmonitor.unl.edu/Data/shapefiles_m/USDM_20240402_M.zip": {
+      "status": 206,
+      "finalUrl": "https://droughtmonitor.unl.edu/Data/shapefiles_m/USDM_20240402_M.zip",
+      "mime": "application/x-zip-compressed",
+      "sampleBytes": 4096,
+      "prefixSha256": "70f68dbe793f00f7018015e20adf957c545766bf112a361144631ec9354357b1"
+    },
+    "https://droughtmonitor.unl.edu/DmData/Metadata.aspx": {
+      "status": 200,
+      "finalUrl": "https://droughtmonitor.unl.edu/DmData/Metadata.aspx",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "b42dd434dcd6e645e4644e71cc937815a16d75357dd3d99aae36e55ecb13a62b"
+    },
+    "https://hdsc.nws.noaa.gov/cgi-bin/new/fe_text.csv?lat=39.08&lon=-77.15&type=pf&data=depth&units=english&series=pds": {
+      "status": 200,
+      "finalUrl": "https://hdsc.nws.noaa.gov/cgi-bin/new/fe_text.csv?lat=39.08&lon=-77.15&type=pf&data=depth&units=english&series=pds",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "3878619ed5766e113ea834e684d0a24f4890762c41af1e1dd8ae2bb30d7896dc"
+    },
+    "https://hdsc.nws.noaa.gov/pfds/": {
+      "status": 206,
+      "finalUrl": "https://hdsc.nws.noaa.gov/pfds/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "2d2375f3b88b5a8d76a57aa0ad58942406fa6a96b750ba8d50e4901561058f63"
+    },
+    "https://ldas.gsfc.nasa.gov/nldas/v2/forcing": {
+      "status": 200,
+      "finalUrl": "https://ldas.gsfc.nasa.gov/nldas/v2/forcing",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "9832fcdef7d1ed8fcda7f0b1ed4b2235fd06089e3f61aff7f8eedcb824a88ca2"
+    },
+    "https://lpdaac.usgs.gov/documents/931/MOD16_User_Guide_V61.pdf": {
+      "status": 200,
+      "finalUrl": "https://lpdaac.usgs.gov/documents/931/MOD16_User_Guide_V61.pdf",
+      "mime": "application/pdf",
+      "sampleBytes": 4096,
+      "prefixSha256": "f73910f602049c32e6a8bf853afde34b50111560303d581513600d51dc982ce9"
+    },
+    "https://nsidc.org/data/spl3smp_e/versions/6": {
+      "status": 200,
+      "finalUrl": "https://nsidc.org/data/spl3smp_e/versions/6",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "db060d2edb858986382f4fcdff73bd8148cbfc8150870c2ebeff73ca1c2c4e6e"
+    },
+    "https://nsidc.org/data/spl4smgp/versions/8": {
+      "status": 200,
+      "finalUrl": "https://nsidc.org/data/spl4smgp/versions/8",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "c6027dc243392f480044f822d3f60554f8ab18fed9d398a24438b355aeefd514"
+    },
+    "https://prism.oregonstate.edu/data/": {
+      "status": 200,
+      "finalUrl": "https://prism.oregonstate.edu/data/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "021d0a4ddaadf754ccc0cd5258d75597d8907b66c3b5b97a466ac286c0bb740c"
+    },
+    "https://prism.oregonstate.edu/downloads/": {
+      "status": 200,
+      "finalUrl": "https://prism.oregonstate.edu/downloads/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "0ea9133300e7d70c1f0172d66904d9c7229a010be608849973f666785eb3686a"
+    },
+    "https://prism.oregonstate.edu/terms/": {
+      "status": 200,
+      "finalUrl": "https://prism.oregonstate.edu/terms/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "79375dabfedb6a9cc012d2ef4aeb226927117520cc40fe1b5f1ab56f67fa67fa"
+    },
+    "https://search.earthdata.nasa.gov/search/granules?p=C2565791021-LPCLOUD": {
+      "status": 200,
+      "finalUrl": "https://search.earthdata.nasa.gov/search/granules?p=C2565791021-LPCLOUD",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "c31c8fe62fe42c1180227c85e3d6e88493c0b0fe5f49339135bf3ec46e4d7f79"
+    },
+    "https://services.nacse.org/prism/data/get/us/4km/ppt/20240401": {
+      "status": 200,
+      "finalUrl": "https://services.nacse.org/prism/data/get/us/4km/ppt/20240401",
+      "mime": "application/octet-stream",
+      "sampleBytes": 188,
+      "prefixSha256": "1fa5e89ef9414cfab7acede0ac107451850027cb26a0ba22c0f817cb3a1ee984"
+    },
+    "https://water.noaa.gov/about/atlas15": {
+      "status": 200,
+      "finalUrl": "https://water.noaa.gov/about/atlas15",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "cbbb79563e93423dae9c8f206cb614ce0ff01c98c0c2a7212fe8acd78f918508"
+    },
+    "https://www.climatologylab.org/gridmet.html": {
+      "status": 206,
+      "finalUrl": "https://www.climatologylab.org/gridmet.html",
+      "mime": "text/html",
+      "sampleBytes": 10,
+      "prefixSha256": "9d1011ce9a9221ec2cbde2cc63ce50401fda24a6ffbf96a97b55552cc9e035e3"
+    },
+    "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1": {
+      "status": 200,
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "98d652700662b31a7d5088eea0e2eb3a7b38db18fc6b99dcd34bd40f6c3bbf89"
+    },
+    "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance": {
+      "status": 200,
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-information-guidance",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "62e9de19d658b5818f2732f316fb19ca87b03907254b80e9aa2b8ddb35e2a38a"
+    },
+    "https://www.northwestknowledge.net/metdata/data/": {
+      "status": 200,
+      "finalUrl": "https://www.northwestknowledge.net/metdata/data/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "5e95ddfde971bd39f991a33f6e9d0d0084b56dd298c107ed55bf22c3bd6f7885"
+    },
+    "https://www.northwestknowledge.net/metdata/data/pr_2024.nc": {
+      "status": 206,
+      "finalUrl": "https://www.northwestknowledge.net/metdata/data/pr_2024.nc",
+      "mime": "application/x-netcdf",
+      "sampleBytes": 4096,
+      "prefixSha256": "5c9c921374f81fe793ebc0de278650b8179f937d5eb2ba82d182e3c808c3a7b6"
+    },
+    "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits": {
+      "status": 206,
+      "finalUrl": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "dd602d98b338df5fcb3bafcd2d439b7d345a3a484d41d34e9a095da255733532"
+    },
+    "https://www.weather.gov/disclaimer/": {
+      "status": 200,
+      "finalUrl": "https://www.weather.gov/disclaimer/",
+      "mime": "text/html",
+      "sampleBytes": 4096,
+      "prefixSha256": "725d39bcc78ad3a62aa269603f0aa22b720b1852579bcba72839a02445a1c154"
+    },
+    "https://www.weather.gov/media/owp/precip-frequency/noaa_atlas15_pilot_technical_report.pdf": {
+      "status": 206,
+      "finalUrl": "https://www.weather.gov/media/owp/precip-frequency/noaa_atlas15_pilot_technical_report.pdf",
+      "mime": "application/pdf",
+      "sampleBytes": 4096,
+      "prefixSha256": "57922c350779143aae98bb04e760859eca0b7eec75e059af3c407b09f41716bb"
+    }
+  }
+}

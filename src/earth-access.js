@@ -17,7 +17,7 @@
     const spatial=profile.spatialMode==='global'?[{}]:query.mode==='area'?geometry().searchBoxes({...query,bufferKm:0}).map(b=>({bounding_box:b.join(',')})):[{point:query.lon+','+query.lat}];
     return profile.collections.flatMap(collection=>spatial.map(bounds=>({collection,...bounds})));
   }
-  function requestURL(scope,query){return ENDPOINT+'?'+new URLSearchParams({collection_concept_id:scope.collection.id,temporal:query.start+'T00:00:00Z,'+query.end+'T23:59:59.999Z',...(scope.point?{point:scope.point}:scope.bounding_box?{bounding_box:scope.bounding_box}:{}),page_size:PAGE_SIZE,sort_key:'start_date'});}
+  function requestURL(scope,query){return ENDPOINT+'?'+new URLSearchParams({collection_concept_id:scope.collection.id,...(scope.collection.granulePattern?{readable_granule_name:scope.collection.granulePattern,'options[readable_granule_name][pattern]':'true'}:{}),temporal:query.start+'T00:00:00Z,'+query.end+'T23:59:59.999Z',...(scope.point?{point:scope.point}:scope.bounding_box?{bounding_box:scope.bounding_box}:{}),page_size:PAGE_SIZE,sort_key:'start_date'});}
   function freshState(key,productId){return {version:1,productId,key,scopeIndex:0,after:null,seenTokens:[],seenIds:[],hits:null,read:0,granulesReadTotal:0,missingLinksTotal:0};}
   function readState(cursor,key,productId,length){
     if(!cursor)return freshState(key,productId);const s=copy(cursor);

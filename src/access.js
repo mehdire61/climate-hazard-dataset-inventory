@@ -22,7 +22,8 @@
       if(!boxes.some(([w,south,e,n])=>s.lon>=w&&s.lon<=e&&s.lat>=south&&s.lat<=n)||!geo.includesStation(query,s))continue;
       const {distanceKm,relation}=geo.classify(query,s);
       const where=query.mode==='area'&&relation==='inside'?'inside project':distanceKm.toFixed(1)+' km '+(query.mode==='area'?'outside project':'from point');
-      choices.push({value:s.id,label:s.name+' ('+s.id+') · '+where,distanceKm});
+      choices.push({value:s.id,label:s.name+' ('+s.id+') · '+where+' · '+(Number.isFinite(s.elevationFt)?s.elevationFt+' ft':'elevation unlisted')+
+        ' · station '+(s.start||'start unknown')+' to '+(s.end||'open'),distanceKm});
     }
     choices.sort((a,b)=>a.distanceKm-b.distanceKm||a.label.localeCompare(b.label));
     choices.unshift({value:'',label:choices.length?'Choose a station…':'No matching station in the reviewed directory'});
@@ -34,7 +35,7 @@
       const grid=moduleFor('SiteGridAccess','grid-access.js').describe(id);
       description.options=grid.resolutions.length>1?[{key:'resolution',label:'Grid resolution',value:grid.defaultResolution,choices:grid.resolutions.map(r=>({value:r.value,label:r.label}))}]:[];
     }
-    if(['cds','mrms'].includes(profile.strategy)&&id!=='c3s_lake_water_level')description.options=moduleFor('SiteProviderRequests','provider-requests.js').describeOptions(id);
+    if(['cds','mrms'].includes(profile.strategy)&&id!=='c3s_lake_water_level')description.options=moduleFor('SiteProviderRequests','provider-requests.js').describeOptions(id,query);
     if(profile.strategy==='awdb-daily'&&query)description.options=snotelOptions(query);
     return {...copy(description),label:profile.label||labels[profile.kind],canDiscover:['cmr','stac'].includes(profile.strategy)};
   }
@@ -273,7 +274,7 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
     const chosen=selection.chosen,product=checked.product;
     let files=[],requests=[],artifacts=[],notes=[...(profile.notes||[])],routeEvidence=profile.verification;
     if(checked.result.status!=='possible')notes.unshift('Catalog screening still requires further verification: '+checked.result.label+'. Preparing access does not resolve that status.');
-    if(checked.result.spatialRelation==='partial'||checked.result.temporal.includes('Partial'))notes.unshift('Only partial nominal overlap was established. Requested dates and geometry have not been silently trimmed.');
+    if(checked.result.partial)notes.unshift('Only partial nominal overlap was established. The manifest retains the original project dates and geometry. Check the listed intervals and files.');
     if(profile.strategy==='grid') {
       const plan=moduleFor('SiteGridAccess','grid-access.js').plan(id,query,chosen);
       files=plan.files;notes.push(...plan.notes);routeEvidence=plan.verification;
@@ -298,6 +299,7 @@ raise SystemExit(130 if report.get("cancelled") else 0 if report["complete"] els
           name:station.id.replaceAll(':','-')+'_WTEQ_'+start+'_'+end+'.json',operation:'Original NRCS daily snow water equivalent with returned units and quality flags.'});
       }
       base.station={...station,directoryCheckedAt:data().snotelStations.directoryCheckedAt,directorySource:data().snotelStations.sourceUrl};
+      if(requests.length>1)artifacts.push({name:id+'_daily_requests.py',mime:'text/x-python',text:rawDownloadScript(id,requests),role:'request'});
     } else if(profile.strategy==='erddap') {
       requests=erddapRequests(profile,query);
       artifacts.push({name:id+'_download_request.py',mime:'text/x-python',text:rawDownloadScript(id,requests),role:'request'});

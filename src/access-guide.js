@@ -7,17 +7,17 @@
     if(!plan||plan.errors?.length)return null;
     const id=profile.productId,script=plan.artifacts?.find(a=>a.role==='request'&&a.name.endsWith('.py'));
     const interpreter=launchers[platform];if(!interpreter)throw new Error('Choose a supported Python command.');
-    const direct=profile.kind==='files',external=profile.kind==='external';
+    const snowStation=profile.strategy==='awdb-daily';
+    const direct=profile.kind==='files' || snowStation,external=profile.kind==='external';
     const guide={title:external?'Continue with the provider':direct?'Download the provider files':profile.strategy==='mrms'?'Find files, then download':'Get data with Python',
       direct,external,scriptName:script?.name||null,providerUrl:profile.providerUrl,docsUrl:profile.docsUrl,
       steps:[],requirements:[],commands:[],links:[],result:'',remainingChoices:external?(profile.requiredSelections||[]):[]};
-    if(profile.strategy==='awdb-daily'){
-      guide.direct=true;
+    if(snowStation){
       guide.title='Get daily snow water equivalent from NRCS';
       guide.steps=['Open the dated JSON link for '+plan.manifest.station.name+' ('+plan.manifest.station.id+').','Save the original response and read its WTEQ element, units, reporting dates and flags. A missing value denotes an unknown observation.'];
       guide.links=plan.manifest.requests.map(r=>({label:'Open daily SWE · '+r.start+' to '+r.end,url:r.url}));
       guide.result='Each link carries the chosen station and dates. NRCS returns the available observations.';
-      return guide;
+      if(!script)return guide;
     }
     if(external){
       guide.steps=[...(profile.steps||[])];
@@ -26,7 +26,7 @@
       guide.result='The selected provider files or a submitted provider request. This tool cannot confirm completion inside the provider website.';
       return guide;
     }
-    if(direct){
+    if(direct && !snowStation){
       guide.steps=['Choose a file below after checking its dates, size and access terms.','Use Download / open data. The provider may download the file, display it in the browser, or ask you to sign in. If displayed, use your browser’s Save as command.','Keep the original file and inspect its metadata and quality flags before using it. Whole archives and tiles still need any project-specific processing.'];
       guide.result='Original provider files in your browser’s download location. No Python or JSON request file is needed for these links.';
       if(profile.strategy==='cmr')guide.links.push({label:'Earthdata sign-in and download help',url:'https://www.earthdata.nasa.gov/data/earthdata-login'});
@@ -47,7 +47,7 @@
     }else guide.requirements.push('No extra Python packages are needed for this script. '+profile.auth);
     guide.commands.push({label:'Preview the request (no download)',text:cmd});
     const flag=['cds','mrms'].includes(profile.strategy)?'--execute':'--download';
-    guide.requiresTransferChoice=direct?plan.manifest?.transferSummary?.requiresConfirmation===true:['cds','daily-template','ims-daily-template','erddap'].includes(profile.strategy);
+    guide.requiresTransferChoice=direct?(snowStation || plan.manifest?.transferSummary?.requiresConfirmation===true):['cds','daily-template','ims-daily-template','erddap'].includes(profile.strategy);
     if(!guide.requiresTransferChoice)guide.commands.push({label:profile.strategy==='mrms'?'Find the available files':'Download data after reviewing the preview',text:cmd+' '+flag});
     if(profile.strategy==='mrms')guide.commands.push({label:'Download one file after checking the listing',text:cmd+' --download --file 1'});
     if(direct||['erddap','mrms','cds','daily-template','ims-daily-template'].includes(profile.strategy)){
@@ -61,7 +61,7 @@
       'Open a terminal in that folder. On Windows, open the folder in File Explorer and use Open in Terminal; on macOS/Linux, open Terminal and use cd to enter the folder.',
       'Check Python and complete the setup below. Run the preview command first and inspect the product, dates and spatial extent.',
       'After the preview, choose one file/request, selected numbers, or the full batch using the download choices below. Leave the terminal open and read any provider error before retrying.'];
-    if(direct)guide.scriptSteps.push('Without --file, the download command selects all '+plan.files.length+' listed files. Add --file N using the one-based preview numbers to select individual files; repeat --file for several. Large or uncertain-size selections stop before transfer unless you explicitly confirm them.');
+    if(direct)guide.scriptSteps.push('Without --file, the download command selects all '+(snowStation?plan.manifest.requests.length:plan.files.length)+' listed files. Add --file N using the one-based preview numbers to select individual files; repeat --file for several. Large or uncertain-size selections stop before transfer unless you explicitly confirm them.');
     guide.scriptResult=profile.strategy==='cds'?id+'_data/: '+(id==='c3s_lake_water_level'?'the provider lake file':'GRIB files')+' and retrieval-manifest.json. CDS may queue the request. Authenticated retrieval has not been tested.'
       :profile.strategy==='mrms'?id+'_file-links.html and JSON manifest: --execute only lists files. --download retrieves selected original GRIB2 gzip files with transfer receipts; use --file N to avoid a large whole-period batch. Incomplete listings and transfers remain explicitly labelled.'
       :profile.strategy==='coolr-arcgis'?'coolr_provider_features/: dated coolr-*.geojson and receipt files. Unknown event dates remain included; geometries are candidates, not clipped to the project.'

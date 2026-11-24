@@ -190,26 +190,28 @@ async function checkDiscoveryFilters(browser) {
       await select.selectOption('');
     }
     const choices={origin:'model',lifecycle:'maintained',spatial:'grid-1-10km',frequency:'daily',geography:'conus'};
+    const expectedRows=['gridmet_daily_precipitation','prism_conus_daily_ppt','nohrsc_snodas_daily_swe'];
     for(const [key,code] of Object.entries(choices)) await page.locator('#'+key).selectOption(code);
-    assert.deepEqual(await cards(page),['nohrsc_snodas_daily_swe']);
+    assert.deepEqual(await cards(page),expectedRows);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
     await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true}));
     await page.getByRole('button',{name:'Copy filtered view'}).click();
     const shared=await page.getByRole('textbox',{name:'Filtered view URL to copy'}).inputValue();
     await fresh.goto(shared);
-    assert.deepEqual(await cards(fresh),['nohrsc_snodas_daily_swe']);
+    assert.deepEqual(await cards(fresh),expectedRows);
     assert.equal(await fresh.locator('#more-filters').evaluate(el=>el.open),true);
-    const [row]=await exportedRows(fresh);
+    const matchingRows=await exportedRows(fresh);
+    assert.equal(matchingRows.length,expectedRows.length);
     for(const [key,code] of Object.entries(choices)) {
       assert.equal(await fresh.locator('#'+key).inputValue(),code);
-      assert.ok(row['filter_'+key].split(' | ').includes(discovery.facets[key].options[code]));
+      for(const row of matchingRows) assert.ok(row['filter_'+key].split(' | ').includes(discovery.facets[key].options[code]));
     }
-    await fresh.locator('#results .card-open').click();
+    await fresh.locator('#results [data-id="nohrsc_snodas_daily_swe"] .card-open').click();
     await fresh.getByText('Version, access and data dependencies',{exact:true}).click();
     await fresh.getByRole('heading',{name:'Inventory classifications'}).waitFor();
     await fresh.getByRole('button',{name:'Close record details'}).click();
     await fresh.waitForURL(shared);
-    assert.deepEqual(await cards(fresh),['nohrsc_snodas_daily_swe']);
+    assert.deepEqual(await cards(fresh),expectedRows);
     await fresh.goto(new URL('#inventory?lifecycle=stream-ended',address).href);
     assert.deepEqual((await cards(fresh)).sort(),['gfed4_1s_legacy','viirs_375_active_fire']);
     await fresh.goto(new URL('#inventory?origin=model&frequency=return-period&geography=conus',address).href);
@@ -417,6 +419,12 @@ async function checkHydrologicUnit(context) {
     const csvButton = page.getByRole('button',{name:'Download screening results (CSV)'});
     const csv = (await downloadBytes(page,csvButton)).toString('utf8');
     assert.ok(csv.includes('HUC code') && csv.includes(attrs.huc12) && csv.includes(project.query.areaSource.geometrySha256));
+    const records=JSON.parse(execFileSync('python',['-c','import sys,io,csv,json;print(json.dumps(list(csv.DictReader(io.TextIOWrapper(sys.stdin.buffer,encoding="utf-8-sig",newline="")))))'],{input:csv}));
+    for(const row of records){
+      const p=products.find(p=>p.product_id===row['Product ID']);
+      assert.deepEqual([row.vertical_reference,row.terms_id,row.commercial_use_status,row.redistribution_status],
+        [p.vertical_reference||'',p.license_id,p.commercial_use_status,p.redistribution_status]);
+    }
     await page.locator('#sc-project-file').setInputFiles({name:'reopen.json',mimeType:'application/json',buffer:projectBytes});
     await page.locator('.sc-area-selection').getByText(/saved polygon is used exactly as supplied/i).waitFor();
     const reopened = JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
@@ -524,8 +532,20 @@ async function checkStationSnow(context) {
     await page.getByText('Optional project records and request details',{exact:true}).click();
     const manifest=JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Save access manifest'})));
     assert.equal(manifest.station.id,'370:ID:SNTL');assert.equal(manifest.requests[0].url,href);
-    await page.locator('#sc-end').fill('2024-04-04');
+    await page.locator('#sc-start').fill('2023-12-31');
     assert.equal(await link.isVisible(),false);
+    await page.locator('#sc-run').click();
+    await page.evaluate(()=>window.SiteCheck.selectProduct('nrcs_snotel_daily_swe'));
+    await select.selectOption('370:ID:SNTL');
+    assert.match(await select.locator('option:checked').innerText(),/6280 ft.*1985-10-01/);
+    await page.locator('#sc-prepare-access').click();
+    assert.equal(await page.getByRole('link',{name:/Open daily SWE/}).count(),2);
+    await page.getByText('Download multiple years with Python',{exact:true}).click();
+    const script=await downloadBytes(page,page.getByRole('button',{name:'Download Python script',exact:true}));
+    assert.match(script.toString(),/370-ID-SNTL_WTEQ_2023-12-31_2023-12-31/);
+    assert.match(script.toString(),/370-ID-SNTL_WTEQ_2024-01-01_2024-04-03/);
+    const saved=await downloadBytes(page,page.getByRole('button',{name:'Save these steps'}));
+    assert.match(saved.toString(),/--confirm-transfer/);
   } finally { await page.close(); }
 }
 
@@ -579,7 +599,8 @@ async function checkComparison(browser) {
     assert.equal(await page.getByLabel('Add a dataset').isDisabled(),false);
     await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true}));
     await page.getByRole('button',{name:'Copy comparison link'}).click();
-    const url=await page.getByRole('textbox',{name:'Filtered view URL to copy'}).inputValue();
+    const url=await page.locator('#comparison').getByRole('textbox',{name:'Comparison URL to copy'}).inputValue();
+    assert.deepEqual([...new URLSearchParams(new URL(url).hash.split('?')[1]).keys()],['compare']);
     await fresh.goto(url);
     assert.deepEqual(await fresh.locator('#compare-table thead a').allTextContents(),selected.map(p=>p.product_name));
     await fresh.locator('#compare-table thead a').first().click();
@@ -622,6 +643,7 @@ async function main() {
     await checkPublishedWorkflows(context);
     await checkDiscoveryFilters(browser);
     await checkComparison(browser);
+    await require('./review-workflows.cjs')(context,address,downloadBytes);
     const chartPage=await context.newPage();
     await chartPage.goto(new URL('#site-check',address).href);
     const legacy=await checkLegacyObservationCharts(chartPage,downloadBytes);
