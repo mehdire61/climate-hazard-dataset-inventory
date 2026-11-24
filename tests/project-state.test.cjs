@@ -7,6 +7,17 @@ const {project,productIds} = require('./fixtures/inventory-v02.json');
 const hazards = require('../data/hazard_groups.json').map(group=>group.id);
 const parse = value=>state.parse(JSON.stringify(value),productIds,hazards);
 
+test('project size limits apply to UTF-8 content while allowing older area-file indentation',()=>{
+  assert.equal(state.serialize(project),JSON.stringify(project,null,2));
+  const query={mode:'area',bufferKm:0,areaName:'Test area',start:project.query.start,end:project.query.end,geometry:geometry.rectangle(-78,38,-77,39)};
+  const legacy=JSON.stringify({...project,query},null,2).padEnd(state.MAX_BYTES+1);
+  assert.deepEqual(state.parse(legacy,productIds,hazards).query.geometry,query.geometry);
+  const excess={...project,query,unrelated:'é'.repeat(state.MAX_BYTES/2)};
+  assert.throws(()=>state.serialize(excess),/8 MB/);
+  assert.throws(()=>state.parse(JSON.stringify(excess),productIds,hazards),/8 MB/);
+  assert.throws(()=>state.parse(legacy.padEnd(state.MAX_FORMATTED_BYTES+1),productIds,hazards),/16 MB/);
+});
+
 test('published point projects round-trip through links and preserve the selected record and hazard',()=>{
   const normalized = parse(project);
   const encoded = state.fragment(normalized).split('?project=')[1];

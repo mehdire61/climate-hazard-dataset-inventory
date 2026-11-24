@@ -16,7 +16,7 @@
   let query = {mode: 'point', lat: 38.9, lon: -77.04, radiusKm: 100, start: '2020-07-01', end: '2020-07-03'};
   let draftMode = 'point', draftPoint = {...query}, draftArea = null, draftBufferKm = 0;
   let pointChosen = false;
-  let mapApi = null, areaController = null, areaGeneration = 0, areaLookup = null;
+  let mapApi = null, areaController = null, areaGeneration = 0, areaLookup = null, hucDetailTarget = null;
   const grdc = {catalogue:null,query:null,stations:[],selected:'',page:0,generation:0,busy:false,error:''};
   const grdcPageSize=8;
   let stationSearch = '', stationRelation = 'all', stationPage = 0, candidateDrawerOpen = false, stationChoiceRequired = false;
@@ -123,8 +123,9 @@
   const periodNote = p('', 'sc-period-note'); periodNote.id = 'sc-period-note'; periodNote.setAttribute('role', 'status');
   const resultsJump=button('View results',()=>reveal(overview),'btn small sc-results-jump',{'aria-controls':'sc-overview',hidden:''});
   let periodError = '';
+  const runSite = node('button', {type: 'submit', class: 'btn primary', id: 'sc-run', title:'Screen the catalog and check available public listings for the selected hazard.'}, 'Check site →');
   form.append(node('div', {class: 'sc-period'}, node('div', {class: 'sc-field'}, node('label', {for: 'sc-period'}, 'Quick period'), periodSelect), periodCount, periodNote,
-    node('button', {type: 'submit', class: 'btn primary', id: 'sc-run',title:'Screen the catalog and check available public listings for the selected hazard.'}, 'Check site →'),resultsJump));
+    runSite,resultsJump));
   const dirtyNotice = node('span', {class: 'sc-input-change', hidden: ''}, 'Inputs changed — run Check site to update results.');
   const queryHint = node('span', {}, 'WGS84 coordinates · west/south negative · historical dates');
   form.append(node('div', {class: 'sc-query-foot'}, queryHint, dirtyNotice));
@@ -237,7 +238,7 @@
   const shareField=node('input',{type:'text',readonly:'',hidden:'','aria-label':'Project link',class:'sc-share-url'});
   const projectTools=node('details',{class:'sc-project-tools'},node('summary',{},'Share or reopen a project'),
     p('Links and project files include the location or full boundary, dates and selected dataset. They contain no observation responses. Share only with the people who should receive that location.'),
-    node('div',{class:'sc-project-actions'},button('Create project link',shareProject),button('Download project file',()=>{if(dirty){projectMessage.textContent='Run Check site before saving the changed inputs.';return;}download(JSON.stringify(projectState(),null,2),'application/json','inventory-project.json');}),node('label',{for:'sc-project-file'},'Open project file'),projectFile),shareField,
+    node('div',{class:'sc-project-actions'},button('Create project link',shareProject),button('Download project file',downloadProject),node('label',{for:'sc-project-file'},'Open project file'),projectFile),shareField,
     node('label',{class:'sc-remember',for:'sc-remember-projects'},remember,'Remember recent projects on this browser'),p('Off by default. When enabled, keeps your five most recent projects on this browser. Unchecking removes them; observations are never saved.'),
     node('div',{class:'sc-project-actions'},recentSelect,button('Open selected project',openRecent),button('Clear recent projects',clearRecent)),projectMessage);
   const bottom = node('div', {class: 'sc-bottom-note'},briefExport,scopedExport,summaryExport,button('Screening definitions ↑',()=>{guide.open=true;reveal(guide.querySelector('summary'));}));
@@ -247,7 +248,7 @@
   projectFile.addEventListener('change',async()=>{
     const file=projectFile.files?.[0],generation=++projectImportGeneration;if(!file)return;invalidateShare();
     let state;
-    try{if(file.size>SiteProjectState.MAX_BYTES)throw Error('Project files are limited to 8 MB.');const text=await file.text();if(generation!==projectImportGeneration)return;state=SiteProjectState.parse(text,[...byId.keys()],data.hazard_groups.map(g=>g.id));}
+    try{if(file.size>SiteProjectState.MAX_FORMATTED_BYTES)throw Error(SiteProjectState.fileSizeError);const text=await file.text();if(generation!==projectImportGeneration)return;state=SiteProjectState.parse(text,[...byId.keys()],data.hazard_groups.map(g=>g.id));}
     catch(error){if(generation!==projectImportGeneration)return;projectMessage.textContent='Project could not open: '+error.message;projectFile.value='';return;}
     projectFile.value='';restoreProject(state);projectMessage.textContent='Project opened. Screening refreshed with this build; observations can be retrieved separately.';
   });
@@ -263,6 +264,7 @@
   });
   form.addEventListener('submit', event => {
     event.preventDefault();
+    if (runSite.disabled) return;
     const next = draftQuery();
     const errors = window.SiteScreening.validate(next);
     if (periodError) errors.unshift(periodError);
@@ -306,7 +308,7 @@
     areaText.setAttribute('aria-label',huc ? 'Hydrologic unit name or code' : 'Boundary name');
   }
   function resetAreaSearch() {
-    cancelAreaLookup(); mapApi?.cancelDrawing(); areaLookup = null; areaMatches.replaceChildren(); areaStatus.textContent = '';
+    cancelAreaLookup(); mapApi?.cancelDrawing(); areaLookup = null; hucDetailTarget = null; areaMatches.replaceChildren(); areaStatus.textContent = '';
   }
   function clearAreaSearch() {
     resetAreaSearch(); hucLocation.open = false; hucFromSite.hidden=true;
@@ -331,10 +333,12 @@
   showAreaMethod();
   savedArea.addEventListener('change', () => {const area = geography.examples.find(a => a.id === savedArea.value); if (area) acceptArea(area);});
   areaKind.addEventListener('change', () => {resetAreaSearch(); showAreaMethod();});
-  hucLevel.addEventListener('change', () => {hucDetail.options[0].textContent='USGS screening · '+SiteAreas.screeningOffset(hucLevel.value)+'° tolerance'+(Number(hucLevel.value.slice(3))<=6?' · dissolve touching rings':''); resetAreaSearch();});
+  function updateHucDetailLabel() {
+    hucDetail.options[0].textContent='USGS screening · '+SiteAreas.screeningOffset(hucLevel.value)+'° tolerance'+(Number(hucLevel.value.slice(3))<=6?' · dissolve touching rings':'');
+  }
+  hucLevel.addEventListener('change', () => {updateHucDetailLabel(); resetAreaSearch();});
   hucDetail.addEventListener('change', () => {
-    const selected = areaMatches.querySelector('select')?.value;
-    if (selected && areaLookup?.items[Number(selected)]) loadNamedArea(areaLookup.items[Number(selected)]);
+    if (hucDetailTarget) loadNamedArea(hucDetailTarget);
   });
   areaText.addEventListener('input', resetAreaSearch); areaState.addEventListener('change', resetAreaSearch);
   areaText.addEventListener('keydown', event => {if (event.key === 'Enter') {event.preventDefault(); searchAreas();}});
@@ -367,6 +371,11 @@
   } catch (error) {hucPick.disabled = true; mapNotice.textContent = userError(error);}
 
   function projectState(){return {schema:'climate-inventory-project/1',query,selectedId,hazard:hazardFilter,...(!explicitSelection?{selectionMode:'automatic'}:{})};}
+  function downloadProject(){
+    if(dirty){projectMessage.textContent='Run Check site before saving the changed inputs.';return;}
+    try{saveDownload(SiteProjectState.serialize({...projectState(),inventoryBuild:buildIdentity}),'application/json','inventory-project.json');}
+    catch(error){projectMessage.textContent='Project could not be saved. '+userError(error);}
+  }
   function invalidateShare(){
     shareGeneration++;
     if(!shareField.hidden||shareField.value){shareField.value='';shareField.hidden=true;projectMessage.textContent='Project changed. Create a new link for the current applied inputs.';}
@@ -768,7 +777,7 @@
       acceptArea({name: input.properties?.name || file.name, geometry, source: {kind: 'user-upload', name: file.name, bytes: file.size, loadedAt: new Date().toISOString(), coordinateSystem: 'WGS84 / EPSG:4326', rawSha256, geometrySha256, processing:normalizationNotes.join(' ')||'Longitude and latitude coordinates unchanged.', hashStatus: rawSha256 && geometrySha256 ? 'SHA-256 recorded' : 'Web Crypto hashing unavailable'}});
     } catch (error) {if (token === areaGeneration) geometryError('GeoJSON could not be accepted: ' + userError(error));}
   }
-  function cancelAreaLookup() {areaGeneration++; areaController?.abort(); areaController = null;}
+  function cancelAreaLookup() {areaGeneration++; areaController?.abort(); areaController = null; runSite.disabled = false;}
   async function searchAreas(point) {
     const huc = areaMethod.value === 'huc', text = areaText.value.trim();
     resetAreaSearch();
@@ -788,7 +797,7 @@
       result.items.forEach((item, i) => matches.append(node('option', {value: i}, item.name)));
       matches.addEventListener('change', () => {
         if (matches.value !== '') loadNamedArea(result.items[Number(matches.value)]);
-        else {cancelAreaLookup(); areaStatus.textContent='Select a result to load its polygon.';}
+        else {cancelAreaLookup(); hucDetailTarget = null; areaStatus.textContent='Select a result to load its polygon.';}
       });
       areaMatches.replaceChildren(matches);
       if (result.notes?.length) areaMatches.append(node('details', {class: 'sc-disclosure'}, node('summary', {}, 'Boundary search scope'), node('ul', {}, result.notes.map(note => node('li', {}, note)))));
@@ -800,16 +809,22 @@
     finally {if (token === areaGeneration) areaController = null;}
   }
   async function loadNamedArea(item) {
-    cancelAreaLookup(); areaController = new AbortController(); const token = areaGeneration; areaStatus.textContent = 'Loading and validating the selected boundary…';
+    cancelAreaLookup(); areaController = new AbortController(); const token = areaGeneration;
+    hucDetailTarget = item.kind === hucLevel.value ? item : null;
+    runSite.disabled = true; areaStatus.textContent = 'Loading and validating the selected boundary…';
     try {
       const area = await window.SiteAreas.load(item, {signal: areaController.signal, wbdDetail:hucDetail.value});
       if (token !== areaGeneration) return;
-      acceptArea({...area, source: {...area.source, searchRequests: areaLookup?.requests || []}}); areaStatus.textContent = 'Boundary accepted. Check site to apply it.';
+      const prior = draftArea?.source;
+      const searchRequests = areaLookup?.requests || (prior?.kind === item.kind && prior.id === item.id ? prior.searchRequests : null) || [];
+      acceptArea({...area, source: {...area.source, searchRequests}}); areaStatus.textContent = 'Boundary accepted. Check site to apply it.';
     } catch (error) {if (token === areaGeneration) {
       const retry = /^huc(2|4|6|8|10|12)$/.test(item.kind) && hucDetail.value === 'full' && /limit|vertices|validation budget|too complex|timed out/i.test(error.message) ? ' Select USGS screening geometry to request a generalized boundary.' : '';
-      areaStatus.textContent = error.name === 'AbortError' ? 'Boundary loading cancelled.' : 'Boundary not loaded. '+userError(error)+retry;
+      const prior = draftArea?.source;
+      if (hucDetailTarget && (prior?.hucKind || prior?.kind) === item.kind && prior.id === item.id) hucDetail.value = prior.maxAllowableOffsetDegrees === 0 ? 'full' : 'screening';
+      areaStatus.textContent = error.name === 'AbortError' ? 'Boundary loading cancelled.' : 'Boundary not loaded. '+userError(error)+retry+(draftArea ? ' The selected boundary is still '+draftArea.name+'.' : '');
     }}
-    finally {if (token === areaGeneration) areaController = null;}
+    finally {if (token === areaGeneration) {areaController = null; runSite.disabled = false;}}
   }
 
   function cancelPending() {
@@ -830,6 +845,14 @@
     pointChosen = next.mode !== 'area' && source !== 'initial';
     projectImportGeneration++;invalidateShare();
     clearAreaSearch();
+    const boundary = next.areaSource;
+    const hucKind = boundary?.hucKind || boundary?.kind;
+    if (next.mode === 'area' && /^huc(2|4|6|8|10|12)$/.test(hucKind) && (!submitted || areaMethod.value === 'huc')) {
+      areaMethod.value = 'huc'; hucLevel.value = hucKind;
+      hucDetail.value = boundary.maxAllowableOffsetDegrees === 0 ? 'full' : 'screening';
+      areaText.value = boundary.id; hucDetailTarget = {kind:hucKind,id:boundary.id};
+      updateHucDetailLabel(); showAreaMethod();
+    }
     const applyCurrent = submitted || (!dirty && draftMode===next.mode);
     if (applyCurrent && results.length && ['mode','lat','lon','radiusKm','bufferKm','start','end','areaName'].every(key=>(next[key]??null)===(query[key]??null)) && JSON.stringify(next.geometry||null)===JSON.stringify(query.geometry||null) && JSON.stringify(next.areaSource||null)===JSON.stringify(query.areaSource||null)) {dirty=false;dirtyNotice.hidden=true;inputError.hidden=true;renderHazardChoice();renderOverview();renderPanel();updateDraftMap();return;}
     cancelAvailability();projectEvidence.clear();projectFileSearches.clear();
@@ -2305,6 +2328,9 @@
       const comment='# Inventory build: '+buildIdentity.id+'\n';
       text=text.startsWith('#!')?text.replace(/^(#![^\n]*\n)/,'$1'+comment):comment+text;
     }else if(!/^(text\/csv|text\/html)/.test(mime))text+='\nInventory build: '+buildIdentity.id+'\n';
+    saveDownload(text,mime,name);
+  }
+  function saveDownload(text,mime,name){
     const url = URL.createObjectURL(new Blob([text], {type: mime || 'application/octet-stream'}));
     const anchor = node('a', {href: url, download: name}); document.body.append(anchor); anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);

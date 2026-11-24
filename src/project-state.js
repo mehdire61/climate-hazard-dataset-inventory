@@ -2,6 +2,9 @@
 (function(root){
   'use strict';
   const MAX_BYTES=8*1024*1024,MAX_LINK=12000;
+  const MAX_FORMATTED_BYTES=2*MAX_BYTES;
+  const fileSizeError='Project files are limited to 8 MB of JSON content. Older formatted area projects can use up to 16 MB on disk.';
+  const byteLength=text=>new TextEncoder().encode(text).length;
   function boundary(query){
     const data=root.InventoryApp?.data||(typeof require==='function'?{geography:require('../data/geography.json'),countryBoundaries:require('../data/country-boundaries.json')}:{});
     const shape=JSON.stringify(query.geometry),same=g=>JSON.stringify(root.SiteGeometry.normalize(g))===shape;
@@ -39,12 +42,28 @@
     const hazard=value.hazard===null?null:hazards.includes(value.hazard)?value.hazard:'';
     return {schema:'climate-inventory-project/1',query:q,selectedId:value.selectedId,hazard,...(value.selectionMode==='automatic'?{selectionMode:'automatic'}:{})};
   }
-  function parse(text,products,hazards){if(typeof text!=='string'||new TextEncoder().encode(text).length>MAX_BYTES)throw Error('Project files are limited to 8 MB.');return validate(JSON.parse(text),products,hazards);}
+  function serialize(value){
+    const formatted=JSON.stringify(value,null,2);
+    if(byteLength(formatted)<=MAX_BYTES)return formatted;
+    const compact=JSON.stringify(value);
+    if(byteLength(compact)>MAX_BYTES)throw Error(fileSizeError);
+    return compact;
+  }
+  function parse(text,products,hazards){
+    if(typeof text!=='string'||text.length>MAX_FORMATTED_BYTES)throw Error(fileSizeError);
+    const bytes=byteLength(text);
+    if(bytes<=MAX_BYTES)return validate(JSON.parse(text),products,hazards);
+    // Earlier exports indented every coordinate in an otherwise valid area project.
+    if(bytes>MAX_FORMATTED_BYTES||!text.trimStart().startsWith('{'))throw Error(fileSizeError);
+    const value=JSON.parse(text);
+    if(value?.schema!=='climate-inventory-project/1'||value.query?.mode!=='area'||byteLength(JSON.stringify(value))>MAX_BYTES)throw Error(fileSizeError);
+    return validate(value,products,hazards);
+  }
   function key(value){
     const q=value.query;
     const query=q.mode==='area'?{mode:'area',start:q.start,end:q.end,bufferKm:q.bufferKm??0,geometry:{type:q.geometry.type,coordinates:q.geometry.coordinates}}:{mode:'point',start:q.start,end:q.end,lat:q.lat,lon:q.lon,radiusKm:q.radiusKm??100};
     return JSON.stringify({query,selectedId:value.selectedId,hazard:value.hazard===null?null:value.hazard||'',...(value.selectionMode==='automatic'?{selectionMode:'automatic'}:{})});
   }
   function fragment(value){const result='#site-check?project='+encodeURIComponent(JSON.stringify(value));if(result.length>MAX_LINK)throw Error('This boundary is too detailed for a reliable link. Download the project file to share its full geometry.');return result;}
-  const api={validate,parse,fragment,key,MAX_BYTES};root.SiteProjectState=api;if(typeof module==='object'&&module.exports)module.exports=api;
+  const api={validate,parse,serialize,fragment,key,MAX_BYTES,MAX_FORMATTED_BYTES,fileSizeError};root.SiteProjectState=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

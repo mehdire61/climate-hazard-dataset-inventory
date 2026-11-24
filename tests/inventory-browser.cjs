@@ -352,9 +352,12 @@ async function checkHydrologicUnit(context) {
   const raw = gunzipSync(readFileSync(join(__dirname,'fixtures/wbd/pimmit-huc12-screening.geojson.gz')));
   const attrs = JSON.parse(raw).features[0].properties;
   const points = [];
+  let failFullRequest;
+  const firstFullResponse = new Promise(resolve => {failFullRequest = resolve;});
+  let fullRequests = 0;
   const page = await context.newPage();
   try {
-    await page.route('https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/6/query?*', route => {
+    await page.route('https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer/6/query?*', async route => {
       const params = new URL(route.request().url()).searchParams;
       if (params.has('geometry')) {
         points.push(params.get('geometry'));
@@ -363,6 +366,10 @@ async function checkHydrologicUnit(context) {
       }
       if (params.get('where')?.startsWith('UPPER(name)')) return route.fulfill({status:503,body:'Service unavailable'});
       if (params.get('f')==='geojson' && params.get('where')?.includes('020700100104')) return route.fulfill({status:503,body:'Service unavailable'});
+      if (params.get('f') === 'geojson' && !params.has('maxAllowableOffset') && ++fullRequests === 1) {
+        await firstFullResponse;
+        return route.fulfill({status:503,body:'Service unavailable'});
+      }
       const body = params.get('f') === 'geojson' ? raw : JSON.stringify({features:[{attributes:attrs}]});
       return route.fulfill({contentType:'application/json',body});
     });
@@ -380,6 +387,26 @@ async function checkHydrologicUnit(context) {
     await page.getByText('Boundary accepted. Check site to apply it.',{exact:true}).waitFor();
     await page.locator('#sc-run').click();
     await page.getByText('Boundary applied to this site check.',{exact:true}).waitFor();
+    const detail = page.getByLabel('WBD boundary detail');
+    const accepted = page.getByText('Boundary accepted. Check site to apply it.',{exact:true});
+    await detail.selectOption('full');
+    await page.getByText('Loading and validating the selected boundary…',{exact:true}).waitFor();
+    assert.equal(await page.locator('#sc-run').isDisabled(),true);
+    failFullRequest();
+    await page.getByText(/Boundary not loaded.*selected boundary is still HUC12/).waitFor();
+    assert.equal(await detail.inputValue(),'screening');
+    assert.equal(await page.locator('#sc-run').isEnabled(),true);
+    await detail.selectOption('full');
+    await accepted.waitFor();
+    await page.locator('#sc-run').click();
+    await page.locator('.sc-project-tools summary').click();
+    const full = JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
+    assert.equal(full.query.areaSource.maxAllowableOffsetDegrees,0);
+    assert.equal(full.query.areaSource.id,attrs.huc12);
+    await page.locator('.sc-project-tools summary').click();
+    await detail.selectOption('screening');
+    await accepted.waitFor();
+    await page.locator('#sc-run').click();
     await page.locator('#sc-huc-location summary').click();
     assert.equal(await page.locator('#sc-huc-lat').inputValue(),'');
     await page.locator('#sc-huc-find').click();
@@ -425,13 +452,25 @@ async function checkHydrologicUnit(context) {
       assert.deepEqual([row.vertical_reference,row.terms_id,row.commercial_use_status,row.redistribution_status],
         [p.vertical_reference||'',p.license_id,p.commercial_use_status,p.redistribution_status]);
     }
+    const level = page.getByLabel('Hydrologic unit level');
+    const unitCode = page.getByLabel('Hydrologic unit name or code');
+    const restoredRegion = {...project,query:{...project.query,areaName:'Saved region',areaSource:{kind:'huc4',id:'0207',maxAllowableOffsetDegrees:0.003}}};
+    await page.getByLabel('Choose area source').selectOption('upload');
+    await page.locator('#sc-project-file').setInputFiles({name:'region.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(restoredRegion))});
+    await page.locator('.sc-area-selection').getByText(/Saved project reports HUC4 0207/).waitFor();
+    assert.equal(await level.inputValue(),'huc4');
+    assert.equal(await unitCode.inputValue(),'0207');
+    assert.match(await detail.locator('option:checked').textContent(),/0\.003°/);
     await page.locator('#sc-project-file').setInputFiles({name:'reopen.json',mimeType:'application/json',buffer:projectBytes});
     await page.locator('.sc-area-selection').getByText(/saved polygon is used exactly as supplied/i).waitFor();
     const reopened = JSON.parse(await downloadBytes(page,page.getByRole('button',{name:'Download project file'})));
     assert.deepEqual(reopened.query.geometry,project.query.geometry);
     assert.equal(reopened.query.areaSource.hucKind,'huc12');
     assert.equal(reopened.query.areaSource.kind,'project-link');
+    assert.equal(await level.inputValue(),'huc12');
+    assert.equal(await unitCode.inputValue(),attrs.huc12);
     assert.equal(await page.locator('#sc-huc-lat').inputValue(),'');
+    await checkDetailedProjectDownload(context,project);
     await page.locator('#sc-mode').selectOption('point');
     await page.locator('#sc-lat').fill('45.04315');
     await page.locator('#sc-lon').fill('-116.13253');
@@ -446,6 +485,30 @@ async function checkHydrologicUnit(context) {
   } finally {
     await page.close();
   }
+}
+
+async function checkDetailedProjectDownload(context,project) {
+  const vertices=99000;
+  const ring=Array.from({length:vertices},(_,i)=>{
+    const angle=2*Math.PI*i/vertices;
+    return [-77.13+0.19*Math.cos(angle),39.08+0.16*Math.sin(angle)];
+  });
+  ring.push(ring[0]);
+  const query={...project.query,areaName:'Detailed project',areaSource:null,geometry:{type:'Polygon',coordinates:[ring]}};
+  const older=Buffer.from(JSON.stringify({...project,query},null,2));
+  assert.ok(older.length>8*1024*1024);
+  const page=await context.newPage();
+  try {
+    await page.goto(new URL('#site-check',address).href);
+    await page.locator('.sc-project-tools summary').click();
+    await page.locator('#sc-project-file').setInputFiles({name:'older-project.json',mimeType:'application/json',buffer:older});
+    await page.locator('.sc-project-message').filter({hasText:/Project opened/}).waitFor({timeout:60000});
+    const bytes=await downloadBytes(page,page.getByRole('button',{name:'Download project file'}));
+    assert.ok(bytes.length<8*1024*1024);
+    const saved=JSON.parse(bytes);
+    assert.ok(saved.inventoryBuild.id);
+    assert.deepEqual(saved.query.geometry,query.geometry);
+  } finally {await page.close();}
 }
 
 async function checkFloodDepth(context) {
